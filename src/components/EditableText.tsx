@@ -3,10 +3,12 @@
 import {
   createElement,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
   type ElementType,
   type FocusEvent,
+  type FormEvent,
   type KeyboardEvent,
   type MouseEvent,
 } from "react";
@@ -25,6 +27,39 @@ type EditableTextProps = {
   id?: string;
 };
 
+function getCaretOffset(root: HTMLElement): number {
+  const selection = window.getSelection();
+  if (!selection || selection.rangeCount === 0) return root.innerText.length;
+
+  const range = selection.getRangeAt(0);
+  if (!root.contains(range.startContainer)) return root.innerText.length;
+
+  const preRange = document.createRange();
+  preRange.selectNodeContents(root);
+  preRange.setEnd(range.startContainer, range.startOffset);
+  return preRange.toString().length;
+}
+
+function setCaretOffset(root: HTMLElement, offset: number): void {
+  const selection = window.getSelection();
+  if (!selection) return;
+
+  let textNode = root.firstChild;
+  if (!textNode || textNode.nodeType !== Node.TEXT_NODE) {
+    textNode = document.createTextNode(root.textContent ?? "");
+    root.textContent = "";
+    root.appendChild(textNode);
+  }
+
+  const length = textNode.textContent?.length ?? 0;
+  const position = Math.min(Math.max(0, offset), length);
+  const range = document.createRange();
+  range.setStart(textNode, position);
+  range.collapse(true);
+  selection.removeAllRanges();
+  selection.addRange(range);
+}
+
 export function EditableText({
   path,
   defaultValue,
@@ -37,47 +72,73 @@ export function EditableText({
   const { showToast } = useEditToast();
   const [value, setValue] = useState(defaultValue);
   const [editing, setEditing] = useState(false);
-  const [draft, setDraft] = useState(defaultValue);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const editableRef = useRef<HTMLElement | null>(null);
+  const liveTextRef = useRef(defaultValue);
+  const caretRef = useRef<number | null>(null);
+  const valueAtEditStartRef = useRef(defaultValue);
 
   useEffect(() => {
+    if (editing) return;
     setValue(defaultValue);
-    if (!editing) setDraft(defaultValue);
+    liveTextRef.current = defaultValue;
   }, [defaultValue, editing]);
 
   useEffect(() => {
     if (!editing || !editableRef.current) return;
 
-    // Seed DOM once when edit starts — do not pass draft as React children or
-    // controlled updates will reset the caret and type characters backwards.
-    editableRef.current.textContent = value;
+    // Seed DOM once when edit starts. Never pass text as React children — React
+    // reconciliation resets contentEditable and types characters backwards.
+    const text = valueAtEditStartRef.current;
+    liveTextRef.current = text;
+    editableRef.current.textContent = text;
     editableRef.current.focus();
-    const selection = window.getSelection();
-    const range = document.createRange();
-    range.selectNodeContents(editableRef.current);
-    range.collapse(false);
-    selection?.removeAllRanges();
-    selection?.addRange(range);
-  }, [editing, value]);
+    caretRef.current = text.length;
+    setCaretOffset(editableRef.current, text.length);
+  }, [editing]);
+
+  useLayoutEffect(() => {
+    if (!editing || !editableRef.current) return;
+
+    const element = editableRef.current;
+    const expected = liveTextRef.current;
+    if (element.innerText === expected) return;
+
+    element.textContent = expected;
+    setCaretOffset(element, caretRef.current ?? expected.length);
+  });
+
+  function syncLiveTextFromDom() {
+    if (!editableRef.current) return;
+    liveTextRef.current = editableRef.current.innerText;
+    caretRef.current = getCaretOffset(editableRef.current);
+  }
+
+  function handleInput(event: FormEvent<HTMLElement>) {
+    const target = event.currentTarget;
+    liveTextRef.current = target.innerText;
+    caretRef.current = getCaretOffset(target);
+  }
 
   function startEditing(event?: MouseEvent | KeyboardEvent) {
     event?.stopPropagation();
     event?.preventDefault();
-    setDraft(value);
+    valueAtEditStartRef.current = value;
+    liveTextRef.current = value;
     setError(null);
     setEditing(true);
   }
 
   function cancelEditing() {
-    setDraft(value);
+    liveTextRef.current = value;
     setError(null);
     setEditing(false);
   }
 
   async function save() {
-    const nextValue = (editableRef.current?.innerText ?? draft).trim();
+    syncLiveTextFromDom();
+    const nextValue = liveTextRef.current.trim();
     if (!nextValue) {
       setError("Text cannot be empty");
       showToast("Text cannot be empty", "error");
@@ -105,7 +166,7 @@ export function EditableText({
       }
 
       setValue(nextValue);
-      setDraft(nextValue);
+      liveTextRef.current = nextValue;
       setEditing(false);
       showToast("Saved!", "success");
     } catch (saveError) {
@@ -152,6 +213,7 @@ export function EditableText({
           className: `${className} rounded-sm outline outline-2 outline-brass/60 outline-offset-2`,
           contentEditable: true,
           suppressContentEditableWarning: true,
+          onInput: handleInput,
           onKeyDown: handleKeyDown,
           onBlur: handleBlur,
           role: "textbox",
