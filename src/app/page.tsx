@@ -35,9 +35,9 @@ export default async function HomePage() {
   const { hero, valueProps, featuredServices, aboutTeaser, finalCta } = HOME;
   const serviceGalleries = getResolvedServiceGalleries();
   const signatureHaircutImages =
-    serviceGalleries["Signature Haircut"].slice(0, 1);
+    serviceGalleries["Signature Haircut"].slice(0, 3);
   const signatureHaircutBeardImages =
-    serviceGalleries["Signature Haircut & Beard"].slice(0, 1);
+    serviceGalleries["Signature Haircut & Beard"].slice(0, 3);
 
   ensureHeroVideoPlaceholders();
 

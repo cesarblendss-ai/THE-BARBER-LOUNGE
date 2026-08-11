@@ -25,9 +25,9 @@ export default async function ServicesPage() {
   const { hero, list, addOns, note, cta } = SERVICES;
   const serviceGalleries = getResolvedServiceGalleries();
   const signatureHaircutImages =
-    serviceGalleries["Signature Haircut"].slice(0, 1);
+    serviceGalleries["Signature Haircut"].slice(0, 3);
   const signatureHaircutBeardImages =
-    serviceGalleries["Signature Haircut & Beard"].slice(0, 1);
+    serviceGalleries["Signature Haircut & Beard"].slice(0, 3);
 
   return (
     <>

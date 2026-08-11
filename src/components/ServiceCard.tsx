@@ -1,5 +1,5 @@
 import type { GalleryCategoryId, GalleryImage } from "@/lib/gallery";
-import { ServiceImageCollage, type GridSlot } from "@/components/ServiceImageCollage";
+import { ServiceImageCollage } from "@/components/ServiceImageCollage";
 import { EditableText } from "@/components/EditableText";
 
 type ServiceCardProps = {
@@ -8,11 +8,12 @@ type ServiceCardProps = {
   price: string;
   time: string;
   images: GalleryImage[];
-  imageLayout?: "collage" | "grid-3x3" | "hero";
-  gridSlots?: GridSlot[];
+  imageLayout?: "collage" | "strip";
   uploadCategory?: GalleryCategoryId;
   pathPrefix?: string;
 };
+
+const SIGNATURE_SERVICES = new Set(["Signature Haircut", "Signature Haircut & Beard"]);
 
 export function ServiceCard({
   name,
@@ -21,34 +22,13 @@ export function ServiceCard({
   time,
   images,
   imageLayout,
-  gridSlots,
-  uploadCategory,
   pathPrefix,
 }: ServiceCardProps) {
-  const isGridService =
-    name === "Signature Haircut" || name === "Signature Haircut & Beard";
-
-  const filledGridCount = gridSlots?.filter((slot) => slot.filled).length ?? 0;
-  const useGridLayout =
-    isGridService &&
-    Boolean(gridSlots?.length) &&
-    (filledGridCount > 0 || uploadCategory !== undefined);
-
-  const layout =
-    imageLayout ?? (useGridLayout ? "grid-3x3" : isGridService ? "hero" : "collage");
-
-  const heroObjectPosition =
-    name === "Signature Haircut & Beard" ? "object-[center_62%]" : undefined;
+  const layout = imageLayout ?? (SIGNATURE_SERVICES.has(name) ? "strip" : "collage");
 
   return (
     <article className="group flex flex-col">
-      <ServiceImageCollage
-        images={images}
-        layout={layout}
-        gridSlots={useGridLayout ? gridSlots : undefined}
-        uploadCategory={uploadCategory}
-        objectPosition={layout === "hero" ? heroObjectPosition : undefined}
-      />
+      <ServiceImageCollage images={images} layout={layout} />
       <h3 className="mt-5 font-serif text-xl font-semibold text-charcoal sm:text-2xl">
         {pathPrefix ? (
           <EditableText

@@ -1,22 +1,14 @@
 import Image from "next/image";
 
-import { GalleryGridSlotFilled } from "@/components/GalleryGridSlotFilled";
-import { GallerySlotUpload } from "@/components/GallerySlotUpload";
-import type { GalleryCategoryId, GalleryImage, GalleryGridSlot } from "@/lib/gallery";
+import type { GalleryImage } from "@/lib/gallery";
 
-export type GridSlot = GalleryGridSlot;
-
-type CollageLayout = "collage" | "grid-3x3" | "hero";
+type CollageLayout = "collage" | "strip";
 
 type ServiceImageCollageProps = {
   images: GalleryImage[];
   className?: string;
   sizes?: string;
   layout?: CollageLayout;
-  gridSlots?: GridSlot[];
-  uploadCategory?: GalleryCategoryId;
-  /** Tailwind object-position class for hero layout (e.g. object-[center_65%]) */
-  objectPosition?: string;
 };
 
 export function ServiceImageCollage({
@@ -24,77 +16,20 @@ export function ServiceImageCollage({
   className = "",
   sizes = "(max-width: 768px) 100vw, 33vw",
   layout = "collage",
-  gridSlots,
-  uploadCategory,
-  objectPosition,
 }: ServiceImageCollageProps) {
-  if (layout === "grid-3x3" && gridSlots && gridSlots.length > 0) {
-    return (
-      <div
-        className={`grid aspect-square grid-cols-3 grid-rows-3 gap-1 overflow-hidden rounded-2xl ${className}`}
-      >
-        {gridSlots.map((slot, index) => (
-          <div
-            key={slot.definition.filename}
-            className="relative aspect-square min-h-0 bg-charcoal/5"
-          >
-            {slot.filled && uploadCategory ? (
-              <GalleryGridSlotFilled
-                image={slot.definition}
-                category={uploadCategory}
-                sizes={sizes}
-                priority={index === 0}
-              />
-            ) : slot.filled ? (
-              <CollageImage
-                image={slot.definition}
-                sizes={sizes}
-                priority={index === 0}
-              />
-            ) : uploadCategory ? (
-              <GallerySlotUpload
-                category={uploadCategory}
-                filename={slot.definition.filename}
-              />
-            ) : null}
-          </div>
-        ))}
-      </div>
-    );
-  }
-
   if (images.length === 0) return null;
 
-  if (layout === "hero") {
-    return (
-      <div
-        className={`relative h-[240px] w-full overflow-hidden rounded-2xl sm:h-[300px] lg:h-[360px] ${className}`}
-      >
-        <CollageImage
-          image={images[0]}
-          sizes={sizes}
-          priority
-          objectPosition={objectPosition}
-        />
-      </div>
-    );
-  }
-
-  if (layout === "grid-3x3") {
-    const slots = Array.from({ length: 9 }, (_, i) => images[i] ?? null);
+  if (layout === "strip") {
+    const visible = images.slice(0, 3);
+    const count = visible.length;
 
     return (
       <div
-        className={`grid aspect-square grid-cols-3 grid-rows-3 gap-1 overflow-hidden rounded-2xl ${className}`}
+        className={`grid aspect-[3/2] gap-1 overflow-hidden rounded-2xl ${count === 1 ? "grid-cols-1" : count === 2 ? "grid-cols-2" : "grid-cols-3"} ${className}`}
       >
-        {slots.map((image, index) => (
-          <div
-            key={image?.filename ?? `empty-${index}`}
-            className="relative aspect-square min-h-0 bg-charcoal/5"
-          >
-            {image ? (
-              <CollageImage image={image} sizes={sizes} priority={index === 0} />
-            ) : null}
+        {visible.map((image, index) => (
+          <div key={image.filename} className="relative min-h-0">
+            <CollageImage image={image} sizes={sizes} priority={index === 0} />
           </div>
         ))}
       </div>
@@ -148,12 +83,10 @@ function CollageImage({
   image,
   sizes,
   priority = false,
-  objectPosition,
 }: {
   image: GalleryImage;
   sizes: string;
   priority?: boolean;
-  objectPosition?: string;
 }) {
   return (
     <Image
@@ -162,7 +95,7 @@ function CollageImage({
       fill
       sizes={sizes}
       priority={priority}
-      className={`object-cover transition-transform duration-500 group-hover:scale-105${objectPosition ? ` ${objectPosition}` : ""}`}
+      className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
     />
   );
 }
