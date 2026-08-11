@@ -1,0 +1,21 @@
+{
+  "name": "CLIENT_NAME",
+  "niche": "NICHE",
+  "schema_type": "LocalBusiness",
+  "city": "CITY",
+  "state": "ST",
+  "service_area": "City, nearby cities",
+  "services": ["service one", "service two"],
+  "competitors": [],
+  "phone": "",
+  "website": "",
+  "address": "",
+  "hours": "",
+  "price_range": "$$",
+  "email": "",
+  "instagram": "",
+  "booking_url": "",
+  "package": "Growth",
+  "case_study": false,
+  "notes": "Copy this file to clients/your_client_slug.json and fill all fields. Do not edit this template in place."
+}

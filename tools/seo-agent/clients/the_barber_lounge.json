@@ -1,0 +1,33 @@
+{
+  "name": "The Barber Lounge",
+  "niche": "barbershop",
+  "schema_type": "BarberShop",
+  "city": "Antioch",
+  "state": "CA",
+  "service_area": "Antioch, Brentwood, Pittsburg, Oakley, Bay Area East Contra Costa",
+  "services": [
+    "signature haircut",
+    "haircut and beard",
+    "kids haircut",
+    "fade",
+    "line up",
+    "beard trim"
+  ],
+  "competitors": [
+    "Fades & Blades Antioch",
+    "Executive Cuts Antioch",
+    "Local barbershops on Booksy"
+  ],
+  "phone": "(925) 209-5995",
+  "website": "https://the-barber-lounge.vercel.app",
+  "address": "1518 A St, Antioch, CA 94509",
+  "hours": "Sun 8:00 AM–7:00 PM, Mon 10:00 AM–7:00 PM, Tue Closed, Wed 9:00 AM–7:00 PM, Thu 9:00 AM–7:00 PM, Fri 9:00 AM–7:00 PM, Sat 8:00 AM–7:00 PM",
+  "price_range": "$$",
+  "email": "thebarberlounge00@gmail.com",
+  "instagram": "https://www.instagram.com/thebarberlounges1/",
+  "booking_url": "https://booksy.com/en-us/1180862_the-barber-lounge_barber-shop_103886_antioch",
+  "package": "Growth",
+  "case_study": true,
+  "case_study_number": 1,
+  "notes": "Founder client — full Next.js site with booking chatbot, SMS, analytics. First agency case study."
+}

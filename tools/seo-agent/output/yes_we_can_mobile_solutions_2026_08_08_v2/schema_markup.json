@@ -1,0 +1,116 @@
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Yes We Can Mobile Solutions",
+  "url": "https://yeswecanmobile.com",
+  "telephone": "(707) 738-6502",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Antioch",
+    "addressRegion": "CA",
+    "postalCode": "",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "",
+    "longitude": ""
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ],
+    "opens": "08:00",
+    "closes": "17:00"
+  },
+  "priceRange": "$$",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Mobile Beverage Canning Services",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "name": "Mobile Canning",
+        "itemOffered": {
+          "@type": "Service",
+          "serviceType": "Mobile Canning"
+        }
+      },
+      {
+        "@type": "Offer",
+        "name": "Craft Beer Canning",
+        "itemOffered": {
+          "@type": "Service",
+          "serviceType": "Craft Beer Canning"
+        }
+      },
+      {
+        "@type": "Offer",
+        "name": "Cider Canning",
+        "itemOffered": {
+          "@type": "Service",
+          "serviceType": "Cider Canning"
+        }
+      },
+      {
+        "@type": "Offer",
+        "name": "Wine Canning",
+        "itemOffered": {
+          "@type": "Service",
+          "serviceType": "Wine Canning"
+        }
+      },
+      {
+        "@type": "Offer",
+        "name": "RTD Cocktail Canning",
+        "itemOffered": {
+          "@type": "Service",
+          "serviceType": "RTD Cocktail Canning"
+        }
+      },
+      {
+        "@type": "Offer",
+        "name": "Labeling",
+        "itemOffered": {
+          "@type": "Service",
+          "serviceType": "Labeling"
+        }
+      },
+      {
+        "@type": "Offer",
+        "name": "Packaging Materials",
+        "itemOffered": {
+          "@type": "Service",
+          "serviceType": "Packaging Materials"
+        }
+      },
+      {
+        "@type": "Offer",
+        "name": "Nitrogen Dosing",
+        "itemOffered": {
+          "@type": "Service",
+          "serviceType": "Nitrogen Dosing"
+        }
+      },
+      {
+        "@type": "Offer",
+        "name": "Date Coding",
+        "itemOffered": {
+          "@type": "Service",
+          "serviceType": "Date Coding"
+        }
+      }
+    ]
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "ratingCount": "0"
+  },
+  "sameAs": []
+}

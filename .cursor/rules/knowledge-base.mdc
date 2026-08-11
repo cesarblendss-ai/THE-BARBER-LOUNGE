@@ -1,0 +1,42 @@
+---
+description: Ground agent advice in org-conventions (read-only) then team-memory (read-write) before SEO, SMS, deploy, booking, or agency topics
+alwaysApply: true
+---
+
+# Knowledge Base
+
+See also: [AGENTS.md](../../AGENTS.md)
+
+## Before advising
+
+On **SEO, SMS, deploy, booking, agency, or copy** topics:
+
+1. Read [`docs/org-conventions/README.md`](docs/org-conventions/README.md) — stable reference (style, security, architecture)
+2. Read [`docs/team-memory/README.md`](docs/team-memory/README.md) — current state (deploy, blockers)
+3. Use [`docs/knowledge/INDEX.md`](docs/knowledge/INDEX.md) to find the specific file
+4. Start with `docs/org-conventions/barber-lounge-facts.md` for shop facts
+
+**Order:** org-conventions first, team-memory second.
+
+## Permissioning
+
+| Folder | Agent access |
+|--------|--------------|
+| `docs/org-conventions/` | **Read-only** — cite; don't rewrite without explicit ask |
+| `docs/team-memory/` | **Read-write** — update after fixing blockers or verifying deploy status |
+
+## Ground truth
+
+- Documented memory beats guessing — cite paths, URLs, and status files
+- Do not invent hours, pricing, deployment state, or Twilio status
+- Never output values from `.env.local` — see `docs/org-conventions/security.md`
+- Follow `docs/org-conventions/style-guide.md` for copy (no "Bet", barbershop voice)
+
+## Keep docs current
+
+When you fix or change a blocker (SMS live, domain connected, Postgres, booking flow, deploy):
+
+- Update the relevant file under **`docs/team-memory/`**
+- Add or refresh **Last verified** date at the top
+
+Do **not** put session logs or deploy status in org-conventions — that belongs in team-memory.

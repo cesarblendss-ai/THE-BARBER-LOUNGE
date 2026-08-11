@@ -1,0 +1,77 @@
+{
+  "products": [
+    {
+      "id": "f3a1b2c4d5e60001",
+      "name": "Sculpting Clay",
+      "priceCents": 1800,
+      "stock": 4,
+      "active": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "f3a1b2c4d5e60002",
+      "name": "Spider Wax",
+      "priceCents": 1800,
+      "stock": 12,
+      "active": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "f3a1b2c4d5e60003",
+      "name": "Leave in Conditioner",
+      "priceCents": 1800,
+      "stock": 12,
+      "active": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "f3a1b2c4d5e60004",
+      "name": "Cool Care",
+      "priceCents": 1800,
+      "stock": 6,
+      "active": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "f3a1b2c4d5e60005",
+      "name": "Styling Powder",
+      "priceCents": 1800,
+      "stock": 8,
+      "active": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "f3a1b2c4d5e60006",
+      "name": "Sanek Strips",
+      "priceCents": 1800,
+      "stock": 2,
+      "active": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "f3a1b2c4d5e60007",
+      "name": "After Shave",
+      "priceCents": 1800,
+      "stock": 3,
+      "active": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "f3a1b2c4d5e60008",
+      "name": "Hair Spray",
+      "priceCents": 1800,
+      "stock": 3,
+      "active": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    }
+  ],
+  "sales": []
+}

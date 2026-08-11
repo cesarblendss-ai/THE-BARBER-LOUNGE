@@ -1,0 +1,80 @@
+{
+  "name": "Yes We Can Mobile Solutions",
+  "legal_name": "Yes We Can Solutions",
+  "contact_name": "Jose (Tio Jose)",
+  "niche": "mobile beverage canning",
+  "schema_type": "ProfessionalService",
+  "city": "Antioch",
+  "state": "CA",
+  "service_area": "Northern California — Paso Robles, Oakland, Napa, Vallejo, Fairfield, Concord, Antioch, Pittsburg, Redding, Anderson Valley",
+  "services": [
+    "mobile canning",
+    "craft beer canning",
+    "cider canning",
+    "wine canning",
+    "RTD cocktail canning",
+    "labeling",
+    "packaging materials",
+    "nitrogen dosing",
+    "date coding"
+  ],
+  "beverage_types": ["beer", "cider", "wine", "cocktails", "sparkling", "functional beverages"],
+  "can_formats": ["8.4 oz slim", "12 oz sleek", "12 oz standard", "16 oz standard"],
+  "min_run": "200 cases (24-pack) or ~600 gallons",
+  "mobile_lines": 3,
+  "cans_per_minute": 45,
+  "years_experience": 15,
+  "testimonials": [
+    {
+      "quote": "Yes We Can Mobile Solutions got our beer into cans for the first time ever. They truly care about your product, and it shows.",
+      "author": "Brandon Padilla",
+      "business": "Shanty Shack Brewing"
+    },
+    {
+      "quote": "It was so great working with you guys! You really are the best in the business. Cheers!",
+      "author": "Customer review"
+    },
+    {
+      "quote": "Company with strong foundation, best customer service, and fast and reliable service. If others can't, Yes We Can can deliver.",
+      "author": "J.L. Rosillo"
+    }
+  ],
+  "competitors": [
+    "Iron Heart Canning",
+    "The Can Van",
+    "Mobile Canning Co",
+    "NorCal Beverage Co-Packing"
+  ],
+  "phone": "(707) 738-6502",
+  "website": "https://yeswecanmobile.com",
+  "address": "",
+  "hours": "Mon–Fri: 8:00 AM – 5:00 PM",
+  "price_range": "$$",
+  "email": "",
+  "instagram": "",
+  "booking_url": "https://yeswecanmobile.com",
+  "package": "Custom Launch",
+  "billing": {
+    "setup_fee_usd": 1000,
+    "monthly_retainer_usd": 200,
+    "closed_date": "2026-08-08",
+    "status": "active",
+    "includes": "Site rebuild kickoff + 6 launch videos + SEO Month 1 (v2 beverage canning) + API/hosting setup",
+    "upfront_breakdown": {
+      "create_site_usd": 300,
+      "videos_6x80_usd": 480,
+      "api_hosting_usd": 200,
+      "ai_tooling_usd": 60
+    },
+    "monthly_includes": [
+      "site maintenance",
+      "review management (GBP)",
+      "SEO trends — 4 blogs + 4 GBP posts",
+      "weekend video edits as received"
+    ],
+    "equipment_capex": ["mics", "tripods", "drone", "iPhone 15 Pro Max"]
+  },
+  "case_study": true,
+  "case_study_number": 2,
+  "notes": "Uncle Jose (Tio Jose). Full-service MOBILE CANNING for craft breweries/beverage — NOT home food canning. 3 mobile lines ~45 cans/min. 15+ yrs packaging. Testimonials: Shanty Shack Brewing. SEO v2 complete (beverage canning). Site rebuild: hero video not AI image, quote/booking DB, process gallery."
+}

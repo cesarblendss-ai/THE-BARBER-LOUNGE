@@ -1,0 +1,118 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Session {
+  id          String       @id @default(cuid())
+  visitorId   String
+  startedAt   DateTime     @default(now())
+  userAgent   String?
+  referrer    String?
+  device      String?
+  pageViews   PageView[]
+  clickEvents ClickEvent[]
+
+  @@index([visitorId])
+  @@index([startedAt])
+}
+
+model PageView {
+  id         String    @id @default(cuid())
+  sessionId  String
+  path       String
+  enteredAt  DateTime  @default(now())
+  exitedAt   DateTime?
+  durationMs Int?
+
+  session Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId])
+  @@index([path])
+  @@index([enteredAt])
+}
+
+model ClickEvent {
+  id           String   @id @default(cuid())
+  sessionId    String
+  path         String
+  elementLabel String
+  elementId    String?
+  clickedAt    DateTime @default(now())
+
+  session Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId])
+  @@index([elementLabel])
+  @@index([clickedAt])
+}
+
+enum AppointmentStatus {
+  pending
+  confirmed
+  cancelled
+}
+
+model Appointment {
+  id               String            @id
+  confirmationCode String            @unique
+  service          String
+  preferredDay     String
+  preferredTime    String
+  slotDate         String
+  slotHour         Int
+  name             String
+  phone            String
+  guestCount       Int?
+  status           AppointmentStatus @default(pending)
+  createdAt        DateTime
+  updatedAt        DateTime
+
+  @@index([slotDate, slotHour])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model BlockedSlot {
+  id     String  @id @default(cuid())
+  date   String
+  hour   Int
+  reason String?
+
+  @@unique([date, hour])
+  @@index([date])
+}
+
+model Product {
+  id         String        @id @default(cuid())
+  name       String
+  priceCents Int
+  stock      Int           @default(0)
+  active     Boolean       @default(true)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+  sales      ProductSale[]
+
+  @@index([active])
+}
+
+model ProductSale {
+  id         String   @id @default(cuid())
+  productId  String
+  barberName String
+  quantity   Int      @default(1)
+  paid       Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+  @@index([barberName])
+  @@index([paid])
+  @@index([createdAt])
+}

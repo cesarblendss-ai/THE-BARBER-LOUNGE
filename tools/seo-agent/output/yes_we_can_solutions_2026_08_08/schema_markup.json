@@ -1,0 +1,57 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FoodEstablishment",
+  "name": "Yes We Can Solutions",
+  "description": "Professional canning services in Antioch, CA specializing in mobile canning, labeling, and packaging.",
+  "telephone": "(707) 738-6502",
+  "url": "https://yeswecanmobile.com",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Antioch",
+    "addressRegion": "CA"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 38.0049,
+    "longitude": -121.8058
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ],
+    "opens": "08:00",
+    "closes": "17:00"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Canning Services",
+    "itemListElement": [
+      {
+        "@type": "Service",
+        "name": "Canning",
+        "description": "Professional canning services for various types of food."
+      },
+      {
+        "@type": "Service",
+        "name": "Labeling",
+        "description": "Custom labeling solutions for your canned products."
+      },
+      {
+        "@type": "Service",
+        "name": "Packaging",
+        "description": "Quality packaging services to ensure product safety."
+      },
+      {
+        "@type": "Service",
+        "name": "Mobile Canning",
+        "description": "On-site mobile canning services to meet your needs."
+      }
+    ]
+  },
+  "sameAs": []
+}

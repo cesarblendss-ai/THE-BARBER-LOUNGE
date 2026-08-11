@@ -1,0 +1,315 @@
+{
+  "SITE": {
+    "name": "The Barber Lounge",
+    "address": "1518 A St, Antioch, CA 94509",
+    "phone": "(925) 209-5995",
+    "email": "thebarberlounge00@gmail.com",
+    "instagram": "@thebarberlounges1"
+  },
+  "HOURS": [
+    {
+      "day": "Sunday",
+      "hours": "8:00 AM – 7:00 PM"
+    },
+    {
+      "day": "Monday",
+      "hours": "10:00 AM – 7:00 PM"
+    },
+    {
+      "day": "Tuesday",
+      "hours": "Closed"
+    },
+    {
+      "day": "Wednesday",
+      "hours": "9:00 AM – 7:00 PM"
+    },
+    {
+      "day": "Thursday",
+      "hours": "9:00 AM – 7:00 PM"
+    },
+    {
+      "day": "Friday",
+      "hours": "9:00 AM – 7:00 PM"
+    },
+    {
+      "day": "Saturday",
+      "hours": "8:00 AM – 7:00 PM"
+    }
+  ],
+  "HEADER": {
+    "callNow": "Call Now",
+    "bookNow": "Book Now"
+  },
+  "FOOTER": {
+    "hoursLabel": "Hours",
+    "quickLinksLabel": "Quick Links",
+    "callNow": "Call Now",
+    "bookOnline": "Book Online",
+    "copyright": "All rights reserved.",
+    "updateHeroVideos": "Update Hero Videos",
+    "manageGallery": "Manage Gallery",
+    "editSiteText": "Edit site text"
+  },
+  "HOME": {
+    "hero": {
+      "eyebrow": "ANTIOCH'S PREMIER BARBERSHOP EXPERIENCE",
+      "headline": "Sharp Cuts. Real Craftsmanship. Zero Compromise.",
+      "subheadline": "Precision fades, clean tapers, and modern styles — delivered by barbers who treat every chair like it's their reputation on the line.",
+      "ctaPrimary": {
+        "label": "Book Your Appointment",
+        "href": "https://booksy.com/en-us/1180862_the-barber-lounge_barber-shop_103886_antioch"
+      },
+      "ctaSecondary": {
+        "label": "See Our Work",
+        "href": "https://www.instagram.com/thebarberlounges1/"
+      },
+      "trustBar": "5★ rating · 180+ five-star reviews · 1518 A St, Antioch, CA 94509"
+    },
+    "valueProps": [
+      {
+        "title": "Precision, Every Time",
+        "body": "Every Signature service includes a full consultation, precision cutting, styling, and a Hot Lather Finish."
+      },
+      {
+        "title": "A Standard, Not a Trend",
+        "body": "A modern barbershop experience built on precision, attention to detail, and professional service."
+      },
+      {
+        "title": "Clean Shop, Clean Cuts",
+        "body": "A comfortable, upscale space with on-site parking, Wi-Fi, and a kid-friendly welcome."
+      },
+      {
+        "title": "Barbers Who Show Up",
+        "body": "A team of specialists in fades, tapers, and beard work, each with their own following of repeat clients."
+      }
+    ],
+    "featuredServices": [
+      {
+        "name": "Signature Haircut",
+        "price": "$50",
+        "time": "1 hr"
+      },
+      {
+        "name": "Signature Haircut & Beard",
+        "price": "$65",
+        "time": "1 hr"
+      }
+    ],
+    "servicesSection": {
+      "viewAll": "View All Services",
+      "bookNow": "Book Now"
+    },
+    "aboutTeaser": {
+      "headline": "More Than a Haircut.",
+      "body": "The Barber Lounge was built to give Antioch a barbershop where precision, consistency, and professional service come standard. Every chair runs on the same process — real consultation, careful cutting, and a finish you're proud to walk out with.",
+      "cta": {
+        "label": "Meet the Team",
+        "href": "/about"
+      }
+    },
+    "finalCta": {
+      "headline": "Your Next Great Haircut Is One Click Away.",
+      "cta": {
+        "label": "Book Now",
+        "href": "https://booksy.com/en-us/1180862_the-barber-lounge_barber-shop_103886_antioch"
+      }
+    }
+  },
+  "ABOUT": {
+    "hero": {
+      "sectionLabel": "The Barber Lounge",
+      "headline": "Built on Precision. Backed by Reputation.",
+      "subheadline": "A modern barbershop experience built on precision, attention to detail, and professional service. We specialize in clean, refined cuts for clients who appreciate quality, consistency, and a higher standard of grooming."
+    },
+    "story": {
+      "sectionLabel": "Our Story",
+      "heading": "Our Story",
+      "body": "The Barber Lounge started with a simple goal: bring Antioch a modern barbershop where every client gets the same standard of care — not just on the first visit, but every time they sit in the chair. We built a team of specialists in fades, tapers, and beard work who treat each appointment like their reputation depends on it. The shop has grown through word of mouth and repeat clients who value precision over shortcuts. What hasn't changed is the process: consultation first, detail throughout, and a clean finish you can count on."
+    },
+    "values": {
+      "sectionLabel": "What We Stand For",
+      "headline": "Our Values",
+      "items": [
+        {
+          "title": "Precision over speed",
+          "body": "Every cut starts with a real consultation, not a guess."
+        },
+        {
+          "title": "Consistency you can count on",
+          "body": "The same standard, cut after cut, chair after chair."
+        },
+        {
+          "title": "Respect",
+          "body": "For your time, your style, and your standards."
+        }
+      ]
+    },
+    "team": {
+      "sectionLabel": "Antioch Barbers",
+      "headline": "Meet the Team",
+      "members": [
+        {
+          "name": "Alexis Franco",
+          "handle": "lexblendzz",
+          "bio": "Fade and taper specialist — known for consistent, detail-driven cuts and long-term client relationships."
+        },
+        {
+          "name": "Braulio Gómez",
+          "handle": "925.liocutz",
+          "bio": "Mid fade and line-up expert — clients praise his sharp blends and reliable results visit after visit."
+        },
+        {
+          "name": "Cesar Silva",
+          "handle": "cesarblends",
+          "bio": "Blend and fade specialist focused on clean, modern finishes that hold up between appointments."
+        },
+        {
+          "name": "Kristian Guerra",
+          "handle": "mr.icylinez",
+          "bio": "Line-up and taper specialist with a sharp eye for crisp edges and polished detail work."
+        },
+        {
+          "name": "Jose Fuentes",
+          "handle": "jfenz_",
+          "bio": "Precision cutter for contemporary styles — thoughtful consultation and clean execution every chair."
+        },
+        {
+          "name": "Sebastian Guardado",
+          "handle": "blendz_bysebas",
+          "bio": "Professional, on-time service with strong hospitality — popular with kids and adults alike."
+        }
+      ]
+    },
+    "finalCta": {
+      "headline": "Ready for your next cut?",
+      "cta": {
+        "label": "Book With Your Barber",
+        "href": "https://booksy.com/en-us/1180862_the-barber-lounge_barber-shop_103886_antioch"
+      }
+    }
+  },
+  "SERVICES": {
+    "hero": {
+      "sectionLabel": "Services & Pricing",
+      "headline": "Every Cut. Every Detail. Done Right.",
+      "subheadline": "From signature cuts to sharp beard work, every service includes a full consultation so you leave looking exactly how you pictured it."
+    },
+    "list": [
+      {
+        "name": "Signature Haircut",
+        "price": "$50",
+        "time": "1 hr",
+        "description": "Consultation, precision cutting, styling, Hot Lather Finish"
+      },
+      {
+        "name": "Signature Haircut & Beard",
+        "price": "$65",
+        "time": "1 hr",
+        "description": "Consultation, Hot Towel, precision cutting, styling, Hot Lather Finish"
+      },
+      {
+        "name": "[Kids Haircut]",
+        "price": "[$__]",
+        "time": "[__ min]",
+        "description": "[Placeholder — confirm pricing]"
+      },
+      {
+        "name": "[Beard Trim & Line-Up]",
+        "price": "[$__]",
+        "time": "[__ min]",
+        "description": "[Placeholder — confirm pricing]"
+      },
+      {
+        "name": "[Hot Towel Shave]",
+        "price": "[$__]",
+        "time": "[__ min]",
+        "description": "[Placeholder — confirm pricing]"
+      }
+    ],
+    "addOns": {
+      "sectionLabel": "Add-Ons",
+      "headline": "Extras",
+      "body": "Ask your barber about add-ons such as hair design, eyebrow cleanup, or hot towel upgrades at your appointment."
+    },
+    "note": "Pricing for Signature Haircut and Signature Haircut & Beard reflects current Booksy listings. Additional services will be added as menu details are confirmed.",
+    "cta": {
+      "label": "Book Your Service",
+      "href": "https://booksy.com/en-us/1180862_the-barber-lounge_barber-shop_103886_antioch"
+    }
+  },
+  "FAQ_PAGE": {
+    "sectionLabel": "Questions & Answers",
+    "headline": "Frequently Asked Questions",
+    "subheadline": "Everything you need to know before your visit to our Antioch barbershop.",
+    "ctaHeadline": "Still have questions?",
+    "ctaBody": "Book online or give us a call — we're happy to help.",
+    "bookNow": "Book Now",
+    "contactUs": "Contact Us"
+  },
+  "FAQ": [
+    {
+      "q": "Do I need an appointment, or do you take walk-ins?",
+      "a": "Appointments are recommended and easiest to book online. Walk-ins are welcome when a chair is open — call ahead on busy days to check availability."
+    },
+    {
+      "q": "How do I book an appointment?",
+      "a": "Book online anytime through our booking page, or reach us at (925) 209-5995."
+    },
+    {
+      "q": "What forms of payment do you accept?",
+      "a": "We accept credit cards and cash."
+    },
+    {
+      "q": "Is The Barber Lounge kid-friendly?",
+      "a": "Yes — we welcome clients of all ages in a clean, comfortable shop."
+    },
+    {
+      "q": "What if I need to cancel or reschedule?",
+      "a": "Please reschedule or cancel at least 24 hours ahead when possible. Late cancellations or no-shows may affect future booking availability."
+    },
+    {
+      "q": "Do you offer beard grooming and hot towel shaves?",
+      "a": "Yes — every Signature Haircut & Beard service includes a hot towel and precision beard work."
+    },
+    {
+      "q": "Is parking available?",
+      "a": "Yes, on-site parking is available."
+    },
+    {
+      "q": "Can I request a specific barber?",
+      "a": "Absolutely — choose your barber when you book online, or ask us for a recommendation."
+    },
+    {
+      "q": "Where are you located?",
+      "a": "1518 A St, Antioch, CA 94509"
+    },
+    {
+      "q": "What are your hours?",
+      "a": "Sunday 8:00 AM – 7:00 PM · Monday 10:00 AM – 7:00 PM · Tuesday Closed · Wednesday 9:00 AM – 7:00 PM · Thursday 9:00 AM – 7:00 PM · Friday 9:00 AM – 7:00 PM · Saturday 8:00 AM – 7:00 PM"
+    }
+  ],
+  "CONTACT": {
+    "hero": {
+      "sectionLabel": "Get in Touch",
+      "headline": "Let's Get You Booked.",
+      "subheadline": "Walk in, call, or book online — however you reach us, we'll get you in the chair.",
+      "callNow": "Call Now",
+      "bookNow": "Book Now"
+    },
+    "visit": {
+      "sectionLabel": "Visit Us",
+      "hoursHeadline": "Hours",
+      "openInMaps": "Open in Google Maps"
+    },
+    "form": {
+      "sectionLabel": "Send a Message",
+      "headline": "Contact Form",
+      "body": "Prefer to book directly?",
+      "bookOnlineLink": "Book online"
+    },
+    "cta": {
+      "label": "Book Your Appointment",
+      "href": "https://booksy.com/en-us/1180862_the-barber-lounge_barber-shop_103886_antioch"
+    }
+  }
+}
