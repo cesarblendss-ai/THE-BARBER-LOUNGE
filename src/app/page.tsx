@@ -23,7 +23,6 @@ import {
   withHeroVideoCacheBust,
 } from "@/lib/hero-video";
 import { buildPageMetadata } from "@/lib/seo";
-import { BLOG_POSTS } from "@/lib/blog-posts";
 import { SERVICE_AREA_CITIES } from "@/lib/service-area";
 import Link from "next/link";
 
@@ -296,41 +295,6 @@ export default async function HomePage() {
                 +8 more
               </Link>
             </li>
-          </ul>
-        </div>
-      </section>
-
-      <section className="bg-bone px-4 py-16 sm:px-6 sm:py-24" aria-labelledby="blog-heading">
-        <div className="mx-auto max-w-7xl">
-          <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
-            <div>
-              <SectionLabel>FROM THE BLOG</SectionLabel>
-              <h2
-                id="blog-heading"
-                className="mt-2 font-serif text-3xl font-semibold text-charcoal sm:text-4xl"
-              >
-                Grooming Tips & Local Guides
-              </h2>
-            </div>
-            <Button href="/blog" variant="outline" className="shrink-0">
-              All Posts
-            </Button>
-          </div>
-          <ul className="mt-10 grid gap-6 sm:grid-cols-2">
-            {BLOG_POSTS.slice(0, 4).map((post) => (
-              <li key={post.slug}>
-                <Link
-                  href={`/blog/${post.slug}`}
-                  className="block rounded-2xl border border-charcoal/10 bg-white p-6 transition-colors hover:border-brass/40"
-                >
-                  <p className="text-xs font-semibold uppercase tracking-wider text-brass">
-                    {post.publishedAt}
-                  </p>
-                  <h3 className="mt-2 font-serif text-xl font-semibold text-charcoal">{post.title}</h3>
-                  <p className="mt-2 text-sm text-charcoal/65">{post.excerpt}</p>
-                </Link>
-              </li>
-            ))}
           </ul>
         </div>
       </section>
