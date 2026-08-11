@@ -1,16 +1,32 @@
 ﻿# Click Here — Git + Vercel Setup
 
-**Status:** Setup complete. Daily deploy: `.\ship.cmd "what you changed"`
+**Status: DONE (Aug 10, 2026).** You do not need to redo Steps 1–3.
 
-**Links:**
-- [Vercel Git settings](https://vercel.com/cesarblendss-7234s-projects/the-barber-lounge/settings/git)
-- [GitHub repo](https://github.com/cesarblendss-ai/THE-BARBER-LOUNGE)
-
-Account: **`cesarblendss-ai`** (not `cesarblendss`).
+| What | Value |
+|------|-------|
+| GitHub account | **cesarblendss-ai** |
+| Repo | https://github.com/cesarblendss-ai/THE-BARBER-LOUNGE |
+| Vercel Git | Connected, branch **main** |
+| Latest commit | check with `git log -1 --oneline` |
 
 ---
 
-## One-time git identity (repo only — NOT `--global`)
+## Daily deploy (the only command you need)
+
+```powershell
+cd C:\Users\Cesar\OneDrive\Desktop\the-barber-lounge
+.\ship.cmd "Describe your change"
+```
+
+Emergency Vercel-only (no git): `.\deploy.cmd`
+
+**"nothing to commit, working tree clean"** = synced. Not an error.
+
+---
+
+## One-time git identity (only if ship fails with "Author identity unknown")
+
+Repo only — NOT `--global`:
 
 ```powershell
 cd C:\Users\Cesar\OneDrive\Desktop\the-barber-lounge
@@ -20,28 +36,13 @@ cd C:\Users\Cesar\OneDrive\Desktop\the-barber-lounge
 
 ---
 
-## Daily workflow
-
-```powershell
-cd C:\Users\Cesar\OneDrive\Desktop\the-barber-lounge
-.\ship.cmd "Describe your change"
-```
-
-Emergency Vercel-only (no git): `.\deploy.cmd`
-
-**"nothing to commit, working tree clean"** = you're synced; that's success, not an error.
-
----
-
 ## Stuck?
 
-| Problem | What to do |
-|---------|------------|
-| **`ship.cmd` not found** / command not recognized | Use **`.\ship.cmd`** in PowerShell (dot + backslash required) |
-| **Author identity unknown** | Run the two `git config` lines above (no `--global`) |
-| **`running scripts is disabled`** | Use **`.\ship.cmd`** — not `.\run.ps1` |
-| **Repository not found** | Wrong username — repo is **`cesarblendss-ai/THE-BARBER-LOUNGE`** |
-| **Name already exists** on `repo create` | Repo exists — set remote and push (or you're already done) |
-| Push works but no Vercel deploy | Vercel Git → connect **`cesarblendss-ai/THE-BARBER-LOUNGE`**, branch **`main`** |
+| Problem | Fix |
+|---------|-----|
+| **`ship.cmd` not found** | Use **`.\ship.cmd`** (dot + backslash) |
+| **`running scripts is disabled`** | Use **`.\ship.cmd`** — never `.\run.ps1` |
+| **Author identity unknown** | Run git config lines above |
+| **Repository not found** | Wrong username — use **cesarblendss-ai** |
 
-More detail: [git-deploy-workflow.md](./git-deploy-workflow.md)
+Reference: [git-deploy-workflow.md](./git-deploy-workflow.md)
