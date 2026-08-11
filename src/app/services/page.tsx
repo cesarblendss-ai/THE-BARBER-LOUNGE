@@ -6,10 +6,7 @@ import { SectionLabel } from "@/components/SectionLabel";
 import { ServiceCard } from "@/components/ServiceCard";
 import { getSiteContent } from "@/lib/get-site-content";
 import { GALLERY } from "@/lib/gallery";
-import {
-  getResolvedServiceGalleries,
-  getSignatureHaircutGridSlots,
-} from "@/lib/gallery-files";
+import { getResolvedServiceGalleries } from "@/lib/gallery-files";
 import { buildPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 
@@ -27,7 +24,8 @@ export default async function ServicesPage() {
   const { SERVICES } = content;
   const { hero, list, addOns, note, cta } = SERVICES;
   const serviceGalleries = getResolvedServiceGalleries();
-  const signatureHaircutGridSlots = getSignatureHaircutGridSlots();
+  const signatureHaircutImages =
+    serviceGalleries["Signature Haircut"].slice(0, 1);
   const signatureHaircutBeardImages =
     serviceGalleries["Signature Haircut & Beard"].slice(0, 1);
 
@@ -69,17 +67,16 @@ export default async function ServicesPage() {
                 time={service.time}
                 pathPrefix={`SERVICES.list.${index}`}
                 images={
-                  service.name === "Signature Haircut & Beard"
-                    ? signatureHaircutBeardImages.length > 0
-                      ? signatureHaircutBeardImages
-                      : fallbackImages
-                    : serviceGalleries[service.name as keyof typeof serviceGalleries] ??
-                      fallbackImages
-                }
-                gridSlots={
                   service.name === "Signature Haircut"
-                    ? signatureHaircutGridSlots
-                    : undefined
+                    ? signatureHaircutImages.length > 0
+                      ? signatureHaircutImages
+                      : fallbackImages
+                    : service.name === "Signature Haircut & Beard"
+                      ? signatureHaircutBeardImages.length > 0
+                        ? signatureHaircutBeardImages
+                        : fallbackImages
+                      : serviceGalleries[service.name as keyof typeof serviceGalleries] ??
+                        fallbackImages
                 }
               />
             ))}

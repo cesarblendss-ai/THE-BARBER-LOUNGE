@@ -12,11 +12,7 @@ import { SITE, TESTIMONIALS } from "@/lib/content";
 import { LOGO } from "@/lib/constants";
 import { getSiteContent } from "@/lib/get-site-content";
 import { GALLERY, HERO_VIDEOS } from "@/lib/gallery";
-import {
-  getResolvedServiceGalleries,
-  getSignatureHaircutBeardGridSlots,
-  getSignatureHaircutGridSlots,
-} from "@/lib/gallery-files";
+import { getResolvedServiceGalleries } from "@/lib/gallery-files";
 import {
   ensureHeroVideoPlaceholders,
   getHeroVideoVersion,
@@ -38,8 +34,10 @@ export default async function HomePage() {
   const { HOME, SERVICES } = content;
   const { hero, valueProps, featuredServices, aboutTeaser, finalCta } = HOME;
   const serviceGalleries = getResolvedServiceGalleries();
-  const signatureHaircutGridSlots = getSignatureHaircutGridSlots();
-  const signatureHaircutBeardGridSlots = getSignatureHaircutBeardGridSlots();
+  const signatureHaircutImages =
+    serviceGalleries["Signature Haircut"].slice(0, 1);
+  const signatureHaircutBeardImages =
+    serviceGalleries["Signature Haircut & Beard"].slice(0, 1);
 
   ensureHeroVideoPlaceholders();
 
@@ -154,16 +152,17 @@ export default async function HomePage() {
                   time={service.time}
                   pathPrefix={`HOME.featuredServices.${index}`}
                   images={
-                    serviceGalleries[service.name as keyof typeof serviceGalleries] ?? [
-                      GALLERY.signatureHaircut,
-                    ]
-                  }
-                  gridSlots={
                     service.name === "Signature Haircut"
-                      ? signatureHaircutGridSlots
+                      ? signatureHaircutImages.length > 0
+                        ? signatureHaircutImages
+                        : [GALLERY.signatureHaircut]
                       : service.name === "Signature Haircut & Beard"
-                        ? signatureHaircutBeardGridSlots
-                        : undefined
+                        ? signatureHaircutBeardImages.length > 0
+                          ? signatureHaircutBeardImages
+                          : [GALLERY.signatureHaircutBeard]
+                        : serviceGalleries[service.name as keyof typeof serviceGalleries] ?? [
+                            GALLERY.signatureHaircut,
+                          ]
                   }
                 />
               </div>
