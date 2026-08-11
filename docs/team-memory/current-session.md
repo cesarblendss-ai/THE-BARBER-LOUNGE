@@ -57,14 +57,14 @@ Remove HugeDomains parking records. After propagate: `npx vercel domains verify 
 
 - Git 2.55 + gh 2.97; logged in as **`cesarblendss-ai`**
 - Remote: `https://github.com/cesarblendss-ai/the-barber-lounge.git`
-- **`main`** @ **`469e9d1`** ? smoke test pushed; Vercel auto-deploy triggered
-- **`ship.cmd`** / **`deploy.cmd`** ? use instead of `.\run.ps1` (Windows execution policy)
+- **`main`** @ **`6d243af`** ? git identity + ship test verified
+- **`.\ship.cmd`** / **`.\deploy.cmd`** ? use instead of `.\run.ps1` (Windows execution policy)
 
 **Daily deploy:**
 
 ```cmd
 cd C:\Users\Cesar\OneDrive\Desktop\the-barber-lounge
-ship.cmd "Describe your change"
+.\ship.cmd "Describe your change"
 ```
 
 **Prod API check (Aug 8):** `/api/products?active=1` ? 8 products ? `/api/availability` ? 200 (`dpl_Dhnh3d7rf9c4fdEVEojc8LWK2BYk`)
@@ -161,7 +161,7 @@ Built Tier 0 MVP ? see `docs/retail-tracking.md`
 ```powershell
 .\run.ps1 build
 .\run.ps1 ship "message"   # git commit + push ? Vercel auto-deploy (preferred)
-deploy.cmd                  # emergency only: npx vercel --prod --yes
+.\deploy.cmd                  # emergency only: npx vercel --prod --yes
 npx vercel env ls          # audit env vars
 npx vercel domains verify thebarberlounge.com
 ```
