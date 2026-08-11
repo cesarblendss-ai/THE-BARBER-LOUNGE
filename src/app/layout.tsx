@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Fraunces, Inter } from "next/font/google";
 import { cookies } from "next/headers";
 import { Suspense } from "react";
@@ -75,6 +76,7 @@ export default async function RootLayout({
             <BookingChatbot />
           </EditModeRoot>
         </Suspense>
+        <Analytics />
       </body>
     </html>
   );
