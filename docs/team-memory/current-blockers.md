@@ -1,4 +1,4 @@
-# Current Blockers
+﻿# Current Blockers
 
 **Last verified:** 2026-08-10
 
@@ -47,7 +47,7 @@
 | Domain added to Vercel project | 2026-08-10 — DNS at NameBright pending |
 | Git + GitHub push | 2026-08-10 — `cesarblendss-ai/the-barber-lounge`, `main` @ `66a9008` synced |
 | Vercel Git auto-deploy | 2026-08-10 — connected `cesarblendss-ai/THE-BARBER-LOUNGE`, branch `main` |
-| Git deploy smoke test | 2026-08-10 — `.\ship.cmd test` → `644bcef` / `6d243af` on `main`; Vercel auto-deploy verified |
+| Git deploy smoke test | 2026-08-10 — `.\ship.cmd test` → `1445c99` on `main`; Vercel auto-deploy verified |
 | PowerShell `run.ps1` blocked | 2026-08-10 — use **`.\ship.cmd`** / **`.\deploy.cmd`** (ExecutionPolicy bypass) |
 | Local git identity | 2026-08-10 — repo `user.name` / `user.email` set (not global) |
 

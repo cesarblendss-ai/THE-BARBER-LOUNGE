@@ -57,7 +57,7 @@ Remove HugeDomains parking records. After propagate: `npx vercel domains verify 
 
 - Git 2.55 + gh 2.97; logged in as **`cesarblendss-ai`**
 - Remote: `https://github.com/cesarblendss-ai/the-barber-lounge.git`
-- **`main`** @ **`6d243af`** ? git identity + ship test verified
+- **`main`** @ **`1445c99`** ? git identity + `.\ship.cmd` verified
 - **`.\ship.cmd`** / **`.\deploy.cmd`** ? use instead of `.\run.ps1` (Windows execution policy)
 
 **Daily deploy:**
