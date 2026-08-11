@@ -8,7 +8,6 @@ import { getSiteContent } from "@/lib/get-site-content";
 import { GALLERY } from "@/lib/gallery";
 import {
   getResolvedServiceGalleries,
-  getSignatureHaircutBeardGridSlots,
   getSignatureHaircutGridSlots,
 } from "@/lib/gallery-files";
 import { buildPageMetadata } from "@/lib/seo";
@@ -29,7 +28,8 @@ export default function ServicesPage() {
   const { hero, list, addOns, note, cta } = SERVICES;
   const serviceGalleries = getResolvedServiceGalleries();
   const signatureHaircutGridSlots = getSignatureHaircutGridSlots();
-  const signatureHaircutBeardGridSlots = getSignatureHaircutBeardGridSlots();
+  const signatureHaircutBeardImages =
+    serviceGalleries["Signature Haircut & Beard"].slice(0, 1);
 
   return (
     <>
@@ -69,15 +69,17 @@ export default function ServicesPage() {
                 time={service.time}
                 pathPrefix={`SERVICES.list.${index}`}
                 images={
-                  serviceGalleries[service.name as keyof typeof serviceGalleries] ??
-                  fallbackImages
+                  service.name === "Signature Haircut & Beard"
+                    ? signatureHaircutBeardImages.length > 0
+                      ? signatureHaircutBeardImages
+                      : fallbackImages
+                    : serviceGalleries[service.name as keyof typeof serviceGalleries] ??
+                      fallbackImages
                 }
                 gridSlots={
                   service.name === "Signature Haircut"
                     ? signatureHaircutGridSlots
-                    : service.name === "Signature Haircut & Beard"
-                      ? signatureHaircutBeardGridSlots
-                      : undefined
+                    : undefined
                 }
               />
             ))}
