@@ -4,17 +4,17 @@ import type { SiteContent } from "./site-content-types";
 
 export type { SiteContent } from "./site-content-types";
 
-export function getSiteContent(): SiteContent {
+export async function getSiteContent(): Promise<SiteContent> {
   return loadSiteContent();
 }
 
-export function getSiteContentValue(path: string): string | undefined {
-  const value = getValueAtPath(getSiteContent(), path);
+export async function getSiteContentValue(path: string): Promise<string | undefined> {
+  const value = getValueAtPath(await getSiteContent(), path);
   return typeof value === "string" ? value : undefined;
 }
 
-export function updateSiteContentValue(path: string, value: string): SiteContent {
-  const current = getSiteContent();
+export async function updateSiteContentValue(path: string, value: string): Promise<SiteContent> {
+  const current = await getSiteContent();
   const existing = getValueAtPath(current, path);
 
   if (typeof existing !== "string") {
@@ -22,6 +22,6 @@ export function updateSiteContentValue(path: string, value: string): SiteContent
   }
 
   const updated = setValueAtPath(current, path, value) as SiteContent;
-  saveSiteContent(updated);
+  await saveSiteContent(updated);
   return updated;
 }

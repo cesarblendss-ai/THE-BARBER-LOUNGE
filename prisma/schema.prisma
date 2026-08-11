@@ -116,3 +116,10 @@ model ProductSale {
   @@index([paid])
   @@index([createdAt])
 }
+
+/** Singleton row (id = "default") for inline CMS edits persisted in production. */
+model SiteContent {
+  id        String   @id
+  content   Json
+  updatedAt DateTime @updatedAt
+}

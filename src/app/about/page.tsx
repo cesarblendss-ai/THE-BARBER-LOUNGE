@@ -17,8 +17,8 @@ export const metadata: Metadata = buildPageMetadata({
   path: "/about",
 });
 
-export default function AboutPage() {
-  const content = getSiteContent();
+export default async function AboutPage() {
+  const content = await getSiteContent();
   const { ABOUT } = content;
   const { hero, story, values, team, finalCta } = ABOUT;
   const heroImage = resolveGalleryImage(GALLERY.hero);

@@ -48,7 +48,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const jsonLd = buildLocalBusinessJsonLd();
-  const content = getSiteContent();
+  const content = await getSiteContent();
   const cookieStore = await cookies();
   const editModeEnabled = cookieStore.get(EDIT_MODE_COOKIE)?.value === "1";
 

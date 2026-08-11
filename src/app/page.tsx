@@ -34,8 +34,8 @@ export const metadata: Metadata = buildPageMetadata({
   path: "/",
 });
 
-export default function HomePage() {
-  const content = getSiteContent();
+export default async function HomePage() {
+  const content = await getSiteContent();
   const { HOME, SERVICES } = content;
   const { hero, valueProps, featuredServices, aboutTeaser, finalCta } = HOME;
   const serviceGalleries = getResolvedServiceGalleries();

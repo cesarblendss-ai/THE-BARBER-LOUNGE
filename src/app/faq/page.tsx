@@ -14,8 +14,8 @@ export const metadata: Metadata = buildPageMetadata({
   path: "/faq",
 });
 
-export default function FaqPage() {
-  const content = getSiteContent();
+export default async function FaqPage() {
+  const content = await getSiteContent();
   const { FAQ, FAQ_PAGE } = content;
 
   return (

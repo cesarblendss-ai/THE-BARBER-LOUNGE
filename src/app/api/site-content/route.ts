@@ -4,7 +4,7 @@ import { unauthorizedAdminResponse, verifyAdminKey } from "@/lib/admin-auth";
 import { getSiteContent, updateSiteContentValue } from "@/lib/get-site-content";
 
 export async function GET() {
-  return NextResponse.json(getSiteContent());
+  return NextResponse.json(await getSiteContent());
 }
 
 export async function PATCH(request: Request) {
@@ -25,7 +25,7 @@ export async function PATCH(request: Request) {
   }
 
   try {
-    const content = updateSiteContentValue(path, value);
+    const content = await updateSiteContentValue(path, value);
     return NextResponse.json({ ok: true, content });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Update failed";

@@ -1,6 +1,8 @@
 import fs from "fs";
 import path from "path";
 
+import { isDatabaseConfigured } from "./db";
+import { dbLoadSiteContent, dbSaveSiteContent } from "./site-content-db";
 import { getDefaultSiteContent } from "./site-content-defaults";
 import type { SiteContent } from "./site-content-types";
 
@@ -62,21 +64,50 @@ export function writeSiteContentFile(content: SiteContent): void {
   fs.writeFileSync(CONTENT_FILE, `${JSON.stringify(content, null, 2)}\n`, "utf-8");
 }
 
-/** Load merged content; creates JSON from defaults on first run. */
-export function loadSiteContent(): SiteContent {
+/** Load merged content; bootstraps Postgres or local JSON from defaults on first run. */
+export async function loadSiteContent(): Promise<SiteContent> {
   const defaults = getDefaultSiteContent();
-  const stored = readSiteContentFile();
 
+  if (isDatabaseConfigured()) {
+    try {
+      const fromDb = await dbLoadSiteContent();
+      if (fromDb) return deepMerge(defaults, fromDb);
+
+      const fromFile = readSiteContentFile();
+      const merged = fromFile ? deepMerge(defaults, fromFile) : defaults;
+      await dbSaveSiteContent(merged);
+      return merged;
+    } catch (error) {
+      console.error("[site-content] db read failed, falling back to JSON", error);
+    }
+  }
+
+  const stored = readSiteContentFile();
   if (!stored) {
-    writeSiteContentFile(defaults);
+    try {
+      writeSiteContentFile(defaults);
+    } catch {
+      // Read-only filesystem (e.g. Vercel without Postgres) — serve defaults only.
+    }
     return defaults;
   }
 
   return deepMerge(defaults, stored);
 }
 
-export function saveSiteContent(content: SiteContent): void {
-  writeSiteContentFile(content);
+export async function saveSiteContent(content: SiteContent): Promise<void> {
+  if (isDatabaseConfigured()) {
+    await dbSaveSiteContent(content);
+    return;
+  }
+
+  try {
+    writeSiteContentFile(content);
+  } catch {
+    throw new Error(
+      "Site content cannot be saved on this host. Configure DATABASE_URL (Postgres) for production persistence.",
+    );
+  }
 }
 
 export const SITE_CONTENT_FILE = CONTENT_FILE;

@@ -22,8 +22,8 @@ export const metadata: Metadata = buildPageMetadata({
 
 const fallbackImages = [GALLERY.razorLineup];
 
-export default function ServicesPage() {
-  const content = getSiteContent();
+export default async function ServicesPage() {
+  const content = await getSiteContent();
   const { SERVICES } = content;
   const { hero, list, addOns, note, cta } = SERVICES;
   const serviceGalleries = getResolvedServiceGalleries();

@@ -20,8 +20,8 @@ const MAPS_QUERY = encodeURIComponent(CONTACT.address);
 const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${MAPS_QUERY}`;
 const MAPS_EMBED = `https://maps.google.com/maps?q=${MAPS_QUERY}&output=embed`;
 
-export default function ContactPage() {
-  const content = getSiteContent();
+export default async function ContactPage() {
+  const content = await getSiteContent();
   const { CONTACT: contactContent, SITE: site, HOURS } = content;
   const { hero, visit, form, cta } = contactContent;
   const { formFields } = CONTACT;
