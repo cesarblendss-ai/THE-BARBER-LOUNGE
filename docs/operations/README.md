@@ -4,6 +4,7 @@ Print and post these in the shop. Not developer docs.
 
 | Doc | Use |
 |-----|-----|
+| **[CLICK-HERE-SETUP.md](./CLICK-HERE-SETUP.md)** | **Start here** — one-time GitHub + Vercel connect (checkbox steps) |
 | [booksy-workflow.md](./booksy-workflow.md) | Web booking → Booksy within 15 min, admin confirm, ntfy alerts |
 | [friday-reconcile.md](./friday-reconcile.md) | Weekly product sales: unpaid totals, stock count, mark paid |
 | [move-off-onedrive.md](./move-off-onedrive.md) | Move repo off OneDrive to `C:\dev` (fewer flaky builds) |

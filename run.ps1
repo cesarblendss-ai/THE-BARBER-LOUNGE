@@ -1,6 +1,8 @@
-param(
+﻿param(
   [Parameter(Position = 0)]
-  [string]$Command = "help"
+  [string]$Command = "help",
+  [Parameter(ValueFromRemainingArguments = $true)]
+  [string[]]$RemainingArgs
 )
 
 $Root = $PSScriptRoot
@@ -8,7 +10,7 @@ Set-Location $Root
 
 function Show-Help {
   Write-Host @"
-The Barber Lounge — Master CLI
+The Barber Lounge - Master CLI
 
   .\run.ps1 build       npm run build (clears .next first)
   .\run.ps1 dev         npm run dev
@@ -16,10 +18,10 @@ The Barber Lounge — Master CLI
   .\run.ps1 seo-full    Full SEO pipeline
   .\run.ps1 seo-rank    Local rank scan
   .\run.ps1 seo-memory  Agent memory + suggestions
-  .\run.ps1 deploy      Vercel production deploy (emergency only — prefer ship)
+  .\run.ps1 deploy      Vercel production deploy (emergency only - prefer ship)
   .\run.ps1 ship [msg]  git add -A, commit, push to main (auto-deploy via Vercel)
-  .\run.ps1 db-seed     npm run db:seed (appointments → Postgres)
-  .\run.ps1 db-seed-products  npm run db:seed-products (retail inventory → Postgres)
+  .\run.ps1 db-seed     npm run db:seed (appointments -> Postgres)
+  .\run.ps1 db-seed-products  npm run db:seed-products (retail inventory -> Postgres)
 "@
 }
 
@@ -52,7 +54,7 @@ switch ($Command.ToLower()) {
   "ship" {
     $Git = "C:\Program Files\Git\bin\git.exe"
     if (-not (Test-Path $Git)) { $Git = "git" }
-    $msg = if ($args.Count -gt 0) { $args -join " " } else { Read-Host "Commit message" }
+    $msg = if ($RemainingArgs.Count -gt 0) { $RemainingArgs -join " " } else { Read-Host "Commit message" }
     if ([string]::IsNullOrWhiteSpace($msg)) {
       Write-Host "Aborted: commit message required."
       exit 1
@@ -65,7 +67,7 @@ switch ($Command.ToLower()) {
     }
     & $Git push origin main
     if ($LASTEXITCODE -eq 0) {
-      Write-Host "Pushed to main — Vercel will auto-deploy Production."
+      Write-Host "Pushed to main - Vercel will auto-deploy Production."
     }
   }
   "db-seed" {

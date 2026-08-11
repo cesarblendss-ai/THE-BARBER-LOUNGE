@@ -1,4 +1,4 @@
-# Current Blockers
+﻿# Current Blockers
 
 **Last verified:** 2026-08-10
 
@@ -8,7 +8,7 @@
 
 | Blocker | Detail | Doc |
 |---------|--------|-----|
-| **Postgres on Vercel** | Connected (Neon) but APIs may 500 until schema seeded OR deploy DB→JSON fallback fix. Run `db:push` + seeds; deploy latest code. |
+| **Postgres schema + seed** | Neon connected; prod APIs **200** via JSON fallback (`/api/products` 8 items, `/api/availability`). Run `db:push` + seeds once in your terminal for durable Postgres data. |
 | **Custom domain DNS** | **NOT LIVE on apex** — `thebarberlounge.com` still resolves to **HugeDomains parking** (not Vercel). Fix NameBright A/CNAME per `current-session.md`. Vercel app works at `the-barber-lounge-antioch.vercel.app`. |
 | **Booksy integration** | No API — manual Booksy entry | `booking-system.md` |
 
@@ -26,12 +26,10 @@
 
 | Item | Status |
 |------|--------|
-| **Site deploy** | **LIVE** — 57 routes, redeployed Aug 10 (`dpl_DQALJMamyCWckQbpCcTKTiXsumrX`) |
+| **Site deploy** | **LIVE** — 57 routes, latest `dpl_Dhnh3d7rf9c4fdEVEojc8LWK2BYk` (DB→JSON fallback) |
 | **Owner ntfy push (primary)** | `NTFY_TOPIC` set on Vercel Production — every booking alerts owner |
 | **Retail tracker** | **LIVE** — `/shop-log` + `/admin/products` deployed Aug 10 |
 | **RETAIL_LOG_PIN on Vercel** | Not set — Team log unlocked; see `docs/operations/security-checklist.md` |
-| **Git repo** | **Local only** — commits on `main`; GitHub push blocked until `gh auth login`. Runbook: `docs/operations/git-deploy-workflow.md` |
-| **Vercel Git integration** | **Not connected** — connect after GitHub push (Settings → Git → Connect repo) |
 
 ---
 
@@ -44,16 +42,20 @@
 | Short URL 404 | 2026-08-08 — returns 200 |
 | `ADMIN_UPLOAD_KEY` on Vercel | 2026-08-08 — set |
 | 57-route prod deploy | 2026-08-10 — `dpl_DQALJMamyCWckQbpCcTKTiXsumrX` |
+| Prod API 500 (products/availability) | 2026-08-08 — DB→JSON fallback deploy `dpl_Dhnh3d7rf9c4fdEVEojc8LWK2BYk`; verified 200 |
 | `NTFY_TOPIC` on Vercel | 2026-08-08 — set |
 | Domain added to Vercel project | 2026-08-10 — DNS at NameBright pending |
+| Git + GitHub push | 2026-08-10 — `cesarblendss-ai/the-barber-lounge`, `main` @ `66a9008` synced |
+| Vercel Git auto-deploy | 2026-08-10 — connected `cesarblendss-ai/THE-BARBER-LOUNGE`, branch `main` |
 
 ---
 
 ## Next actions
 
-1. **`gh auth login`** → `gh repo create the-barber-lounge --private --source=. --remote=origin --push` (see `git-deploy-workflow.md`)
-2. **Vercel → Settings → Git** → Connect `cesarblendss/the-barber-lounge`, Production branch `main`
-3. NameBright DNS for `thebarberlounge.com` (see `current-session.md`)
-4. Vercel Postgres: `db:push` + `db:seed` if not done
-5. Add `RETAIL_LOG_PIN` on Vercel Production
-6. **Phase 2:** Twilio Trust Hub KYC with EIN **41-3512174** (see `twilio-sms-status.md`)
+1. **Git deploy smoke test** — `.\run.ps1 ship test` (commit + push → Vercel auto-deploy)
+2. NameBright DNS for `thebarberlounge.com` (see `current-session.md`)
+3. Vercel Postgres: `db:push` + `db:seed` if not done
+4. Add `RETAIL_LOG_PIN` on Vercel Production
+5. **Phase 2:** Twilio Trust Hub KYC with EIN **41-3512174** (see `twilio-sms-status.md`)
+
+Detail runbook (optional): `docs/operations/git-deploy-workflow.md`
