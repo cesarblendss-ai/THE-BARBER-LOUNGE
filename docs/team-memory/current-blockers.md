@@ -9,7 +9,7 @@
 | Blocker | Detail | Doc |
 |---------|--------|-----|
 | **Postgres schema + seed** | Neon connected; prod APIs **200** via JSON fallback (`/api/products` 8 items, `/api/availability`). Run `db:push` + seeds once in your terminal for durable Postgres data. |
-| **Custom domain DNS** | **NOT LIVE on apex** — `thebarberlounge.com` still resolves to **HugeDomains parking** (not Vercel). Fix NameBright A/CNAME per `current-session.md`. Vercel app works at `the-barber-lounge-antioch.vercel.app`. |
+| **Custom domain DNS** | **NOT LIVE** — `thebarberlounge.com` resolves to **HugeDomains parking** (AWS IPs). Domain on **NameBright**; Vercel side done. Fix A/CNAME per `LAUNCH-CHECKLIST.md`. Use `the-barber-lounge-antioch.vercel.app` until fixed. |
 | **Booksy integration** | No API — manual Booksy entry | `booking-system.md` |
 
 ---

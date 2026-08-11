@@ -4,6 +4,12 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.thebarberlounge.com" }],
+        destination: "https://thebarberlounge.com/:path*",
+        permanent: true,
+      },
+      {
         source: "/start",
         destination: "https://cesar-agency.vercel.app/start",
         permanent: false,

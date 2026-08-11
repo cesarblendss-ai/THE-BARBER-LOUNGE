@@ -9,6 +9,10 @@ export type PushNotificationResult = {
   pushError?: string;
 };
 
+function resolveSiteUrl(): string {
+  return process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://the-barber-lounge-antioch.vercel.app";
+}
+
 function formatNotificationBody(appointment: Appointment): string {
   const guests =
     appointment.guestCount && appointment.guestCount > 1
@@ -31,77 +35,126 @@ function formatNotificationTitle(appointment: Appointment): string {
   return `New booking: ${appointment.name}${guests}`;
 }
 
+export function resolveNtfyTopic(): string | null {
+  return process.env.NTFY_TOPIC?.trim() || null;
+}
+
+export async function sendNtfyPush(options: {
+  title: string;
+  body: string;
+  tags?: string;
+  priority?: "default" | "low" | "high" | "max" | "min" | "urgent";
+  click?: string;
+}): Promise<PushNotificationResult> {
+  const topic = resolveNtfyTopic();
+  const pushUrl = process.env.PUSH_NOTIFICATION_URL?.trim();
+
+  if (!topic) {
+    return { configured: false, pushSent: false };
+  }
+
+  try {
+    const url = pushUrl || `https://ntfy.sh/${topic}`;
+    const headers: Record<string, string> = {
+      Title: options.title,
+      Tags: options.tags ?? "barber",
+      Priority: options.priority ?? "high",
+      "Content-Type": "text/plain; charset=utf-8",
+    };
+    if (options.click) {
+      headers.Click = options.click;
+    }
+
+    const res = await fetch(url, {
+      method: "POST",
+      headers,
+      body: options.body,
+    });
+
+    if (!res.ok) {
+      const detail = (await res.text().catch(() => "")).trim();
+      const pushError = `HTTP ${res.status}${detail ? `: ${detail.slice(0, 200)}` : ""}`;
+      console.error("[ntfy] Push failed:", pushError);
+      return { configured: true, pushSent: false, pushError };
+    }
+
+    console.log("[ntfy] Push sent to topic", topic);
+    return { configured: true, pushSent: true };
+  } catch (error) {
+    const pushError = error instanceof Error ? error.message : String(error);
+    console.error("[ntfy] Push request failed:", pushError);
+    return { configured: true, pushSent: false, pushError };
+  }
+}
+
+async function sendOwnerEmailBackup(title: string, body: string): Promise<void> {
+  const resendKey = process.env.RESEND_API_KEY?.trim();
+  const notifyEmail = process.env.OWNER_EMAIL?.trim();
+  if (!resendKey || !notifyEmail) return;
+
+  try {
+    await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${resendKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: "The Barber Lounge <bookings@thebarberlounge.com>",
+        to: [notifyEmail],
+        subject: title,
+        text: body,
+      }),
+    });
+  } catch (error) {
+    console.error("Resend email notification failed:", error);
+  }
+}
+
 export async function notifyOwnerOfBooking(
   appointment: Appointment,
 ): Promise<PushNotificationResult> {
-  const topic = process.env.NTFY_TOPIC?.trim();
-  const pushUrl = process.env.PUSH_NOTIFICATION_URL?.trim();
   const body = formatNotificationBody(appointment);
   const title = formatNotificationTitle(appointment);
 
   console.log("[booking-notification]", body);
 
-  let push: PushNotificationResult = { configured: false, pushSent: false };
+  const push = await sendNtfyPush({
+    title,
+    body,
+    tags: "barber,appointment",
+    priority: "high",
+    click: `${resolveSiteUrl()}/admin/appointments`,
+  });
 
-  if (topic) {
-    push = { configured: true, pushSent: false };
-    try {
-      const url = pushUrl || `https://ntfy.sh/${topic}`;
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          Title: title,
-          Tags: "barber,appointment",
-          Priority: "high",
-        },
-        body,
-      });
-
-      if (!res.ok) {
-        const detail = (await res.text().catch(() => "")).trim();
-        const pushError = `HTTP ${res.status}${detail ? `: ${detail.slice(0, 200)}` : ""}`;
-        console.error("[ntfy] Push failed:", pushError);
-        push = { configured: true, pushSent: false, pushError };
-      } else {
-        console.log("[ntfy] Push sent to topic", topic);
-        push = { configured: true, pushSent: true };
-      }
-    } catch (error) {
-      const pushError = error instanceof Error ? error.message : String(error);
-      console.error("[ntfy] Push request failed:", pushError);
-      push = { configured: true, pushSent: false, pushError };
-    }
-  } else {
+  if (!push.configured) {
     console.warn("[ntfy] NTFY_TOPIC not set — push skipped (booking still saved)");
   }
 
-  const resendKey = process.env.RESEND_API_KEY?.trim();
-  const notifyEmail = process.env.OWNER_EMAIL?.trim();
-  if (resendKey && notifyEmail) {
-    try {
-      await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${resendKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          from: "The Barber Lounge <bookings@thebarberlounge.com>",
-          to: [notifyEmail],
-          subject: title,
-          text: body,
-        }),
-      });
-    } catch (error) {
-      console.error("Resend email notification failed:", error);
-    }
-  }
-
+  await sendOwnerEmailBackup(title, body);
   return push;
 }
 
+export async function sendTestBookingNotification(): Promise<PushNotificationResult> {
+  return sendNtfyPush({
+    title: "TBL test — booking alert",
+    body: [
+      "Test booking: Notification Check",
+      "Haircut",
+      "Wednesday 9:00 AM",
+      "Phone: (925) 555-0100",
+      "Code: TBL-TEST",
+      "",
+      "If you see this, ntfy is working on production.",
+    ].join("\n"),
+    tags: "barber,test",
+    priority: "high",
+    click: `${resolveSiteUrl()}/admin/notifications`,
+  });
+}
+
 export function getNtfyTopicForDisplay(): string | null {
-  return process.env.NTFY_TOPIC?.trim() || null;
+  return resolveNtfyTopic();
 }
 
 export function getNtfySubscribeUrl(topic: string): string {
@@ -113,11 +166,7 @@ export type CabinetNotificationResult = PushNotificationResult;
 export async function notifyCabinetOpened(options?: {
   logUrl?: string;
 }): Promise<CabinetNotificationResult> {
-  const topic = process.env.NTFY_TOPIC?.trim();
-  const pushUrl = process.env.PUSH_NOTIFICATION_URL?.trim();
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://the-barber-lounge-antioch.vercel.app";
-  const logUrl = options?.logUrl ?? `${siteUrl}/shop-log`;
-  const title = "Retail cabinet opened";
+  const logUrl = options?.logUrl ?? `${resolveSiteUrl()}/shop-log`;
   const body = [
     "Someone opened the product cabinet.",
     "Log the sale within 5 minutes:",
@@ -126,36 +175,17 @@ export async function notifyCabinetOpened(options?: {
 
   console.log("[cabinet-notification]", body);
 
-  if (!topic) {
+  const push = await sendNtfyPush({
+    title: "Retail cabinet opened",
+    body,
+    tags: "barber,retail,warning",
+    priority: "high",
+    click: logUrl,
+  });
+
+  if (!push.configured) {
     console.warn("[ntfy] NTFY_TOPIC not set — cabinet ping skipped");
-    return { configured: false, pushSent: false };
   }
 
-  try {
-    const url = pushUrl || `https://ntfy.sh/${topic}`;
-    const res = await fetch(url, {
-      method: "POST",
-      headers: {
-        Title: title,
-        Tags: "barber,retail,warning",
-        Priority: "high",
-        Click: logUrl,
-      },
-      body,
-    });
-
-    if (!res.ok) {
-      const detail = (await res.text().catch(() => "")).trim();
-      const pushError = `HTTP ${res.status}${detail ? `: ${detail.slice(0, 200)}` : ""}`;
-      console.error("[ntfy] Cabinet push failed:", pushError);
-      return { configured: true, pushSent: false, pushError };
-    }
-
-    console.log("[ntfy] Cabinet push sent to topic", topic);
-    return { configured: true, pushSent: true };
-  } catch (error) {
-    const pushError = error instanceof Error ? error.message : String(error);
-    console.error("[ntfy] Cabinet push request failed:", pushError);
-    return { configured: true, pushSent: false, pushError };
-  }
+  return push;
 }

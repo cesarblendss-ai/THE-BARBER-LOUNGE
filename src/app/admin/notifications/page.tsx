@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { NtfyTestButton } from "@/components/NtfyTestButton";
 import { SectionLabel } from "@/components/SectionLabel";
 import { SITE } from "@/lib/content";
 import { getNtfySubscribeUrl, getNtfyTopicForDisplay } from "@/lib/notifications";
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 export default function AdminNotificationsPage() {
   const topic = getNtfyTopicForDisplay();
   const subscribeUrl = topic ? getNtfySubscribeUrl(topic) : null;
+  const authRequired = Boolean(process.env.ADMIN_UPLOAD_KEY?.trim());
 
   return (
     <section className="bg-bone px-4 pb-16 pt-28 sm:px-6 sm:pt-32">
@@ -64,19 +66,26 @@ export default function AdminNotificationsPage() {
           </div>
 
           {topic ? (
-            <div className="rounded-xl border border-brass/30 bg-brass/5 p-4">
-              <p className="text-sm font-medium text-charcoal">Your topic is configured:</p>
-              <p className="mt-1 font-mono text-sm text-charcoal/80">{topic}</p>
-              {subscribeUrl && (
-                <a
-                  href={subscribeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3 inline-block text-sm text-brass hover:underline"
-                >
-                  Open subscribe link →
-                </a>
-              )}
+            <div className="space-y-4">
+              <div className="rounded-xl border border-brass/30 bg-brass/5 p-4">
+                <p className="text-sm font-medium text-charcoal">Your topic is configured:</p>
+                <p className="mt-1 font-mono text-sm text-charcoal/80">{topic}</p>
+                <p className="mt-2 text-xs text-charcoal/60">
+                  Subscribe to this exact topic in the ntfy app — not a generic name like{" "}
+                  <code>the-barber-lounge-bookings</code>.
+                </p>
+                {subscribeUrl && (
+                  <a
+                    href={subscribeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 inline-block text-sm text-brass hover:underline"
+                  >
+                    Open subscribe link →
+                  </a>
+                )}
+              </div>
+              <NtfyTestButton authRequired={authRequired} />
             </div>
           ) : (
             <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">

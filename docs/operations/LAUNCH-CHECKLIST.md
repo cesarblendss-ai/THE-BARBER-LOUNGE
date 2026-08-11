@@ -32,7 +32,15 @@
 
 ### 1. NameBright DNS — point domain to Vercel
 
-`thebarberlounge.com` still shows **HugeDomains parking**. At NameBright:
+**Status (2026-08-11):** Domain is registered at **NameBright** (nameservers `nsg1.namebrightdns.com` / `nsg2.namebrightdns.com`). DNS still points to **HugeDomains parking** (`54.243.117.197`, `13.223.25.84`) — not Vercel. The site works at **https://the-barber-lounge-antioch.vercel.app** until DNS is fixed.
+
+Vercel already has `thebarberlounge.com` + `www.thebarberlounge.com` on the project. **You only need to fix DNS at NameBright.**
+
+#### Option A — DNS records (recommended, keep NameBright nameservers)
+
+1. Log in → [NameBright](https://www.namebright.com) → **My Domains** → **thebarberlounge.com** → **DNS Records**
+2. **Delete** any parking / HugeDomains / old A records for `@` and `www`
+3. **Add** these records (from Vercel → Project → Settings → Domains):
 
 | Type | Host | Value |
 |------|------|-------|
@@ -40,13 +48,46 @@
 | **A** | `@` | `64.29.17.1` |
 | **CNAME** | `www` | `c3fb3b80101fec65.vercel-dns-017.com` |
 
-Remove parking records. After propagate (~15 min–48 hr):
+4. Save. Propagation: **15 min – 48 hr**
+5. Verify:
 
 ```powershell
+cd C:\Users\Cesar\OneDrive\Desktop\the-barber-lounge
 npx vercel domains verify thebarberlounge.com
 ```
 
-Verify: `https://thebarberlounge.com` shows the barber site (not parking).
+6. Confirm `https://thebarberlounge.com` shows the barber site (not HugeDomains cookie/parking page)
+
+#### Option B — Vercel nameservers (alternative)
+
+At NameBright → change nameservers to `ns1.vercel-dns.com` and `ns2.vercel-dns.com`. Vercel manages DNS automatically. Use this only if Option A fails.
+
+**Code already done:** `www` → apex redirect in `next.config.ts`, `SITE_URL` = `https://thebarberlounge.com`.
+
+---
+
+### 1b. ntfy phone setup — booking alerts
+
+**Status:** `NTFY_TOPIC` is set on Vercel Production. Code sends push on every `/api/appointment-request`.
+
+**If you are not getting pushes:**
+
+1. Open **https://the-barber-lounge-antioch.vercel.app/admin/notifications** (works even before custom domain)
+2. Copy the **exact** topic shown (e.g. `barber-lounge-bookings-x7k9m2`) — do **not** guess
+3. Install [ntfy app](https://ntfy.sh/app) → **+** → Subscribe to topic → paste exact value
+4. Tap **Send test notification** on that page (enter `ADMIN_UPLOAD_KEY` if prompted)
+5. If test works but real bookings don't: customers may be on broken `thebarberlounge.com` (parking) — fix DNS first
+
+**Vercel env vars (Production):**
+
+| Variable | Required | Purpose |
+|----------|----------|---------|
+| `NTFY_TOPIC` | **Yes** | Secret topic name — subscribe in ntfy app |
+| `PUSH_NOTIFICATION_URL` | No | Override default `https://ntfy.sh/{NTFY_TOPIC}` |
+| `NEXT_PUBLIC_SITE_URL` | No | Click links in push (defaults to Vercel URL) |
+| `ADMIN_UPLOAD_KEY` | Yes | Protects test endpoint + admin routes |
+
+Example topic format (generate your own secret): `barber-lounge-bookings-x7k9m2`
 
 ---
 

@@ -16,5 +16,4 @@ export const BARBER_LOUNGE_CONFIG: BookingAgentConfig = {
   ],
   tone:
     "Short, friendly, human — like a barber shop front desk in Antioch. Never corporate.",
-  notificationTopic: "the-barber-lounge-bookings",
 };
