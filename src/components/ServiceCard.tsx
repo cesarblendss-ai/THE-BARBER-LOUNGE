@@ -38,7 +38,7 @@ export function ServiceCard({
     imageLayout ?? (useGridLayout ? "grid-3x3" : isGridService ? "hero" : "collage");
 
   const heroObjectPosition =
-    name === "Signature Haircut & Beard" ? "object-[center_65%]" : undefined;
+    name === "Signature Haircut & Beard" ? "object-[center_90%]" : undefined;
 
   return (
     <article className="group flex flex-col">
