@@ -12,4 +12,4 @@ Print and post these in the shop. Not developer docs.
 | [database-backups.md](./database-backups.md) | Neon export, weekly backup reminder, `scripts/export-db.ps1` |
 | [git-deploy-workflow.md](./git-deploy-workflow.md) | Edit → git push → Vercel auto-deploy (`main` = production) |
 
-**Related:** [retail-tracking.md](../retail-tracking.md) · [team-memory/current-blockers.md](../team-memory/current-blockers.md)
+**Related:** [retail-tracking.md](../retail-tracking.md) · [team-memory/current-blockers.md](../team-memory/current-blockers.md) · [Day One tutorial](../onboarding/DAY-ONE-TUTORIAL.md) (onboard new teammate)

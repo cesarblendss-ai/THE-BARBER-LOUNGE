@@ -1,4 +1,4 @@
-# Click Here — Git + Vercel Setup
+﻿# Click Here — Git + Vercel Setup
 
 **Status: DONE (Aug 10, 2026).** You do not need to redo Steps 1–3.
 
@@ -13,10 +13,10 @@
 
 ## Daily deploy (the only command you need)
 
-``powershell
+```powershell
 cd C:\Users\Cesar\OneDrive\Desktop\the-barber-lounge
 .\ship.cmd "Describe your change"
-``
+```
 
 Emergency Vercel-only (no git): `.\deploy.cmd`
 
@@ -28,11 +28,11 @@ Emergency Vercel-only (no git): `.\deploy.cmd`
 
 Repo only — NOT `--global`:
 
-``powershell
+```powershell
 cd C:\Users\Cesar\OneDrive\Desktop\the-barber-lounge
 & "C:\Program Files\Git\bin\git.exe" config user.name "Cesar"
 & "C:\Program Files\Git\bin\git.exe" config user.email "cesar@users.noreply.github.com"
-``
+```
 
 ---
 
