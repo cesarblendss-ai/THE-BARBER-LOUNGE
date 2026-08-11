@@ -48,16 +48,19 @@ export function EditableText({
   }, [defaultValue, editing]);
 
   useEffect(() => {
-    if (editing && editableRef.current) {
-      editableRef.current.focus();
-      const selection = window.getSelection();
-      const range = document.createRange();
-      range.selectNodeContents(editableRef.current);
-      range.collapse(false);
-      selection?.removeAllRanges();
-      selection?.addRange(range);
-    }
-  }, [editing]);
+    if (!editing || !editableRef.current) return;
+
+    // Seed DOM once when edit starts — do not pass draft as React children or
+    // controlled updates will reset the caret and type characters backwards.
+    editableRef.current.textContent = value;
+    editableRef.current.focus();
+    const selection = window.getSelection();
+    const range = document.createRange();
+    range.selectNodeContents(editableRef.current);
+    range.collapse(false);
+    selection?.removeAllRanges();
+    selection?.addRange(range);
+  }, [editing, value]);
 
   function startEditing(event?: MouseEvent | KeyboardEvent) {
     event?.stopPropagation();
@@ -74,7 +77,7 @@ export function EditableText({
   }
 
   async function save() {
-    const nextValue = draft.trim();
+    const nextValue = (editableRef.current?.innerText ?? draft).trim();
     if (!nextValue) {
       setError("Text cannot be empty");
       showToast("Text cannot be empty", "error");
@@ -149,15 +152,11 @@ export function EditableText({
           className: `${className} rounded-sm outline outline-2 outline-brass/60 outline-offset-2`,
           contentEditable: true,
           suppressContentEditableWarning: true,
-          onInput: (event: Event) => {
-            const target = event.currentTarget as HTMLElement;
-            setDraft(target.innerText);
-          },
           onKeyDown: handleKeyDown,
           onBlur: handleBlur,
           role: "textbox",
           "aria-label": `Edit ${path}`,
-        }, draft)}
+        })}
         <span className="mt-2 flex flex-wrap items-center gap-2">
           <button
             type="button"
