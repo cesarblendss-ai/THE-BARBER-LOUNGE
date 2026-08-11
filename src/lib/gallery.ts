@@ -106,6 +106,16 @@ export const GALLERY_CATEGORIES: Record<GalleryCategoryId, GalleryImage[]> = {
   signatureHaircutBeard: [
     GALLERY.signatureHaircutBeard,
     {
+      src: "/gallery/signature-beard-01.jpg",
+      alt: "Signature haircut and beard profile at The Barber Lounge in Antioch",
+      filename: "signature-beard-01.jpg",
+    },
+    {
+      src: "/gallery/signature-beard-06.jpg",
+      alt: "Precision fade with beard sculpting at The Barber Lounge",
+      filename: "signature-beard-06.jpg",
+    },
+    {
       src: "/gallery/signature-beard-02.jpg",
       alt: "Signature haircut and beard trim at The Barber Lounge in Antioch",
       filename: "signature-beard-02.jpg",
@@ -124,11 +134,6 @@ export const GALLERY_CATEGORIES: Record<GalleryCategoryId, GalleryImage[]> = {
       src: "/gallery/signature-beard-05.jpg",
       alt: "Full signature haircut and beard service in Antioch, CA",
       filename: "signature-beard-05.jpg",
-    },
-    {
-      src: "/gallery/signature-beard-06.jpg",
-      alt: "Precision fade with beard sculpting at The Barber Lounge",
-      filename: "signature-beard-06.jpg",
     },
     {
       src: "/gallery/signature-beard-07.jpg",
