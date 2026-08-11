@@ -4,6 +4,7 @@
 
 @layer base {
   html {
+    font-size: 75%; /* 12px base — compact aesthetic, scales all rem-based Tailwind */
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;

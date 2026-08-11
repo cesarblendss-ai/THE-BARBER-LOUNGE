@@ -1,6 +1,6 @@
 ﻿# Current Blockers
 
-**Last verified:** 2026-08-10
+**Last verified:** 2026-08-11
 
 ---
 
@@ -26,7 +26,7 @@
 
 | Item | Status |
 |------|--------|
-| **Site deploy** | **LIVE** — 57 routes, latest `dpl_Dhnh3d7rf9c4fdEVEojc8LWK2BYk` (DB→JSON fallback) |
+| **Site deploy** | **LIVE** — 63 routes, `main` @ `c26094b` — analytics + retail lazy-seed |
 | **Owner ntfy push (primary)** | `NTFY_TOPIC` set on Vercel Production — every booking alerts owner |
 | **Retail tracker** | **LIVE** — `/shop-log` + `/admin/products` deployed Aug 10 |
 | **RETAIL_LOG_PIN on Vercel** | Not set — Team log unlocked; see `docs/operations/security-checklist.md` |
@@ -50,14 +50,17 @@
 | Git deploy smoke test | 2026-08-10 — `.\ship.cmd test` → `1445c99` on `main`; Vercel auto-deploy verified |
 | PowerShell `run.ps1` blocked | 2026-08-10 — use **`.\ship.cmd`** / **`.\deploy.cmd`** (ExecutionPolicy bypass) |
 | Local git identity | 2026-08-10 — repo `user.name` / `user.email` set (not global) |
+| Production launch (code) | 2026-08-11 — `c26094b` on `main`; see `docs/operations/LAUNCH-CHECKLIST.md` |
+| Vercel Analytics + booking conversion | 2026-08-11 — layout + `booking_submitted` event |
 
 ---
 
 ## Next actions
 
-1. NameBright DNS for `thebarberlounge.com` (see `current-session.md`)
-2. Vercel Postgres: `db:push` + `db:seed` if not done
-3. Add `RETAIL_LOG_PIN` on Vercel Production
-4. **Phase 2:** Twilio Trust Hub KYC with EIN **41-3512174** (see `twilio-sms-status.md`)
+**→ Full list:** `docs/operations/LAUNCH-CHECKLIST.md`
 
-Detail runbook (optional): `docs/operations/git-deploy-workflow.md`
+1. NameBright DNS for `thebarberlounge.com`
+2. `RETAIL_LOG_PIN` on Vercel Production
+3. `db:push` + `db:seed` once in your terminal
+4. Confirm analytics in Vercel dashboard after a site visit
+5. **Phase 2:** Twilio Trust Hub (optional)
