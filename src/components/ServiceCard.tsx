@@ -8,7 +8,7 @@ type ServiceCardProps = {
   price: string;
   time: string;
   images: GalleryImage[];
-  imageLayout?: "collage" | "grid-3x3";
+  imageLayout?: "collage" | "grid-3x3" | "hero";
   gridSlots?: GridSlot[];
   uploadCategory?: GalleryCategoryId;
   pathPrefix?: string;
@@ -34,7 +34,8 @@ export function ServiceCard({
     Boolean(gridSlots?.length) &&
     (filledGridCount > 0 || uploadCategory !== undefined);
 
-  const layout = imageLayout ?? (useGridLayout ? "grid-3x3" : "collage");
+  const layout =
+    imageLayout ?? (useGridLayout ? "grid-3x3" : isGridService ? "hero" : "collage");
 
   return (
     <article className="group flex flex-col">

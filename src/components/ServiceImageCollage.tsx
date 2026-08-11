@@ -6,7 +6,7 @@ import type { GalleryCategoryId, GalleryImage, GalleryGridSlot } from "@/lib/gal
 
 export type GridSlot = GalleryGridSlot;
 
-type CollageLayout = "collage" | "grid-3x3";
+type CollageLayout = "collage" | "grid-3x3" | "hero";
 
 type ServiceImageCollageProps = {
   images: GalleryImage[];
@@ -61,6 +61,16 @@ export function ServiceImageCollage({
   }
 
   if (images.length === 0) return null;
+
+  if (layout === "hero") {
+    return (
+      <div
+        className={`relative h-[240px] w-full overflow-hidden rounded-2xl sm:h-[300px] lg:h-[360px] ${className}`}
+      >
+        <CollageImage image={images[0]} sizes={sizes} priority />
+      </div>
+    );
+  }
 
   if (layout === "grid-3x3") {
     const slots = Array.from({ length: 9 }, (_, i) => images[i] ?? null);
