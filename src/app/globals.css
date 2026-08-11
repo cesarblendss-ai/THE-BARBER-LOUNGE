@@ -71,16 +71,34 @@
 
   @keyframes intro-logo-zoom {
     from {
-      transform: scale(0.85);
-      opacity: 0.95;
+      transform: scale(0.92);
+      opacity: 0;
+    }
+    14% {
+      opacity: 1;
     }
     to {
-      transform: scale(2.4);
+      transform: scale(1.12);
       opacity: 1;
     }
   }
 
   .animate-intro-logo-zoom {
-    animation: intro-logo-zoom 1.8s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+    animation: intro-logo-zoom 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+
+  .intro-logo-settled {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+
+  .intro-splash-gradient {
+    background: radial-gradient(
+      ellipse 85% 70% at 50% 48%,
+      rgba(176, 141, 87, 0.28) 0%,
+      rgba(176, 141, 87, 0.1) 32%,
+      rgba(242, 239, 234, 0.92) 58%,
+      #f2efea 100%
+    );
   }
 }
