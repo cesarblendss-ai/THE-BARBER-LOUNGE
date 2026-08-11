@@ -15,6 +15,8 @@ type ServiceImageCollageProps = {
   layout?: CollageLayout;
   gridSlots?: GridSlot[];
   uploadCategory?: GalleryCategoryId;
+  /** Tailwind object-position class for hero layout (e.g. object-[center_65%]) */
+  objectPosition?: string;
 };
 
 export function ServiceImageCollage({
@@ -24,6 +26,7 @@ export function ServiceImageCollage({
   layout = "collage",
   gridSlots,
   uploadCategory,
+  objectPosition,
 }: ServiceImageCollageProps) {
   if (layout === "grid-3x3" && gridSlots && gridSlots.length > 0) {
     return (
@@ -67,7 +70,12 @@ export function ServiceImageCollage({
       <div
         className={`relative h-[240px] w-full overflow-hidden rounded-2xl sm:h-[300px] lg:h-[360px] ${className}`}
       >
-        <CollageImage image={images[0]} sizes={sizes} priority />
+        <CollageImage
+          image={images[0]}
+          sizes={sizes}
+          priority
+          objectPosition={objectPosition}
+        />
       </div>
     );
   }
@@ -140,10 +148,12 @@ function CollageImage({
   image,
   sizes,
   priority = false,
+  objectPosition,
 }: {
   image: GalleryImage;
   sizes: string;
   priority?: boolean;
+  objectPosition?: string;
 }) {
   return (
     <Image
@@ -152,7 +162,7 @@ function CollageImage({
       fill
       sizes={sizes}
       priority={priority}
-      className="object-cover transition-transform duration-500 group-hover:scale-105"
+      className={`object-cover transition-transform duration-500 group-hover:scale-105${objectPosition ? ` ${objectPosition}` : ""}`}
     />
   );
 }

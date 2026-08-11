@@ -37,6 +37,9 @@ export function ServiceCard({
   const layout =
     imageLayout ?? (useGridLayout ? "grid-3x3" : isGridService ? "hero" : "collage");
 
+  const heroObjectPosition =
+    name === "Signature Haircut & Beard" ? "object-[center_65%]" : undefined;
+
   return (
     <article className="group flex flex-col">
       <ServiceImageCollage
@@ -44,6 +47,7 @@ export function ServiceCard({
         layout={layout}
         gridSlots={useGridLayout ? gridSlots : undefined}
         uploadCategory={uploadCategory}
+        objectPosition={layout === "hero" ? heroObjectPosition : undefined}
       />
       <h3 className="mt-5 font-serif text-xl font-semibold text-charcoal sm:text-2xl">
         {pathPrefix ? (
