@@ -51,7 +51,7 @@ Remove HugeDomains parking records. After propagate: `npx vercel domains verify 
 ### 3. Git + GitHub — local ready, push blocked on auth
 
 - Git 2.55 + gh 2.97 installed via winget
-- Commits: **`0f7b621`** (initial 312 files) + **`pending`** (DB fallback, git deploy docs, `run.ps1 ship`)
+- Commits: **`0f7b621`** (initial 312 files) + **`4aecb86`** (DB fallback, git deploy docs, `run.ps1 ship`)
 - Branch renamed locally to **`main`** (Vercel Production branch)
 - **Blocker:** `gh auth login` not completed — agent cannot auth interactively
 
