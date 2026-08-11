@@ -3,8 +3,9 @@ import { NextResponse } from "next/server";
 
 export function getAdminKeyFromRequest(request: NextRequest): string | null {
   return (
+    request.nextUrl.searchParams.get("key")?.trim() ||
     request.headers.get("x-admin-key")?.trim() ||
-    request.cookies.get("tbl_admin_key")?.value?.trim() ||
+    request.cookies.get(ADMIN_KEY_COOKIE)?.value?.trim() ||
     null
   );
 }

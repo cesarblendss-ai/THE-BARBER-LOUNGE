@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
+import { unauthorizedAdminResponse, verifyAdminKey } from "@/lib/admin-auth";
 import {
   listAppointments,
   toggleBlockedSlot,
@@ -10,47 +11,42 @@ import { generateSlotsForDate } from "@/lib/availability";
 
 export const runtime = "nodejs";
 
-function isAuthorized(request: NextRequest): boolean {
-  const key = process.env.ADMIN_UPLOAD_KEY?.trim();
-  if (!key) return true;
-  const provided =
-    request.nextUrl.searchParams.get("key") ||
-    request.headers.get("x-admin-key") ||
-    "";
-  return provided === key;
-}
-
 export async function GET(request: NextRequest) {
-  if (!isAuthorized(request)) {
-    return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
+  if (!verifyAdminKey(request)) {
+    return unauthorizedAdminResponse();
   }
 
-  const date = request.nextUrl.searchParams.get("date") ?? new Date().toISOString().slice(0, 10);
-  const store = await listAppointments();
-  const slots = generateSlotsForDate(date);
+  try {
+    const date = request.nextUrl.searchParams.get("date") ?? new Date().toISOString().slice(0, 10);
+    const store = await listAppointments();
+    const slots = generateSlotsForDate(date);
 
-  const appointmentsForDate = store.appointments.filter((a) => a.slotDate === date);
-  const blockedForDate = store.blockedSlots.filter((b) => b.date === date);
+    const appointmentsForDate = store.appointments.filter((a) => a.slotDate === date);
+    const blockedForDate = store.blockedSlots.filter((b) => b.date === date);
 
-  return NextResponse.json({
-    date,
-    appointments: store.appointments.sort(
-      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-    ),
-    schedule: slots.map((slot) => ({
-      ...slot,
-      blocked: blockedForDate.some((b) => b.hour === slot.hour),
-      appointment: appointmentsForDate.find(
-        (a) => a.slotHour === slot.hour && (a.status === "pending" || a.status === "confirmed"),
-      ) ?? null,
-    })),
-    blockedSlots: store.blockedSlots,
-  });
+    return NextResponse.json({
+      date,
+      appointments: store.appointments.sort(
+        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      ),
+      schedule: slots.map((slot) => ({
+        ...slot,
+        blocked: blockedForDate.some((b) => b.hour === slot.hour),
+        appointment: appointmentsForDate.find(
+          (a) => a.slotHour === slot.hour && (a.status === "pending" || a.status === "confirmed"),
+        ) ?? null,
+      })),
+      blockedSlots: store.blockedSlots,
+    });
+  } catch (error) {
+    console.error("[appointments] GET failed", error);
+    return NextResponse.json({ error: "Could not load appointments." }, { status: 500 });
+  }
 }
 
 export async function PATCH(request: NextRequest) {
-  if (!isAuthorized(request)) {
-    return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
+  if (!verifyAdminKey(request)) {
+    return unauthorizedAdminResponse();
   }
 
   let body: {

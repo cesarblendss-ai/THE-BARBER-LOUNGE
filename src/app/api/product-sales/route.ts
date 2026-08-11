@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
+import { unauthorizedAdminResponse, verifyAdminKey } from "@/lib/admin-auth";
 import { isRetailLogPinRequired, verifyRetailLogPin } from "@/lib/retail-config";
 import {
   createProductSale,
@@ -11,19 +12,9 @@ import {
 
 export const runtime = "nodejs";
 
-function isAuthorized(request: NextRequest): boolean {
-  const key = process.env.ADMIN_UPLOAD_KEY?.trim();
-  if (!key) return true;
-  const provided =
-    request.nextUrl.searchParams.get("key") ||
-    request.headers.get("x-admin-key") ||
-    "";
-  return provided === key;
-}
-
 export async function GET(request: NextRequest) {
-  if (!isAuthorized(request)) {
-    return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
+  if (!verifyAdminKey(request)) {
+    return unauthorizedAdminResponse();
   }
 
   const [products, sales, summary] = await Promise.all([
@@ -76,8 +67,8 @@ export async function POST(request: NextRequest) {
 }
 
 export async function PATCH(request: NextRequest) {
-  if (!isAuthorized(request)) {
-    return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
+  if (!verifyAdminKey(request)) {
+    return unauthorizedAdminResponse();
   }
 
   let body: { action?: "mark-paid"; id?: string };

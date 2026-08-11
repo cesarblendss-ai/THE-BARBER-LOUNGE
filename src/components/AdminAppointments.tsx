@@ -59,7 +59,16 @@ export function AdminAppointmentsClient({ authKey }: { authKey?: string }) {
     setError(null);
     try {
       const res = await fetch(`/api/appointments${query}&date=${date}`.replace("?&", "?"));
-      if (!res.ok) throw new Error("Could not load appointments.");
+      if (!res.ok) {
+        const body = (await res.json().catch(() => null)) as { error?: string } | null;
+        if (res.status === 401) {
+          throw new Error(
+            body?.error ??
+              "Unauthorized — enter your admin key at /admin/edit or add ?key= to the URL.",
+          );
+        }
+        throw new Error(body?.error ?? "Could not load appointments.");
+      }
       setData(await res.json());
     } catch (err) {
       setError(err instanceof Error ? err.message : "Load failed.");
