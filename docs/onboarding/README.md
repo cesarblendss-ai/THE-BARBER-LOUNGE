@@ -1,14 +1,17 @@
-# Onboarding — new teammate
+# Onboarding — Cesar Blends (agency)
+
+**Agency site:** https://cesar-agency.vercel.app · **Brand:** Cesar Blends (not blenddigital.com)
 
 **Send one link:** https://cesar-agency.vercel.app/start
 
 | Resource | URL |
 |----------|-----|
-| **Agency `/start`** | https://cesar-agency.vercel.app/start — **primary** onboarding (Mac tabs, copy buttons) |
-| **Agency `/discover`** | https://cesar-agency.vercel.app/discover — 10 lead-audit questions *(deploy pending)* |
+| **Agency home** | https://cesar-agency.vercel.app/ |
+| **Trainee `/start`** | https://cesar-agency.vercel.app/start |
+| **Closers `/discover`** | https://cesar-agency.vercel.app/discover — ask before you pitch |
+| **Closers `/close`** | https://cesar-agency.vercel.app/close |
+| **Portfolio `/work`** | https://cesar-agency.vercel.app/work |
+| **Business cards** | https://cesar-agency.vercel.app/business-card.html (print in browser) |
 | [DAY-ONE-TUTORIAL.md](./DAY-ONE-TUTORIAL.md) | Markdown backup |
-| [FRIEND-SETUP-CHECKLIST.md](./FRIEND-SETUP-CHECKLIST.md) | Full checklist |
 
-Barber `/start` redirects to https://cesar-agency.vercel.app/start (`next.config.ts`). Ship barber repo to activate redirect on production.
-
-Repo: https://github.com/cesarblendss-ai/cesar-agency
+Repo: https://github.com/cesarblendss-ai/cesar-agency · Sprint log: `cesar-agency/SPRINT-LOG.md`
