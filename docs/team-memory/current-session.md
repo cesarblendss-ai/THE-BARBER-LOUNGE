@@ -1,28 +1,28 @@
-# Session Progress — Aug 10, 2026 (launch checklist)
+# Session Progress ? Aug 10, 2026 (launch checklist)
 
 ## Completed this session
 
 | Task | Result |
 |------|--------|
-| **Production deploy** | ? `dpl_91a1tGXTddPnan3885sJEy8mg1ss` — SITE_URL `thebarberlounge.com` (Aug 10, 2026) |
-| **Deploy URL** | https://the-barber-lounge-antioch.vercel.app (200 OK) · alias https://thebarberlounge.com |
+| **Production deploy** | ? `dpl_91a1tGXTddPnan3885sJEy8mg1ss` ? SITE_URL `thebarberlounge.com` (Aug 10, 2026) |
+| **Deploy URL** | https://the-barber-lounge-antioch.vercel.app (200 OK) ? alias https://thebarberlounge.com |
 | **site-content.json** | Already synced from `content.ts` (prior session) |
-| **Vercel env audit** | `ADMIN_UPLOAD_KEY`, `NTFY_TOPIC`, `TWILIO_*`, `OWNER_PHONE` — **all set on Production** |
+| **Vercel env audit** | `ADMIN_UPLOAD_KEY`, `NTFY_TOPIC`, `TWILIO_*`, `OWNER_PHONE` ? **all set on Production** |
 | **Custom domain (Vercel side)** | ? `thebarberlounge.com` + `www.thebarberlounge.com` added to project `the-barber-lounge` |
 
 **Deploy command used:** `npm run build` ? `npx vercel --prod --yes` (Aug 10, 2026 ~5:37 PM PT)  
 **Inspect:** https://vercel.com/cesarblendss-7234s-projects/the-barber-lounge/6e98ZSAxZT2VtqCAX144sUsLPPM7  
 **Verified 200:** `/shop-log`, `/admin/products`
 
-**Note:** `SITE_URL` synced — redeploy `dpl_91a1tGXTddPnan3885sJEy8mg1ss`. Verify `https://thebarberlounge.com/sitemap.xml` serves XML (not parking HTML) once DNS fully propagates.
+**Note:** `SITE_URL` synced ? redeploy `dpl_91a1tGXTddPnan3885sJEy8mg1ss`. Verify `https://thebarberlounge.com/sitemap.xml` serves XML (not parking HTML) once DNS fully propagates.
 
 ---
 
-**Operations runbooks:** `docs/operations/` — Booksy SOP, Friday retail reconcile, OneDrive migration guide (print for back room).
+**Operations runbooks:** `docs/operations/` ? Booksy SOP, Friday retail reconcile, OneDrive migration guide (print for back room).
 
 ---
 
-### 1. Vercel Postgres — connected; seed + deploy API fix
+### 1. Vercel Postgres ? connected; seed + deploy API fix
 
 Neon connected on Vercel (`TBLDB_*` vars). Schema push + seeds need **your terminal** (secrets not in pulled `.env.local`):
 
@@ -33,11 +33,11 @@ npx vercel env run -e production -- npm run db:seed
 npx vercel env run -e production -- npm run db:seed-products
 ```
 
-**Or:** next deploy runs `maybe-db-push.mjs` during build (schema only — seeds still manual once).
+**Or:** next deploy runs `maybe-db-push.mjs` during build (schema only ? seeds still manual once).
 
 Local scripts use `scripts/with-neon-env.mjs` for `npm run db:*`.
 
-### 2. Custom domain DNS — NameBright (URGENT)
+### 2. Custom domain DNS ? NameBright (URGENT)
 
 Smoke test: **`thebarberlounge.com` still shows HugeDomains parking**, not the barber site. Vercel app is live at **`the-barber-lounge-antioch.vercel.app`**.
 
@@ -51,27 +51,25 @@ Smoke test: **`thebarberlounge.com` still shows HugeDomains parking**, not the b
 
 Remove HugeDomains parking records. After propagate: `npx vercel domains verify thebarberlounge.com`
 
-### 3. Git + GitHub — Steps 1–3 complete
+### 3. Git + GitHub ? setup complete
 
-**Checklist:** [`docs/operations/CLICK-HERE-SETUP.md`](../operations/CLICK-HERE-SETUP.md) — Step **3 done** (Vercel Git connected to **`cesarblendss-ai/THE-BARBER-LOUNGE`**, branch **`main`**, connected 8/19/25).
+**Checklist:** [`docs/operations/CLICK-HERE-SETUP.md`](../operations/CLICK-HERE-SETUP.md) ? Steps **1?4 done**.
 
-- Git 2.55 + gh 2.97; **`gh auth login`** complete as **`cesarblendss-ai`**
+- Git 2.55 + gh 2.97; logged in as **`cesarblendss-ai`**
 - Remote: `https://github.com/cesarblendss-ai/the-barber-lounge.git`
-- **`main`** @ **`66a9008`** — local matches **`origin/main`** (push verified 2026-08-10)
+- **`main`** @ **`469e9d1`** ? smoke test pushed; Vercel auto-deploy triggered
+- **`ship.cmd`** / **`deploy.cmd`** ? use instead of `.\run.ps1` (Windows execution policy)
 
-**Next (Step 4 smoke test):**
+**Daily deploy:**
 
-```powershell
+```cmd
 cd C:\Users\Cesar\OneDrive\Desktop\the-barber-lounge
-ship.cmd test
+ship.cmd "Describe your change"
 ```
 
-**Full runbook:** `docs/operations/git-deploy-workflow.md`  
-**Daily deploy:** `ship.cmd "your message"` (wrapper avoids PowerShell execution policy; `run.ps1` still works with `-ExecutionPolicy Bypass`) (no manual `vercel --prod`)
+**Prod API check (Aug 8):** `/api/products?active=1` ? 8 products ? `/api/availability` ? 200 (`dpl_Dhnh3d7rf9c4fdEVEojc8LWK2BYk`)
 
-**Prod API check (Aug 8):** `/api/products?active=1` ? 8 products · `/api/availability` ? 200 (`dpl_Dhnh3d7rf9c4fdEVEojc8LWK2BYk`)
-
-### 4. Twilio SMS — Trust Hub KYC (error 20003)
+### 4. Twilio SMS ? Trust Hub KYC (error 20003)
 
 Env vars are on Vercel; SMS still blocked until Trust Hub approves. See **Twilio guidance** below.
 
@@ -86,7 +84,7 @@ Env vars are on Vercel; SMS still blocked until Trust Hub approves. See **Twilio
 1. Open [Primary Compliance Profile](https://console.twilio.com/us1/develop/trusthub/compliance-profiles/primary)
 2. **Legal business name:** `The Barber Lounge LLC` (exact match to SOS filing)
 3. **Business address:** `1518 A St, Antioch, CA 94509`
-4. **Registration ID — pick the correct type:**
+4. **Registration ID ? pick the correct type:**
 
 | What you have | Field to use | Value |
 |---------------|--------------|-------|
@@ -99,11 +97,11 @@ Env vars are on Vercel; SMS still blocked until Trust Hub approves. See **Twilio
 
 - **CA entity `B20250377078`** = proof the LLC exists in California (SOS)
 - **IRS EIN** = separate 9-digit number (XX-XXXXXXX) assigned by IRS for tax/banking
-- ZenBusiness typically obtains both when forming the LLC — check their portal before calling anyone
+- ZenBusiness typically obtains both when forming the LLC ? check their portal before calling anyone
 
 ### Sole proprietor path?
 
-**Not applicable** — The Barber Lounge is an **LLC**. Use the **Business** profile (not Sole Proprietor). If Twilio asks for business type, select LLC / Limited Liability Company.
+**Not applicable** ? The Barber Lounge is an **LLC**. Use the **Business** profile (not Sole Proprietor). If Twilio asks for business type, select LLC / Limited Liability Company.
 
 ### After Trust Hub approves
 
@@ -132,7 +130,7 @@ Stale gallery posters removed from live hero; homepage opens **charcoal black** 
 
 **Root cause:** No `DATABASE_URL` on Vercel ? appointment write to JSON fails (read-only FS) ? empty 500 ? client `json()` crash.
 
-**Fixed in code:** `appointments-store.ts`, `appointment-request/route.ts`, `BookingChatbot.tsx`, `fetch-json.ts` — returns JSON 503 + friendly message until Postgres connected.
+**Fixed in code:** `appointments-store.ts`, `appointment-request/route.ts`, `BookingChatbot.tsx`, `fetch-json.ts` ? returns JSON 503 + friendly message until Postgres connected.
 
 **Deployed** (Aug 10 ~5:37 PM PT) + Vercel Postgres (3-click) ? `db:push` ? `db:seed`.
 
@@ -140,7 +138,7 @@ Stale gallery posters removed from live hero; homepage opens **charcoal black** 
 
 ## Retail product tracker (Aug 10)
 
-Built Tier 0 MVP — see `docs/retail-tracking.md`
+Built Tier 0 MVP ? see `docs/retail-tracking.md`
 
 | Route | Purpose |
 |-------|---------|
@@ -148,9 +146,9 @@ Built Tier 0 MVP — see `docs/retail-tracking.md`
 | `/admin/products` | Inventory, sales, mark paid, weekly balance |
 | `POST /api/cabinet-event` | Door sensor webhook ? ntfy (Tier 1) |
 
-**Inventory seeded (Aug 10):** 8 products, 50 units — **$18.00 each** (`priceCents: 1800`) in `data/products.json`.
+**Inventory seeded (Aug 10):** 8 products, 50 units ? **$18.00 each** (`priceCents: 1800`) in `data/products.json`.
 
-**Live (Aug 10 deploy):** `/shop-log` (public product grid + Team log PIN gate), `/admin/products` — both 200 on prod.
+**Live (Aug 10 deploy):** `/shop-log` (public product grid + Team log PIN gate), `/admin/products` ? both 200 on prod.
 
 **Barber PIN:** Add `RETAIL_LOG_PIN` on Vercel (4-digit code) ? redeploy ? share with barbers only. Until set, Team log is open on prod. Dev default: `1847`.
 

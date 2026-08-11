@@ -47,15 +47,16 @@
 | Domain added to Vercel project | 2026-08-10 — DNS at NameBright pending |
 | Git + GitHub push | 2026-08-10 — `cesarblendss-ai/the-barber-lounge`, `main` @ `66a9008` synced |
 | Vercel Git auto-deploy | 2026-08-10 — connected `cesarblendss-ai/THE-BARBER-LOUNGE`, branch `main` |
+| Git deploy smoke test | 2026-08-10 — `ship.cmd test` → commit `469e9d1` pushed; Vercel Production deploy triggered |
+| PowerShell `run.ps1` blocked | 2026-08-10 — `ship.cmd` / `deploy.cmd` wrappers added (ExecutionPolicy bypass) |
 
 ---
 
 ## Next actions
 
-1. **Git deploy smoke test** — `.\run.ps1 ship test` (commit + push → Vercel auto-deploy)
-2. NameBright DNS for `thebarberlounge.com` (see `current-session.md`)
-3. Vercel Postgres: `db:push` + `db:seed` if not done
-4. Add `RETAIL_LOG_PIN` on Vercel Production
-5. **Phase 2:** Twilio Trust Hub KYC with EIN **41-3512174** (see `twilio-sms-status.md`)
+1. NameBright DNS for `thebarberlounge.com` (see `current-session.md`)
+2. Vercel Postgres: `db:push` + `db:seed` if not done
+3. Add `RETAIL_LOG_PIN` on Vercel Production
+4. **Phase 2:** Twilio Trust Hub KYC with EIN **41-3512174** (see `twilio-sms-status.md`)
 
 Detail runbook (optional): `docs/operations/git-deploy-workflow.md`
