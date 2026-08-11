@@ -30,13 +30,21 @@ function formatNotificationBody(appointment: Appointment): string {
 function formatNotificationTitle(appointment: Appointment): string {
   const guests =
     appointment.guestCount && appointment.guestCount > 1
-      ? ` — ${appointment.guestCount} guests`
+      ? ` - ${appointment.guestCount} guests`
       : "";
   return `New booking: ${appointment.name}${guests}`;
 }
 
 export function resolveNtfyTopic(): string | null {
   return process.env.NTFY_TOPIC?.trim() || null;
+}
+
+/** ntfy HTTP headers must be ByteString (Latin-1); em dashes in titles break fetch on Vercel. */
+function asciiHeader(value: string): string {
+  return value
+    .replace(/\u2014/g, "-")
+    .replace(/\u2013/g, "-")
+    .replace(/[^\x00-\xFF]/g, "?");
 }
 
 export async function sendNtfyPush(options: {
@@ -56,7 +64,7 @@ export async function sendNtfyPush(options: {
   try {
     const url = pushUrl || `https://ntfy.sh/${topic}`;
     const headers: Record<string, string> = {
-      Title: options.title,
+      Title: asciiHeader(options.title),
       Tags: options.tags ?? "barber",
       Priority: options.priority ?? "high",
       "Content-Type": "text/plain; charset=utf-8",
@@ -137,7 +145,7 @@ export async function notifyOwnerOfBooking(
 
 export async function sendTestBookingNotification(): Promise<PushNotificationResult> {
   return sendNtfyPush({
-    title: "TBL test — booking alert",
+    title: "TBL test - booking alert",
     body: [
       "Test booking: Notification Check",
       "Haircut",
