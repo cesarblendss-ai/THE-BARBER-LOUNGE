@@ -1,5 +1,6 @@
 "use client";
 
+import { track } from "@vercel/analytics";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import {
@@ -455,6 +456,7 @@ export function BookingChatbot() {
       setReceipt(data.receipt);
       setStep("done");
       setSelections((prev) => ({ ...prev, phone }));
+      track("booking_submitted", { service });
       const confirmation = "You're all set. Here's your confirmation.";
       addAssistantMessage(confirmation);
       setLiveAnnouncement(receiptAnnouncement(data.receipt));

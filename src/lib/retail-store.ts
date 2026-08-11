@@ -37,16 +37,7 @@ type RetailFile = {
 
 const DATA_PATH = path.join(process.cwd(), "data", "products.json");
 
-async function readStore(): Promise<RetailFile> {
-  if (isDatabaseConfigured()) {
-    try {
-      const fromDb = await dbLoadRetailStore();
-      if (fromDb) return fromDb;
-    } catch (error) {
-      console.error("[retail] db read failed, falling back to JSON", error);
-    }
-  }
-
+async function readJsonStore(): Promise<RetailFile> {
   try {
     const raw = await fs.readFile(DATA_PATH, "utf8");
     const parsed = JSON.parse(raw) as RetailFile;
@@ -57,6 +48,30 @@ async function readStore(): Promise<RetailFile> {
   } catch {
     return { products: [], sales: [] };
   }
+}
+
+async function readStore(): Promise<RetailFile> {
+  if (isDatabaseConfigured()) {
+    try {
+      const fromDb = await dbLoadRetailStore();
+      if (fromDb && fromDb.products.length > 0) return fromDb;
+
+      // Postgres connected but empty — lazy-seed from bundled JSON once
+      const jsonStore = await readJsonStore();
+      if (jsonStore.products.length > 0) {
+        for (const product of jsonStore.products) {
+          await dbUpsertProduct(product);
+        }
+        return jsonStore;
+      }
+
+      return fromDb ?? { products: [], sales: [] };
+    } catch (error) {
+      console.error("[retail] db read failed, falling back to JSON", error);
+    }
+  }
+
+  return readJsonStore();
 }
 
 async function writeStore(data: RetailFile): Promise<void> {
