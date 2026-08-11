@@ -68,8 +68,14 @@ function resolveSlotFromDate(dateStr: string, preferredTime: string): ParsedSlot
 }
 
 async function readStore(): Promise<AppointmentsFile> {
-  const fromDb = await dbLoadStore();
-  if (fromDb) return fromDb;
+  if (isDatabaseConfigured()) {
+    try {
+      const fromDb = await dbLoadStore();
+      if (fromDb) return fromDb;
+    } catch (error) {
+      console.error("[appointments] db read failed, falling back to JSON", error);
+    }
+  }
 
   try {
     const raw = await fs.readFile(DATA_PATH, "utf8");

@@ -4,7 +4,7 @@
 
 | Task | Result |
 |------|--------|
-| **Production deploy** | ✅ `dpl_6e98ZSAxZT2VtqCAX144sUsLPPM7` — 63 routes, build OK (Aug 10, 2026 ~5:37 PM PT) |
+| **Production deploy** | ✅ `dpl_91a1tGXTddPnan3885sJEy8mg1ss` — SITE_URL `thebarberlounge.com` (Aug 10, 2026) |
 | **Deploy URL** | https://the-barber-lounge-antioch.vercel.app (200 OK) · alias https://thebarberlounge.com |
 | **site-content.json** | Already synced from `content.ts` (prior session) |
 | **Vercel env audit** | `ADMIN_UPLOAD_KEY`, `NTFY_TOPIC`, `TWILIO_*`, `OWNER_PHONE` — **all set on Production** |
@@ -14,7 +14,7 @@
 **Inspect:** https://vercel.com/cesarblendss-7234s-projects/the-barber-lounge/6e98ZSAxZT2VtqCAX144sUsLPPM7  
 **Verified 200:** `/shop-log`, `/admin/products`
 
-**Note:** `SITE_URL` in code later set to `https://thebarberlounge.com` — one more deploy syncs sitemap/canonical JSON-LD to custom domain.
+**Note:** `SITE_URL` synced — redeploy `dpl_91a1tGXTddPnan3885sJEy8mg1ss`. Verify `https://thebarberlounge.com/sitemap.xml` serves XML (not parking HTML) once DNS fully propagates.
 
 ---
 
@@ -22,27 +22,21 @@
 
 ---
 
-### 1. Vercel Postgres — `DATABASE_URL` not connected
+### 1. Vercel Postgres — connected; seed + deploy API fix
 
-CLI cannot create Postgres (`vercel postgres` / `vercel storage` not available in CLI 58.x). No `DATABASE_URL` in `npx vercel env ls`.
+Neon connected on Vercel. If not done yet:
+```powershell
+npx vercel env pull .env.local
+npm run db:push
+npm run db:seed
+npm run db:seed-products
+```
 
-**3-click dashboard steps** (project: **`the-barber-lounge`**, team: `cesarblendss-7234s-projects`):
+[Prod smoke test](a85c9c60-eb03-4b62-a6c3-5683762957cc): `/api/products` + `/api/availability` → 500 until deploy ships DB→JSON fallback fix in `retail-store.ts`, `appointments-store.ts`, `db.ts`.
 
-1. https://vercel.com/cesarblendss-7234s-projects/the-barber-lounge/stores → **Create Database** → **Postgres**
-2. **Connect to Project** → select **`the-barber-lounge`** (auto-injects `DATABASE_URL`)
-3. Redeploy, then locally:
-   ```powershell
-   npx vercel env pull .env.local
-   npm run db:push
-   npm run db:seed
-   ```
+### 2. Custom domain DNS — NameBright (URGENT)
 
-Until then: site works; analytics + Postgres appointments use JSON fallback.
-
-### 2. Custom domain DNS — NameBright
-
-Domain registered at **NameBright** (nameservers: `nsg1.namebrightdns.com`, `nsg2.namebrightdns.com`).  
-`www` currently points to HugeDomains parking (`traff-https.hugedomains.com`).
+Smoke test: **`thebarberlounge.com` still shows HugeDomains parking**, not the barber site. Vercel app is live at **`the-barber-lounge-antioch.vercel.app`**.
 
 **At NameBright DNS, set:**
 
@@ -52,32 +46,29 @@ Domain registered at **NameBright** (nameservers: `nsg1.namebrightdns.com`, `nsg
 | **A** | `@` | `64.29.17.1` |
 | **CNAME** | `www` | `c3fb3b80101fec65.vercel-dns-017.com` |
 
-*(Alternative: single A `@` → `76.76.21.21`, or change nameservers to `ns1.vercel-dns.com` + `ns2.vercel-dns.com`.)*
+Remove HugeDomains parking records. After propagate: `npx vercel domains verify thebarberlounge.com`
 
-After DNS propagates:
-```powershell
-npx vercel domains verify thebarberlounge.com
-npx vercel domains verify www.thebarberlounge.com
-```
-Then update `SITE_URL` in `src/lib/constants.ts` → `https://thebarberlounge.com` and redeploy.
+### 3. Git + GitHub — local ready, push blocked on auth
 
-### 3. Git + GitHub — not installed
+- Git 2.55 + gh 2.97 installed via winget
+- Commits: **`0f7b621`** (initial 312 files) + **`pending`** (DB fallback, git deploy docs, `run.ps1 ship`)
+- Branch renamed locally to **`main`** (Vercel Production branch)
+- **Blocker:** `gh auth login` not completed — agent cannot auth interactively
 
-- `git` not on PATH; not found in `Program Files\Git`
-- `gh` CLI not installed
-- No `.git` directory yet (`.gitignore` exists)
+**Your turn (one-time, ~3 min):**
 
-**Install Git for Windows:** https://git-scm.com/download/win  
-Then:
 ```powershell
 cd C:\Users\Cesar\OneDrive\Desktop\the-barber-lounge
-git init
-git add .
-git commit -m "Barber Lounge — production-ready site"
-# Install gh: winget install GitHub.cli
-gh auth login
-gh repo create the-barber-lounge --private --source=. --push
+& "C:\Program Files\GitHub CLI\gh.exe" auth login
+# → GitHub.com → HTTPS → Login with a web browser
+
+& "C:\Program Files\GitHub CLI\gh.exe" repo create the-barber-lounge --private --source=. --remote=origin --push
 ```
+
+Then connect Vercel → [Settings → Git](https://vercel.com/cesarblendss-7234s-projects/the-barber-lounge/settings/git) → **Connect Git Repository** → `cesarblendss/the-barber-lounge` → Production branch **`main`**.
+
+**Full runbook:** `docs/operations/git-deploy-workflow.md`  
+**Daily deploy after setup:** `.\run.ps1 ship "your message"` (no manual `vercel --prod`)
 
 ### 4. Twilio SMS — Trust Hub KYC (error 20003)
 
@@ -170,7 +161,8 @@ Built Tier 0 MVP — see `docs/retail-tracking.md`
 
 ```powershell
 .\run.ps1 build
-.\run.ps1 deploy          # or: npx vercel --prod --yes
-npx vercel env ls         # audit env vars
+.\run.ps1 ship "message"   # git commit + push → Vercel auto-deploy (preferred)
+.\run.ps1 deploy           # emergency only: npx vercel --prod --yes
+npx vercel env ls          # audit env vars
 npx vercel domains verify thebarberlounge.com
 ```

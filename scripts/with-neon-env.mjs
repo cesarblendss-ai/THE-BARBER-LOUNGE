@@ -10,9 +10,9 @@ const content = readFileSync(envFile, "utf8");
 
 function readEnvValue(name) {
   const quoted = content.match(new RegExp(`^${name}="([^"]*)"`, "m"))?.[1];
-  if (quoted?.length) return quoted;
+  if (quoted?.length && quoted !== "[SENSITIVE]") return quoted;
   const unquoted = content.match(new RegExp(`^${name}=([^\\s#]+)`, "m"))?.[1];
-  return unquoted ?? "";
+  return unquoted && unquoted !== "[SENSITIVE]" ? unquoted : "";
 }
 
 const candidates = [

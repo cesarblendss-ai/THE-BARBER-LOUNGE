@@ -38,8 +38,14 @@ type RetailFile = {
 const DATA_PATH = path.join(process.cwd(), "data", "products.json");
 
 async function readStore(): Promise<RetailFile> {
-  const fromDb = await dbLoadRetailStore();
-  if (fromDb) return fromDb;
+  if (isDatabaseConfigured()) {
+    try {
+      const fromDb = await dbLoadRetailStore();
+      if (fromDb) return fromDb;
+    } catch (error) {
+      console.error("[retail] db read failed, falling back to JSON", error);
+    }
+  }
 
   try {
     const raw = await fs.readFile(DATA_PATH, "utf8");

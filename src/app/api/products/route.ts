@@ -16,9 +16,14 @@ function isAuthorized(request: NextRequest): boolean {
 }
 
 export async function GET(request: NextRequest) {
-  const activeOnly = request.nextUrl.searchParams.get("active") === "1";
-  const products = await listProducts(activeOnly);
-  return NextResponse.json({ products, pinRequired: isRetailLogPinRequired() });
+  try {
+    const activeOnly = request.nextUrl.searchParams.get("active") === "1";
+    const products = await listProducts(activeOnly);
+    return NextResponse.json({ products, pinRequired: isRetailLogPinRequired() });
+  } catch (error) {
+    console.error("[products] GET failed", error);
+    return NextResponse.json({ error: "Could not load products." }, { status: 500 });
+  }
 }
 
 export async function POST(request: NextRequest) {
