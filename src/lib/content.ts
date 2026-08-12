@@ -83,7 +83,6 @@ export type TeamMember = {
   name: string;
   /** Instagram username only — lowercase, no @, no spaces */
   handle: string | null;
-  bio: string;
 };
 
 export function instagramProfileUrl(handle: string): string {
@@ -91,51 +90,14 @@ export function instagramProfileUrl(handle: string): string {
 }
 
 export const ABOUT = {
-  hero: {
-    headline: "Built on Precision. Backed by Reputation.",
-    subheadline:
-      "A modern barbershop experience built on precision, attention to detail, and professional service. We specialize in clean, refined cuts for clients who appreciate quality, consistency, and a higher standard of grooming.",
-  },
-  story:
-    "The Barber Lounge started with a simple goal: bring Antioch a modern barbershop where every client gets the same standard of care — not just on the first visit, but every time they sit in the chair. We built a team of specialists in fades, tapers, and beard work who treat each appointment like their reputation depends on it. The shop has grown through word of mouth and repeat clients who value precision over shortcuts. What hasn't changed is the process: consultation first, detail throughout, and a clean finish you can count on.",
-  values: [
-    { title: "Precision over speed", body: "Every cut starts with a real consultation, not a guess." },
-    { title: "Consistency you can count on", body: "The same standard, cut after cut, chair after chair." },
-    { title: "Respect", body: "For your time, your style, and your standards." },
-  ],
   team: [
-    {
-      name: "Alexis Franco",
-      handle: "lexblendzz",
-      bio: "Fade and taper specialist — known for consistent, detail-driven cuts and long-term client relationships.",
-    },
-    {
-      name: "Braulio Gómez",
-      handle: "925.liocutz",
-      bio: "Mid fade and line-up expert — clients praise his sharp blends and reliable results visit after visit.",
-    },
-    {
-      name: "Cesar Silva",
-      handle: "cesarblends",
-      bio: "Blend and fade specialist focused on clean, modern finishes that hold up between appointments.",
-    },
-    {
-      name: "Kristian Guerra",
-      handle: "mr.icylinez",
-      bio: "Line-up and taper specialist with a sharp eye for crisp edges and polished detail work.",
-    },
-    {
-      name: "Jose Fuentes",
-      handle: "jfenz_",
-      bio: "Precision cutter for contemporary styles — thoughtful consultation and clean execution every chair.",
-    },
-    {
-      name: "Sebastian Guardado",
-      handle: "blendz_bysebas",
-      bio: "Professional, on-time service with strong hospitality — popular with kids and adults alike.",
-    },
+    { name: "Alexis Franco", handle: "lexblendzz" },
+    { name: "Braulio Gómez", handle: "925.liocutz" },
+    { name: "Cesar Silva", handle: "cesarblends" },
+    { name: "Kristian Guerra", handle: "mr.icylinez" },
+    { name: "Jose Fuentes", handle: "jfenz_" },
+    { name: "Sebastian Guardado", handle: "blendz_bysebas" },
   ] satisfies TeamMember[],
-  cta: { label: "Book With Your Barber", href: BOOKING_URL },
 };
 
 // ============================= SERVICES =============================

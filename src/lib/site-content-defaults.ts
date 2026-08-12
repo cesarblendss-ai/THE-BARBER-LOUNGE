@@ -1,4 +1,4 @@
-import { ABOUT, FAQ, HOME, HOURS, SERVICES, SITE as SITE_META } from "./content";
+import { ABOUT, BOOKING_URL, FAQ, HOME, HOURS, SERVICES, SITE as SITE_META } from "./content";
 import type { SiteContent } from "./site-content-types";
 
 /** Default editable site copy — seeded from content.ts so CMS and source stay in sync. */
@@ -38,33 +38,11 @@ export function getDefaultSiteContent(): SiteContent {
       finalCta: HOME.finalCta,
     },
     ABOUT: {
-      hero: {
-        sectionLabel: "The Barber Lounge",
-        headline: ABOUT.hero.headline,
-        subheadline: ABOUT.hero.subheadline,
-      },
-      story: {
-        sectionLabel: "Our Story",
-        heading: "Our Story",
-        body: ABOUT.story,
-      },
-      values: {
-        sectionLabel: "What We Stand For",
-        headline: "Our Values",
-        items: ABOUT.values,
-      },
       team: {
-        sectionLabel: "Antioch Barbers",
-        headline: "Meet the Team",
         members: ABOUT.team.map((member) => ({
           name: member.name,
           handle: member.handle,
-          bio: member.bio,
         })),
-      },
-      finalCta: {
-        headline: "Ready for your next cut?",
-        cta: ABOUT.cta,
       },
     },
     SERVICES: {
@@ -111,7 +89,7 @@ export function getDefaultSiteContent(): SiteContent {
         body: "Prefer to book directly?",
         bookOnlineLink: "Book online",
       },
-      cta: { label: "Book Your Appointment", href: ABOUT.cta.href },
+      cta: { label: "Book Your Appointment", href: BOOKING_URL },
     },
   };
 }

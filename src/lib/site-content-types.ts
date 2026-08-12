@@ -17,7 +17,6 @@ export type FeaturedService = {
 export type TeamMemberContent = {
   name: string;
   handle: string | null;
-  bio: string;
 };
 
 export type ServiceItem = {
@@ -86,29 +85,8 @@ export type SiteContent = {
     };
   };
   ABOUT: {
-    hero: {
-      sectionLabel: string;
-      headline: string;
-      subheadline: string;
-    };
-    story: {
-      sectionLabel: string;
-      heading: string;
-      body: string;
-    };
-    values: {
-      sectionLabel: string;
-      headline: string;
-      items: ValueProp[];
-    };
     team: {
-      sectionLabel: string;
-      headline: string;
       members: TeamMemberContent[];
-    };
-    finalCta: {
-      headline: string;
-      cta: CtaLink;
     };
   };
   SERVICES: {
