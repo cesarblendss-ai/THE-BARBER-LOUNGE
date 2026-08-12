@@ -11,7 +11,7 @@ import { Footer } from "@/components/Footer";
 import { BookingChatbot } from "@/components/BookingChatbot";
 import { EditModeRoot } from "@/components/EditModeRoot";
 import { StickyBookButton } from "@/components/StickyBookButton";
-import { EDIT_MODE_COOKIE } from "@/lib/admin-auth";
+import { EDIT_MODE_COOKIE, isAdminAuthenticated } from "@/lib/admin-auth";
 import { getSiteContent } from "@/lib/get-site-content";
 import { buildLocalBusinessJsonLd } from "@/lib/seo";
 import "./globals.css";
@@ -50,7 +50,9 @@ export default async function RootLayout({
   const jsonLd = buildLocalBusinessJsonLd();
   const content = await getSiteContent();
   const cookieStore = await cookies();
-  const editModeEnabled = cookieStore.get(EDIT_MODE_COOKIE)?.value === "1";
+  const adminAuthenticated = isAdminAuthenticated(cookieStore);
+  const editModeEnabled =
+    adminAuthenticated && cookieStore.get(EDIT_MODE_COOKIE)?.value === "1";
 
   return (
     <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
@@ -68,12 +70,12 @@ export default async function RootLayout({
         />
         <Suspense fallback={null}>
           <AnalyticsTracker />
-          <EditModeRoot cookieEnabled={editModeEnabled}>
+          <EditModeRoot cookieEnabled={editModeEnabled} adminAuthenticated={adminAuthenticated}>
             <Header labels={content.HEADER} />
             <main id="main-content" tabIndex={-1}>
               {children}
             </main>
-            <Footer content={content} />
+            <Footer content={content} adminAuthenticated={adminAuthenticated} />
             <StickyBookButton />
             <BookingChatbot />
           </EditModeRoot>

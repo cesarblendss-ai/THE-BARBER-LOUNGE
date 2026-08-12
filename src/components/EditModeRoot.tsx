@@ -11,26 +11,27 @@ import { readEditModeCookie } from "@/lib/edit-mode-client";
 
 type EditModeRootProps = {
   cookieEnabled: boolean;
+  adminAuthenticated: boolean;
   children: React.ReactNode;
 };
 
-export function EditModeRoot({ cookieEnabled, children }: EditModeRootProps) {
+export function EditModeRoot({ cookieEnabled, adminAuthenticated, children }: EditModeRootProps) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const queryEnabled = searchParams.get("edit") === "1";
   const [clientCookieEnabled, setClientCookieEnabled] = useState(false);
 
   useEffect(() => {
     setClientCookieEnabled(readEditModeCookie());
   }, [pathname, searchParams, cookieEnabled]);
 
-  const enabled = cookieEnabled || queryEnabled || clientCookieEnabled;
+  const enabled =
+    adminAuthenticated && (cookieEnabled || clientCookieEnabled);
 
   return (
     <EditModeProvider enabled={enabled}>
       <EditToastProvider>
-        <EditModeBanner />
-        <EditSiteTextButton />
+        {adminAuthenticated ? <EditModeBanner /> : null}
+        {adminAuthenticated ? <EditSiteTextButton /> : null}
         {children}
       </EditToastProvider>
     </EditModeProvider>

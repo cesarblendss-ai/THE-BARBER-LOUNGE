@@ -37,12 +37,19 @@ function mapAppointment(row: {
   };
 }
 
+function requirePrisma() {
+  const prisma = getPrisma();
+  if (!prisma) {
+    throw new Error("Database configured but Prisma client unavailable");
+  }
+  return prisma;
+}
+
 export async function dbLoadStore(): Promise<{
   appointments: Appointment[];
   blockedSlots: BlockedSlot[];
-} | null> {
-  const prisma = getPrisma();
-  if (!prisma) return null;
+}> {
+  const prisma = requirePrisma();
 
   const [appointments, blockedSlots] = await Promise.all([
     prisma.appointment.findMany({ orderBy: { createdAt: "desc" } }),
@@ -59,9 +66,45 @@ export async function dbLoadStore(): Promise<{
   };
 }
 
+export async function dbMigrateStore(data: {
+  appointments: Appointment[];
+  blockedSlots: BlockedSlot[];
+}): Promise<void> {
+  const prisma = requirePrisma();
+
+  for (const appointment of data.appointments) {
+    await prisma.appointment.upsert({
+      where: { id: appointment.id },
+      create: {
+        id: appointment.id,
+        confirmationCode: appointment.confirmationCode,
+        service: appointment.service,
+        preferredDay: appointment.preferredDay,
+        preferredTime: appointment.preferredTime,
+        slotDate: appointment.slotDate,
+        slotHour: appointment.slotHour,
+        name: appointment.name,
+        phone: appointment.phone,
+        guestCount: appointment.guestCount,
+        status: appointment.status,
+        createdAt: new Date(appointment.createdAt),
+        updatedAt: new Date(appointment.updatedAt),
+      },
+      update: {},
+    });
+  }
+
+  for (const slot of data.blockedSlots) {
+    await prisma.blockedSlot.upsert({
+      where: { date_hour: { date: slot.date, hour: slot.hour } },
+      create: { date: slot.date, hour: slot.hour, reason: slot.reason },
+      update: {},
+    });
+  }
+}
+
 export async function dbInsertAppointment(appointment: Appointment): Promise<void> {
-  const prisma = getPrisma();
-  if (!prisma) return;
+  const prisma = requirePrisma();
 
   await prisma.appointment.create({
     data: {
@@ -87,8 +130,7 @@ export async function dbUpdateAppointmentStatus(
   status: AppointmentStatus,
   updatedAt: string,
 ): Promise<Appointment | null> {
-  const prisma = getPrisma();
-  if (!prisma) return null;
+  const prisma = requirePrisma();
 
   try {
     const row = await prisma.appointment.update({
@@ -106,8 +148,7 @@ export async function dbToggleBlockedSlot(
   hour: number,
   reason?: string,
 ): Promise<{ blocked: boolean }> {
-  const prisma = getPrisma();
-  if (!prisma) return { blocked: false };
+  const prisma = requirePrisma();
 
   const existing = await prisma.blockedSlot.findUnique({
     where: { date_hour: { date, hour } },
@@ -123,8 +164,7 @@ export async function dbToggleBlockedSlot(
 }
 
 export async function dbGetAppointmentByCode(code: string): Promise<Appointment | null> {
-  const prisma = getPrisma();
-  if (!prisma) return null;
+  const prisma = requirePrisma();
 
   const row = await prisma.appointment.findUnique({ where: { confirmationCode: code } });
   return row ? mapAppointment(row) : null;

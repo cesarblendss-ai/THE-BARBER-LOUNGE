@@ -108,10 +108,10 @@ function BookingFab({
         type="button"
         onClick={onOpen}
         data-analytics-label="Booking chat FAB"
-        className="booking-fab-pulse relative flex h-14 w-14 items-center justify-center rounded-full border-2 border-brass/80 bg-charcoal text-brass shadow-lg transition-transform hover:scale-105 hover:bg-charcoal/95 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass focus-visible:ring-offset-2 focus-visible:ring-offset-bone"
+        className="booking-fab-pulse relative flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-full border-2 border-brass/80 bg-charcoal text-brass shadow-lg transition-transform hover:scale-105 hover:bg-charcoal/95 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass focus-visible:ring-offset-2 focus-visible:ring-offset-bone"
         aria-label="Open booking assistant"
       >
-        <ChatBubbleIcon className="h-6 w-6" />
+        <ChatBubbleIcon className="h-8 w-8" />
         <span
           className="absolute -right-0.5 -top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-burgundy text-[10px] font-bold text-bone ring-2 ring-bone"
           aria-hidden
@@ -167,7 +167,7 @@ function ChipButton({
       onClick={onClick}
       disabled={disabled}
       data-analytics-label={analyticsLabel}
-      className={`min-h-[44px] rounded-full border px-4 py-2.5 text-sm font-medium transition-all active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-40 ${
+      className={`min-h-[48px] rounded-full border px-4 py-3 text-sm font-medium transition-all active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-40 ${
         selected
           ? "border-brass bg-brass text-bone shadow-sm"
           : "border-brass/40 bg-bone text-charcoal hover:border-brass hover:bg-brass/10"
@@ -515,8 +515,8 @@ export function BookingChatbot() {
       {open && (
         <div
           ref={dialogRef}
-          className="fixed bottom-20 left-1/2 z-50 flex w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 flex-col overflow-hidden rounded-2xl border border-charcoal/10 bg-bone shadow-2xl md:bottom-6 md:left-auto md:right-6 md:w-[380px] md:max-w-[380px] md:translate-x-0"
-          style={{ maxHeight: "min(32rem, calc(100dvh - 6rem))" }}
+          className="fixed bottom-24 left-1/2 z-50 flex w-[calc(100%-1.5rem)] max-w-md -translate-x-1/2 flex-col overflow-hidden rounded-2xl border border-charcoal/10 bg-bone shadow-2xl md:bottom-6 md:left-auto md:right-6 md:w-[420px] md:max-w-[420px] md:translate-x-0"
+          style={{ maxHeight: "min(40rem, calc(100dvh - 5rem))" }}
           role="dialog"
           aria-modal="true"
           aria-labelledby="booking-chat-title"
@@ -531,10 +531,10 @@ export function BookingChatbot() {
             <button
               type="button"
               onClick={handleClose}
-              className="rounded-full p-1.5 text-bone/70 transition-colors hover:bg-bone/10 hover:text-bone"
+              className="rounded-full p-2 text-bone/70 transition-colors hover:bg-bone/10 hover:text-bone"
               aria-label="Close booking assistant"
             >
-              <CloseIcon className="h-5 w-5" />
+              <CloseIcon className="h-6 w-6" />
             </button>
           </header>
 
@@ -677,10 +677,10 @@ export function BookingChatbot() {
                 <button
                   type="submit"
                   disabled={submitting || !phoneInput.trim()}
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-charcoal text-bone transition-colors hover:bg-charcoal/90 disabled:opacity-40"
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-charcoal text-bone transition-colors hover:bg-charcoal/90 disabled:opacity-40"
                   aria-label="Submit phone number"
                 >
-                  <SendIcon className="h-4 w-4" />
+                  <SendIcon className="h-5 w-5" />
                 </button>
               </div>
             </form>

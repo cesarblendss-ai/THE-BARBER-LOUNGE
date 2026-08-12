@@ -11,6 +11,7 @@ import {
   dbGetAppointmentByCode,
   dbInsertAppointment,
   dbLoadStore,
+  dbMigrateStore,
   dbToggleBlockedSlot,
   dbUpdateAppointmentStatus,
 } from "@/lib/appointments-db";
@@ -67,16 +68,7 @@ function resolveSlotFromDate(dateStr: string, preferredTime: string): ParsedSlot
   };
 }
 
-async function readStore(): Promise<AppointmentsFile> {
-  if (isDatabaseConfigured()) {
-    try {
-      const fromDb = await dbLoadStore();
-      if (fromDb) return fromDb;
-    } catch (error) {
-      console.error("[appointments] db read failed, falling back to JSON", error);
-    }
-  }
-
+async function readJsonStore(): Promise<AppointmentsFile> {
   try {
     const raw = await fs.readFile(DATA_PATH, "utf8");
     const parsed = JSON.parse(raw) as AppointmentsFile;
@@ -89,7 +81,31 @@ async function readStore(): Promise<AppointmentsFile> {
   }
 }
 
+async function readStore(): Promise<AppointmentsFile> {
+  if (isDatabaseConfigured()) {
+    const fromDb = await dbLoadStore();
+
+    if (fromDb.appointments.length === 0 && fromDb.blockedSlots.length === 0) {
+      const fromJson = await readJsonStore();
+      if (fromJson.appointments.length > 0 || fromJson.blockedSlots.length > 0) {
+        await dbMigrateStore(fromJson);
+        return fromJson;
+      }
+    }
+
+    return fromDb;
+  }
+
+  return readJsonStore();
+}
+
 async function writeStore(data: AppointmentsFile): Promise<void> {
+  if (isDatabaseConfigured()) {
+    throw new Error(
+      "Appointments cannot be saved to JSON when DATABASE_URL is set. Use Postgres persistence.",
+    );
+  }
+
   await fs.mkdir(path.dirname(DATA_PATH), { recursive: true });
   const tempPath = `${DATA_PATH}.tmp`;
   await fs.writeFile(tempPath, JSON.stringify(data, null, 2), "utf8");

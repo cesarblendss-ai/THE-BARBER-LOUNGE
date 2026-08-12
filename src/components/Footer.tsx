@@ -9,9 +9,10 @@ import { PinIcon } from "./icons";
 
 type FooterProps = {
   content: SiteContent;
+  adminAuthenticated?: boolean;
 };
 
-export function Footer({ content }: FooterProps) {
+export function Footer({ content, adminAuthenticated = false }: FooterProps) {
   const { SITE: site, HOURS, FOOTER } = content;
 
   return (
@@ -138,27 +139,31 @@ export function Footer({ content }: FooterProps) {
           <EditableText path="FOOTER.copyright" defaultValue={FOOTER.copyright} as="span" className="text-bone/60" />
         </p>
         <p className="mt-3 flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
-          <Link
-            href="/admin/edit"
-            className="text-sm font-medium text-brass underline-offset-2 hover:underline"
-          >
-            <EditableText path="FOOTER.editSiteText" defaultValue={FOOTER.editSiteText} as="span" />
-          </Link>
-          <span className="text-bone/30" aria-hidden="true">
-            ·
-          </span>
-          <Link href="/admin/hero" className="text-bone/50 hover:text-brass">
-            <EditableText path="FOOTER.updateHeroVideos" defaultValue={FOOTER.updateHeroVideos} as="span" />
-          </Link>
-          <span className="text-bone/30" aria-hidden="true">
-            ·
-          </span>
-          <Link href="/admin/gallery" className="text-bone/50 hover:text-brass">
-            <EditableText path="FOOTER.manageGallery" defaultValue={FOOTER.manageGallery} as="span" />
-          </Link>
-          <span className="text-bone/30" aria-hidden="true">
-            ·
-          </span>
+          {adminAuthenticated ? (
+            <>
+              <Link
+                href="/admin/edit"
+                className="text-sm font-medium text-brass underline-offset-2 hover:underline"
+              >
+                <EditableText path="FOOTER.editSiteText" defaultValue={FOOTER.editSiteText} as="span" />
+              </Link>
+              <span className="text-bone/30" aria-hidden="true">
+                ·
+              </span>
+              <Link href="/admin/hero" className="text-bone/50 hover:text-brass">
+                <EditableText path="FOOTER.updateHeroVideos" defaultValue={FOOTER.updateHeroVideos} as="span" />
+              </Link>
+              <span className="text-bone/30" aria-hidden="true">
+                ·
+              </span>
+              <Link href="/admin/gallery" className="text-bone/50 hover:text-brass">
+                <EditableText path="FOOTER.manageGallery" defaultValue={FOOTER.manageGallery} as="span" />
+              </Link>
+              <span className="text-bone/30" aria-hidden="true">
+                ·
+              </span>
+            </>
+          ) : null}
           <Link href="/shop-log" className="text-bone/50 hover:text-brass">
             Log product
           </Link>

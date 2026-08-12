@@ -58,7 +58,9 @@ export function AdminAppointmentsClient({ authKey }: { authKey?: string }) {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`/api/appointments${query}&date=${date}`.replace("?&", "?"));
+      const res = await fetch(`/api/appointments${query}&date=${date}`.replace("?&", "?"), {
+        credentials: "same-origin",
+      });
       if (!res.ok) {
         const body = (await res.json().catch(() => null)) as { error?: string } | null;
         if (res.status === 401) {
@@ -86,6 +88,7 @@ export function AdminAppointmentsClient({ authKey }: { authKey?: string }) {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
+      credentials: "same-origin",
     });
     if (!res.ok) throw new Error("Action failed.");
     await load();
