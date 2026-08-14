@@ -93,9 +93,8 @@ export const ABOUT = {
   team: [
     { name: "Alexis Franco", handle: "lexblendzz" },
     { name: "Braulio Gómez", handle: "925.liocutz" },
-    { name: "Cesar Silva", handle: "cesarblends" },
+    { name: "Cesar Silva", handle: "cesarblendss" },
     { name: "Kristian Guerra", handle: "mr.icylinez" },
-    { name: "Jose Fuentes", handle: "jfenz_" },
     { name: "Sebastian Guardado", handle: "blendz_bysebas" },
   ] satisfies TeamMember[],
 };

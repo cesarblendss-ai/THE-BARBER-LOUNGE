@@ -48,9 +48,8 @@
 |------|-----------|
 | Alexis Franco | `lexblendzz` |
 | Braulio Gómez | `925.liocutz` |
-| Cesar Silva | `cesarblends` |
+| Cesar Silva | `cesarblendss` |
 | Kristian Guerra | `mr.icylinez` |
-| Jose Fuentes | `jfenz_` |
 | Sebastian Guardado | `blendz_bysebas` |
 
 Helper: `instagramProfileUrl()` in `src/lib/content.ts`.

@@ -4,7 +4,6 @@ export const RETAIL_BARBERS = [
   "Braulio Gómez",
   "Cesar Silva",
   "Kristian Guerra",
-  "Jose Fuentes",
   "Sebastian Guardado",
 ] as const;
 
