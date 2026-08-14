@@ -315,24 +315,8 @@ export function GalleryUploadFooter() {
           Hero videos admin
         </Link>
         {" · "}
-        <Link href="/admin/appointments" className="text-brass hover:underline">
-          Appointments
-        </Link>
-        {" · "}
-        <Link href="/admin/products" className="text-brass hover:underline">
-          Retail products
-        </Link>
-        {" · "}
-        <Link href="/admin/notifications" className="text-brass hover:underline">
-          Notifications
-        </Link>
-        {" · "}
         <Link href="/admin/edit" className="text-brass hover:underline">
           Edit site text
-        </Link>
-        {" · "}
-        <Link href="/admin/analytics" className="text-brass hover:underline">
-          Analytics
         </Link>
         {" · "}
         <Link href="/" className="text-brass hover:underline">

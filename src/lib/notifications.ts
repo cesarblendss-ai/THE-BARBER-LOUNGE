@@ -132,7 +132,7 @@ export async function notifyOwnerOfBooking(
     body,
     tags: "barber,appointment",
     priority: "high",
-    click: `${resolveSiteUrl()}/admin/appointments`,
+    click: `${resolveSiteUrl()}/book`,
   });
 
   if (!push.configured) {
@@ -157,7 +157,7 @@ export async function sendTestBookingNotification(): Promise<PushNotificationRes
     ].join("\n"),
     tags: "barber,test",
     priority: "high",
-    click: `${resolveSiteUrl()}/admin/notifications`,
+    click: resolveSiteUrl(),
   });
 }
 

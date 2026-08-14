@@ -78,7 +78,7 @@ export function formatOwnerReceiptSms(receipt: SmsReceipt): string {
     `NEW BOOKING — ${receipt.confirmationCode}`,
     `${receipt.name} · ${phoneDisplay}`,
     serviceLine,
-    "Enter in Booksy → /admin/appointments",
+    "Enter in Booksy app (booking details in Cesars Hub)",
   ].join("\n");
 }
 
