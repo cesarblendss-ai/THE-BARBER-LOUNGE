@@ -4,7 +4,8 @@ import { useCallback, useState } from "react";
 import Image from "next/image";
 
 import { getBooksyBookingUrl } from "@/lib/booksy";
-import { GOOGLE_REVIEW_URL, SITE } from "@/lib/content";
+import { SITE } from "@/lib/content";
+import { REVIEW_LANDING_PATH } from "@/lib/reviews";
 import { LOGO } from "@/lib/constants";
 
 export type ReceiptData = {
@@ -160,16 +161,12 @@ export function BookingReceipt({ receipt }: { receipt: ReceiptData }) {
           >
             Refer a friend →
           </a>
-          {GOOGLE_REVIEW_URL ? (
-            <a
-              href={GOOGLE_REVIEW_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[11px] text-brass underline-offset-2 hover:underline"
-            >
-              Leave us a Google review
-            </a>
-          ) : null}
+          <a
+            href={REVIEW_LANDING_PATH}
+            className="mt-1 rounded-full border border-brass/30 bg-bone px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-brass transition-colors hover:border-brass hover:bg-brass/5"
+          >
+            Leave a Google review
+          </a>
         </div>
       </div>
     </div>

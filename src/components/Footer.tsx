@@ -142,8 +142,17 @@ export function Footer({ content, adminAuthenticated = false }: FooterProps) {
           {adminAuthenticated ? (
             <>
               <Link
-                href="/admin/edit"
+                href="/admin"
                 className="text-sm font-medium text-brass underline-offset-2 hover:underline"
+              >
+                Staff hub
+              </Link>
+              <span className="text-bone/30" aria-hidden="true">
+                ·
+              </span>
+              <Link
+                href="/admin/edit"
+                className="text-bone/50 hover:text-brass"
               >
                 <EditableText path="FOOTER.editSiteText" defaultValue={FOOTER.editSiteText} as="span" />
               </Link>

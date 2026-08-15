@@ -5,9 +5,23 @@ import { SITE_URL } from "./constants";
 export const BOOKING_URL =
   "https://booksy.com/en-us/1180862_the-barber-lounge_barber-shop_103886_antioch";
 
-/** Paste "Write a review" link from Google Business Profile → Share → Ask for reviews */
+/**
+ * Google review link — Cesar: paste your GBP "Ask for reviews" URL here.
+ *
+ * In Google Business Profile: Home → Ask for reviews → Share review form → Copy link.
+ * Common formats:
+ *   https://g.page/r/YOUR_SHORT_CODE/review
+ *   https://search.google.com/local/writereview?placeid=ChIJ...
+ *
+ * Optional: set GOOGLE_PLACE_ID below and leave GOOGLE_REVIEW_URL empty to auto-build
+ * the writereview URL from Place ID (find Place ID in GBP or Google Maps share link).
+ */
+export const GOOGLE_PLACE_ID = "";
+
 export const GOOGLE_REVIEW_URL =
-  "https://www.google.com/maps/search/?api=1&query=The+Barber+Lounge+1518+A+St+Antioch+CA";
+  GOOGLE_PLACE_ID.trim().length > 0
+    ? `https://search.google.com/local/writereview?placeid=${GOOGLE_PLACE_ID.trim()}`
+    : "https://g.page/r/REPLACE_WITH_GBP_REVIEW_LINK/review";
 
 export const SITE = {
   name: "The Barber Lounge",

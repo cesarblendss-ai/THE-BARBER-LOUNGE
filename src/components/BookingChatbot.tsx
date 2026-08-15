@@ -79,7 +79,7 @@ function BookingFab({
 }) {
   return (
     <div
-      className="fixed bottom-[5.75rem] right-4 z-50 flex flex-col items-end gap-2 md:bottom-6"
+      className="fixed bottom-[5.75rem] right-4 z-40 hidden flex-col items-end gap-2 md:flex md:bottom-6"
       style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
     >
       {showTeaser && (

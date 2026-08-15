@@ -7,6 +7,7 @@ import { HeroVideoGrid } from "@/components/HeroVideoGrid";
 import { SectionLabel } from "@/components/SectionLabel";
 import { ServiceCard } from "@/components/ServiceCard";
 import { TestimonialCarousel } from "@/components/TestimonialCarousel";
+import { LeaveReviewSection } from "@/components/LeaveReviewSection";
 import { StarIcon } from "@/components/icons";
 import { SITE, TESTIMONIALS } from "@/lib/content";
 import { LOGO } from "@/lib/constants";
@@ -56,9 +57,10 @@ export default async function HomePage() {
         videos={heroVideos}
         ctaHref={hero.ctaPrimary.href}
         ctaLabel={hero.ctaPrimary.label}
+        headline={hero.headline}
       />
 
-      <section className="bg-bone px-4 py-16 sm:px-6 sm:py-24">
+      <section className="hidden bg-bone px-4 py-16 md:block sm:px-6 sm:py-24">
         <div className="mx-auto max-w-3xl text-center">
           <div className="mx-auto mb-6 flex justify-center">
             <Image
@@ -94,6 +96,9 @@ export default async function HomePage() {
                 defaultValue={hero.ctaPrimary.label}
                 as="span"
               />
+            </Button>
+            <Button href={`tel:${SITE.phoneTel}`} variant="outline" size="lg" analyticsLabel="Call Now (hero section)">
+              Call {SITE.phone}
             </Button>
             <Button href={hero.ctaSecondary.href} variant="ghost" external>
               <EditableText
@@ -254,6 +259,8 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      <LeaveReviewSection />
 
       <section className="bg-bone px-4 py-16 sm:px-6 sm:py-20" aria-labelledby="areas-heading">
         <div className="mx-auto max-w-7xl">

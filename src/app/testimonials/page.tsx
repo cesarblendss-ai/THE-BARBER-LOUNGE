@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Button } from "@/components/Button";
 import { SectionLabel } from "@/components/SectionLabel";
 import { StarIcon } from "@/components/icons";
-import { TESTIMONIALS, GOOGLE_REVIEW_URL } from "@/lib/content";
+import { TESTIMONIALS } from "@/lib/content";
+import { REVIEW_LANDING_PATH } from "@/lib/reviews";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -64,11 +65,9 @@ export default function TestimonialsPage() {
             <Button href={cta.href} external size="lg">
               {cta.label}
             </Button>
-            {GOOGLE_REVIEW_URL ? (
-              <Button href={GOOGLE_REVIEW_URL} external variant="outline">
-                Leave a Google Review
-              </Button>
-            ) : null}
+            <Button href={REVIEW_LANDING_PATH} variant="outline">
+              Leave a Google Review
+            </Button>
           </div>
         </div>
       </section>

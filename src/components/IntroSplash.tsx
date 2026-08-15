@@ -17,7 +17,9 @@ export function IntroSplash() {
 
   useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reducedMotion || sessionStorage.getItem(INTRO_SEEN_KEY)) {
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
+    // Skip splash on mobile — most IG/Google traffic; blocks tap-to-call/book for ~2s.
+    if (reducedMotion || isMobile || sessionStorage.getItem(INTRO_SEEN_KEY)) {
       setPhase("done");
       return;
     }

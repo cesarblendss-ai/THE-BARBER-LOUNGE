@@ -77,6 +77,7 @@ Search the codebase for these markers:
 | `SITE.email` | `src/lib/content.ts` | Real email address |
 | `SITE_URL` | `src/lib/constants.ts` | Production domain |
 | `GEO` | `src/lib/constants.ts` | Exact lat/lng coordinates |
+| `GOOGLE_REVIEW_URL` / `GOOGLE_PLACE_ID` | `src/lib/content.ts` | GBP “Ask for reviews” link or Place ID |
 | `LOGO` | `public/logo.png` | Shop logo (replace file; path in `src/lib/constants.ts`) |
 
 ## Deploy on Vercel

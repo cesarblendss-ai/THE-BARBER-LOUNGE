@@ -84,17 +84,35 @@ export function Header({ labels }: HeaderProps) {
           </Button>
         </div>
 
-        <button
-          ref={menuButtonRef}
-          type="button"
-          className="rounded-full p-2 text-charcoal lg:hidden"
-          aria-expanded={open}
-          aria-controls="mobile-nav"
-          aria-label={open ? "Close menu" : "Open menu"}
-          onClick={() => setOpen(!open)}
-        >
-          {open ? <CloseIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
-        </button>
+        <div className="flex items-center gap-2 lg:hidden">
+          <a
+            href={`tel:${SITE.phoneTel}`}
+            data-analytics-label="Call Now (mobile header)"
+            className="rounded-full border border-brass px-3 py-2 text-xs font-semibold uppercase tracking-wide text-brass-dark"
+          >
+            Call
+          </a>
+          <a
+            href={BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-analytics-label="Book Now (mobile header)"
+            className="rounded-full bg-brass px-3 py-2 text-xs font-semibold uppercase tracking-wide text-bone"
+          >
+            Book
+          </a>
+          <button
+            ref={menuButtonRef}
+            type="button"
+            className="rounded-full p-2 text-charcoal"
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            aria-label={open ? "Close menu" : "Open menu"}
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <CloseIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
+          </button>
+        </div>
       </div>
 
       {open && (
