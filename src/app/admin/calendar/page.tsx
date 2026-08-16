@@ -31,13 +31,13 @@ export default async function AdminCalendarPage({ searchParams }: AdminCalendarP
     <section className="bg-bone px-4 pb-16 pt-28 sm:px-6 sm:pt-32">
       <div className="mx-auto max-w-3xl">
         <div className="text-center">
-          <SectionLabel>Admin</SectionLabel>
+          <SectionLabel>Cesar’s Hub</SectionLabel>
           <h1 className="mt-3 font-serif text-4xl font-semibold text-charcoal sm:text-5xl">
             Set this week
           </h1>
           <p className="mt-4 text-lg text-charcoal/70">
-            Open, closed, notes, and blocked slots for the floor. This shows on the Staff Hub — it
-            does not change Booksy.
+            Open, closed, notes, and blocked slots for the floor. This shows on Cesar’s Hub on The
+            Barber Lounge production site — it does not change Booksy.
           </p>
         </div>
 

@@ -56,8 +56,8 @@ export function StaffWeekCalendar({ view, showEditLink = true }: StaffWeekCalend
           </h2>
           <p className="mt-1 text-sm text-charcoal/60">
             {saved
-              ? "Shop schedule Cesar posted for the team."
-              : "Default hours — Cesar has not posted this week yet."}
+              ? "Shop schedule posted for the floor on Cesar’s Hub."
+              : "Default hours — this week has not been posted on Cesar’s Hub yet."}
           </p>
         </div>
         {showEditLink ? (

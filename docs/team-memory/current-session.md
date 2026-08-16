@@ -1,19 +1,27 @@
-# Session Progress — Aug 16, 2026 (Staff Hub week calendar)
+# Session Progress — Aug 16, 2026 (Cesar’s Hub week calendar)
+
+**Where this lives:** Cesar’s Hub on **The Barber Lounge production** — not a separate app.
+
+| Surface | Production URL |
+|---------|----------------|
+| Cesar’s Hub (floor) | https://the-barber-lounge.vercel.app/admin |
+| Set this week | https://the-barber-lounge.vercel.app/admin/calendar |
+| Alias | https://the-barber-lounge-antioch.vercel.app/admin |
 
 ## Completed this session
 
 | Task | Result |
 |------|--------|
-| **Staff Hub week calendar MVP** | `/admin` shows this week; Cesar sets it at `/admin/calendar` |
+| **Cesar’s Hub week calendar MVP** | Shows on production hub `/admin`; Cesar sets it at `/admin/calendar` |
 | **Persistence** | Postgres `ShopWeek` when `DATABASE_URL` / `TBLDB_*` is set; otherwise `data/shop-week.json` |
 | **Auth** | GET public for the floor; PUT/POST require `ADMIN_UPLOAD_KEY` cookie or `x-admin-key` |
 
-**Cesar clicks (production):**
+**Cesar clicks (production Barber Lounge):**
 
-1. Open `/admin/calendar` (or Staff Hub → Set this week).
-2. Enter admin key if prompted (same `ADMIN_UPLOAD_KEY` already on Vercel Production — do not create a new var unless that one is missing).
+1. Open **Cesar’s Hub**: https://the-barber-lounge.vercel.app/admin (or the Antioch alias).
+2. Tap **Set this week** (or go to `/admin/calendar`). Enter admin key if prompted — same `ADMIN_UPLOAD_KEY` already on Vercel Production.
 3. Mark each day open/closed, add notes / blocked slots, **Save this week**.
-4. Confirm `/admin` shows the week.
+4. Confirm the week on Cesar’s Hub (`/admin`) — that is what the floor sees.
 5. If save returns 503: Vercel → Environment Variables → Production → confirm `DATABASE_URL` or `TBLDB_*` is set, then redeploy so `prisma db push` creates the `ShopWeek` table.
 
 JSON on Vercel is ephemeral. Team-memory (2026-08-11) recorded Neon `TBLDB_*` on Production — next deploy should persist this calendar in Postgres.
