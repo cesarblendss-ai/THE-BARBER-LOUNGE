@@ -1,5 +1,4 @@
 import { BOOKING_URL, SITE } from "@/lib/content";
-import { PhoneIcon } from "./icons";
 
 export function StickyBookButton() {
   return (
@@ -12,19 +11,19 @@ export function StickyBookButton() {
           href={`tel:${SITE.phoneTel}`}
           aria-label={`Call The Barber Lounge at ${SITE.phone}`}
           data-analytics-label="Call Now (sticky)"
-          className="flex shrink-0 items-center justify-center rounded-full border border-brass/35 px-4 py-3.5 text-brass transition-colors hover:border-brass hover:bg-brass/10"
+          className="flex min-h-12 flex-1 items-center justify-center rounded-full border border-brass/35 px-3 py-3.5 text-center text-sm font-semibold uppercase tracking-wider text-brass transition-colors hover:border-brass hover:bg-brass/10"
         >
-          <PhoneIcon className="h-5 w-5" />
+          Call {SITE.phone}
         </a>
         <a
           href={BOOKING_URL}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Book an appointment online"
-          data-analytics-label="Book Appointment (sticky)"
-          className="flex flex-1 items-center justify-center rounded-full bg-brass px-4 py-3.5 text-sm font-semibold uppercase tracking-wider text-bone transition-colors hover:bg-brass/90"
+          data-analytics-label="Book Now (sticky)"
+          className="flex min-h-12 flex-1 items-center justify-center rounded-full bg-brass px-3 py-3.5 text-sm font-semibold uppercase tracking-wider text-bone transition-colors hover:bg-brass/90"
         >
-          Book Appointment
+          Book Now
         </a>
       </div>
     </nav>

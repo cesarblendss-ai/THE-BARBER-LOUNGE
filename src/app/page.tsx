@@ -58,8 +58,8 @@ export default async function HomePage() {
       <HeroVideoGrid
         videos={heroVideos}
         ctaHref={hero.ctaPrimary.href}
-        ctaLabel={hero.ctaPrimary.label}
-        headline={hero.headline}
+        ctaLabel="Book Now"
+        headline="Sharp Cuts. Zero Compromise."
       />
 
       <section className="hidden bg-bone px-4 py-16 md:block sm:px-6 sm:py-24">
@@ -101,13 +101,6 @@ export default async function HomePage() {
             </Button>
             <Button href={`tel:${SITE.phoneTel}`} variant="outline" size="lg" analyticsLabel="Call Now (hero section)">
               Call {SITE.phone}
-            </Button>
-            <Button href={hero.ctaSecondary.href} variant="ghost" external>
-              <EditableText
-                path="HOME.hero.ctaSecondary.label"
-                defaultValue={hero.ctaSecondary.label}
-                as="span"
-              />
             </Button>
           </div>
           <p className="mt-8 flex flex-wrap items-center justify-center gap-x-2 text-sm text-charcoal/60">

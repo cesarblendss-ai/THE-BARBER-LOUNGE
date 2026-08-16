@@ -88,7 +88,7 @@ export function Header({ labels }: HeaderProps) {
           <a
             href={`tel:${SITE.phoneTel}`}
             data-analytics-label="Call Now (mobile header)"
-            className="rounded-full border border-brass px-3 py-2 text-xs font-semibold uppercase tracking-wide text-brass-dark"
+            className="rounded-full border border-brass px-4 py-2.5 text-xs font-semibold uppercase tracking-wide text-brass-dark"
           >
             Call
           </a>
@@ -97,7 +97,7 @@ export function Header({ labels }: HeaderProps) {
             target="_blank"
             rel="noopener noreferrer"
             data-analytics-label="Book Now (mobile header)"
-            className="rounded-full bg-brass px-3 py-2 text-xs font-semibold uppercase tracking-wide text-bone"
+            className="rounded-full bg-brass px-4 py-2.5 text-xs font-semibold uppercase tracking-wide text-bone"
           >
             Book
           </a>

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/Button";
 import { SITE } from "@/lib/content";
+import { getOpenTodayLabel, googleMapsSearchUrl } from "@/lib/shop-hours";
 
 type HeroVideoItem = {
   src: string;
@@ -63,6 +64,8 @@ export function HeroVideoGrid({
   headline = "Sharp Cuts. Zero Compromise.",
 }: HeroVideoGridProps) {
   const bookLabel = ctaLabel.toLowerCase().includes("book") ? "Book Now" : ctaLabel;
+  const openToday = getOpenTodayLabel();
+  const mapsHref = googleMapsSearchUrl(SITE.address);
 
   return (
     <section
@@ -82,15 +85,26 @@ export function HeroVideoGrid({
         aria-hidden
       />
 
-      <div className="relative z-10 flex min-h-[70vh] flex-col justify-end px-4 pb-8 pt-20 sm:min-h-[80vh] sm:pb-10">
+      <div className="relative z-10 flex min-h-[70vh] flex-col justify-end px-4 pb-28 pt-20 sm:min-h-[80vh] sm:pb-10">
         <div className="mx-auto w-full max-w-md text-center">
           <h1 className="font-serif text-3xl font-semibold leading-tight text-bone sm:text-4xl">
             {headline}
           </h1>
-          <p className="mt-2 text-sm leading-snug text-bone/85 sm:text-base">
-            Antioch · By appointment &amp; walk-in
+          <p className="mt-2 text-sm font-medium leading-snug text-bone/90 sm:text-base">
+            {openToday.line}
           </p>
-          <p className="mt-1 text-xs text-bone/55">{SITE.address}</p>
+          <p className="mt-1 text-sm leading-snug text-bone/80">
+            Walk-ins welcome · Haircut $50 · Cut &amp; beard $65
+          </p>
+          <a
+            href={mapsHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-analytics-label="Open maps (hero)"
+            className="mt-1 inline-block text-xs text-bone/60 underline-offset-2 hover:text-brass hover:underline"
+          >
+            {SITE.address}
+          </a>
 
           <div className="pointer-events-auto mt-6 flex flex-col gap-3">
             <Button

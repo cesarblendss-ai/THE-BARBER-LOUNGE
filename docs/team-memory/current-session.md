@@ -1,4 +1,18 @@
-# Session Progress ? Aug 10, 2026 (launch checklist)
+# Session Progress — Aug 16, 2026 (homepage conversion)
+
+Picked up the frozen conversion thread (bounce ~71%, Google vs site calls, “review leaks before data”).
+
+**Live hub / site:** https://the-barber-lounge-antioch.vercel.app  
+**Do not use** `the-barber-lounge.vercel.app` — it 307s to parked `thebarberlounge.com`.
+
+| Task | Result |
+|------|--------|
+| **Conversion audit** | `docs/CONVERSION-AUDIT.md` — remaining leaks + this-pass fixes |
+| **Mobile close** | Open-today line, prices, maps address, sticky Call+Book with numbers, hero padding above sticky bar |
+
+---
+
+# Prior session — Aug 10, 2026 (launch checklist)
 
 ## Completed this session
 
