@@ -2,8 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { SectionLabel } from "@/components/SectionLabel";
+import { StaffWeekCalendar } from "@/components/StaffWeekCalendar";
 import { SITE } from "@/lib/content";
 import { getReviewLandingUrl, REVIEW_QR_PATH } from "@/lib/reviews";
+import { getShopWeekView } from "@/lib/shop-week-view";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: `Staff Hub — ${SITE.name}`,
@@ -11,6 +15,11 @@ export const metadata: Metadata = {
 };
 
 const TILES = [
+  {
+    href: "/admin/calendar",
+    label: "Set this week",
+    detail: "Open, closed, notes, and blocked slots",
+  },
   {
     href: "/admin/edit",
     label: "Edit site text",
@@ -33,8 +42,9 @@ const TILES = [
   },
 ] as const;
 
-export default function AdminHubPage() {
+export default async function AdminHubPage() {
   const reviewLink = getReviewLandingUrl();
+  const weekView = await getShopWeekView();
 
   return (
     <section className="bg-bone px-4 pb-16 pt-28 sm:px-6 sm:pt-32">
@@ -45,11 +55,15 @@ export default function AdminHubPage() {
             Barber Lounge Hub
           </h1>
           <p className="mt-4 text-lg text-charcoal/70">
-            Quick links for the team — review capture, content, and uploads.
+            This week at a glance, then review capture, content, and uploads.
           </p>
         </div>
 
-        <div className="mt-10 rounded-2xl border border-brass/30 bg-charcoal px-5 py-5 text-center sm:px-6">
+        <div className="mt-10">
+          <StaffWeekCalendar view={weekView} />
+        </div>
+
+        <div className="mt-8 rounded-2xl border border-brass/30 bg-charcoal px-5 py-5 text-center sm:px-6">
           <p className="font-sans text-xs font-semibold uppercase tracking-label text-brass">
             Review link for clients
           </p>

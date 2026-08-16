@@ -93,6 +93,7 @@ When **unset** (local dev only): all admin checks pass (`return true`).
 | `/admin/edit` | Key form when env set | Sets edit cookie on success |
 | `/admin/gallery` | Key field or `?key=` for uploads | Upload APIs enforce key |
 | `/admin/hero` | Key field or `?key=` for uploads | Upload APIs enforce key |
+| `/admin/calendar` | Key field when not cookied | **PUT/POST `/api/shop-week` return 401** without cookie or `x-admin-key` |
 | `/admin/products` | Page public | **API returns 401** without `?key=` |
 | `/admin/appointments` | Page public | **API returns 401** without `?key=` |
 | `/admin/analytics` | Page public | **⚠ Gap:** page SSR loads summary without key check; API is protected |

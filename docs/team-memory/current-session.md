@@ -1,4 +1,26 @@
-# Session Progress ? Aug 10, 2026 (launch checklist)
+# Session Progress — Aug 16, 2026 (Staff Hub week calendar)
+
+## Completed this session
+
+| Task | Result |
+|------|--------|
+| **Staff Hub week calendar MVP** | `/admin` shows this week; Cesar sets it at `/admin/calendar` |
+| **Persistence** | Postgres `ShopWeek` when `DATABASE_URL` / `TBLDB_*` is set; otherwise `data/shop-week.json` |
+| **Auth** | GET public for the floor; PUT/POST require `ADMIN_UPLOAD_KEY` cookie or `x-admin-key` |
+
+**Cesar clicks (production):**
+
+1. Open `/admin/calendar` (or Staff Hub → Set this week).
+2. Enter admin key if prompted (same `ADMIN_UPLOAD_KEY` already on Vercel Production — do not create a new var unless that one is missing).
+3. Mark each day open/closed, add notes / blocked slots, **Save this week**.
+4. Confirm `/admin` shows the week.
+5. If save returns 503: Vercel → Environment Variables → Production → confirm `DATABASE_URL` or `TBLDB_*` is set, then redeploy so `prisma db push` creates the `ShopWeek` table.
+
+JSON on Vercel is ephemeral. Team-memory (2026-08-11) recorded Neon `TBLDB_*` on Production — next deploy should persist this calendar in Postgres.
+
+---
+
+# Prior session — Aug 10, 2026 (launch checklist)
 
 ## Completed this session
 
