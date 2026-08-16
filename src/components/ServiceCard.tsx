@@ -1,4 +1,5 @@
 import type { GalleryCategoryId, GalleryImage } from "@/lib/gallery";
+import { isPrimaryService } from "@/lib/content";
 import { ServiceImageCollage } from "@/components/ServiceImageCollage";
 import { EditableText } from "@/components/EditableText";
 
@@ -13,8 +14,6 @@ type ServiceCardProps = {
   pathPrefix?: string;
 };
 
-const SIGNATURE_SERVICES = new Set(["Signature Haircut", "Signature Haircut & Beard"]);
-
 export function ServiceCard({
   name,
   description,
@@ -24,7 +23,7 @@ export function ServiceCard({
   imageLayout,
   pathPrefix,
 }: ServiceCardProps) {
-  const layout = imageLayout ?? (SIGNATURE_SERVICES.has(name) ? "strip" : "collage");
+  const layout = imageLayout ?? (isPrimaryService(name) ? "strip" : "collage");
 
   return (
     <article className="group flex flex-col">

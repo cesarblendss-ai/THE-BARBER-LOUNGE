@@ -3,7 +3,7 @@ import { HOURS } from "@/lib/content";
 
 export const WIZARD_SERVICES = [
   { id: "regular", label: "Regular haircut" },
-  { id: "haircut-beard", label: "Haircut and beard" },
+  { id: "haircut-beard", label: "Haircut & beard" },
 ] as const;
 
 export type BookableDay = {

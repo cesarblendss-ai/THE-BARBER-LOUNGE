@@ -35,8 +35,8 @@ export function buildAreaPage(city: ServiceAreaCity): LandingPageConfig {
     headline: `Expert Fades for ${name} Clients`,
     subheadline: `We're on A St in Antioch — a convenient drive from ${name} for fades, line-ups, and signature grooming.`,
     bullets: [
-      "Signature Haircut — $50 · consultation + Hot Lather Finish",
-      "Signature Haircut & Beard — $65",
+      "Regular haircut — $50 · consultation + Hot Lather Finish",
+      "Haircut & beard — $65",
       "Expert fades: low, mid, high, skin blends",
       "Booksy booking · on-site parking · kid-friendly",
     ],

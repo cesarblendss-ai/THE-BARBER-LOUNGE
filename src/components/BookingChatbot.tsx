@@ -483,7 +483,7 @@ export function BookingChatbot() {
     addUserMessage(text);
     setOtherInput("");
     addAssistantMessage(
-      `For anything outside a regular haircut or haircut and beard, give us a call at ${SITE.phone} or book on Booksy.`,
+      `For anything outside a regular haircut ($50) or haircut & beard ($65), give us a call at ${SITE.phone} or book on Booksy.`,
     );
   };
 

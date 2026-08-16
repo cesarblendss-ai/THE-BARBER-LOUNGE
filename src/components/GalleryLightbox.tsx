@@ -94,7 +94,8 @@ export function GalleryLightbox({ images, columns = 4 }: GalleryLightboxProps) {
               src={image.src}
               alt={image.alt}
               fill
-              sizes="(max-width: 768px) 50vw, 25vw"
+              loading="lazy"
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
               className="object-cover transition-transform duration-300 group-hover:scale-105"
             />
           </button>

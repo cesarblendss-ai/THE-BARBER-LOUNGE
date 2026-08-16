@@ -303,8 +303,12 @@ export function GalleryUploadFooter() {
   return (
     <div className="mt-8 space-y-2 text-center text-xs text-charcoal/45">
       <p>
-        After uploading, add or update the matching entry in{" "}
-        <code className="text-charcoal/60">src/lib/gallery.ts</code> with descriptive alt text.
+        Photos in <code className="text-charcoal/60">public/gallery/</code> appear automatically on{" "}
+        <Link href="/gallery" className="text-brass hover:underline">
+          /gallery
+        </Link>
+        . Optional: add custom alt text in{" "}
+        <code className="text-charcoal/60">src/lib/gallery.ts</code>.
       </p>
       <p>
         <Link href="/services" className="text-brass hover:underline">

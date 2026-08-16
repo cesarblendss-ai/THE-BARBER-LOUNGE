@@ -1,4 +1,5 @@
 import { formatAlternativesText, formatSlotSuggestion } from "@/lib/booking-agent/format";
+import { SERVICE_HAIRCUT_BEARD, SERVICE_REGULAR } from "@/lib/content";
 import type {
   BookingAgentConfig,
   BookingChatResponse,
@@ -45,30 +46,21 @@ const RUNNING_LATE_PATTERN =
 function buildServiceKeywords(config: BookingAgentConfig) {
   const confirmed = config.services.filter((s) => !s.name.startsWith("["));
   const names = new Set(confirmed.map((s) => s.name));
-  for (const extra of config.extraServiceNames ?? []) names.add(extra);
 
   const keywords: Array<{ patterns: RegExp; service: string }> = [
     {
       patterns:
-        /\b(haircut\s*(and|&|\+|plus)\s*beard|beard\s*(and|&|\+|plus)\s*haircut|signature haircut\s*&\s*beard|fade\s*(and|&|\+|plus)\s*beard|cut\s*(and|&|\+|plus)\s*beard)\b/i,
-      service: "Signature Haircut & Beard",
-    },
-    {
-      patterns:
-        /\b(haircut|cut|cuts)\s+(for\s+)?(\d+\s*)?kids?\b|\b(\d+\s*)?kids?\s+(haircut|cut|cuts)\b|\b(kids?\s*(cut|haircut|cuts)|child(ren)?\s*(cut|haircut))\b|\bfor\s+(\d+\s*)?kids?\b|\b(\d+\s*)?kids?\b|\bthe\s+boys\b/i,
-      service: "Kids Haircut",
-    },
-    {
-      patterns: /\b(beard\s*trim|beard\s*work|line[- ]?up|shape\s*up|hot towel shave|shave)\b/i,
-      service: "Beard Trim & Line-Up",
+        /\b(haircut\s*(and|&|\+|plus)\s*beard|beard\s*(and|&|\+|plus)\s*haircut|fade\s*(and|&|\+|plus)\s*beard|cut\s*(and|&|\+|plus)\s*beard)\b/i,
+      service: SERVICE_HAIRCUT_BEARD,
     },
     {
       patterns: DESIGN_PATTERN,
-      service: "Signature Haircut",
+      service: SERVICE_REGULAR,
     },
     {
-      patterns: /\b(fade|taper|haircut|hair cut|signature cut|cut|trim)\b/i,
-      service: "Signature Haircut",
+      patterns:
+        /\b(haircut|cut|cuts|fade|taper|trim|line[- ]?up|shape\s*up|kids?\s*(cut|haircut)|child(ren)?\s*(cut|haircut)|the\s+boys)\b/i,
+      service: SERVICE_REGULAR,
     },
   ];
 
@@ -82,7 +74,7 @@ function userMessages(messages: ChatMessage[]): string[] {
 function matchService(text: string, config: BookingAgentConfig): string | null {
   const { keywords, confirmed } = buildServiceKeywords(config);
   for (const entry of keywords) {
-    if (entry.patterns.test(text) && (confirmed.some((s) => s.name === entry.service) || entry.service === "Kids Haircut" || entry.service === "Beard Trim & Line-Up")) {
+    if (entry.patterns.test(text) && confirmed.some((s) => s.name === entry.service)) {
       return entry.service;
     }
   }
@@ -171,17 +163,13 @@ function isConfirmation(text: string): boolean {
 
 function casualServicePhrase(service: string, guestCount: number | null): string {
   switch (service) {
-    case "Kids Haircut":
-      if (guestCount && guestCount > 1) return `${guestCount} kids cuts`;
-      return "kids cut";
-    case "Signature Haircut & Beard":
+    case SERVICE_HAIRCUT_BEARD:
       return "cut and beard";
-    case "Beard Trim & Line-Up":
-      return "line up";
-    case "Signature Haircut":
+    case SERVICE_REGULAR:
+      if (guestCount && guestCount > 1) return `${guestCount} cuts`;
       return "cut";
     default:
-      return service.replace(/^Signature\s+/i, "").toLowerCase();
+      return service.toLowerCase();
   }
 }
 
@@ -340,7 +328,7 @@ export async function ruleBasedBookingReply(
   if (isPriceQuestion(lastUser) && !intent.service) {
     return emptyResponse({
       reply:
-        "Depends what you're getting — fades start around $50, cut and beard a bit more. What were you thinking, and when do you want to come in?",
+        "Regular haircut is $50, cut and beard is $65. What were you thinking, and when do you want to come in?",
       phase: "service",
     });
   }
@@ -354,7 +342,7 @@ export async function ruleBasedBookingReply(
   }
 
   if (isDesignRequest(lastUser) && !dayFromLast && !timeFromLast) {
-    const designService = serviceFromLast ?? "Signature Haircut";
+    const designService = serviceFromLast ?? SERVICE_REGULAR;
     return emptyResponse({
       reply: designFollowUpReply(Boolean(intent.preferredDay), Boolean(intent.preferredTime)),
       service: designService,
@@ -382,7 +370,7 @@ export async function ruleBasedBookingReply(
   if (!intent.service) {
     return emptyResponse({
       reply:
-        "Hey — what are you trying to get done? Fade, design work, beard, kids cuts… just tell me.",
+        "Hey — what are you trying to get done? Regular haircut ($50) or cut and beard ($65)?",
       phase: "service",
     });
   }

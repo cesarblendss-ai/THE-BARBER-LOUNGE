@@ -67,7 +67,7 @@ export const BEARD_STUDIO_PAGE: LandingPageConfig = {
   subheadline:
     "A fresh fade deserves a clean beard line. Our barbers shape, trim, and finish with the same precision we bring to every signature service.",
   bullets: [
-    "Signature Haircut & Beard — $65 · full grooming in one visit",
+    "Haircut & beard — $65 · full grooming in one visit",
     "Clean line-ups and beard shaping",
     "Hot Lather Finish on signature services",
     "Regular trims keep your look sharp between haircuts",
@@ -80,7 +80,7 @@ export const BEARD_STUDIO_PAGE: LandingPageConfig = {
     },
     {
       question: "Beard only, or haircut too?",
-      answer: "Both. Book Signature Haircut & Beard for the full package, or ask your barber for a trim add-on.",
+      answer: "Book Haircut & beard ($65) for the full package, or ask your barber about additional grooming at your visit.",
     },
   ],
   cta: { label: "Book Haircut & Beard", href: BOOKING_URL, external: true },

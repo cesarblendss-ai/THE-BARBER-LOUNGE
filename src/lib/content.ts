@@ -76,9 +76,8 @@ export const HOME = {
     },
   ],
   featuredServices: [
-    { name: "Signature Haircut", price: "$50", time: "1 hr" },
-    { name: "Signature Haircut & Beard", price: "$65", time: "1 hr" },
-    // TODO: add remaining services (kids' cuts, beard trims, hot towel shave, etc.)
+    { name: "Regular haircut", price: "$50", time: "1 hr" },
+    { name: "Haircut & beard", price: "$65", time: "1 hr" },
   ],
   aboutTeaser: {
     headline: "More Than a Haircut.",
@@ -115,42 +114,50 @@ export const ABOUT = {
 
 // ============================= SERVICES =============================
 
+export const SERVICE_REGULAR = "Regular haircut";
+export const SERVICE_HAIRCUT_BEARD = "Haircut & beard";
+
+export type ServiceItem = {
+  name: string;
+  price: string;
+  time: string;
+  description: string;
+};
+
+/** Primary bookable services — the only two menu options online and in booking. */
+export const BOOKABLE_SERVICES: ServiceItem[] = [
+  {
+    name: SERVICE_REGULAR,
+    price: "$50",
+    time: "1 hr",
+    description: "Consultation, precision cutting, styling, Hot Lather Finish",
+  },
+  {
+    name: SERVICE_HAIRCUT_BEARD,
+    price: "$65",
+    time: "1 hr",
+    description: "Consultation, Hot Towel, precision cutting, styling, Hot Lather Finish",
+  },
+];
+
 export const SERVICES = {
   hero: {
     headline: "Every Cut. Every Detail. Done Right.",
     subheadline:
-      "From signature cuts to sharp beard work, every service includes a full consultation so you leave looking exactly how you pictured it.",
+      "Two clear options — regular haircut or haircut and beard. Every visit includes a full consultation so you leave looking exactly how you pictured it.",
   },
-  list: [
-    {
-      name: "Signature Haircut",
-      price: "$50",
-      time: "1 hr",
-      description: "Consultation, precision cutting, styling, Hot Lather Finish",
-    },
-    {
-      name: "Signature Haircut & Beard",
-      price: "$65",
-      time: "1 hr",
-      description: "Consultation, Hot Towel, precision cutting, styling, Hot Lather Finish",
-    },
-    // Draft rows — rename/remove brackets in content.ts when pricing is confirmed:
-    { name: "[Kids Haircut]", price: "[$__]", time: "[__ min]", description: "[Placeholder — confirm pricing]" },
-    {
-      name: "[Beard Trim & Line-Up]",
-      price: "[$__]",
-      time: "[__ min]",
-      description: "[Placeholder — confirm pricing]",
-    },
-    { name: "[Hot Towel Shave]", price: "[$__]", time: "[__ min]", description: "[Placeholder — confirm pricing]" },
-  ],
+  list: BOOKABLE_SERVICES,
   addOns:
-    "Ask your barber about add-ons such as hair design, eyebrow cleanup, or hot towel upgrades at your appointment.",
-  note: "Pricing for Signature Haircut and Signature Haircut & Beard reflects current Booksy listings. Additional services will be added as menu details are confirmed.",
+    "Ask your barber about additional services — kids cuts, beard trims, designs, eyebrow cleanup, and hot towel upgrades — at your appointment.",
+  note: "Regular haircut ($50) and Haircut & beard ($65) are our main bookable services. Ask in the chair or call for anything else.",
   cta: { label: "Book Your Service", href: BOOKING_URL },
 };
 
-/** Bracket-prefixed rows in SERVICES.list are drafts — hidden from public pages. */
+export function isPrimaryService(name: string): boolean {
+  return name === SERVICE_REGULAR || name === SERVICE_HAIRCUT_BEARD;
+}
+
+/** @deprecated Bracket drafts removed — all services in list are published. */
 export function isPublishedService(name: string): boolean {
   return !name.startsWith("[");
 }
@@ -184,7 +191,7 @@ export const FAQ = [
   },
   {
     q: "Do you offer beard grooming and hot towel shaves?",
-    a: "Yes — every Signature Haircut & Beard service includes a hot towel and precision beard work.",
+    a: "Yes — Haircut & beard ($65) includes a hot towel and precision beard work. Ask your barber about other grooming add-ons.",
   },
   {
     q: "Is parking available?",
@@ -349,56 +356,16 @@ export const LOCAL_BUSINESS_SCHEMA = {
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Barber Services",
-    itemListElement: [
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Signature Haircut",
-          description: "Precision haircut tailored to your style.",
-        },
+    itemListElement: BOOKABLE_SERVICES.map((service) => ({
+      "@type": "Offer",
+      price: service.price.replace("$", ""),
+      priceCurrency: "USD",
+      itemOffered: {
+        "@type": "Service",
+        name: service.name,
+        description: service.description,
       },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Signature Haircut & Beard",
-          description: "Full grooming service including haircut and beard trim.",
-        },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Kids Haircut",
-          description: "Fun and friendly haircut for children.",
-        },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Fade",
-          description: "Stylish fade haircut for a fresh look.",
-        },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Line Up",
-          description: "Sharpen up your edges for a clean finish.",
-        },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Beard Trim",
-          description: "Expert beard trimming and shaping.",
-        },
-      },
-    ],
+    })),
   },
   sameAs: [SITE.instagramUrl],
 };

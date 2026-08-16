@@ -1,3 +1,5 @@
+import { SERVICE_HAIRCUT_BEARD, SERVICE_REGULAR } from "./content";
+
 export type GalleryCategoryId =
   | "signatureHaircut"
   | "signatureHaircutBeard"
@@ -251,8 +253,8 @@ export const GALLERY_CATEGORIES: Record<GalleryCategoryId, GalleryImage[]> = {
 
 /** Service name → collage images for service cards */
 export const SERVICE_GALLERIES = {
-  "Signature Haircut": GALLERY_CATEGORIES.signatureHaircut,
-  "Signature Haircut & Beard": GALLERY_CATEGORIES.signatureHaircutBeard,
+  [SERVICE_REGULAR]: GALLERY_CATEGORIES.signatureHaircut,
+  [SERVICE_HAIRCUT_BEARD]: GALLERY_CATEGORIES.signatureHaircutBeard,
 } as const;
 
 /** All registered images across categories (deduped by filename) */
@@ -268,8 +270,8 @@ export const GALLERY_GENERAL = GALLERY_CATEGORIES.general;
 
 /** @deprecated Use SERVICE_GALLERIES — kept for gradual migration */
 export const SERVICE_IMAGES = {
-  "Signature Haircut": GALLERY.signatureHaircut,
-  "Signature Haircut & Beard": GALLERY.signatureHaircutBeard,
+  [SERVICE_REGULAR]: GALLERY.signatureHaircut,
+  [SERVICE_HAIRCUT_BEARD]: GALLERY.signatureHaircutBeard,
 } as const;
 
 /**

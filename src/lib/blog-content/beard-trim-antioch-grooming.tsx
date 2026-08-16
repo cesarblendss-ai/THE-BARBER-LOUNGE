@@ -62,7 +62,7 @@ export function BeardTrimAntiochGroomingContent() {
         <li>
           <strong>Complementing Haircuts:</strong> Pairing your beard trim with a fresh haircut can
           create a cohesive and attractive appearance. Our{" "}
-          <ServicesLink>Signature Haircut &amp; Beard</ServicesLink> combines both in one visit.
+          <ServicesLink>Haircut &amp; beard</ServicesLink> combines both in one visit.
         </li>
         <li>
           <strong>Use Quality Products:</strong> Invest in beard oils and balms to keep your beard

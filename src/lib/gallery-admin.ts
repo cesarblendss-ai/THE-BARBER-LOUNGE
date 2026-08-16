@@ -82,7 +82,7 @@ export function getNextGalleryFilename(
   const prefix = GALLERY_UPLOAD_PREFIX[category];
   const normalizedExt = extension.toLowerCase() === ".jpeg" ? ".jpg" : extension.toLowerCase();
 
-  for (let slot = 1; slot <= 20; slot += 1) {
+  for (let slot = 1; slot <= 99; slot += 1) {
     const filename = `${prefix}${String(slot).padStart(2, "0")}${normalizedExt}`;
     if (!fs.existsSync(path.join(GALLERY_DIR, filename))) {
       return filename;

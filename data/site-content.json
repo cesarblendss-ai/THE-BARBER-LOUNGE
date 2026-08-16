@@ -85,12 +85,12 @@
     ],
     "featuredServices": [
       {
-        "name": "Signature Haircut",
+        "name": "Regular haircut",
         "price": "$50",
         "time": "1 hr"
       },
       {
-        "name": "Signature Haircut & Beard",
+        "name": "Haircut & beard",
         "price": "$65",
         "time": "1 hr"
       }
@@ -145,46 +145,28 @@
     "hero": {
       "sectionLabel": "Services & Pricing",
       "headline": "Every Cut. Every Detail. Done Right.",
-      "subheadline": "From signature cuts to sharp beard work, every service includes a full consultation so you leave looking exactly how you pictured it."
+      "subheadline": "Two clear options — regular haircut or haircut and beard. Every visit includes a full consultation so you leave looking exactly how you pictured it."
     },
     "list": [
       {
-        "name": "Signature Haircut",
+        "name": "Regular haircut",
         "price": "$50",
         "time": "1 hr",
         "description": "Consultation, precision cutting, styling, Hot Lather Finish"
       },
       {
-        "name": "Signature Haircut & Beard",
+        "name": "Haircut & beard",
         "price": "$65",
         "time": "1 hr",
         "description": "Consultation, Hot Towel, precision cutting, styling, Hot Lather Finish"
-      },
-      {
-        "name": "[Kids Haircut]",
-        "price": "[$__]",
-        "time": "[__ min]",
-        "description": "[Placeholder — confirm pricing]"
-      },
-      {
-        "name": "[Beard Trim & Line-Up]",
-        "price": "[$__]",
-        "time": "[__ min]",
-        "description": "[Placeholder — confirm pricing]"
-      },
-      {
-        "name": "[Hot Towel Shave]",
-        "price": "[$__]",
-        "time": "[__ min]",
-        "description": "[Placeholder — confirm pricing]"
       }
     ],
     "addOns": {
       "sectionLabel": "Add-Ons",
       "headline": "Extras",
-      "body": "Ask your barber about add-ons such as hair design, eyebrow cleanup, or hot towel upgrades at your appointment."
+      "body": "Ask your barber about additional services — kids cuts, beard trims, designs, eyebrow cleanup, and hot towel upgrades — at your appointment."
     },
-    "note": "Pricing for Signature Haircut and Signature Haircut & Beard reflects current Booksy listings. Additional services will be added as menu details are confirmed.",
+    "note": "Regular haircut ($50) and Haircut & beard ($65) are our main bookable services. Ask in the chair or call for anything else.",
     "cta": {
       "label": "Book Your Service",
       "href": "https://booksy.com/en-us/1180862_the-barber-lounge_barber-shop_103886_antioch"
@@ -222,7 +204,7 @@
     },
     {
       "q": "Do you offer beard grooming and hot towel shaves?",
-      "a": "Yes — every Signature Haircut & Beard service includes a hot towel and precision beard work."
+      "a": "Yes — Haircut & beard ($65) includes a hot towel and precision beard work. Ask your barber about other grooming add-ons."
     },
     {
       "q": "Is parking available?",

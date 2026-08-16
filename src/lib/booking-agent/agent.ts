@@ -70,7 +70,7 @@ You receive the FULL conversation history. Use every prior message — never re-
 The customer was greeted with "Hey — what are you looking to get done?" They type casually (e.g. "design on my hair", "3 kids tomorrow", "fade and beard saturday 2pm").
 
 Booking flow (one step at a time in reply):
-1. SERVICE — map to menu internally. "Design/pattern/art" = Signature Haircut. Unclear? One short follow-up, not a menu list.
+1. SERVICE — map to menu internally. "Design/pattern/art" = Regular haircut. Unclear? One short follow-up, not a menu list.
 2. DAY & TIME — if not stated, ask when. Never invent a day/time.
 3. AVAILABILITY — call check_availability when day+time are known. If taken/closed, offer alternatives from tool — stop before name/phone.
 4. NAME — "What name should I put it under?"
@@ -80,14 +80,11 @@ Booking flow (one step at a time in reply):
 
 Internal menu (exact names in JSON "service" field ONLY — never in "reply"):
 ${serviceLines}
-${(config.extraServiceNames ?? []).map((n) => `- ${n}`).join("\n")}
 
 Slang → internal service:
-- design, pattern, art, freestyle lines → Signature Haircut
-- fade, taper, cut, trim → Signature Haircut
-- fade + beard, cut and beard → Signature Haircut & Beard
-- lineup, shape up, beard trim → Beard Trim & Line-Up
-- kids, the boys, children → Kids Haircut
+- design, pattern, art, freestyle lines → Regular haircut
+- fade, taper, cut, trim, kids cuts → Regular haircut
+- fade + beard, cut and beard → Haircut & beard
 
 After check_availability, weave the result in naturally. If unavailable, suggest alternatives from the tool.
 

@@ -3,17 +3,18 @@ import Image from "next/image";
 
 import { Button } from "@/components/Button";
 import { EditableText } from "@/components/EditableText";
+import { GalleryLightbox } from "@/components/GalleryLightbox";
 import { HeroVideoGrid } from "@/components/HeroVideoGrid";
 import { SectionLabel } from "@/components/SectionLabel";
 import { ServiceCard } from "@/components/ServiceCard";
 import { TestimonialCarousel } from "@/components/TestimonialCarousel";
 import { LeaveReviewSection } from "@/components/LeaveReviewSection";
 import { StarIcon } from "@/components/icons";
-import { SITE, TESTIMONIALS } from "@/lib/content";
+import { isPrimaryService, SERVICE_HAIRCUT_BEARD, SERVICE_REGULAR, SITE, TESTIMONIALS } from "@/lib/content";
 import { LOGO } from "@/lib/constants";
 import { getSiteContent } from "@/lib/get-site-content";
 import { GALLERY, HERO_VIDEOS } from "@/lib/gallery";
-import { getResolvedServiceGalleries } from "@/lib/gallery-files";
+import { getResolvedServiceGalleries, getResolvedAllGallery } from "@/lib/gallery-files";
 import {
   ensureHeroVideoPlaceholders,
   getHeroVideoVersion,
@@ -36,9 +37,10 @@ export default async function HomePage() {
   const { hero, valueProps, featuredServices, aboutTeaser, finalCta } = HOME;
   const serviceGalleries = getResolvedServiceGalleries();
   const signatureHaircutImages =
-    serviceGalleries["Signature Haircut"].slice(0, 3);
+    serviceGalleries[SERVICE_REGULAR].slice(0, 3);
   const signatureHaircutBeardImages =
-    serviceGalleries["Signature Haircut & Beard"].slice(0, 3);
+    serviceGalleries[SERVICE_HAIRCUT_BEARD].slice(0, 3);
+  const galleryImages = getResolvedAllGallery();
 
   ensureHeroVideoPlaceholders();
 
@@ -144,8 +146,7 @@ export default async function HomePage() {
               <div
                 key={service.name}
                 className={
-                  service.name === "Signature Haircut" ||
-                  service.name === "Signature Haircut & Beard"
+                  isPrimaryService(service.name)
                     ? "sm:col-span-2"
                     : undefined
                 }
@@ -157,11 +158,11 @@ export default async function HomePage() {
                   time={service.time}
                   pathPrefix={`HOME.featuredServices.${index}`}
                   images={
-                    service.name === "Signature Haircut"
+                    service.name === SERVICE_REGULAR
                       ? signatureHaircutImages.length > 0
                         ? signatureHaircutImages
                         : [GALLERY.signatureHaircut]
-                      : service.name === "Signature Haircut & Beard"
+                      : service.name === SERVICE_HAIRCUT_BEARD
                         ? signatureHaircutBeardImages.length > 0
                           ? signatureHaircutBeardImages
                           : [GALLERY.signatureHaircutBeard]
@@ -242,6 +243,33 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {galleryImages.length > 0 ? (
+        <section className="bg-bone px-4 py-16 sm:px-6 sm:py-24" aria-labelledby="gallery-heading">
+          <div className="mx-auto max-w-7xl">
+            <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
+              <div>
+                <SectionLabel>OUR WORK</SectionLabel>
+                <h2
+                  id="gallery-heading"
+                  className="mt-2 font-serif text-3xl font-semibold text-charcoal sm:text-4xl"
+                >
+                  Fresh Cuts From the Chair
+                </h2>
+                <p className="mt-3 max-w-xl text-charcoal/65">
+                  Real clients, real fades — tap any photo to enlarge.
+                </p>
+              </div>
+              <Button href="/gallery" variant="outline" className="shrink-0">
+                View Full Gallery
+              </Button>
+            </div>
+            <div className="mt-10">
+              <GalleryLightbox images={galleryImages.slice(0, 12)} columns={4} />
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <section className="bg-bone px-4 py-16 sm:px-6 sm:py-24" aria-labelledby="testimonials-heading">
         <div className="mx-auto max-w-7xl">
