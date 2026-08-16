@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 
-import { HUB_PATH } from "@/lib/hub";
+import { HubInstallHint } from "@/components/HubInstallHint";
+import { HUB_LIVE_URL, HUB_PATH } from "@/lib/hub";
 
 export function HubLogin() {
   const [key, setKey] = useState("");
@@ -33,15 +34,16 @@ export function HubLogin() {
   }
 
   return (
-    <section className="bg-bone px-4 pb-16 pt-28 sm:px-6 sm:pt-32">
-      <div className="mx-auto max-w-md text-center">
+    <section className="flex min-h-dvh flex-col bg-bone px-4 pb-16 pt-16 sm:px-6">
+      <div className="mx-auto w-full max-w-md text-center">
         <p className="font-sans text-xs font-semibold uppercase tracking-label text-charcoal/60">
           The Barber Lounge
         </p>
         <h1 className="mt-3 font-serif text-4xl font-semibold text-charcoal">Cesar’s Hub</h1>
         <p className="mt-4 text-charcoal/70">
-          Your shop operating system. Bookmark this page — it works without Cursor.
+          Shop operating system. Bookmark this page. It keeps working if Cursor is gone.
         </p>
+        <p className="mt-3 break-all font-mono text-xs text-charcoal/45">{HUB_LIVE_URL}</p>
         <form onSubmit={(event) => void handleSubmit(event)} className="mt-10 text-left">
           <label className="block">
             <span className="text-sm font-medium text-charcoal">Hub key</span>
@@ -64,6 +66,7 @@ export function HubLogin() {
             {status === "loading" ? "Unlocking…" : "Unlock hub"}
           </button>
         </form>
+        <HubInstallHint />
         <p className="mt-6 text-xs text-charcoal/50">
           Key lives in Vercel Production as ADMIN_UPLOAD_KEY — not in chat, not in git.
         </p>

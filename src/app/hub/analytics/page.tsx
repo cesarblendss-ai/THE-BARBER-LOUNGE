@@ -6,6 +6,7 @@ import { SectionLabel } from "@/components/SectionLabel";
 import { getAnalyticsSummary } from "@/lib/analytics-server";
 import { isDatabaseConfigured } from "@/lib/db";
 import { SITE } from "@/lib/content";
+import { HUB_SECTION_CLASS } from "@/lib/hub";
 
 export const metadata: Metadata = {
   title: `Analytics — ${SITE.name}`,
@@ -17,7 +18,7 @@ export default async function AdminAnalyticsPage() {
   const summary = configured ? await getAnalyticsSummary() : null;
 
   return (
-    <section className="bg-bone px-4 pb-16 pt-28 sm:px-6 sm:pt-32">
+    <section className={HUB_SECTION_CLASS}>
       <div className="mx-auto max-w-5xl">
         <div className="text-center">
           <SectionLabel>Cesar’s Hub</SectionLabel>

@@ -1,6 +1,8 @@
 ﻿# Current Blockers
 
-**Last verified:** 2026-08-11 (pre-flight audit)
+**Last verified:** 2026-08-16
+
+Cesar’s Hub (`/hub`) is on PR #7. After merge + Vercel deploy, bookmark **https://the-barber-lounge-antioch.vercel.app/hub** — that URL is the shop OS without Cursor.
 
 ---
 

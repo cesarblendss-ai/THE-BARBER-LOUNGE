@@ -44,7 +44,8 @@ the-barber-lounge/
 | `/admin/edit` | `src/app/admin/edit/page.tsx` | Inline CMS |
 | `/admin/hero` | `src/app/admin/hero/page.tsx` | Hero video upload |
 | `/admin/gallery` | `src/app/admin/gallery/page.tsx` | Gallery bulk upload |
-| `/hub` | `src/app/hub/page.tsx` | **Cesar’s Hub** — shop OS (gated). Guide: `docs/CESARS-HUB.md` |
+| `/hub` | `src/app/hub/page.tsx` | **Cesar’s Hub** — shop OS (gated, own chrome + PWA). Guide: `docs/CESARS-HUB.md` |
+| `/hub/manual` | `src/app/hub/manual/page.tsx` | Recovery + shop facts — works without Cursor |
 | `/hub/calendar` | `src/app/hub/calendar/page.tsx` | Set this week |
 | `/hub/appointments` | `src/app/hub/appointments/page.tsx` | Booking requests |
 | `/hub/products` | `src/app/hub/products/page.tsx` | Retail inventory |

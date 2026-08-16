@@ -1,12 +1,19 @@
 # Session Progress — Aug 16, 2026 (separate Cesar’s Hub)
 
-**The hub is independent of Cursor.** Bookmark and run the shop from the live URL.
+**The hub is independent of Cursor.** Bookmark it, Add to Home Screen, run the shop from the live URL.
 
 **https://the-barber-lounge-antioch.vercel.app/hub**
 
-Guide: `docs/CESARS-HUB.md`
+Guide: `docs/CESARS-HUB.md` · in-app: `/hub/manual`
 
-Operator tools (appointments, retail, analytics, ntfy, SMS, week calendar) live under `/hub`, gated by the admin key. Staff Hub `/admin` stays floor-facing. GitHub is the backup — not Cursor chats or OneDrive folders.
+- Operator tools live under `/hub` (gated). Own chrome — no public header, sticky Book bar, or chatbot.
+- PWA manifest so it installs as **Cesar’s Hub**.
+- Staff Hub `/admin` stays floor-facing.
+- GitHub is the backup — not Cursor chats or OneDrive folders.
+
+**PR:** https://github.com/cesarblendss-ai/THE-BARBER-LOUNGE/pull/7
+
+Until this PR is merged and Vercel deploys, `/hub` is not on production yet. After merge, use the Antioch alias above.
 
 ---
 

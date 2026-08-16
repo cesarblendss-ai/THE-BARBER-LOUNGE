@@ -4,6 +4,7 @@ import Link from "next/link";
 import { NtfyTestButton } from "@/components/NtfyTestButton";
 import { SectionLabel } from "@/components/SectionLabel";
 import { SITE } from "@/lib/content";
+import { HUB_SECTION_CLASS } from "@/lib/hub";
 import { getNtfySubscribeUrl, getNtfyTopicForDisplay } from "@/lib/notifications";
 
 export const metadata: Metadata = {
@@ -17,7 +18,7 @@ export default function AdminNotificationsPage() {
   const authRequired = Boolean(process.env.ADMIN_UPLOAD_KEY?.trim());
 
   return (
-    <section className="bg-bone px-4 pb-16 pt-28 sm:px-6 sm:pt-32">
+    <section className={HUB_SECTION_CLASS}>
       <div className="mx-auto max-w-2xl">
         <div className="text-center">
           <SectionLabel>Cesar’s Hub</SectionLabel>

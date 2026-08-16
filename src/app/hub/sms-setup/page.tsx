@@ -5,6 +5,7 @@ import path from "path";
 import { SectionLabel } from "@/components/SectionLabel";
 import { SmsSetupStatus } from "@/components/SmsSetupStatus";
 import { SITE } from "@/lib/content";
+import { HUB_SECTION_CLASS } from "@/lib/hub";
 
 export const metadata: Metadata = {
   title: `SMS Setup — ${SITE.name}`,
@@ -24,7 +25,7 @@ export default function AdminSmsSetupPage() {
   const envLocalPath = path.join(process.cwd(), ".env.local");
 
   return (
-    <section className="bg-bone px-4 pb-16 pt-28 sm:px-6 sm:pt-32">
+    <section className={HUB_SECTION_CLASS}>
       <div className="mx-auto max-w-2xl">
         <div className="text-center">
           <SectionLabel>Cesar’s Hub</SectionLabel>

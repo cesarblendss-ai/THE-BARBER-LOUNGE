@@ -1,18 +1,21 @@
 # Deploy Status
 
-**Last verified:** 2026-08-08  
-**Status:** **LIVE** — both production URLs return 200  
+**Last verified:** 2026-08-16  
+**Status:** **LIVE** on the Antioch alias  
 **Vercel project:** `cesarblendss-7234s-projects/the-barber-lounge`
 
 ---
 
-## Share this URL
+## Share these URLs
 
-**https://the-barber-lounge.vercel.app**
+**Public site:** https://the-barber-lounge-antioch.vercel.app  
+**Cesar’s Hub:** https://the-barber-lounge-antioch.vercel.app/hub *(after PR #7 deploys)*  
+**Staff Hub:** https://the-barber-lounge-antioch.vercel.app/admin
+
+Do **not** share `https://the-barber-lounge.vercel.app` or `thebarberlounge.com` until NameBright DNS is fixed — those currently park on HugeDomains.
 
 Also works:
 - https://the-barber-lounge-cesarblendss-7234s-projects.vercel.app
-- https://the-barber-lounge-antioch.vercel.app (alias)
 
 ---
 

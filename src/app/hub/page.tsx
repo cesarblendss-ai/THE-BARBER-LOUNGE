@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { HubInstallHint } from "@/components/HubInstallHint";
 import { SectionLabel } from "@/components/SectionLabel";
 import { StaffWeekCalendar } from "@/components/StaffWeekCalendar";
 import { SITE } from "@/lib/content";
-import { HUB_LIVE_URL } from "@/lib/hub";
+import { HUB_LIVE_URL, HUB_SECTION_CLASS } from "@/lib/hub";
 import { getReviewLandingUrl, REVIEW_QR_PATH } from "@/lib/reviews";
 import { getShopWeekView } from "@/lib/shop-week-view";
 
@@ -16,6 +17,11 @@ export const metadata: Metadata = {
 };
 
 const TILES = [
+  {
+    href: "/hub/manual",
+    label: "Shop manual",
+    detail: "URLs, recovery, hours — stored here, not in Cursor",
+  },
   {
     href: "/hub/calendar",
     label: "Set this week",
@@ -68,7 +74,7 @@ export default async function HubHomePage() {
   const reviewLink = getReviewLandingUrl();
 
   return (
-    <section className="bg-bone px-4 pb-16 pt-28 sm:px-6 sm:pt-32">
+    <section className={HUB_SECTION_CLASS}>
       <div className="mx-auto max-w-3xl">
         <div className="text-center">
           <SectionLabel>The Barber Lounge</SectionLabel>
@@ -76,11 +82,12 @@ export default async function HubHomePage() {
             Cesar’s Hub
           </h1>
           <p className="mt-4 text-lg text-charcoal/70">
-            Shop operating system — calendar, bookings, retail, alerts. This page lives on the live
-            site. You do not need Cursor to use it.
+            This is the shop OS. It lives on the live site and in GitHub. Cursor is optional.
           </p>
           <p className="mt-3 break-all font-mono text-xs text-charcoal/50">{HUB_LIVE_URL}</p>
         </div>
+
+        <HubInstallHint />
 
         <div className="mt-10">
           <StaffWeekCalendar view={weekView} />

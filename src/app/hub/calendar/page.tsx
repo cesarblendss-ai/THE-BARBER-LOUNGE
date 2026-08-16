@@ -5,6 +5,7 @@ import { AdminWeekCalendarForm } from "@/components/AdminWeekCalendarForm";
 import { SectionLabel } from "@/components/SectionLabel";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { SITE } from "@/lib/content";
+import { HUB_SECTION_CLASS } from "@/lib/hub";
 import { getShopWeekPersistence } from "@/lib/shop-week-store";
 import { getShopWeekView } from "@/lib/shop-week-view";
 
@@ -28,7 +29,7 @@ export default async function HubCalendarPage({ searchParams }: HubCalendarPageP
   const persistence = getShopWeekPersistence();
 
   return (
-    <section className="bg-bone px-4 pb-16 pt-28 sm:px-6 sm:pt-32">
+    <section className={HUB_SECTION_CLASS}>
       <div className="mx-auto max-w-3xl">
         <div className="text-center">
           <SectionLabel>Cesar’s Hub</SectionLabel>

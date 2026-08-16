@@ -1,0 +1,25 @@
+{
+  "name": "Cesar's Hub",
+  "short_name": "Cesar's Hub",
+  "description": "The Barber Lounge shop operating system. Calendar, bookings, retail, alerts.",
+  "start_url": "/hub",
+  "scope": "/hub",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F2EFEA",
+  "theme_color": "#1A1A1A",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon.png",
+      "sizes": "48x48",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

@@ -12,14 +12,18 @@
 
 Do **not** use `the-barber-lounge.vercel.app` or `thebarberlounge.com` until DNS is fixed — those currently park on HugeDomains.
 
+The hub is its own app: no public-site header, no Book Now bar, no chatbot. Add to Home Screen and it opens standalone.
+
 ### First-time unlock
 
 1. Open the URL above.
 2. Enter the hub key (`ADMIN_UPLOAD_KEY` in Vercel → Production). Never paste it in chat.
-3. Safari/Chrome: Share → Add to Home Screen.
+3. Share → Add to Home Screen.
 4. Cookie lasts 7 days. Unlock again if it expires.
 
 That’s the whole product. No agent required.
+
+In-hub copy of this guide: **`/hub/manual`**
 
 ---
 
@@ -27,7 +31,7 @@ That’s the whole product. No agent required.
 
 | Surface | Who | URL |
 |---------|-----|-----|
-| **Cesar’s Hub** | You (owner) | `/hub` — calendar, bookings, retail, analytics, alerts |
+| **Cesar’s Hub** | You (owner) | `/hub` — calendar, bookings, retail, analytics, alerts, shop manual |
 | **Staff Hub** | Floor | `/admin` — this week (read), reviews, website uploads |
 | **Public site** | Clients | `/` — marketing + Booksy |
 
@@ -39,6 +43,7 @@ Old operator URLs (`/admin/products`, `/admin/appointments`, …) redirect into 
 
 | Tile | What you do |
 |------|-------------|
+| Shop manual | URLs, recovery, hours — stored in the hub, not in Cursor |
 | This week | See the floor calendar |
 | Set this week | Open/closed, notes, blocked slots |
 | Appointments | Website booking requests → enter in Booksy |
@@ -59,7 +64,7 @@ Old operator URLs (`/admin/products`, `/admin/appointments`, …) redirect into 
 | Code | GitHub: `cesarblendss-ai/THE-BARBER-LOUNGE` — branch/PR then `main` |
 | Live app | Vercel project `the-barber-lounge` |
 | Shop data | Postgres (`DATABASE_URL` / `TBLDB_*`) when connected; otherwise JSON under `data/` (ephemeral on Vercel) |
-| This guide | `docs/CESARS-HUB.md` in the same repo |
+| This guide | `docs/CESARS-HUB.md` in the same repo **and** `/hub/manual` on the live site |
 
 Cursor chats and local OneDrive folders are **not** the source of truth. GitHub + the live `/hub` URL are.
 
@@ -69,7 +74,7 @@ Cursor chats and local OneDrive folders are **not** the source of truth. GitHub 
 
 1. Open the bookmark: https://the-barber-lounge-antioch.vercel.app/hub
 2. Unlock with the Vercel key.
-3. Run the shop from the tiles.
+3. Run the shop from the tiles. Open **Shop manual** if you need URLs or hours.
 4. Code backup: GitHub → THE-BARBER-LOUNGE.
 
 You do not need an agent to take a booking, log retail, or post the week.

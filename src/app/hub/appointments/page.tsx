@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { AdminAppointmentsClient } from "@/components/AdminAppointments";
 import { SectionLabel } from "@/components/SectionLabel";
 import { SITE } from "@/lib/content";
+import { HUB_SECTION_CLASS } from "@/lib/hub";
 
 export const metadata: Metadata = {
   title: `Appointments — ${SITE.name}`,
@@ -17,7 +18,7 @@ export default async function AdminAppointmentsPage({ searchParams }: PageProps)
   const params = await searchParams;
 
   return (
-    <section className="bg-bone px-4 pb-16 pt-28 sm:px-6 sm:pt-32">
+    <section className={HUB_SECTION_CLASS}>
       <div className="mx-auto max-w-5xl">
         <div className="text-center">
           <SectionLabel>Cesar’s Hub</SectionLabel>
