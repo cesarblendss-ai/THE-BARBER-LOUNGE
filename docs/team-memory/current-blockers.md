@@ -1,6 +1,6 @@
 ﻿# Current Blockers
 
-**Last verified:** 2026-08-11 (pre-flight audit)
+**Last verified:** 2026-08-16 (estimate tracker MVP)
 
 ---
 
@@ -10,6 +10,7 @@
 |---------|--------|-----|
 | **Custom domain DNS** | **NOT LIVE** — `thebarberlounge.com` resolves to **HugeDomains parking** (AWS IPs `54.243.117.197`, `13.223.25.84`). Vercel project has domain + SSL queued; **NameBright DNS** still wrong. Use `the-barber-lounge-antioch.vercel.app` until fixed. |
 | **Booksy integration** | No API — manual Booksy entry after each website booking | `booking-system.md` |
+| **Stripe deposit env** | Code is in; **Cesar** still needs Stripe account + bank + Vercel `STRIPE_*` + webhook URL before Pay deposit works in production | `estimates-stripe.md` |
 
 ---
 
@@ -48,7 +49,8 @@
 **→ Full list:** `docs/operations/LAUNCH-CHECKLIST.md`
 
 1. **NameBright DNS** for `thebarberlounge.com` (A + CNAME per launch checklist)
-2. **Phone ntfy test** — `/admin/notifications` → Send test notification (use new `ADMIN_UPLOAD_KEY` from `.env.local`)
-3. **`RETAIL_LOG_PIN`** on Vercel Production (optional security)
-4. Confirm analytics in Vercel dashboard after a site visit
-5. **Phase 2:** Twilio Trust Hub (optional)
+2. **Stripe for estimates** — account + bank + Vercel env + webhook (`docs/team-memory/estimates-stripe.md`)
+3. **Phone ntfy test** — `/admin/notifications` → Send test notification (use new `ADMIN_UPLOAD_KEY` from `.env.local`)
+4. **`RETAIL_LOG_PIN`** on Vercel Production (optional security)
+5. Confirm analytics in Vercel dashboard after a site visit
+6. **Phase 2:** Twilio Trust Hub (optional)

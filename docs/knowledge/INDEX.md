@@ -25,6 +25,7 @@
 | **SMS KYC, error 20003, Twilio checklist** | `docs/team-memory/twilio-sms-status.md` |
 | **OneDrive .next, dev server, SEO v1 bug** | `docs/team-memory/flaky-tests.md` |
 | **Key paths map (src/, api, admin)** | `docs/team-memory/repo-layout.md` |
+| **Estimates, e-sign, Stripe deposit** | `docs/team-memory/estimates-stripe.md` |
 
 ---
 
