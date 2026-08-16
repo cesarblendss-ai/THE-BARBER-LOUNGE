@@ -171,6 +171,12 @@ export function Footer({ content, adminAuthenticated = false }: FooterProps) {
               <span className="text-bone/30" aria-hidden="true">
                 ·
               </span>
+              <Link href="/admin/calendar" className="text-bone/50 hover:text-brass">
+                This week
+              </Link>
+              <span className="text-bone/30" aria-hidden="true">
+                ·
+              </span>
             </>
           ) : null}
           <Link href="/shop-log" className="text-bone/50 hover:text-brass">

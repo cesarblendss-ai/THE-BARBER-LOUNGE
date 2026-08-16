@@ -1,6 +1,6 @@
 # Repo Layout — Key Paths
 
-**Last verified:** 2026-08-08
+**Last verified:** 2026-08-16
 
 Quick map for agents navigating the codebase. Architecture rationale: `docs/org-conventions/tech-stack-decisions.md`.
 
@@ -40,6 +40,8 @@ the-barber-lounge/
 | `/gallery` | `src/app/gallery/page.tsx` | |
 | `/blog` | `src/app/blog/page.tsx` | |
 | `/blog/[slug]` | `src/app/blog/[slug]/page.tsx` | |
+| `/admin` | `src/app/admin/page.tsx` | **Barber Lounge Hub** (live: `the-barber-lounge-antioch.vercel.app/admin`) — week calendar + staff tiles |
+| `/admin/calendar` | `src/app/admin/calendar/page.tsx` | Set this week (shows on Barber Lounge Hub `/admin`) |
 | `/admin/edit` | `src/app/admin/edit/page.tsx` | Inline CMS |
 | `/admin/hero` | `src/app/admin/hero/page.tsx` | Hero video upload |
 | `/admin/gallery` | `src/app/admin/gallery/page.tsx` | Gallery bulk upload |
@@ -61,6 +63,7 @@ the-barber-lounge/
 | `/api/analytics/summary` | `analytics/summary/route.ts` | Dashboard data |
 | `/api/site-content` | `site-content/route.ts` | Edit mode saves |
 | `/api/admin/edit-auth` | `admin/edit-auth/route.ts` | Admin cookie auth |
+| `/api/shop-week` | `shop-week/route.ts` | Hub week calendar (GET public, PUT/POST admin) |
 | `/api/upload-gallery` | `upload-gallery/route.ts` | Gallery uploads |
 | `/api/upload-hero-video` | `upload-hero-video/route.ts` | Hero video upload |
 | `/api/classify-gallery` | `classify-gallery/route.ts` | AI gallery sort |
@@ -78,6 +81,7 @@ the-barber-lounge/
 | `seo.ts` | Metadata + JSON-LD helpers |
 | `booking-config.ts` | This shop's booking agent config |
 | `appointments-store.ts` | Availability engine + JSON persistence |
+| `shop-week.ts` / `shop-week-store.ts` | Hub week calendar (Postgres + JSON fallback) |
 | `wizard-helpers.ts` | Booking wizard service chips |
 | `sms-receipt.ts` | Twilio SMS templates |
 | `notifications.ts` | ntfy owner push |
@@ -93,6 +97,8 @@ the-barber-lounge/
 | `Header.tsx`, `Footer.tsx` | Layout |
 | `GalleryUpload.tsx`, `GalleryBulkUpload.tsx` | Admin gallery |
 | `HeroVideoUpload.tsx` | Admin hero |
+| `StaffWeekCalendar.tsx` | Hub “this week” tile |
+| `AdminWeekCalendarForm.tsx` | Admin week editor + JSON upload |
 | `AdminAppointments.tsx` | Appointment list |
 
 ---
@@ -117,6 +123,7 @@ Latest good output: `tools/seo-agent/output/the_barber_lounge_2026_08_08_v2/`
 | Path | Purpose |
 |------|---------|
 | `data/appointments.json` | Appointments + blocked slots |
+| `data/shop-week.json` | Hub week calendar JSON fallback (ephemeral on Vercel) |
 | `prisma/schema.prisma` | Analytics DB schema |
 | `.env.example` | Documented env var names |
 | `tailwind.config.ts` | Brand colors (see `style-guide.md`) |

@@ -1,4 +1,38 @@
-# Session Progress ? Aug 10, 2026 (launch checklist)
+# Session Progress — Aug 16, 2026 (Staff Hub week calendar)
+
+**Live hub (use this):** https://the-barber-lounge-antioch.vercel.app/admin
+
+Do **not** send people to `the-barber-lounge.vercel.app` — that project **307s to `thebarberlounge.com`**, which is still **HugeDomains parking**. Custom domain is not live.
+
+| Surface | Working production URL |
+|---------|------------------------|
+| **Barber Lounge Hub** | https://the-barber-lounge-antioch.vercel.app/admin |
+| Set this week (after this PR deploys) | https://the-barber-lounge-antioch.vercel.app/admin/calendar |
+| Shop log | https://the-barber-lounge-antioch.vercel.app/shop-log |
+
+`/admin` on the public site is the **Staff / Barber Lounge Hub** (content + floor week). Operator tools (appointments, products, analytics, SMS) were moved off this site in `d431c98` with the note that they belong in a separate **Cesars Hub** app — that app is not in this repo and has no live URL on GitHub yet.
+
+## Completed this session
+
+| Task | Result |
+|------|--------|
+| **Week calendar MVP** | Shows on Barber Lounge Hub `/admin`; Cesar sets it at `/admin/calendar` |
+| **Persistence** | Postgres `ShopWeek` when `DATABASE_URL` / `TBLDB_*` is set; otherwise `data/shop-week.json` |
+| **Auth** | GET public for the floor; PUT/POST require `ADMIN_UPLOAD_KEY` cookie or `x-admin-key` |
+
+**Cesar clicks (after merge/deploy):**
+
+1. Open the hub: https://the-barber-lounge-antioch.vercel.app/admin
+2. Tap **Set this week**. Enter admin key if prompted — same `ADMIN_UPLOAD_KEY` already on Vercel Production.
+3. Mark each day open/closed, add notes / blocked slots, **Save this week**.
+4. Confirm the week on the hub.
+5. If save returns 503: Vercel → Environment Variables → Production → confirm `DATABASE_URL` or `TBLDB_*`, then redeploy so `prisma db push` creates the `ShopWeek` table.
+
+JSON on Vercel is ephemeral. Team-memory (2026-08-11) recorded Neon `TBLDB_*` on Production — next deploy should persist this calendar in Postgres.
+
+---
+
+# Prior session — Aug 10, 2026 (launch checklist)
 
 ## Completed this session
 
