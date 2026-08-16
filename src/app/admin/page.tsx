@@ -27,6 +27,11 @@ const TILES = [
     detail: "Manage service and shop photos",
   },
   {
+    href: "/admin/estimates",
+    label: "Estimates",
+    detail: "Create, track, e-sign, and collect deposits",
+  },
+  {
     href: REVIEW_QR_PATH,
     label: "Review QR card",
     detail: "Printable in-shop Google review QR",

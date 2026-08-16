@@ -1,6 +1,6 @@
 # Repo Layout — Key Paths
 
-**Last verified:** 2026-08-08
+**Last verified:** 2026-08-16
 
 Quick map for agents navigating the codebase. Architecture rationale: `docs/org-conventions/tech-stack-decisions.md`.
 
@@ -12,7 +12,7 @@ Quick map for agents navigating the codebase. Architecture rationale: `docs/org-
 the-barber-lounge/
 ├── src/                    # Next.js app (pages, components, lib, API routes)
 ├── public/                 # Static assets (gallery, logo, hero video)
-├── data/                   # appointments.json (local persistence)
+├── data/                   # appointments.json, estimates.json (local persistence)
 ├── prisma/                 # Analytics schema
 ├── tools/seo-agent/        # Monthly SEO content factory (Python)
 ├── docs/
@@ -43,6 +43,8 @@ the-barber-lounge/
 | `/admin/edit` | `src/app/admin/edit/page.tsx` | Inline CMS |
 | `/admin/hero` | `src/app/admin/hero/page.tsx` | Hero video upload |
 | `/admin/gallery` | `src/app/admin/gallery/page.tsx` | Gallery bulk upload |
+| `/admin/estimates` | `src/app/admin/estimates/page.tsx` | Create estimates + open/sign/paid tracker (`ADMIN_UPLOAD_KEY`) |
+| `/e/[token]` | `src/app/e/[token]/page.tsx` | Public estimate review, e-sign, deposit Checkout |
 | `/admin/appointments` | `src/app/admin/appointments/page.tsx` | Booking requests |
 | `/admin/analytics` | `src/app/admin/analytics/page.tsx` | Postgres dashboard |
 | `/admin/notifications` | `src/app/admin/notifications/page.tsx` | ntfy setup |
@@ -66,6 +68,11 @@ the-barber-lounge/
 | `/api/classify-gallery` | `classify-gallery/route.ts` | AI gallery sort |
 | `/api/sms-test` | `sms-test/route.ts` | Dev SMS test |
 | `/api/sms-setup-status` | `sms-setup-status/route.ts` | Twilio status poll |
+| `/api/estimates` | `estimates/route.ts` | Admin create + list estimates |
+| `/api/estimates/[token]` | `estimates/[token]/route.ts` | Public estimate payload |
+| `/api/estimates/[token]/sign` | `estimates/[token]/sign/route.ts` | Typed-name e-sign |
+| `/api/estimates/[token]/checkout` | `estimates/[token]/checkout/route.ts` | Stripe Checkout session |
+| `/api/stripe/webhook` | `stripe/webhook/route.ts` | Mark deposit paid (idempotent) |
 
 ### Core lib (`src/lib/`)
 
@@ -78,6 +85,8 @@ the-barber-lounge/
 | `seo.ts` | Metadata + JSON-LD helpers |
 | `booking-config.ts` | This shop's booking agent config |
 | `appointments-store.ts` | Availability engine + JSON persistence |
+| `estimates.ts` / `estimates-db.ts` | Estimate tracker store (JSON + Postgres) |
+| `stripe.ts` | Stripe SDK helper (secret key names only) |
 | `wizard-helpers.ts` | Booking wizard service chips |
 | `sms-receipt.ts` | Twilio SMS templates |
 | `notifications.ts` | ntfy owner push |
@@ -94,6 +103,8 @@ the-barber-lounge/
 | `GalleryUpload.tsx`, `GalleryBulkUpload.tsx` | Admin gallery |
 | `HeroVideoUpload.tsx` | Admin hero |
 | `AdminAppointments.tsx` | Appointment list |
+| `AdminEstimates.tsx` | Create estimate + tracker |
+| `EstimatePublicView.tsx` | Public sign + Pay deposit |
 
 ---
 
@@ -117,7 +128,8 @@ Latest good output: `tools/seo-agent/output/the_barber_lounge_2026_08_08_v2/`
 | Path | Purpose |
 |------|---------|
 | `data/appointments.json` | Appointments + blocked slots |
-| `prisma/schema.prisma` | Analytics DB schema |
+| `data/estimates.json` | Estimate tracker fallback when Postgres is unset |
+| `prisma/schema.prisma` | Analytics + appointments + retail + estimates |
 | `.env.example` | Documented env var names |
 | `tailwind.config.ts` | Brand colors (see `style-guide.md`) |
 
