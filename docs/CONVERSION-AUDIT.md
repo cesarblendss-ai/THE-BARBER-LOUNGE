@@ -1,6 +1,67 @@
 # Conversion Audit — The Barber Lounge
 
-**Date:** August 15, 2026  
+**Last reviewed:** August 16, 2026  
+**Live site:** https://the-barber-lounge-antioch.vercel.app  
+**Context:** 71% bounce, ~142 visitors, 64% mobile, IG + Google. ~$300 from site leads in week 2. Google Maps calls often never hit Vercel.
+
+---
+
+## This pass (Aug 16) — review leaks before the data lies
+
+Bounce is a UX leak, not “only 30% called.” Google listing taps never show as site conversions. Fix the homepage so someone who will not read still knows what to do.
+
+### Still not closing (ranked)
+
+| Leak | Why it kills | Fix this pass |
+|------|----------------|---------------|
+| **1. Hero CTAs sat under the sticky bar** | Book/Call at the bottom of a 70vh hero + fixed sticky bar = taps miss or feel broken | Extra mobile padding under hero (`pb-28`) |
+| **2. Sticky Call was an icon only** | People who aren’t hunting for a phone glyph bounce | Sticky is now **Call (925) 209-5995** + **Book Now**, equal tap targets |
+| **3. No “open right now?” line** | IG/Maps traffic will not scroll to hours. Tuesday closed is a wasted trip | Hero: `Open today until 7:00 PM` / `Closed today · Open Wednesday 9:00 AM` (Pacific) |
+| **4. Address not tappable** | “Where?” with no maps tap | Address opens Google Maps |
+| **5. Too many ideas above the fold** | Long headline + Instagram “See Our Work” as a third CTA | Overlay headline shortened; desktop Instagram CTA removed from hero row |
+| **6. Price not in the first screen** | $50 / $65 is the closer for “is this even for me?” | `Walk-ins welcome · Haircut $50 · Cut & beard $65` |
+
+### What would close “dumb” traffic (now on the first screen)
+
+1. **Book Now** (full-width brass)
+2. **Call (925) 209-5995** (full-width)
+3. Open/closed today
+4. Price + walk-ins
+5. Address → Maps
+6. Sticky Call + Book always on screen (mobile)
+7. Header Call + Book (no menu required)
+
+### Intentionally not this pass
+
+- Content calendar for Instagram / GBP posts (operator work — Hub later)
+- Replacing Booksy with on-site booking as the only path
+- Raising root font-size from 75% (visual restyle)
+- Google review URL still a placeholder in `content.ts` — `/review` funnel is weak until Cesar pastes the GBP “Ask for reviews” link
+- BusinessRate: no signup. Score follows Google reviews. Get GBP right, then search on [businessrate.com/explore](https://businessrate.com/explore)
+
+### Mobile above-the-fold (after this pass)
+
+```
+┌─────────────────────────────────┐
+│ [Logo]          [Call] [Book] [≡]│
+├─────────────────────────────────┤
+│         (video grid)            │
+│  Sharp Cuts. Zero Compromise.   │
+│  Open today until 7:00 PM       │
+│  Walk-ins · $50 / $65           │
+│  1518 A St  → Maps              │
+│  [ BOOK NOW ]                   │
+│  [ Call (925) 209-5995 ]        │
+│  5★ · 180+ reviews              │
+├─────────────────────────────────┤
+│ [Call (925)…] [BOOK NOW]        │  sticky, above iOS home bar
+└─────────────────────────────────┘
+```
+
+---
+
+## Prior pass (August 15, 2026)
+
 **Context:** 71% bounce rate, 142 visitors, 64% mobile, traffic from Instagram + Google  
 **Goal:** Identify what is NOT closing and fix for low-friction, “obvious” UX (phone → book → done)
 
