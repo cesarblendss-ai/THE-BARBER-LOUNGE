@@ -1,18 +1,22 @@
 # Deploy Status
 
-**Last verified:** 2026-08-08  
-**Status:** **LIVE** — both production URLs return 200  
+**Last verified:** 2026-08-16  
+**Status:** **LIVE** on the Antioch alias — `the-barber-lounge.vercel.app` currently **307s to parked `thebarberlounge.com`** (HugeDomains)  
 **Vercel project:** `cesarblendss-7234s-projects/the-barber-lounge`
 
 ---
 
 ## Share this URL
 
-**https://the-barber-lounge.vercel.app**
+**https://the-barber-lounge-antioch.vercel.app**
+
+**Hub:** https://the-barber-lounge-antioch.vercel.app/admin
+
+Do not share `https://the-barber-lounge.vercel.app` until custom-domain DNS is fixed — that hostname redirects to `thebarberlounge.com`, which is still HugeDomains parking.
 
 Also works:
-- https://the-barber-lounge-cesarblendss-7234s-projects.vercel.app
-- https://the-barber-lounge-antioch.vercel.app (alias)
+- https://the-barber-lounge-cesarblendss-7234s-projects.vercel.app (may follow the same domain redirect — prefer the Antioch alias)
+- `thebarberlounge.com` — **NOT LIVE** (parking page)
 
 ---
 

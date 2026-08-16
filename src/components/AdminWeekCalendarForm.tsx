@@ -125,7 +125,7 @@ export function AdminWeekCalendarForm({
         setWeek(cloneWeek(payload.week));
       }
       setSaveState("success");
-      setMessage("Week saved. Cesar’s Hub on production will show this schedule.");
+      setMessage("Week saved. The Barber Lounge Hub will show this schedule.");
     } catch (error) {
       setSaveState("error");
       setMessage(error instanceof Error ? error.message : "Save failed.");
@@ -396,7 +396,7 @@ export function AdminWeekCalendarForm({
 
       <p className="text-center text-xs text-charcoal/50 sm:text-left">
         <Link href="/admin" className="text-brass hover:underline">
-          Back to Cesar’s Hub
+          Back to Hub
         </Link>
       </p>
     </form>

@@ -145,7 +145,7 @@ export function Footer({ content, adminAuthenticated = false }: FooterProps) {
                 href="/admin"
                 className="text-sm font-medium text-brass underline-offset-2 hover:underline"
               >
-                Cesar’s hub
+                Staff hub
               </Link>
               <span className="text-bone/30" aria-hidden="true">
                 ·
