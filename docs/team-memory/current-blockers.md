@@ -1,6 +1,6 @@
 ﻿# Current Blockers
 
-**Last verified:** 2026-08-11 (pre-flight audit)
+**Last verified:** 2026-08-16 (live DNS + prod smoke)
 
 ---
 
@@ -8,7 +8,7 @@
 
 | Blocker | Detail | Doc |
 |---------|--------|-----|
-| **Custom domain DNS** | **NOT LIVE** — `thebarberlounge.com` resolves to **HugeDomains parking** (AWS IPs `54.243.117.197`, `13.223.25.84`). Vercel project has domain + SSL queued; **NameBright DNS** still wrong. Use `the-barber-lounge-antioch.vercel.app` until fixed. |
+| **Custom domain DNS** | **NOT LIVE** — `thebarberlounge.com` still resolves to **HugeDomains parking** (`54.243.117.197`, `13.223.25.84`; `www` CNAME → `traff-https.hugedomains.com`). Vercel site is healthy at `the-barber-lounge-antioch.vercel.app` (200 on `/`, `/shop-log`, products + availability APIs). Fix DNS at **NameBright** — see `docs/operations/LAUNCH-CHECKLIST.md` §1. |
 | **Booksy integration** | No API — manual Booksy entry after each website booking | `booking-system.md` |
 
 ---
