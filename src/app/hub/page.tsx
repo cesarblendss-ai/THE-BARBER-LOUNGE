@@ -4,75 +4,91 @@ import Link from "next/link";
 import { SectionLabel } from "@/components/SectionLabel";
 import { StaffWeekCalendar } from "@/components/StaffWeekCalendar";
 import { SITE } from "@/lib/content";
-import { HUB_PATH } from "@/lib/hub";
+import { HUB_LIVE_URL } from "@/lib/hub";
 import { getReviewLandingUrl, REVIEW_QR_PATH } from "@/lib/reviews";
 import { getShopWeekView } from "@/lib/shop-week-view";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: `Staff Hub — ${SITE.name}`,
+  title: `Cesar’s Hub — ${SITE.name}`,
   robots: { index: false, follow: false },
 };
 
 const TILES = [
   {
-    href: "/admin/edit",
-    label: "Edit site text",
-    detail: "Inline copy changes without code",
+    href: "/hub/calendar",
+    label: "Set this week",
+    detail: "Open, closed, notes, blocked slots",
   },
   {
-    href: "/admin/hero",
-    label: "Hero videos",
-    detail: "Upload homepage background clips",
+    href: "/hub/appointments",
+    label: "Appointments",
+    detail: "Website requests — enter in Booksy",
   },
   {
-    href: "/admin/gallery",
-    label: "Gallery",
-    detail: "Manage service and shop photos",
+    href: "/hub/products",
+    label: "Retail",
+    detail: "Inventory, barber grabs, Friday settle",
+  },
+  {
+    href: "/shop-log",
+    label: "Shop log",
+    detail: "Barbers log product on the floor",
+  },
+  {
+    href: "/hub/analytics",
+    label: "Site traffic",
+    detail: "Anonymous visits — not Google call taps",
+  },
+  {
+    href: "/hub/notifications",
+    label: "Phone push",
+    detail: "ntfy alerts when someone books",
+  },
+  {
+    href: "/hub/sms-setup",
+    label: "SMS setup",
+    detail: "Twilio receipts — KYC still pending",
   },
   {
     href: REVIEW_QR_PATH,
-    label: "Review QR card",
-    detail: "Printable in-shop Google review QR",
+    label: "Review QR",
+    detail: "Printable Google review card",
+  },
+  {
+    href: "/admin",
+    label: "Website tools",
+    detail: "Edit copy, hero videos, gallery",
   },
 ] as const;
 
-export default async function AdminHubPage() {
-  const reviewLink = getReviewLandingUrl();
+export default async function HubHomePage() {
   const weekView = await getShopWeekView();
+  const reviewLink = getReviewLandingUrl();
 
   return (
     <section className="bg-bone px-4 pb-16 pt-28 sm:px-6 sm:pt-32">
       <div className="mx-auto max-w-3xl">
         <div className="text-center">
-          <SectionLabel>Staff</SectionLabel>
+          <SectionLabel>The Barber Lounge</SectionLabel>
           <h1 className="mt-3 font-serif text-4xl font-semibold text-charcoal sm:text-5xl">
-            Barber Lounge Hub
+            Cesar’s Hub
           </h1>
           <p className="mt-4 text-lg text-charcoal/70">
-            This week for the floor, then review capture, content, and uploads.
+            Shop operating system — calendar, bookings, retail, alerts. This page lives on the live
+            site. You do not need Cursor to use it.
           </p>
+          <p className="mt-3 break-all font-mono text-xs text-charcoal/50">{HUB_LIVE_URL}</p>
         </div>
 
         <div className="mt-10">
           <StaffWeekCalendar view={weekView} />
         </div>
 
-        <p className="mt-4 text-center text-sm text-charcoal/55">
-          Cesar sets the week in{" "}
-          <Link href={HUB_PATH} className="text-brass hover:underline">
-            Cesar’s Hub
-          </Link>
-          .
-        </p>
-
         <div className="mt-8 rounded-2xl border border-brass/30 bg-charcoal px-5 py-5 text-center sm:px-6">
           <p className="font-sans text-xs font-semibold uppercase tracking-label text-brass">
             Review link for clients
-          </p>
-          <p className="mt-2 text-sm text-bone/70">
-            Text this after a great cut — opens our review page, then Google.
           </p>
           <a
             href={reviewLink}

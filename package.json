@@ -13,7 +13,8 @@
     "db:seed-products": "node scripts/with-neon-env.mjs npx tsx scripts/seed-products.ts",
     "db:studio": "prisma studio",
     "test:phone": "npx tsx scripts/test-phone-normalize.ts",
-    "test:sms": "npx tsx scripts/test-sms.ts"
+    "test:sms": "npx tsx scripts/test-sms.ts",
+    "test:shop-week": "npx tsx scripts/test-shop-week.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",

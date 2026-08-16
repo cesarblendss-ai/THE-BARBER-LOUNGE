@@ -1,6 +1,6 @@
 # Repo Layout — Key Paths
 
-**Last verified:** 2026-08-08
+**Last verified:** 2026-08-16
 
 Quick map for agents navigating the codebase. Architecture rationale: `docs/org-conventions/tech-stack-decisions.md`.
 
@@ -40,13 +40,17 @@ the-barber-lounge/
 | `/gallery` | `src/app/gallery/page.tsx` | |
 | `/blog` | `src/app/blog/page.tsx` | |
 | `/blog/[slug]` | `src/app/blog/[slug]/page.tsx` | |
+| `/admin` | `src/app/admin/page.tsx` | Staff Hub — floor week + reviews + website tools |
 | `/admin/edit` | `src/app/admin/edit/page.tsx` | Inline CMS |
 | `/admin/hero` | `src/app/admin/hero/page.tsx` | Hero video upload |
 | `/admin/gallery` | `src/app/admin/gallery/page.tsx` | Gallery bulk upload |
-| `/admin/appointments` | `src/app/admin/appointments/page.tsx` | Booking requests |
-| `/admin/analytics` | `src/app/admin/analytics/page.tsx` | Postgres dashboard |
-| `/admin/notifications` | `src/app/admin/notifications/page.tsx` | ntfy setup |
-| `/admin/sms-setup` | `src/app/admin/sms-setup/page.tsx` | Twilio status UI |
+| `/hub` | `src/app/hub/page.tsx` | **Cesar’s Hub** — shop OS (gated). Guide: `docs/CESARS-HUB.md` |
+| `/hub/calendar` | `src/app/hub/calendar/page.tsx` | Set this week |
+| `/hub/appointments` | `src/app/hub/appointments/page.tsx` | Booking requests |
+| `/hub/products` | `src/app/hub/products/page.tsx` | Retail inventory |
+| `/hub/analytics` | `src/app/hub/analytics/page.tsx` | Postgres dashboard |
+| `/hub/notifications` | `src/app/hub/notifications/page.tsx` | ntfy setup |
+| `/hub/sms-setup` | `src/app/hub/sms-setup/page.tsx` | Twilio status UI |
 
 ### API routes (`src/app/api/`)
 

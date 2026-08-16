@@ -142,8 +142,17 @@ export function Footer({ content, adminAuthenticated = false }: FooterProps) {
           {adminAuthenticated ? (
             <>
               <Link
-                href="/admin"
+                href="/hub"
                 className="text-sm font-medium text-brass underline-offset-2 hover:underline"
+              >
+                Cesar’s Hub
+              </Link>
+              <span className="text-bone/30" aria-hidden="true">
+                ·
+              </span>
+              <Link
+                href="/admin"
+                className="text-bone/50 hover:text-brass"
               >
                 Staff hub
               </Link>

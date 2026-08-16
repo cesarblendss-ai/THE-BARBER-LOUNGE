@@ -1,4 +1,16 @@
-# Session Progress ? Aug 10, 2026 (launch checklist)
+# Session Progress — Aug 16, 2026 (separate Cesar’s Hub)
+
+**The hub is independent of Cursor.** Bookmark and run the shop from the live URL.
+
+**https://the-barber-lounge-antioch.vercel.app/hub**
+
+Guide: `docs/CESARS-HUB.md`
+
+Operator tools (appointments, retail, analytics, ntfy, SMS, week calendar) live under `/hub`, gated by the admin key. Staff Hub `/admin` stays floor-facing. GitHub is the backup — not Cursor chats or OneDrive folders.
+
+---
+
+# Prior session — Aug 10, 2026 (launch checklist)
 
 ## Completed this session
 

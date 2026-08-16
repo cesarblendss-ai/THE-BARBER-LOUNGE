@@ -123,3 +123,10 @@ model SiteContent {
   content   Json
   updatedAt DateTime @updatedAt
 }
+
+/** Cesar’s Hub week calendar. One row per Sunday weekStart (America/Los_Angeles). */
+model ShopWeek {
+  id        String   @id
+  days      Json
+  updatedAt DateTime @updatedAt
+}
