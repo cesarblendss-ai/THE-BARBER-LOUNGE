@@ -18,8 +18,8 @@ export const HUB_SECTION_CLASS = "bg-bone px-4 pb-28 pt-6 sm:px-6 sm:pb-16";
 
 export const HUB_NAV = [
   { href: "/hub", label: "Home", match: "exact" as const },
+  { href: "/hub/estimates", label: "Estimates", match: "prefix" as const },
   { href: "/hub/calendar", label: "Week", match: "prefix" as const },
-  { href: "/hub/appointments", label: "Books", match: "prefix" as const },
   { href: "/hub/products", label: "Retail", match: "prefix" as const },
   { href: "/hub/manual", label: "Manual", match: "prefix" as const },
 ] as const;

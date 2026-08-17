@@ -130,3 +130,34 @@ model ShopWeek {
   days      Json
   updatedAt DateTime @updatedAt
 }
+
+enum EstimateStatus {
+  created
+  opened
+  signed
+  paid
+}
+
+/** Shareable estimate → e-sign → Stripe Checkout deposit. */
+model Estimate {
+  id                      String         @id
+  token                   String         @unique
+  clientName              String
+  lineItems               Json
+  amountCents             Int
+  depositAmountCents      Int
+  notes                   String         @default("")
+  status                  EstimateStatus @default(created)
+  openedAt                DateTime?
+  signedAt                DateTime?
+  signedName              String?
+  paidAt                  DateTime?
+  stripeCheckoutSessionId String?
+  stripePaymentIntentId   String?
+  createdAt               DateTime
+  updatedAt               DateTime
+
+  @@index([status])
+  @@index([createdAt])
+  @@index([stripeCheckoutSessionId])
+}

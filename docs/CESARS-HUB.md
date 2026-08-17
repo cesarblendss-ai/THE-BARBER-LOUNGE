@@ -35,7 +35,7 @@ In-hub copy of this guide: **`/hub/manual`**
 
 | Surface | Who | URL |
 |---------|-----|-----|
-| **Cesar’s Hub** | You (owner) | `/hub` — calendar, bookings, retail, analytics, alerts, shop manual |
+| **Cesar’s Hub** | You (owner) | `/hub` — estimates, calendar, bookings, retail, analytics, alerts, shop manual |
 | **Staff Hub** | Floor | `/admin` — this week (read), reviews, website uploads |
 | **Public site** | Clients | `/` — marketing + Booksy |
 
@@ -47,6 +47,7 @@ Old operator URLs (`/admin/products`, `/admin/appointments`, …) redirect into 
 
 | Tile | What you do |
 |------|-------------|
+| **Estimates** | Create, share, e-sign, collect Stripe deposit (`/hub/estimates`) |
 | Shop manual | URLs, recovery, hours — stored in the hub, not in Cursor |
 | This week | See the floor calendar |
 | Set this week | Open/closed, notes, blocked slots |

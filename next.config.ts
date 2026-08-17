@@ -26,6 +26,7 @@ const nextConfig: NextConfig = {
       { source: "/admin/notifications", destination: "/hub/notifications", permanent: false },
       { source: "/admin/sms-setup", destination: "/hub/sms-setup", permanent: false },
       { source: "/admin/calendar", destination: "/hub/calendar", permanent: false },
+      { source: "/admin/estimates", destination: "/hub/estimates", permanent: false },
       {
         source: "/",
         has: [{ type: "query", key: "biz", value: "barber-lounge" }],

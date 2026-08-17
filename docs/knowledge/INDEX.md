@@ -25,7 +25,8 @@
 | **SMS KYC, error 20003, Twilio checklist** | `docs/team-memory/twilio-sms-status.md` |
 | **OneDrive .next, dev server, SEO v1 bug** | `docs/team-memory/flaky-tests.md` |
 | **Key paths map (src/, api, admin, hub)** | `docs/team-memory/repo-layout.md` |
-| **Cesar’s Hub (shop OS, no Cursor required)** | `docs/CESARS-HUB.md` |
+| **Cesar’s Hub (shop OS, estimates, no Cursor required)** | `docs/CESARS-HUB.md` |
+| **Estimates + Stripe deposit setup** | `docs/team-memory/estimates-stripe.md` |
 
 ---
 

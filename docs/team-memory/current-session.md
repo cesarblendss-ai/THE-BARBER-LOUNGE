@@ -15,6 +15,8 @@ Guide: `docs/CESARS-HUB.md` · in-app: `/hub/manual`
 
 Until this PR is merged and Vercel deploys, `/hub` is not on production yet. After merge, use the Antioch alias above.
 
+**Estimates** (the business tracker Cesar asked for) now live in Cesar’s Hub at `/hub/estimates`. They were built on PR #5 (`/admin/estimates`) and were not on this branch until 2026-08-17. Public client link stays `/e/[token]`. Stripe keys still need to be set on Vercel — see `docs/team-memory/estimates-stripe.md`.
+
 **Old local hub:** `http://localhost:8743/?biz=barber-lounge&production=1` only runs on Cesar’s PC. Live site now sends `?biz=barber-lounge` to `/hub`.
 
 ---

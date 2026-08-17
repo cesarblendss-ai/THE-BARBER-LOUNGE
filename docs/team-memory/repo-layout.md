@@ -45,6 +45,7 @@ the-barber-lounge/
 | `/admin/hero` | `src/app/admin/hero/page.tsx` | Hero video upload |
 | `/admin/gallery` | `src/app/admin/gallery/page.tsx` | Gallery bulk upload |
 | `/hub` | `src/app/hub/page.tsx` | **Cesar’s Hub** — shop OS (gated, own chrome + PWA). Guide: `docs/CESARS-HUB.md` |
+| `/hub/estimates` | `src/app/hub/estimates/page.tsx` | Create / track estimates, e-sign, Stripe deposit |
 | `/hub/manual` | `src/app/hub/manual/page.tsx` | Recovery + shop facts — works without Cursor |
 | `/hub/calendar` | `src/app/hub/calendar/page.tsx` | Set this week |
 | `/hub/appointments` | `src/app/hub/appointments/page.tsx` | Booking requests |
@@ -66,6 +67,11 @@ the-barber-lounge/
 | `/api/analytics/summary` | `analytics/summary/route.ts` | Dashboard data |
 | `/api/site-content` | `site-content/route.ts` | Edit mode saves |
 | `/api/admin/edit-auth` | `admin/edit-auth/route.ts` | Admin cookie auth |
+| `/api/estimates` | `estimates/route.ts` | Create / list estimates |
+| `/api/estimates/[token]` | `estimates/[token]/route.ts` | Public estimate GET |
+| `/api/estimates/[token]/sign` | `estimates/[token]/sign/route.ts` | Typed-name e-sign |
+| `/api/estimates/[token]/checkout` | `estimates/[token]/checkout/route.ts` | Stripe Checkout session |
+| `/api/stripe/webhook` | `stripe/webhook/route.ts` | Mark estimate paid |
 | `/api/upload-gallery` | `upload-gallery/route.ts` | Gallery uploads |
 | `/api/upload-hero-video` | `upload-hero-video/route.ts` | Hero video upload |
 | `/api/classify-gallery` | `classify-gallery/route.ts` | AI gallery sort |

@@ -21,7 +21,7 @@ const SURFACES = [
     name: "Cesar’s Hub",
     who: "You",
     url: HUB_LIVE_URL,
-    use: "Calendar, bookings, retail, alerts, this manual",
+    use: "Estimates, calendar, bookings, retail, alerts, this manual",
   },
   {
     name: "Staff Hub",

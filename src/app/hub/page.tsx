@@ -18,6 +18,11 @@ export const metadata: Metadata = {
 
 const TILES = [
   {
+    href: "/hub/estimates",
+    label: "Estimates",
+    detail: "Create, share, e-sign, collect deposit",
+  },
+  {
     href: "/hub/manual",
     label: "Shop manual",
     detail: "URLs, recovery, hours — stored here, not in Cursor",
