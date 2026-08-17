@@ -1,4 +1,7 @@
-node_modules
-.next
-.env*
-!.env.example
+hub_path.txt
+storage/
+__pycache__/
+*.pyc
+node_modules/
+.next/
+.env.local

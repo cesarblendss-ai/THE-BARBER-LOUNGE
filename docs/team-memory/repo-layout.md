@@ -10,7 +10,7 @@ Quick map for agents navigating the codebase. Architecture rationale: `docs/org-
 
 ```
 the-barber-lounge/
-├── cesars-hub/             # Cesar’s Hub — Cesar Blends agency OS (port 8743)
+├── cesars-hub/             # Cesar’s Hub — local Python+vanilla file OS (port 8743), not the public site
 ├── src/                    # Barber Lounge Next.js app
 ├── public/                 # Static assets (gallery, logo, hero video)
 ├── data/                   # appointments.json (local persistence)
@@ -23,6 +23,24 @@ the-barber-lounge/
 ├── AGENTS.md               # Agent entry point
 └── .env.local              # Secrets (gitignored)
 ```
+
+---
+
+## `cesars-hub/` — local agency file OS (not deployed with the shop)
+
+Python stdlib server + vanilla JS. Run `python3 server.py` or `start.bat`. **Do not** put this on thebarberlounge.com.
+
+| Path | Purpose |
+|------|---------|
+| `server.py` | Static files + JSON file API (`/api/list`, `/api/upload`, `/api/businesses`, …) |
+| `index.html` | Thin shell + offline `FALLBACK_BUSINESSES` |
+| `styles.css` | Hub UI (per-business colors, node graph, `.doc-preview`) |
+| `js/hub.js` | Hub/business/folders/tracker |
+| `js/estimate-wizard.js` | Guided estimate wizard |
+| `js/estimate-pdf.js` | html2canvas + jsPDF save |
+| `data/businesses.json` | Canonical id/name/folders + snippets/contacts |
+| `storage/` | Default on-disk root (gitignored) |
+| `hub_path.txt` | Machine-specific storage path (gitignored) |
 
 ---
 

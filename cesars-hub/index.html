@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b0d10" />
+  <title>Cesar's Hub</title>
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="/icon-192.png" />
+  <link rel="apple-touch-icon" href="/icon-192.png" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" id="brandLink">
+      <img src="/icon-192.png" alt="" />
+      <span>CESAR'S HUB</span>
+    </a>
+    <div class="grow"></div>
+    <div class="lan-chip" id="lanChip" hidden>
+      <img id="lanQr" alt="QR" />
+      <span id="lanLabel"></span>
+    </div>
+  </header>
+  <main id="app"></main>
+  <div class="toast" id="toast"></div>
+  <div class="qr-modal" id="qrModal"><img id="qrBig" alt="LAN QR" /></div>
+
+  <script>
+    const FALLBACK_BUSINESSES = [
+      { id: "barber-lounge", name: "The Barber Lounge", role: "Founder shop", color: "#B08D57", folders: ["Documents", "Marketing", "Photos", "Estimates"], hasEstimates: false, hasGmail: true, bilingual: false, seoClient: false },
+      { id: "silvas-handyman", name: "Silva's Handyman", role: "SEO client", color: "#C45C26", folders: ["Documents", "Marketing", "Photos", "Estimates"], hasEstimates: true, hasGmail: true, bilingual: true, seoClient: true },
+      { id: "peanut-construction", name: "Peanut Construction", role: "SEO client", color: "#D4A017", folders: ["Documents", "Marketing", "Photos", "Estimates"], hasEstimates: true, hasGmail: true, bilingual: false, seoClient: true },
+      { id: "yes-we-can", name: "Yes We Can Solutions", role: "SEO client", color: "#1F6B4A", folders: ["Documents", "Marketing", "Photos", "Estimates"], hasEstimates: true, hasGmail: true, bilingual: false, seoClient: true },
+      { id: "ls-shine", name: "LS Shine", role: "SEO client", color: "#4A6FA5", folders: ["Documents", "Marketing", "Photos", "Estimates"], hasEstimates: true, hasGmail: true, bilingual: false, seoClient: true },
+      { id: "drink-masters", name: "Drink Masters", role: "SEO client", color: "#7B2D4B", folders: ["Documents", "Marketing", "Photos", "Estimates"], hasEstimates: true, hasGmail: true, bilingual: false, seoClient: true }
+    ];
+    window.HUB_FALLBACK = FALLBACK_BUSINESSES;
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="/js/estimate-pdf.js"></script>
+  <script src="/js/estimate-wizard.js"></script>
+  <script src="/js/hub.js"></script>
+</body>
+</html>

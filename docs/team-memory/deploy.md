@@ -10,7 +10,7 @@
 
 **Public site:** https://the-barber-lounge-antioch.vercel.app  
 **Staff Hub:** https://the-barber-lounge-antioch.vercel.app/admin  
-**Cesar’s Hub:** standalone app `cesars-hub/` — local http://localhost:8743 — **not** on this Vercel project
+**Cesar’s Hub:** local Python app `cesars-hub/` — http://localhost:8743 — **not** on Vercel or the public shop site
 
 Do **not** share `https://the-barber-lounge.vercel.app` or `thebarberlounge.com` until NameBright DNS is fixed — those currently park on HugeDomains.
 

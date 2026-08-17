@@ -1,13 +1,12 @@
-# Session Progress — Aug 17, 2026 (Cesar’s Hub = agency OS)
+# Session Progress — Aug 17, 2026 (Cesar’s Hub = local Python OS)
 
-Cesar’s Hub on **localhost:8743** is the **Cesar Blends** agency OS (black/white), not the Barber Lounge marketing site.
+Cesar’s Hub is a **local, private multi-business dashboard** on Cesar’s PC. It is **not** the Barber Lounge website and **not** a Vercel app.
 
 **Bookmark:** http://localhost:8743/?biz=barber-lounge&production=1
 
-- `biz=` selects an SEO client from `tools/seo-agent/clients/`
-- Wizards: SEO run, onboard intake, estimates
-- Barber Lounge shop tools (calendar, retail, SMS) only when that client is selected
-
-Desktop Cursor chats that froze were **local to Cesar’s PC** — they are not in this GitHub repo. This app is the durable copy.
+- Launch: `cesars-hub/start.bat` or `python3 cesars-hub/server.py` (port **8743**)
+- Storage: on-disk folders under the path in `cesars-hub/hub_path.txt` (gitignored)
+- Estimates: guided wizard → `.txt` + PDF in each business’s `Estimates/` folder
+- Staff Hub for the shop stays at `/admin` on the Barber Lounge site
 
 **PR:** https://github.com/cesarblendss-ai/THE-BARBER-LOUNGE/pull/7

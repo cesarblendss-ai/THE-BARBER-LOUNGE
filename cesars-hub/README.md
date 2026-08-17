@@ -1,80 +1,40 @@
-# Cesar’s Hub — standalone shop OS (not The Barber Lounge website)
+# Cesar's Hub
 
-This is Cesar’s **Cesar Blends agency OS**: SEO clients, onboard/SEO/estimate wizards, then shop tools for a selected `biz=`.
+Local, private multi-business dashboard. No cloud backend — files stay on disk. **Not** part of the Barber Lounge public website.
 
-Black / white chrome — not The Barber Lounge cream and brass.
+**Bookmark:** http://localhost:8743/?biz=barber-lounge&production=1
 
-**Last verified:** 2026-08-17
+## Run
 
----
+Windows: double-click `start.bat` (or `python server.py`).
 
-## Run it (local)
-
-```bash
-cd cesars-hub
-cp .env.example .env.local   # set HUB_KEY (never commit the value)
-npm install
-npm run dev
-```
-
-Open:
-
-**http://localhost:8743/?biz=barber-lounge&production=1**
-
-`biz=` picks the SEO client. `production=1` is the live-ops flag.
-
-Clients are loaded from `tools/seo-agent/clients/` (The Barber Lounge, Yes We Can, plus anyone you onboard in the wizard).
-
----
-
-## Run it (local)
+Linux/macOS:
 
 ```bash
-cd cesars-hub
-cp .env.example .env.local   # set HUB_KEY (never commit the value)
-npm install
-npm run dev
+python3 server.py
 ```
 
-Open:
+Opens http://localhost:8743 automatically. On the same Wi-Fi, the phone can use `http://<lan-ip>:8743`. Set `HUB_NO_BROWSER=1` to skip opening a browser.
 
-**http://localhost:8743/?biz=barber-lounge&production=1**
+First run creates a storage folder (default `cesars-hub/storage`) and writes the path to `hub_path.txt` (machine-specific, gitignored).
 
-That bookmark is the hub. Tiles: estimates, calendar, appointments, retail, shop log, analytics, ntfy, SMS, review QR, website tools, shop manual.
+## Stack
 
----
+- Frontend: `index.html` + `styles.css` + vanilla JS (`js/hub.js`, `js/estimate-wizard.js`, `js/estimate-pdf.js`). No framework, no build.
+- Backend: `server.py` — Python stdlib only (`http.server`). Port **8743**.
+- Config: `data/businesses.json` is the source of truth for id/name/folders. `index.html` keeps `FALLBACK_BUSINESSES` for offline UI metadata.
 
-## Deploy (own Vercel project)
+## What it does
 
-1. Vercel → **Add New Project**
-2. Import `THE-BARBER-LOUNGE`
-3. **Root Directory:** `cesars-hub`
-4. Do **not** attach this to the `the-barber-lounge` production domain
-5. Set env: `HUB_KEY` (or `ADMIN_UPLOAD_KEY`), Stripe keys (see below), and shop env the hub needs (`DATABASE_URL` / `TBLDB_*`, `NTFY_TOPIC`, Twilio names)
-6. Bookmark the Vercel URL this project gives you
+- Hub home: node-graph of businesses (stacked list under 720px). Each business has its own color.
+- Per-business folders: Documents, Marketing, Photos, Estimates — drag-and-drop upload, phone camera on Photos.
+- Guided estimate wizard (client → category → tasks → prices → review) with bilingual UI for Silva's Handyman. Saves `.txt` plus a PDF when html2canvas/jsPDF load.
+- Estimates tracker: saved / sent / opened, backfilled from the Estimates folder.
+- PWA: `manifest.json` + icons for a phone home-screen install.
+- LAN QR in the header.
 
-Until that project exists, use localhost:8743.
+Shop-floor tools (week calendar, Booksy, gallery CMS) stay on The Barber Lounge **Staff Hub** at `/admin`. This folder is Cesar's local agency OS only.
 
----
+## Add a business
 
-## Stripe (names only)
-
-Vercel env for **this** project:
-
-- `STRIPE_SECRET_KEY`
-- `STRIPE_WEBHOOK_SECRET`
-- `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
-- `NEXT_PUBLIC_SITE_URL` = the Cesar’s Hub URL (not the barber site)
-- Webhook: `https://YOUR-HUB-DOMAIN/api/stripe/webhook`  
-  events: `checkout.session.completed`, `checkout.session.async_payment_succeeded`
-
-Never paste key values in chat or git.
-
----
-
-## What this is vs the shop
-
-| App | URL | What |
-|-----|-----|------|
-| **Cesar’s Hub** | localhost:8743 / own Vercel project | Shop OS — calendar, estimates, retail, alerts |
-| **The Barber Lounge** | the-barber-lounge-antioch.vercel.app | Shop website + Staff Hub `/admin` |
+Edit **both** `data/businesses.json` and `FALLBACK_BUSINESSES` in `index.html` (colors, flags, snippets). Restart `server.py`.

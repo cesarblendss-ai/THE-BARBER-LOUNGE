@@ -1,0 +1,193 @@
+{
+  "businesses": [
+    {
+      "id": "barber-lounge",
+      "name": "The Barber Lounge",
+      "role": "Your shop",
+      "color": "#B08D57",
+      "folders": ["Documents", "Marketing", "Photos", "Estimates"],
+      "hasEstimates": false,
+      "hasGmail": true,
+      "bilingual": false,
+      "seoClient": false,
+      "instagram": "https://www.instagram.com/thebarberlounges1/",
+      "google": "https://the-barber-lounge-antioch.vercel.app",
+      "gmail": "thebarberlounge00@gmail.com"
+    },
+    {
+      "id": "silvas-handyman",
+      "name": "Silva's Handyman",
+      "role": "SEO client",
+      "color": "#C45C26",
+      "folders": ["Documents", "Marketing", "Photos", "Estimates"],
+      "hasEstimates": true,
+      "hasGmail": true,
+      "bilingual": true,
+      "seoClient": true,
+      "instagram": "",
+      "google": "",
+      "gmail": ""
+    },
+    {
+      "id": "peanut-construction",
+      "name": "Peanut Construction",
+      "role": "SEO client",
+      "color": "#D4A017",
+      "folders": ["Documents", "Marketing", "Photos", "Estimates"],
+      "hasEstimates": true,
+      "hasGmail": true,
+      "bilingual": false,
+      "seoClient": true,
+      "instagram": "",
+      "google": "",
+      "gmail": ""
+    },
+    {
+      "id": "yes-we-can",
+      "name": "Yes We Can",
+      "role": "SEO client",
+      "color": "#1F6B4A",
+      "folders": ["Documents", "Marketing", "Photos", "Estimates"],
+      "hasEstimates": true,
+      "hasGmail": true,
+      "bilingual": false,
+      "seoClient": true,
+      "instagram": "",
+      "google": "https://yeswecanmobile.com",
+      "gmail": ""
+    },
+    {
+      "id": "ls-shine",
+      "name": "LS Shine",
+      "role": "SEO client",
+      "color": "#4A6FA5",
+      "folders": ["Documents", "Marketing", "Photos", "Estimates"],
+      "hasEstimates": true,
+      "hasGmail": true,
+      "bilingual": false,
+      "seoClient": true,
+      "instagram": "",
+      "google": "",
+      "gmail": ""
+    },
+    {
+      "id": "drink-masters",
+      "name": "Drink Masters",
+      "role": "SEO client",
+      "color": "#7B2D4B",
+      "folders": ["Documents", "Marketing", "Photos", "Estimates"],
+      "hasEstimates": true,
+      "hasGmail": true,
+      "bilingual": false,
+      "seoClient": true,
+      "instagram": "",
+      "google": "",
+      "gmail": ""
+    }
+  ],
+  "info": {
+    "barber-lounge": {
+      "legalName": "The Barber Lounge",
+      "contact": "Cesar Silva",
+      "phone": "(925) 209-5995",
+      "email": "thebarberlounge00@gmail.com",
+      "address": "1518 A St, Antioch, CA 94509"
+    },
+    "silvas-handyman": {
+      "legalName": "Silva's Handyman",
+      "contact": "Cesar Silva",
+      "phone": "TBD",
+      "email": "TBD",
+      "address": "Antioch, CA"
+    },
+    "peanut-construction": {
+      "legalName": "Peanut Construction",
+      "contact": "TBD",
+      "phone": "TBD",
+      "email": "TBD",
+      "address": "TBD"
+    },
+    "yes-we-can": {
+      "legalName": "Yes We Can Solutions",
+      "contact": "Jose",
+      "phone": "(707) 738-6502",
+      "email": "TBD",
+      "address": "Antioch, CA"
+    },
+    "ls-shine": {
+      "legalName": "LS Shine",
+      "contact": "TBD",
+      "phone": "TBD",
+      "email": "TBD",
+      "address": "TBD"
+    },
+    "drink-masters": {
+      "legalName": "Drink Masters",
+      "contact": "TBD",
+      "phone": "TBD",
+      "email": "TBD",
+      "address": "TBD"
+    }
+  },
+  "contacts": {
+    "barber-lounge": [],
+    "silvas-handyman": [
+      { "name": "Walk-in / new client", "address": "Antioch, CA" }
+    ],
+    "peanut-construction": [],
+    "yes-we-can": [],
+    "ls-shine": [],
+    "drink-masters": []
+  },
+  "snippets": {
+    "silvas-handyman": {
+      "Repairs": [
+        { "text": "General repair and punch list", "textEs": "Reparación general y lista de pendientes" },
+        { "text": "Door, lock, and hardware repair", "textEs": "Reparación de puertas, cerraduras y herrajes" },
+        { "text": "Drywall patch and texture", "textEs": "Parche y textura de drywall" }
+      ],
+      "Painting": [
+        { "text": "Interior paint — walls", "textEs": "Pintura interior — paredes" },
+        { "text": "Trim and door paint", "textEs": "Pintura de molduras y puertas" },
+        { "text": "Exterior touch-up", "textEs": "Retoque exterior" }
+      ],
+      "Plumbing": [
+        { "text": "Faucet swap", "textEs": "Cambio de llave" },
+        { "text": "Toilet repair / reset", "textEs": "Reparación / asiento de inodoro" },
+        { "text": "Supply line replacement", "textEs": "Cambio de línea de agua" }
+      ],
+      "Electrical": [
+        { "text": "Fixture install", "textEs": "Instalación de lámpara" },
+        { "text": "Outlet / switch replacement", "textEs": "Cambio de contacto / apagador" }
+      ]
+    },
+    "peanut-construction": {
+      "Build": [
+        { "text": "Framing labor" },
+        { "text": "Finish carpentry" }
+      ],
+      "Site": [
+        { "text": "Demo and haul-off" },
+        { "text": "Site cleanup" }
+      ]
+    },
+    "yes-we-can": {
+      "Canning": [
+        { "text": "Mobile canning day — beer" },
+        { "text": "Mobile canning day — cider / wine" },
+        { "text": "Labeling and date coding" }
+      ],
+      "Materials": [
+        { "text": "Cans and ends" },
+        { "text": "Packaging materials" }
+      ]
+    },
+    "ls-shine": {
+      "Service": [{ "text": "Service visit" }, { "text": "Follow-up / punch" }]
+    },
+    "drink-masters": {
+      "Service": [{ "text": "Event service" }, { "text": "Setup / breakdown" }]
+    },
+    "barber-lounge": {}
+  }
+}
