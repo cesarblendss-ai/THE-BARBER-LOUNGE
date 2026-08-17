@@ -15,6 +15,8 @@ Guide: `docs/CESARS-HUB.md` · in-app: `/hub/manual`
 
 Until this PR is merged and Vercel deploys, `/hub` is not on production yet. After merge, use the Antioch alias above.
 
+**Old local hub:** `http://localhost:8743/?biz=barber-lounge&production=1` only runs on Cesar’s PC. Live site now sends `?biz=barber-lounge` to `/hub`.
+
 ---
 
 # Prior session — Aug 10, 2026 (launch checklist)

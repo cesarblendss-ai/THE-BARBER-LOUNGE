@@ -8,6 +8,9 @@ export const HUB_GITHUB_URL = "https://github.com/cesarblendss-ai/THE-BARBER-LOU
 export const HUB_VERCEL_URL =
   "https://vercel.com/cesarblendss-7234s-projects/the-barber-lounge";
 
+/** Old local dashboard. Dies when Cursor or that PC process stops. Do not bookmark. */
+export const HUB_LEGACY_LOCAL_URL = "http://localhost:8743/?biz=barber-lounge&production=1";
+
 /** Do not bookmark these until NameBright DNS is live. */
 export const HUB_DEAD_HOSTS = ["thebarberlounge.com", "the-barber-lounge.vercel.app"] as const;
 

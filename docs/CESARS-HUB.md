@@ -25,6 +25,10 @@ That’s the whole product. No agent required.
 
 In-hub copy of this guide: **`/hub/manual`**
 
+### Old local URL (do not bookmark)
+
+`http://localhost:8743/?biz=barber-lounge&production=1` was a dashboard on **your computer**. It dies when Cursor, that folder, or that process stops — that is why the hub disappeared. On the live site, `?biz=barber-lounge` now opens `/hub`.
+
 ---
 
 ## What is whose

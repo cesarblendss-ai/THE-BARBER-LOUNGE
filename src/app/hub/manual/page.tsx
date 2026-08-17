@@ -74,6 +74,12 @@ export default function HubManualPage() {
             <p className="mt-4 text-sm">
               You do not need an agent to take a booking, log retail, or post this week.
             </p>
+            <p className="mt-3 text-sm">
+              <span className="font-semibold text-charcoal">localhost:8743</span> was the old local
+              dashboard (<code className="text-charcoal">?biz=barber-lounge</code>). It only exists
+              on that computer while the process is running. Replace that bookmark with the live
+              hub URL above.
+            </p>
           </section>
 
           <section className="rounded-2xl border border-charcoal/10 bg-white p-5 sm:p-6">
