@@ -10,7 +10,7 @@ Quick map for agents navigating the codebase. Architecture rationale: `docs/org-
 
 ```
 the-barber-lounge/
-├── cesars-hub/             # Cesar’s Hub (estimates) — NOT the shop website
+├── cesars-hub/             # Cesar’s Hub — Cesar Blends agency OS (port 8743)
 ├── src/                    # Barber Lounge Next.js app
 ├── public/                 # Static assets (gallery, logo, hero video)
 ├── data/                   # appointments.json (local persistence)

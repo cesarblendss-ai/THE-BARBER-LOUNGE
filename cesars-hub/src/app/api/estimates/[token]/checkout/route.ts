@@ -6,9 +6,9 @@ import {
   getEstimateByToken,
   getEstimateShareUrl,
   markEstimatePaid,
-} from "@/lib/estimates";
-import { HUB } from "@/lib/brand";
-import { getStripe, isStripeConfigured } from "@/lib/stripe";
+} from "@hub/lib/estimates";
+import { HUB } from "@hub/lib/brand";
+import { getStripe, isStripeConfigured } from "@hub/lib/stripe";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

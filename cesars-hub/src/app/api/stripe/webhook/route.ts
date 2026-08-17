@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import type Stripe from "stripe";
 
-import { markEstimatePaid } from "@/lib/estimates";
-import { getStripe, getStripeWebhookSecret } from "@/lib/stripe";
+import { markEstimatePaid } from "@hub/lib/estimates";
+import { getStripe, getStripeWebhookSecret } from "@hub/lib/stripe";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

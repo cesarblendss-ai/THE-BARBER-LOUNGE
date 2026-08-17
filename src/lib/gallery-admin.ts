@@ -8,8 +8,9 @@ import {
   GALLERY_UPLOAD_PREFIX,
   type GalleryCategoryId,
 } from "@/lib/gallery";
+import { getPublicDir } from "@/lib/repo-paths";
 
-const GALLERY_DIR = path.join(process.cwd(), "public/gallery");
+const GALLERY_DIR = path.join(getPublicDir(), "gallery");
 const VERSION_FILE = path.join(GALLERY_DIR, "gallery-version.json");
 
 export const MAX_GALLERY_IMAGE_BYTES = 10 * 1024 * 1024;

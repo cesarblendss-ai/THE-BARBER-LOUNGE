@@ -2,9 +2,9 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-import { parseJsonResponse } from "@/lib/fetch-json";
-import { formatUsd } from "@/lib/money";
-import type { Estimate, EstimateStatus } from "@/lib/estimates-types";
+import { parseJsonResponse } from "@hub/lib/fetch-json";
+import { formatUsd } from "@hub/lib/money";
+import type { Estimate, EstimateStatus } from "@hub/lib/estimates-types";
 
 type AdminEstimate = Estimate & { shareUrl: string };
 

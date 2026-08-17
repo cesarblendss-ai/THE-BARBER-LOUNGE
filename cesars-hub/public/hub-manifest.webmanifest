@@ -1,13 +1,19 @@
 {
   "name": "Cesar's Hub",
   "short_name": "Cesar's Hub",
-  "description": "Estimates, e-sign, and deposits. Separate from The Barber Lounge website.",
-  "start_url": "/",
+  "description": "The Barber Lounge shop operating system. Calendar, bookings, retail, alerts, estimates.",
+  "start_url": "/?biz=barber-lounge&production=1",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#F2EFEA",
   "theme_color": "#1A1A1A",
   "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
     {
       "src": "/icon.png",
       "sizes": "48x48",

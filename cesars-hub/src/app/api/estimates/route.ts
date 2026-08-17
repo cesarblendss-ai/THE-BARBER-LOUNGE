@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { unauthorizedHubResponse, verifyHubKey } from "@/lib/hub-auth";
-import { createEstimate, getEstimateShareUrl, listEstimates } from "@/lib/estimates";
-import type { CreateEstimateInput } from "@/lib/estimates-types";
-import { isStripeConfigured } from "@/lib/stripe";
+import { unauthorizedHubResponse, verifyHubKey } from "@hub/lib/hub-auth";
+import { createEstimate, getEstimateShareUrl, listEstimates } from "@hub/lib/estimates";
+import type { CreateEstimateInput } from "@hub/lib/estimates-types";
+import { isStripeConfigured } from "@hub/lib/stripe";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

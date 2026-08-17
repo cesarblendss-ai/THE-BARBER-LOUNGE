@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 
-import { parseJsonResponse } from "@/lib/fetch-json";
-import { formatUsd } from "@/lib/money";
-import { HUB } from "@/lib/brand";
-import type { PublicEstimate } from "@/lib/estimates-types";
+import { parseJsonResponse } from "@hub/lib/fetch-json";
+import { formatUsd } from "@hub/lib/money";
+import { HUB } from "@hub/lib/brand";
+import type { PublicEstimate } from "@hub/lib/estimates-types";
 
 type Props = {
   token: string;

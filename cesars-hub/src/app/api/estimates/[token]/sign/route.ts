@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { signEstimate, toPublicEstimate } from "@/lib/estimates";
+import { signEstimate, toPublicEstimate } from "@hub/lib/estimates";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

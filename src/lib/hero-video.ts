@@ -2,8 +2,9 @@ import fs from "fs";
 import path from "path";
 
 import { HERO_VIDEOS, type HeroVideoSlot } from "./gallery";
+import { getPublicDir } from "./repo-paths";
 
-const GALLERY_DIR = path.join(process.cwd(), "public/gallery");
+const GALLERY_DIR = path.join(getPublicDir(), "gallery");
 const LEGACY_HERO_VIDEO_FILE = path.join(GALLERY_DIR, "hero-video.mp4");
 const VERSION_FILE = path.join(GALLERY_DIR, "hero-video-version.json");
 

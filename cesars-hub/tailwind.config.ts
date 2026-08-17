@@ -5,12 +5,17 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "../src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "../src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "../src/lib/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
         charcoal: "#1A1A1A",
         bone: "#F2EFEA",
+        ink: "#0A0A0A",
+        paper: "#FAFAFA",
         brass: {
           DEFAULT: "#B08D57",
           dark: "#7A6035",

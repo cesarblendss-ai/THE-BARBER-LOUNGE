@@ -7,12 +7,13 @@ export function getAdminKeyFromRequest(request: NextRequest): string | null {
     request.nextUrl.searchParams.get("key")?.trim() ||
     request.headers.get("x-admin-key")?.trim() ||
     request.cookies.get(ADMIN_KEY_COOKIE)?.value?.trim() ||
+    request.cookies.get("cesars_hub_key")?.value?.trim() ||
     null
   );
 }
 
 export function verifyAdminKey(request: NextRequest): boolean {
-  const requiredKey = process.env.ADMIN_UPLOAD_KEY?.trim();
+  const requiredKey = process.env.ADMIN_UPLOAD_KEY?.trim() || process.env.HUB_KEY?.trim();
   if (!requiredKey) return true;
 
   const provided = getAdminKeyFromRequest(request);
@@ -28,8 +29,10 @@ export const ADMIN_KEY_COOKIE = "tbl_admin_key";
 
 /** Server-side check (layout, RSC) — matches verifyAdminKey cookie logic. */
 export function isAdminAuthenticated(cookieStore: ReadonlyRequestCookies): boolean {
-  const requiredKey = process.env.ADMIN_UPLOAD_KEY?.trim();
+  const requiredKey = process.env.ADMIN_UPLOAD_KEY?.trim() || process.env.HUB_KEY?.trim();
   if (!requiredKey) return true;
-  const provided = cookieStore.get(ADMIN_KEY_COOKIE)?.value?.trim();
+  const provided =
+    cookieStore.get(ADMIN_KEY_COOKIE)?.value?.trim() ||
+    cookieStore.get("cesars_hub_key")?.value?.trim();
   return provided === requiredKey;
 }

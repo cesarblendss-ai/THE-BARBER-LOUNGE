@@ -2,15 +2,15 @@ import { promises as fs } from "fs";
 import path from "path";
 import { randomBytes } from "crypto";
 
-import { HUB, getPublicSiteUrl } from "@/lib/brand";
-import { dollarsToCents } from "@/lib/money";
+import { HUB, getPublicSiteUrl } from "@hub/lib/brand";
+import { dollarsToCents } from "@hub/lib/money";
 import type {
   CreateEstimateInput,
   Estimate,
   EstimateLineItem,
   EstimateStatus,
   PublicEstimate,
-} from "@/lib/estimates-types";
+} from "@hub/lib/estimates-types";
 
 export type {
   CreateEstimateInput,
@@ -18,7 +18,7 @@ export type {
   EstimateLineItem,
   EstimateStatus,
   PublicEstimate,
-} from "@/lib/estimates-types";
+} from "@hub/lib/estimates-types";
 
 type EstimatesFile = {
   estimates: Estimate[];

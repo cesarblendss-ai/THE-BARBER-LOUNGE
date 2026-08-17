@@ -2,6 +2,7 @@ import { promises as fs } from "fs";
 import path from "path";
 
 import { isDatabaseConfigured } from "./db";
+import { getDataDir } from "./repo-paths";
 import { dbLoadShopWeek, dbSaveShopWeek } from "./shop-week-db";
 import {
   buildDefaultWeek,
@@ -13,7 +14,7 @@ import {
   type ShopWeekPersistence,
 } from "./shop-week";
 
-const DATA_PATH = path.join(process.cwd(), "data", "shop-week.json");
+const DATA_PATH = path.join(getDataDir(), "shop-week.json");
 
 type ShopWeekFile = {
   weeks: Record<string, ShopWeek>;

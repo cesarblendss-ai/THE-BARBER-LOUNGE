@@ -6,6 +6,7 @@ import type { ShopWeekView } from "@/lib/shop-week-view";
 type StaffWeekCalendarProps = {
   view: ShopWeekView;
   showEditLink?: boolean;
+  editHref?: string;
 };
 
 function DayGlance({
@@ -43,7 +44,11 @@ function DayGlance({
   );
 }
 
-export function StaffWeekCalendar({ view, showEditLink = true }: StaffWeekCalendarProps) {
+export function StaffWeekCalendar({
+  view,
+  showEditLink = true,
+  editHref = "/admin/calendar",
+}: StaffWeekCalendarProps) {
   const { week, displayDays, today, saved } = view;
 
   return (
@@ -62,7 +67,7 @@ export function StaffWeekCalendar({ view, showEditLink = true }: StaffWeekCalend
         </div>
         {showEditLink ? (
           <Link
-            href="/admin/calendar"
+            href={editHref}
             className="inline-flex items-center justify-center rounded-full bg-charcoal px-4 py-2 text-xs font-semibold uppercase tracking-wider text-bone transition-colors hover:bg-charcoal/90"
           >
             Set this week

@@ -11,7 +11,9 @@
   }
 
   body {
-    @apply bg-bone text-charcoal antialiased;
+    @apply antialiased;
+    background-color: #fafafa;
+    color: #0a0a0a;
   }
 
   a:focus-visible,
@@ -21,7 +23,9 @@
   select:focus-visible,
   summary:focus-visible,
   [tabindex]:not([tabindex="-1"]):focus-visible {
-    @apply outline-none ring-2 ring-brass ring-offset-2 ring-offset-bone;
+    @apply outline-none ring-2 ring-offset-2;
+    --tw-ring-color: #0a0a0a;
+    --tw-ring-offset-color: #fafafa;
   }
 }
 

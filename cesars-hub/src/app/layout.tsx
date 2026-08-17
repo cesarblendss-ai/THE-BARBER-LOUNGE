@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter } from "next/font/google";
 
-import { HUB } from "@/lib/brand";
+import { HUB } from "@hub/lib/brand";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     default: HUB.name,
     template: `%s | ${HUB.name}`,
   },
-  description: "Estimates, e-sign, and deposits. Separate from The Barber Lounge website.",
+  description: "Cesar Blends agency OS — SEO clients, wizards, estimates.",
   robots: { index: false, follow: false },
   manifest: "/hub-manifest.webmanifest",
   appleWebApp: {
@@ -36,12 +36,15 @@ export const metadata: Metadata = {
     title: HUB.name,
     statusBarStyle: "black-translucent",
   },
+  icons: {
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
-      <body className="min-h-dvh bg-bone font-sans text-charcoal">{children}</body>
+      <body className="min-h-dvh bg-paper font-sans text-ink">{children}</body>
     </html>
   );
 }

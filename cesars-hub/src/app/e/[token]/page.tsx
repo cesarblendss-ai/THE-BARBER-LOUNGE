@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { EstimatePublicView } from "@/components/EstimatePublicView";
-import { SectionLabel } from "@/components/SectionLabel";
-import { HUB } from "@/lib/brand";
+import { EstimatePublicView } from "@hub/components/EstimatePublicView";
+import { SectionLabel } from "@hub/components/SectionLabel";
+import { HUB } from "@hub/lib/brand";
 import {
   getEstimateByToken,
   markEstimatePaid,
   recordEstimateOpened,
   toPublicEstimate,
-} from "@/lib/estimates";
-import { getStripe, isStripeConfigured } from "@/lib/stripe";
+} from "@hub/lib/estimates";
+import { getStripe, isStripeConfigured } from "@hub/lib/stripe";
 
 export const dynamic = "force-dynamic";
 

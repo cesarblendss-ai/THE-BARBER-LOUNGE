@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { getEstimateByToken, toPublicEstimate } from "@/lib/estimates";
-import { isStripeConfigured } from "@/lib/stripe";
+import { getEstimateByToken, toPublicEstimate } from "@hub/lib/estimates";
+import { isStripeConfigured } from "@hub/lib/stripe";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

@@ -4,11 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 8743 -H 0.0.0.0",
-    "build": "next build",
+    "build": "prisma generate --schema=../prisma/schema.prisma && next build",
     "start": "next start -p 8743",
+    "postinstall": "prisma generate --schema=../prisma/schema.prisma",
     "test": "npx tsx scripts/test-estimates.ts"
   },
   "dependencies": {
+    "@prisma/client": "^6.19.3",
     "next": "^15.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -19,6 +21,7 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "postcss": "^8.4.49",
+    "prisma": "^6.19.3",
     "tailwindcss": "^3.4.17",
     "tsx": "^4.19.0",
     "typescript": "^5.7.2"
