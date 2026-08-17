@@ -1,8 +1,8 @@
 ﻿# Current Blockers
 
-**Last verified:** 2026-08-16
+**Last verified:** 2026-08-17
 
-Cesar’s Hub (`/hub`) is on PR #7. After merge + Vercel deploy, bookmark **https://the-barber-lounge-antioch.vercel.app/hub** — that URL is the shop OS without Cursor.
+Cesar’s Hub is a **separate app** (`cesars-hub/`, localhost:8743). It is not on the Barber Lounge website. Deploy it as its own Vercel project.
 
 ---
 

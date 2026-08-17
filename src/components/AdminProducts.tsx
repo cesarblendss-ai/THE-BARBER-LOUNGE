@@ -256,11 +256,11 @@ export function AdminProductsClient({ authKey }: { authKey?: string }) {
           Barber log page
         </Link>
         {" · "}
-        <Link href="/hub/appointments" className="text-brass hover:underline">
+        <Link href="/admin/appointments" className="text-brass hover:underline">
           Appointments
         </Link>
         {" · "}
-        <Link href="/hub/notifications" className="text-brass hover:underline">
+        <Link href="/admin/notifications" className="text-brass hover:underline">
           Notifications
         </Link>
       </div>

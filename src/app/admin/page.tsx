@@ -4,7 +4,6 @@ import Link from "next/link";
 import { SectionLabel } from "@/components/SectionLabel";
 import { StaffWeekCalendar } from "@/components/StaffWeekCalendar";
 import { SITE } from "@/lib/content";
-import { HUB_PATH } from "@/lib/hub";
 import { getReviewLandingUrl, REVIEW_QR_PATH } from "@/lib/reviews";
 import { getShopWeekView } from "@/lib/shop-week-view";
 
@@ -60,9 +59,9 @@ export default async function AdminHubPage() {
         </div>
 
         <p className="mt-4 text-center text-sm text-charcoal/55">
-          Cesar sets the week in{" "}
-          <Link href={HUB_PATH} className="text-brass hover:underline">
-            Cesar’s Hub
+          Set the week in{" "}
+          <Link href="/admin/calendar" className="text-brass hover:underline">
+            Set this week
           </Link>
           .
         </p>

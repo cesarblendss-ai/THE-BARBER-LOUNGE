@@ -20,19 +20,6 @@ const nextConfig: NextConfig = {
           "https://booksy.com/en-us/1180862_the-barber-lounge_barber-shop_103886_antioch",
         permanent: false,
       },
-      { source: "/admin/products", destination: "/hub/products", permanent: false },
-      { source: "/admin/appointments", destination: "/hub/appointments", permanent: false },
-      { source: "/admin/analytics", destination: "/hub/analytics", permanent: false },
-      { source: "/admin/notifications", destination: "/hub/notifications", permanent: false },
-      { source: "/admin/sms-setup", destination: "/hub/sms-setup", permanent: false },
-      { source: "/admin/calendar", destination: "/hub/calendar", permanent: false },
-      { source: "/admin/estimates", destination: "/hub/estimates", permanent: false },
-      {
-        source: "/",
-        has: [{ type: "query", key: "biz", value: "barber-lounge" }],
-        destination: "/hub",
-        permanent: false,
-      },
     ];
   },
   images: {

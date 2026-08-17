@@ -395,8 +395,8 @@ export function AdminWeekCalendarForm({
       </button>
 
       <p className="text-center text-xs text-charcoal/50 sm:text-left">
-        <Link href="/hub" className="text-brass hover:underline">
-          Back to Hub
+        <Link href="/admin" className="text-brass hover:underline">
+          Back to Staff Hub
         </Link>
       </p>
     </form>

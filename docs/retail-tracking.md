@@ -54,7 +54,7 @@ This doc covers tier options, shop rules, the software MVP, and optional door-se
 | URL | Who | Purpose |
 |---|---|---|
 | `/shop-log` | Everyone / barbers | Public product grid; barbers unlock **Team log** with 4-digit code |
-| `/hub/products` | Owner | Inventory, sales, mark paid, weekly balance (was `/admin/products`) |
+| `/admin/products` | Owner | Inventory, sales, mark paid, weekly balance |
 | `POST /api/cabinet-event` | Door sensor | Webhook → ntfy “cabinet opened” + link to `/shop-log` |
 
 ### Data
@@ -206,7 +206,7 @@ Every Friday (~15 min): review **Weekly balance** in `/admin/products`, count ph
 
 - `prisma/schema.prisma` — `Product`, `ProductSale`
 - `src/lib/retail-store.ts`, `retail-db.ts`, `retail-config.ts`
-- `src/app/shop-log/page.tsx`, `src/app/hub/products/page.tsx`
+- `src/app/shop-log/page.tsx`, `src/app/admin/products/page.tsx`
 - `src/components/ShopLogClient.tsx` — public catalog + PIN-gated team log
 - `src/app/api/products/route.ts`, `product-sales/route.ts`, `retail-log-auth/route.ts`, `cabinet-event/route.ts`
 - `data/products.json` — local fallback (8 products seeded)

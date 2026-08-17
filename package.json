@@ -14,17 +14,14 @@
     "db:studio": "prisma studio",
     "test:phone": "npx tsx scripts/test-phone-normalize.ts",
     "test:sms": "npx tsx scripts/test-sms.ts",
-    "test:shop-week": "npx tsx scripts/test-shop-week.ts",
-    "test:hub": "npx tsx scripts/test-hub.ts",
-    "test:estimates": "npx tsx scripts/test-estimates.ts"
+    "test:shop-week": "npx tsx scripts/test-shop-week.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
     "@vercel/analytics": "^2.0.1",
     "next": "^15.1.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "stripe": "^22.5.0"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",

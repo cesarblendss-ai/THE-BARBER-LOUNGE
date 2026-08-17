@@ -66,7 +66,7 @@ export function AdminAppointmentsClient({ authKey }: { authKey?: string }) {
         if (res.status === 401) {
           throw new Error(
             body?.error ??
-              "Unauthorized — unlock Cesar’s Hub at /hub, or add ?key= to the URL.",
+              "Unauthorized — unlock Staff Hub at /admin, or add ?key= to the URL.",
           );
         }
         throw new Error(body?.error ?? "Could not load appointments.");
@@ -243,11 +243,11 @@ export function AdminAppointmentsClient({ authKey }: { authKey?: string }) {
       )}
 
       <div className="text-center text-xs text-charcoal/45">
-        <Link href="/hub/products" className="text-brass hover:underline">
+        <Link href="/admin/products" className="text-brass hover:underline">
           Retail products
         </Link>
         {" · "}
-        <Link href="/hub/notifications" className="text-brass hover:underline">
+        <Link href="/admin/notifications" className="text-brass hover:underline">
           Push notification setup
         </Link>
         {" · "}

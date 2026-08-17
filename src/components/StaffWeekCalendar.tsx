@@ -62,7 +62,7 @@ export function StaffWeekCalendar({ view, showEditLink = true }: StaffWeekCalend
         </div>
         {showEditLink ? (
           <Link
-            href="/hub/calendar"
+            href="/admin/calendar"
             className="inline-flex items-center justify-center rounded-full bg-charcoal px-4 py-2 text-xs font-semibold uppercase tracking-wider text-bone transition-colors hover:bg-charcoal/90"
           >
             Set this week

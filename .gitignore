@@ -48,3 +48,6 @@ next-env.d.ts
 
 # local db dumps (scripts/export-db.ps1)
 /backups/
+
+cesars-hub/node_modules/
+cesars-hub/.next/

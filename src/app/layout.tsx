@@ -2,8 +2,15 @@ import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { Fraunces, Inter } from "next/font/google";
 import { cookies } from "next/headers";
+import { Suspense } from "react";
 
-import { SiteChrome } from "@/components/SiteChrome";
+import { AnalyticsTracker } from "@/components/AnalyticsTracker";
+import { IntroSplash } from "@/components/IntroSplash";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import { BookingChatbot } from "@/components/BookingChatbot";
+import { EditModeRoot } from "@/components/EditModeRoot";
+import { StickyBookButton } from "@/components/StickyBookButton";
 import { EDIT_MODE_COOKIE, isAdminAuthenticated } from "@/lib/admin-auth";
 import { getSiteContent } from "@/lib/get-site-content";
 import { buildLocalBusinessJsonLd } from "@/lib/seo";
@@ -58,7 +65,8 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
-      <body className="font-sans">
+      <body className="font-sans pb-20 md:pb-0">
+        <IntroSplash />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-charcoal focus:px-4 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-bone focus:outline-none focus:ring-2 focus:ring-brass focus:ring-offset-2 focus:ring-offset-bone"
@@ -69,14 +77,18 @@ export default async function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <SiteChrome
-          labels={content.HEADER}
-          content={content}
-          adminAuthenticated={adminAuthenticated}
-          editModeEnabled={editModeEnabled}
-        >
-          {children}
-        </SiteChrome>
+        <Suspense fallback={null}>
+          <AnalyticsTracker />
+          <EditModeRoot cookieEnabled={editModeEnabled} adminAuthenticated={adminAuthenticated}>
+            <Header labels={content.HEADER} />
+            <main id="main-content" tabIndex={-1}>
+              {children}
+            </main>
+            <Footer content={content} adminAuthenticated={adminAuthenticated} />
+            <StickyBookButton />
+            <BookingChatbot />
+          </EditModeRoot>
+        </Suspense>
         <Analytics />
       </body>
     </html>
