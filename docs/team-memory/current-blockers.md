@@ -1,6 +1,8 @@
 ﻿# Current Blockers
 
-**Last verified:** 2026-08-11 (pre-flight audit)
+**Last verified:** 2026-08-17
+
+Cesar’s Hub is a **local Python app** (`cesars-hub/`, localhost:8743). It is not on the Barber Lounge website and is not deployed to Vercel. Run `start.bat` / `python3 server.py` on Cesar’s PC.
 
 ---
 

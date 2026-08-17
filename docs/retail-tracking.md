@@ -54,7 +54,7 @@ This doc covers tier options, shop rules, the software MVP, and optional door-se
 | URL | Who | Purpose |
 |---|---|---|
 | `/shop-log` | Everyone / barbers | Public product grid; barbers unlock **Team log** with 4-digit code |
-| `/admin/products?key=…` | Owner | Inventory, sales, mark paid, weekly balance |
+| `/admin/products` | Owner | Inventory, sales, mark paid, weekly balance |
 | `POST /api/cabinet-event` | Door sensor | Webhook → ntfy “cabinet opened” + link to `/shop-log` |
 
 ### Data

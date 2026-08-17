@@ -16,6 +16,7 @@ import {
   dbUpdateAppointmentStatus,
 } from "@/lib/appointments-db";
 import { isDatabaseConfigured } from "@/lib/db";
+import { getDataDir } from "@/lib/repo-paths";
 
 export type AppointmentStatus = "pending" | "confirmed" | "cancelled";
 
@@ -46,7 +47,7 @@ type AppointmentsFile = {
   blockedSlots: BlockedSlot[];
 };
 
-const DATA_PATH = path.join(process.cwd(), "data", "appointments.json");
+const DATA_PATH = path.join(getDataDir(), "appointments.json");
 const availabilityEngine = createAvailabilityEngine(BARBER_LOUNGE_CONFIG.hours);
 const { parsePreferredSlot, findAlternatives, checkAvailabilityWithStore, slotKey, generateSlotsForDate, isHourWithinBusinessHours } =
   availabilityEngine;

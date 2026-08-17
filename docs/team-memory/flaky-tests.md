@@ -30,6 +30,8 @@ Known issues that aren't production bugs but waste agent/user time locally. Upda
 
 ## Dev server stops unexpectedly
 
+**Cesar’s Hub (port 8743):** this is `python3 cesars-hub/server.py`, not `next dev`. If something else is already bound to 8743 (a leftover Next server), stop it before launching the Python hub.
+
 **Often related to:** OneDrive corruption above, or port 3000 already in use.
 
 **Quick recovery:**

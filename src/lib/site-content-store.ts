@@ -2,11 +2,12 @@ import fs from "fs";
 import path from "path";
 
 import { isDatabaseConfigured } from "./db";
+import { getDataDir } from "./repo-paths";
 import { dbLoadSiteContent, dbSaveSiteContent } from "./site-content-db";
 import { getDefaultSiteContent } from "./site-content-defaults";
 import type { SiteContent } from "./site-content-types";
 
-const DATA_DIR = path.join(process.cwd(), "data");
+const DATA_DIR = getDataDir();
 const CONTENT_FILE = path.join(DATA_DIR, "site-content.json");
 
 function ensureDataDir(): void {

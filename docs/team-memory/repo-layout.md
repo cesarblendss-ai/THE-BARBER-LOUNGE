@@ -1,6 +1,6 @@
 # Repo Layout — Key Paths
 
-**Last verified:** 2026-08-08
+**Last verified:** 2026-08-17
 
 Quick map for agents navigating the codebase. Architecture rationale: `docs/org-conventions/tech-stack-decisions.md`.
 
@@ -10,7 +10,8 @@ Quick map for agents navigating the codebase. Architecture rationale: `docs/org-
 
 ```
 the-barber-lounge/
-├── src/                    # Next.js app (pages, components, lib, API routes)
+├── cesars-hub/             # Cesar’s Hub — local Python+vanilla file OS (port 8743), not the public site
+├── src/                    # Barber Lounge Next.js app
 ├── public/                 # Static assets (gallery, logo, hero video)
 ├── data/                   # appointments.json (local persistence)
 ├── prisma/                 # Analytics schema
@@ -22,6 +23,24 @@ the-barber-lounge/
 ├── AGENTS.md               # Agent entry point
 └── .env.local              # Secrets (gitignored)
 ```
+
+---
+
+## `cesars-hub/` — local agency file OS (not deployed with the shop)
+
+Python stdlib server + vanilla JS. Run `python3 server.py` or `start.bat`. **Do not** put this on thebarberlounge.com.
+
+| Path | Purpose |
+|------|---------|
+| `server.py` | Static files + JSON file API (`/api/list`, `/api/upload`, `/api/businesses`, …) |
+| `index.html` | Thin shell + offline `FALLBACK_BUSINESSES` |
+| `styles.css` | Hub UI (per-business colors, node graph, `.doc-preview`) |
+| `js/hub.js` | Hub/business/folders/tracker |
+| `js/estimate-wizard.js` | Guided estimate wizard |
+| `js/estimate-pdf.js` | html2canvas + jsPDF save |
+| `data/businesses.json` | Canonical id/name/folders + snippets/contacts |
+| `storage/` | Default on-disk root (gitignored) |
+| `hub_path.txt` | Machine-specific storage path (gitignored) |
 
 ---
 
@@ -40,11 +59,14 @@ the-barber-lounge/
 | `/gallery` | `src/app/gallery/page.tsx` | |
 | `/blog` | `src/app/blog/page.tsx` | |
 | `/blog/[slug]` | `src/app/blog/[slug]/page.tsx` | |
+| `/admin` | `src/app/admin/page.tsx` | Staff Hub — floor week + reviews + website tools |
+| `/admin/calendar` | `src/app/admin/calendar/page.tsx` | Set this week (shop floor) |
 | `/admin/edit` | `src/app/admin/edit/page.tsx` | Inline CMS |
 | `/admin/hero` | `src/app/admin/hero/page.tsx` | Hero video upload |
 | `/admin/gallery` | `src/app/admin/gallery/page.tsx` | Gallery bulk upload |
 | `/admin/appointments` | `src/app/admin/appointments/page.tsx` | Booking requests |
-| `/admin/analytics` | `src/app/admin/analytics/page.tsx` | Postgres dashboard |
+| `/admin/products` | `src/app/admin/products/page.tsx` | Retail inventory |
+| `/admin/analytics` | `src/app/admin/analytics/page.tsx` | Site traffic |
 | `/admin/notifications` | `src/app/admin/notifications/page.tsx` | ntfy setup |
 | `/admin/sms-setup` | `src/app/admin/sms-setup/page.tsx` | Twilio status UI |
 

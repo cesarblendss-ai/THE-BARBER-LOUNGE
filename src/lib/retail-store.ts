@@ -9,6 +9,7 @@ import {
   dbUpsertProduct,
 } from "@/lib/retail-db";
 import { isDatabaseConfigured } from "@/lib/db";
+import { getDataDir } from "@/lib/repo-paths";
 
 export type Product = {
   id: string;
@@ -35,7 +36,7 @@ type RetailFile = {
   sales: ProductSale[];
 };
 
-const DATA_PATH = path.join(process.cwd(), "data", "products.json");
+const DATA_PATH = path.join(getDataDir(), "products.json");
 
 async function readJsonStore(): Promise<RetailFile> {
   try {

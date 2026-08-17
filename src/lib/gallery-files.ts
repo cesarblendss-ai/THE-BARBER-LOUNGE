@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 
 import { SERVICE_HAIRCUT_BEARD, SERVICE_REGULAR } from "./content";
+import { getPublicDir } from "./repo-paths";
 import { withGalleryCacheBust } from "./gallery-admin";
 import {
   GALLERY_CATEGORIES,
@@ -15,7 +16,7 @@ import {
   type GalleryGridSlot,
 } from "./gallery";
 
-const GALLERY_DIR = path.join(process.cwd(), "public/gallery");
+const GALLERY_DIR = path.join(getPublicDir(), "gallery");
 
 const SKIP_FILENAMES = new Set([
   "gallery-version.json",
