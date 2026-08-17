@@ -1,12 +1,17 @@
-# Session Progress — Aug 17, 2026 (Cesar’s Hub = local Python OS)
+# Session Progress — Aug 17, 2026 (hub is on Cesar’s Desktop, not GitHub)
 
-Cesar’s Hub is a **local, private multi-business dashboard** on Cesar’s PC. It is **not** the Barber Lounge website and **not** a Vercel app.
+**Last verified:** 2026-08-17
 
-**Bookmark:** http://localhost:8743/?biz=barber-lounge&production=1
+The original Cesar’s Hub was built in a **local Cursor Desktop chat**, workspace **Desktop** (Cesar’s whole Desktop folder), chat title **“Barbershop website development”**. It is **not** in `cesarblendss-ai/THE-BARBER-LOUNGE`.
 
-- Launch: `cesars-hub/start.bat` or `python3 cesars-hub/server.py` (port **8743**)
-- Storage: on-disk folders under the path in `cesars-hub/hub_path.txt` (gitignored)
-- Estimates: guided wizard → `.txt` + PDF in each business’s `Estimates/` folder
-- Staff Hub for the shop stays at `/admin` on the Barber Lounge site
+Cloud agents cannot read that chat or that folder. Rebuilding inside this GitHub repo is the wrong recovery path.
 
-**PR:** https://github.com/cesarblendss-ai/THE-BARBER-LOUNGE/pull/7
+**Frozen chat (screenshot 8/16/2026 ~8:00 PM):**
+- Stuck on “Planning next moves” + **This PC (Remote Control)** spinner
+- Browser error: `localhost:3000` connection failure
+- 3 queued messages (never processed)
+- Last line in the thread: hardwood labor **$6.50**
+- Browser tabs still open: `localhost:3000` and **two `localhost:8743`**
+- Right panel: “No changes” (this hung turn wrote nothing; earlier turns’ files should still be on disk)
+
+**Do not** delete or rename `%APPDATA%\Cursor\User\globalStorage\state.vscdb` — that wipes chat history.
