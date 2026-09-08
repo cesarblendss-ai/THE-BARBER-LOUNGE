@@ -79,8 +79,8 @@ def build():
     ws.merge_cells("A1:F1")
 
     ws["A2"] = (
-        "Purpose: show how 80/20 ownership + paying expenses from the joint account "
-        "+ splitting leftover profit 50/50 quietly shifts cash to the minority partner."
+        "Purpose: show how much of Cesar's money left the shop account for rent/ops "
+        "under 80/20 ownership — and what Partner (Omi) should fund out of pocket each month."
     )
     ws["A2"].font = Font(name="Calibri", italic=True, size=10, color="555555")
     ws.merge_cells("A2:F2")
@@ -131,11 +131,12 @@ def build():
     ws["A15"] = "THE PROBLEM (plain English)"
     ws["A15"].font = section_font
     ws["A16"] = (
-        "1) You put up ~80% of the ~$60k. Partner put up ~20%.\n"
-        "2) Rent and monthly expenses come out of the shop bank account (mostly your money).\n"
-        "3) Leftover profit was split 50/50 — so Partner got half the upside while only funding 20% of the risk.\n"
-        "4) Now that you're break-even (lost a barber), there is no profit split — but expenses still drain the account.\n"
-        "5) Result: Partner effectively gets shop access / ops funded mostly by you (= free/cheap rent relative to ownership)."
+        "1) Ownership is 80/20 (Cesar / Omi). Omi put in ~$17k; Cesar's capital cell is an estimate — edit it.\n"
+        "2) Rent + expenses come out of the shop bank account (recently always).\n"
+        "3) When there WAS leftover, you already split profit 80/20 — that part was fair.\n"
+        "4) At break-even there is $0 leftover, so $0 draw — but the account still pays ~$2,500/mo.\n"
+        "5) Under 80/20, Omi should fund 20% of that burn out of pocket (or leave capital in) — NOT 50%, and NOT an extra '30%'.\n"
+        "6) The '30%' idea is the gap between half (50%) and his ownership (20%). Don't use that. Fair = he pays 20%."
     )
     ws["A16"].alignment = Alignment(wrap_text=True, vertical="top")
     ws.merge_cells("A16:F16")
@@ -171,15 +172,15 @@ def build():
     ws["A29"] = "RECOMMENDATION (for the conversation)"
     ws["A29"].font = section_font
     ws["A30"] = (
-        "Yes — Partner should true-up. Not as a punishment: as catching capital accounts up to the deal.\n\n"
-        "Fair rule going forward (pick one and write it down):\n"
-        "A) Ownership model (recommended if they stay 20%): expenses AND profit split 80/20. Partner pays 20% of every month's rent/ops "
-        "(cash in, or reduce their capital account). You pay 80%.\n"
-        "B) Equal partners model: if they want 50/50 splits forever, they buy up to 50% — true-up the missing capital on the $60k "
-        "AND split expenses 50/50 going forward.\n"
-        "C) Loan model: treat your extra funding as a loan on the books. Partner owes principal (and optional interest) before any 50/50 profit split.\n\n"
-        "Break-even months make this painful for you because the old 'split leftovers 50/50' deal hides the fact that expenses were never split by ownership. "
-        "Fix the expense rule first; then profit splits will stop feeling like free rent."
+        "Profit split was already 80/20 — good. The stress is the expense side at break-even.\n\n"
+        "Fair rule going forward (write it down):\n"
+        "A) Stay 80/20: every month Omi transfers 20% of rent+ops into the shop account "
+        "(today that is ~$500/mo). Cesar covers 80% (~$2,000/mo). Profit draws stay 80/20 when they exist.\n"
+        "B) If Omi wants equal expense burden / equal draws, he buys up to 50% ownership first — then 50/50 is fair.\n"
+        "C) If the shop account runs dry, do NOT default to 'each pay half of rent'. That ignores ownership. "
+        "Invoice him for 20% (or 50% only after a buy-up).\n\n"
+        "You are not 'losing half the rent to him' under 80/20 — you are funding ~80% of the burn from your capital, "
+        "which matches ownership. What you SHOULD stop is covering his 20% if his capital is gone and he isn't writing checks."
     )
     ws["A30"].alignment = Alignment(wrap_text=True, vertical="top")
     ws.merge_cells("A30:F30")
@@ -219,8 +220,9 @@ def build():
     wa["D5"].border = thin
 
     label(wa["A6"], "Startup capital contributed ($)", True)
-    money_cell(wa["B6"], value=48000, editable=True)
-    money_cell(wa["C6"], value=12000, editable=True)
+    # Cesar amount ESTIMATE if ~$60k total and Omi put $17k — EDIT yellow cell when you know exact
+    money_cell(wa["B6"], value=43000, editable=True)
+    money_cell(wa["C6"], value=17000, editable=True)
     money_cell(wa["D6"], formula="=B6+C6")
 
     label(wa["A7"], "% of capital funded")
@@ -257,9 +259,9 @@ def build():
     wa["D12"].border = thin
 
     label(wa["A13"], "How leftover profit was split", True)
-    money_cell(wa["B13"], value=0.50, editable=True)
+    money_cell(wa["B13"], value=0.80, editable=True)
     wa["B13"].number_format = pct
-    money_cell(wa["C13"], value=0.50, editable=True)
+    money_cell(wa["C13"], value=0.20, editable=True)
     wa["C13"].number_format = pct
     wa["D13"] = "=B13+C13"
     wa["D13"].number_format = pct
@@ -293,25 +295,28 @@ def build():
     wa["A20"] = "OPTIONAL: monthly rent / baseline ops (for Scenario examples)"
     wa["A20"].font = section_font
     label(wa["A21"], "Example monthly rent")
-    money_cell(wa["B21"], value=2500, editable=True)
+    money_cell(wa["B21"], value=1700, editable=True)
     label(wa["A22"], "Example other monthly expenses")
-    money_cell(wa["B22"], value=1500, editable=True)
+    money_cell(wa["B22"], value=800, editable=True)
     label(wa["A23"], "Example monthly revenue (break-even case)")
-    money_cell(wa["B23"], value=4000, editable=True)
+    money_cell(wa["B23"], value=2500, editable=True)
     label(wa["A24"], "Example monthly revenue (profit case)")
-    money_cell(wa["B24"], value=8000, editable=True)
+    money_cell(wa["B24"], value=5000, editable=True)
+    label(wa["A25"], "Months open (for quick estimate)")
+    money_cell(wa["B25"], value=6, editable=True)
+    wa["B25"].number_format = "0"
 
-    wa["A26"] = "Notes"
-    wa["A26"].font = section_font
-    wa["A27"] = (
-        "• Replace $48,000 / $12,000 if your actual cash-in amounts differ from an 80/20 split of $60,000.\n"
-        "• If Partner personally paid some months of rent from their pocket, enter that on Monthly Tracker "
-        "(Partner cash paid in) so the true-up credits them.\n"
+    wa["A27"] = "Notes"
+    wa["A27"].font = section_font
+    wa["A28"] = (
+        "• Cesar capital defaults to $43,000 (= ~$60k total − Omi's $17k). Replace with your real total cash-in.\n"
+        "• Ownership is still set to 80/20 even if cash-in % differs — decide whether ownership follows the deal or the money.\n"
+        "• Profit leftover split is 80/20 (per Cesar). Expense funding from the account is modeled at ownership %.\n"
         "• This workbook is a negotiation tool, not legal advice. Put the final deal in writing."
     )
-    wa["A27"].alignment = Alignment(wrap_text=True)
-    wa.merge_cells("A27:D27")
-    wa.row_dimensions[27].height = 70
+    wa["A28"].alignment = Alignment(wrap_text=True)
+    wa.merge_cells("A28:D28")
+    wa.row_dimensions[28].height = 70
 
     set_widths(wa, [46, 16, 16, 14])
 
@@ -516,32 +521,33 @@ def build():
     style_header_row(wt, 4, 1, 14)
     wt.row_dimensions[4].height = 40
 
-    # Sample months — illustrative placeholders Cesar can overwrite
+    # Six real-ish months at $1700 rent + $800 other; break-even revenue = expenses
+    # Profit draws 0 (break-even). Personal cash 0 until Cesar says otherwise.
     sample = [
-        ("2025-01", 7500, 2500, 1500, 1500, 1500, 0, 0),
-        ("2025-02", 7200, 2500, 1400, 1400, 1400, 0, 0),
-        ("2025-03", 6800, 2500, 1600, 1200, 1200, 0, 0),
-        ("2025-04", 5000, 2500, 1500, 500, 500, 0, 0),
-        ("2025-05", 4200, 2500, 1500, 0, 0, 0, 0),
-        ("2025-06", 4000, 2500, 1500, 0, 0, 0, 0),
-        ("2025-07", 3900, 2500, 1400, 0, 0, 200, 0),
-        ("2025-08", 4100, 2500, 1500, 0, 0, 250, 0),
-        ("2025-09", 0, 0, 0, 0, 0, 0, 0),
-        ("2025-10", 0, 0, 0, 0, 0, 0, 0),
-        ("2025-11", 0, 0, 0, 0, 0, 0, 0),
-        ("2025-12", 0, 0, 0, 0, 0, 0, 0),
-        ("2026-01", 0, 0, 0, 0, 0, 0, 0),
-        ("2026-02", 0, 0, 0, 0, 0, 0, 0),
-        ("2026-03", 0, 0, 0, 0, 0, 0, 0),
-        ("2026-04", 0, 0, 0, 0, 0, 0, 0),
-        ("2026-05", 0, 0, 0, 0, 0, 0, 0),
-        ("2026-06", 0, 0, 0, 0, 0, 0, 0),
-        ("2026-07", 0, 0, 0, 0, 0, 0, 0),
-        ("2026-08", 0, 0, 0, 0, 0, 0, 0),
-        ("2026-09", 0, 0, 0, 0, 0, 0, 0),
-        ("2026-10", 0, 0, 0, 0, 0, 0, 0),
-        ("2026-11", 0, 0, 0, 0, 0, 0, 0),
-        ("2026-12", 0, 0, 0, 0, 0, 0, 0),
+        ("2025-03", 2500, 1700, 800, 0, 0, 0, 0),
+        ("2025-04", 2500, 1700, 800, 0, 0, 0, 0),
+        ("2025-05", 2500, 1700, 800, 0, 0, 0, 0),
+        ("2025-06", 2500, 1700, 800, 0, 0, 0, 0),
+        ("2025-07", 2500, 1700, 800, 0, 0, 0, 0),
+        ("2025-08", 2500, 1700, 800, 0, 0, 0, 0),
+        ("", 0, 0, 0, 0, 0, 0, 0),
+        ("", 0, 0, 0, 0, 0, 0, 0),
+        ("", 0, 0, 0, 0, 0, 0, 0),
+        ("", 0, 0, 0, 0, 0, 0, 0),
+        ("", 0, 0, 0, 0, 0, 0, 0),
+        ("", 0, 0, 0, 0, 0, 0, 0),
+        ("", 0, 0, 0, 0, 0, 0, 0),
+        ("", 0, 0, 0, 0, 0, 0, 0),
+        ("", 0, 0, 0, 0, 0, 0, 0),
+        ("", 0, 0, 0, 0, 0, 0, 0),
+        ("", 0, 0, 0, 0, 0, 0, 0),
+        ("", 0, 0, 0, 0, 0, 0, 0),
+        ("", 0, 0, 0, 0, 0, 0, 0),
+        ("", 0, 0, 0, 0, 0, 0, 0),
+        ("", 0, 0, 0, 0, 0, 0, 0),
+        ("", 0, 0, 0, 0, 0, 0, 0),
+        ("", 0, 0, 0, 0, 0, 0, 0),
+        ("", 0, 0, 0, 0, 0, 0, 0),
         ("", 0, 0, 0, 0, 0, 0, 0),
         ("", 0, 0, 0, 0, 0, 0, 0),
         ("", 0, 0, 0, 0, 0, 0, 0),
@@ -611,8 +617,8 @@ def build():
     money_cell(wt["B39"], formula="=F34")
 
     wt["A41"] = (
-        "SAMPLE DATA NOTE: Jan–Aug 2025 rows are PLACEHOLDERS so the math is visible. "
-        "Overwrite with your real books before showing Partner. Clear unused months to 0."
+        "Uses Cesar's ballpark: $1,700 rent + ~$800 other × 6 months, break-even revenue. "
+        "Overwrite with bank/statement totals when you have them."
     )
     wt["A41"].font = Font(name="Calibri", italic=True, color="A94442", size=10)
     wt.merge_cells("A41:N41")
@@ -699,10 +705,10 @@ def build():
     tu["A25"] = "Simple talk track"
     tu["A25"].font = section_font
     tu["A26"] = (
-        "\"We agreed I own 80% and you own 20%. The $60k came in at that split. "
-        "Paying rent out of the shop account means I'm covering ~80% of the rent with my capital. "
-        "Splitting leftovers 50/50 (or me covering half the rent when there's no profit) doesn't match ownership. "
-        "Here's the tracker — either true-up the shortfall and go 80/20 on expenses, or buy up to 50% if you want equal splits.\""
+        "\"Ownership is 80/20. Bills come out of the shop account. "
+        "At break-even there's no draw — that's normal — but the burn is still ~$2,500/mo. "
+        "Your share is 20% = ~$500/mo into the account. Mine is 80%. "
+        "We're not splitting rent half-and-half unless you buy up to 50%.\""
     )
     tu["A26"].alignment = Alignment(wrap_text=True)
     tu.merge_cells("A26:D26")
@@ -759,6 +765,87 @@ def build():
 
     set_widths(ca, [48, 16, 16, 14])
 
+    # ========== YOUR MONEY (quick answer) ==========
+    ym = wb.create_sheet("YourMoney", 0)
+    ym.sheet_view.showGridLines = False
+    ym["A1"] = "How much of YOUR money got spent?"
+    ym["A1"].font = title_font
+    ym.merge_cells("A1:C1")
+
+    ym["A3"] = "Quick estimate (from your numbers — edit yellow)"
+    ym["A3"].font = section_font
+
+    for i, h in enumerate(["Input", "Amount", "Notes"], 1):
+        ym.cell(row=4, column=i, value=h)
+    style_header_row(ym, 4, 1, 3)
+
+    label(ym["A5"], "Monthly rent")
+    money_cell(ym["B5"], formula="=Assumptions!B21")
+    label(ym["C5"], "You said $1,700")
+    label(ym["A6"], "Other monthly expenses")
+    money_cell(ym["B6"], formula="=Assumptions!B22")
+    label(ym["C6"], "You said ~$800")
+    label(ym["A7"], "Months open / paying from account")
+    money_cell(ym["B7"], formula="=Assumptions!B25")
+    ym["B7"].number_format = "0"
+    label(ym["C7"], "You said ~6")
+
+    label(ym["A9"], "RESULTS", True)
+    ym["A9"].font = section_font
+
+    for i, h in enumerate(["What", "Amount", "Meaning"], 1):
+        ym.cell(row=10, column=i, value=h)
+    style_header_row(ym, 10, 1, 3)
+
+    label(ym["A11"], "Total paid from shop account")
+    money_cell(ym["B11"], formula="=(B5+B6)*B7")
+    label(ym["C11"], "Rent + expenses × months")
+
+    label(ym["A12"], "YOUR money in that burn (80%)", True)
+    money_cell(ym["B12"], formula="=B11*Assumptions!B5")
+    ym["B12"].fill = warn_fill
+    ym["B12"].font = Font(name="Calibri", bold=True, size=14)
+    label(ym["C12"], "This is the painful number — your capital that paid bills")
+
+    label(ym["A13"], "OMI's share of that burn (20%)", True)
+    money_cell(ym["B13"], formula="=B11*Assumptions!C5")
+    label(ym["C13"], "What his ownership requires him to have funded")
+
+    label(ym["A14"], "Omi should send each month going forward")
+    money_cell(ym["B14"], formula="=(B5+B6)*Assumptions!C5")
+    ym["B14"].fill = ok_fill
+    label(ym["C14"], "20% of rent+ops — NOT 30%, NOT 50%")
+
+    label(ym["A15"], "You should cover each month")
+    money_cell(ym["B15"], formula="=(B5+B6)*Assumptions!B5")
+    label(ym["C15"], "80% of rent+ops")
+
+    ym["A17"] = "The '30%' mix-up"
+    ym["A17"].font = section_font
+    ym["A18"] = (
+        "Half of the bills = 50%. His ownership = 20%. The gap is 30% — but that gap is NOT what he owes.\n"
+        "If you make him pay 50% while he only owns 20%, you're overcharging a minority partner "
+        "(unless he buys up to 50%).\n"
+        "Fair ask: he pays 20% (~$500/mo). Unfair to YOU is only if the account is YOUR refill money "
+        "and he puts in $0 while still owning 20%."
+    )
+    ym["A18"].alignment = Alignment(wrap_text=True)
+    ym.merge_cells("A18:C18")
+    ym.row_dimensions[18].height = 70
+
+    ym["A20"] = "Still need from you to tighten this"
+    ym["A20"].font = section_font
+    ym["A21"] = (
+        "1) Exact total YOU deposited (cash-in), not the estimate\n"
+        "2) What's left in the shop account today\n"
+        "3) Did Omi's $17k go into the account, or mostly into buildout already spent?"
+    )
+    ym["A21"].alignment = Alignment(wrap_text=True)
+    ym.merge_cells("A21:C21")
+    ym.row_dimensions[21].height = 55
+
+    set_widths(ym, [42, 16, 55])
+
     # ========== README ==========
     rd = wb.create_sheet("Readme", 0)
     rd.sheet_view.showGridLines = False
@@ -781,12 +868,16 @@ def build():
     rd["A6"] = "Direct answer"
     rd["A6"].font = section_font
     rd["A7"] = (
-        "Should he pay you back for the monthly expenses that came out of your money?\n\n"
-        "Yes — to the extent his ownership share required him to fund 20% and he didn't. "
-        "That's not 'charging him rent'; that's making capital accounts match the partnership you already agreed to.\n\n"
-        "What he should NOT automatically owe: 50% of expenses (unless you both agreed you were equal operators on cash). "
-        "What he SHOULD owe: his 20% of operating costs (and any profit he took above 20%, unless you gifted that as sweat equity).\n\n"
-        "If he wants the old 50/50 leftover split, the clean fix is a buy-up to 50% ownership — not free riding on your capital."
+        "HOW MUCH OF YOUR MONEY GOT SPENT (6-month ballpark)\n\n"
+        "Monthly burn ≈ $1,700 rent + $800 expenses = $2,500\n"
+        "× 6 months ≈ $15,000 paid from the shop account\n\n"
+        "Your share (80%) ≈ $12,000 of YOUR capital went to keeping the shop open\n"
+        "Omi's share (20%) ≈ $3,000 — that is what his ownership requires him to fund\n\n"
+        "If leftover profit was already split 80/20, he was NOT ripping you on the profit side.\n"
+        "The stress is: at break-even you take home $0 while your capital still pays ~$2,000/mo of the burn.\n\n"
+        "Do NOT charge him an extra '30%'. Fair out-of-pocket for a 20% owner = 20% of bills "
+        "(~$500/mo today), not 50% and not 30%.\n"
+        "Only move to 50/50 expenses if he buys up to 50% ownership."
     )
     rd["A7"].alignment = Alignment(wrap_text=True, vertical="top")
     rd.merge_cells("A7:B7")
