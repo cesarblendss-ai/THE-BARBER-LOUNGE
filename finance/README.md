@@ -2,22 +2,28 @@
 
 ## `partnership-split-model.xlsx`
 
-Workbook for Cesar ↔ partner capital / expense true-up at The Barber Lounge.
+Workbook for Cesar ↔ Omi capital, ops burn, and **shop buildout cost**.
 
 | Sheet | Use |
 |-------|-----|
-| Readme | Direct answer + how to use |
-| Summary | Story + bottom-line true-up |
-| Assumptions | Ownership, capital, split rules (edit yellow) |
-| Scenarios | Break-even vs profit month, current vs fair 80/20 |
-| MonthlyTracker | Real month-by-month history |
-| TrueUp | What partner owes + going-forward options |
+| Readme | Two questions: buildout vs monthly burn |
+| **Buildout** | Paste Amex/card statement lines → **total shop build cost** |
+| YourMoney | How much of Cesar's revenue paid rent/ops |
+| Summary | Story + bottom-line numbers |
+| Assumptions | 75/25 ownership, $45k/$15k, rent/ops |
+| Scenarios | Break-even vs profit month |
+| MonthlyTracker | Month-by-month ops history |
+| TrueUp | What partner owes + talk track |
 | CapitalAccounts | Running capital picture |
 
-Rebuild after editing the generator:
+Rebuild:
 
 ```bash
 python3 finance/build_partnership_workbook.py
 ```
 
-**Important:** MonthlyTracker ships with placeholder months so formulas show numbers. Replace with real books before sharing.
+### Buildout workflow
+1. Export Amex (+ other cards) CSV from first build month through open
+2. Paste into **Buildout** (Date, Card last4, Description, Amount)
+3. Tag **Category**, **Buildout?=Yes**, **Paid by**
+4. Red total = whole shop buildout cost
