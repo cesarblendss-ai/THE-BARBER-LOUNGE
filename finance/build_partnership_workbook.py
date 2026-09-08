@@ -79,8 +79,8 @@ def build():
     ws.merge_cells("A1:F1")
 
     ws["A2"] = (
-        "Purpose: show how much of Cesar's money left the shop account for rent/ops "
-        "under 80/20 ownership — and what Partner (Omi) should fund out of pocket each month."
+        "Ownership locked to capital: Cesar 75% / Omi 25% ($45k / $15k). "
+        "YourMoney shows how much of YOUR revenue share paid rent and expenses."
     )
     ws["A2"].font = Font(name="Calibri", italic=True, size=10, color="555555")
     ws.merge_cells("A2:F2")
@@ -131,12 +131,13 @@ def build():
     ws["A15"] = "THE PROBLEM (plain English)"
     ws["A15"].font = section_font
     ws["A16"] = (
-        "1) Cash-in is exact now: Cesar $45,000 / Omi $15,000 = $60,000 total (75% / 25% of the money).\n"
-        "2) Stated ownership is still 80/20 — that does NOT match the cash (Omi put in 25% of capital for 20% ownership).\n"
-        "3) Rent + expenses come out of the shop bank account (recently always).\n"
-        "4) When there WAS leftover, profit was split 80/20.\n"
-        "5) At break-even there is $0 leftover, so $0 draw — account still pays ~$2,500/mo.\n"
-        "6) Fair monthly out-of-pocket for Omi = his ownership % of bills (20% ≈ $500), OR match cash-in % (25% ≈ $625) — pick one rule and write it down."
+        "1) Capital + ownership: Cesar $45,000 (75%) / Omi $15,000 (25%) = $60,000.\n"
+        "2) Rent + expenses come out of the shop bank account first (recently always).\n"
+        "3) Profit draws (when leftover exists) follow 75/25.\n"
+        "4) At break-even, leftover = $0 so draws = $0 — but revenue still paid the bills.\n"
+        "5) 'How much of my revenue went to rent/expenses?' = your 75% ownership share of whatever "
+        "revenue was used to cover bills (at break-even ≈ 75% of total expenses).\n"
+        "6) Omi should fund 25% of the monthly burn going forward (~$625/mo at current rent/ops)."
     )
     ws["A16"].alignment = Alignment(wrap_text=True, vertical="top")
     ws.merge_cells("A16:F16")
@@ -153,11 +154,12 @@ def build():
         ("Total revenue logged", "=MonthlyTracker!B37", "All months entered"),
         ("Total expenses logged (rent + ops)", "=MonthlyTracker!B38", "Paid from joint account"),
         ("Total leftover / 'profit' logged", "=MonthlyTracker!B39", "After expenses"),
-        ("Cesar capital still in the hole (startup)", "=Assumptions!B6", "Your 80% of $60k"),
-        ("Partner capital still in the hole (startup)", "=Assumptions!C6", "Their 20% of $60k"),
-        ("Expense overpay by Cesar (vs 80/20)", "=TrueUp!B12", "What Partner should repay you"),
-        ("Extra profit Partner took vs 20% ownership", "=TrueUp!B18", "If past splits were 50/50"),
-        ("TOTAL Partner owes Cesar (suggested true-up)", "=TrueUp!B20", "Expenses true-up + profit catch-up"),
+        ("Cesar capital in (startup)", "=Assumptions!B6", "Your $45k"),
+        ("Omi capital in (startup)", "=Assumptions!C6", "His $15k"),
+        ("Expense true-up Omi → Cesar", "=TrueUp!B12", "If he underfunded his 25%"),
+        ("Extra profit Omi took vs 25%", "=TrueUp!B18", "If past draws exceeded ownership"),
+        ("TOTAL Omi owes Cesar (suggested)", "=TrueUp!B20", "True-up total"),
+        ("YOUR revenue that paid rent/ops", "=YourMoney!B16", "75% of revenue applied to bills"),
     ]
     for r, (lab, formula, meaning) in enumerate(metrics, 20):
         label(ws.cell(row=r, column=1), lab)
@@ -166,33 +168,30 @@ def build():
         label(ws.cell(row=r, column=3), meaning)
         ws.cell(row=r, column=3).border = thin
         ws.cell(row=r, column=3).fill = muted_fill
-        if r in (25, 26, 27):
+        if r in (25, 26, 27, 28):
             ws.cell(row=r, column=2).fill = warn_fill
 
-    ws["A29"] = "RECOMMENDATION (for the conversation)"
-    ws["A29"].font = section_font
-    ws["A30"] = (
-        "Profit split was already 80/20 — good. The stress is the expense side at break-even.\n\n"
-        "Fair rule going forward (write it down):\n"
-        "A) Stay 80/20: every month Omi transfers 20% of rent+ops into the shop account "
-        "(today that is ~$500/mo). Cesar covers 80% (~$2,000/mo). Profit draws stay 80/20 when they exist.\n"
-        "B) If Omi wants equal expense burden / equal draws, he buys up to 50% ownership first — then 50/50 is fair.\n"
-        "C) If the shop account runs dry, do NOT default to 'each pay half of rent'. That ignores ownership. "
-        "Invoice him for 20% (or 50% only after a buy-up).\n\n"
-        "You are not 'losing half the rent to him' under 80/20 — you are funding ~80% of the burn from your capital, "
-        "which matches ownership. What you SHOULD stop is covering his 20% if his capital is gone and he isn't writing checks."
+    ws["A30"] = "RECOMMENDATION (for the conversation)"
+    ws["A30"].font = section_font
+    ws["A31"] = (
+        "Ownership = capital = 75/25. Expenses and profit draws follow that.\n\n"
+        "Going forward: Omi transfers 25% of rent+ops into the shop account each month "
+        "(~$625 at $2,500 burn). Cesar covers 75% (~$1,875).\n"
+        "If the account is already funded by revenue, you are not 'paying half' — you are applying "
+        "75% of shop revenue to bills. Track that on YourMoney.\n"
+        "Only go 50/50 on expenses if ownership becomes 50/50 via buy-up."
     )
-    ws["A30"].alignment = Alignment(wrap_text=True, vertical="top")
-    ws.merge_cells("A30:F30")
-    ws.row_dimensions[30].height = 160
+    ws["A31"].alignment = Alignment(wrap_text=True, vertical="top")
+    ws.merge_cells("A31:F31")
+    ws.row_dimensions[31].height = 110
 
-    ws["A32"] = "Legend:"
-    ws["B32"] = "Editable input"
-    ws["B32"].fill = input_fill
-    ws["C32"] = "Calculated"
-    ws["C32"].fill = calc_fill
-    ws["D32"] = "Money Partner likely owes"
-    ws["D32"].fill = warn_fill
+    ws["A33"] = "Legend:"
+    ws["B33"] = "Editable input"
+    ws["B33"].fill = input_fill
+    ws["C33"] = "Calculated"
+    ws["C33"].fill = calc_fill
+    ws["D33"] = "Money Partner likely owes / your revenue to bills"
+    ws["D33"].fill = warn_fill
 
     set_widths(ws, [48, 18, 18, 42, 14, 14])
 
@@ -210,9 +209,9 @@ def build():
     style_header_row(wa, 4, 1, 4)
 
     label(wa["A5"], "Ownership %", True)
-    money_cell(wa["B5"], value=0.80, editable=True)
+    money_cell(wa["B5"], value=0.75, editable=True)
     wa["B5"].number_format = pct
-    money_cell(wa["C5"], value=0.20, editable=True)
+    money_cell(wa["C5"], value=0.25, editable=True)
     wa["C5"].number_format = pct
     wa["D5"] = "=B5+C5"
     wa["D5"].number_format = pct
@@ -248,9 +247,9 @@ def build():
     style_header_row(wa, 11, 1, 4)
 
     label(wa["A12"], "Who actually funds expenses today", True)
-    money_cell(wa["B12"], value=0.80, editable=True)
+    money_cell(wa["B12"], value=0.75, editable=True)
     wa["B12"].number_format = pct
-    money_cell(wa["C12"], value=0.20, editable=True)
+    money_cell(wa["C12"], value=0.25, editable=True)
     wa["C12"].number_format = pct
     wa["D12"] = "=B12+C12"
     wa["D12"].number_format = pct
@@ -258,9 +257,9 @@ def build():
     wa["D12"].border = thin
 
     label(wa["A13"], "How leftover profit was split", True)
-    money_cell(wa["B13"], value=0.80, editable=True)
+    money_cell(wa["B13"], value=0.75, editable=True)
     wa["B13"].number_format = pct
-    money_cell(wa["C13"], value=0.20, editable=True)
+    money_cell(wa["C13"], value=0.25, editable=True)
     wa["C13"].number_format = pct
     wa["D13"] = "=B13+C13"
     wa["D13"].number_format = pct
@@ -308,9 +307,9 @@ def build():
     wa["A27"] = "Notes"
     wa["A27"].font = section_font
     wa["A28"] = (
-        "• Capital is locked at Cesar $45,000 / Omi $15,000 ($60,000 total) unless you edit the yellow cells.\n"
-        "• Cash-in % = 75% / 25%. Stated ownership = 80% / 20%. Those differ — decide which % governs expenses.\n"
-        "• Profit leftover split is modeled at 80/20 (per Cesar).\n"
+        "• Ownership = capital = Cesar 75% / Omi 25% ($45k / $15k of $60k).\n"
+        "• Expense funding and profit draws both follow 75/25.\n"
+        "• YourMoney answers: how much of Cesar's revenue share paid rent/expenses.\n"
         "• This workbook is a negotiation tool, not legal advice. Put the final deal in writing."
     )
     wa["A28"].alignment = Alignment(wrap_text=True)
@@ -767,90 +766,106 @@ def build():
     # ========== YOUR MONEY (quick answer) ==========
     ym = wb.create_sheet("YourMoney", 0)
     ym.sheet_view.showGridLines = False
-    ym["A1"] = "How much of YOUR money got spent?"
+    ym["A1"] = "How much of YOUR revenue paid rent & expenses?"
     ym["A1"].font = title_font
     ym.merge_cells("A1:C1")
 
-    ym["A3"] = "Quick estimate (from your numbers — edit yellow)"
-    ym["A3"].font = section_font
+    ym["A2"] = (
+        "Rule: ownership = capital = 75% Cesar / 25% Omi. "
+        "Bills come out of the shop account first. Your revenue toward rent = "
+        "your 75% share of the revenue that covered bills."
+    )
+    ym["A2"].font = Font(name="Calibri", italic=True, size=10, color="555555")
+    ym["A2"].alignment = Alignment(wrap_text=True)
+    ym.merge_cells("A2:C2")
+    ym.row_dimensions[2].height = 40
 
+    ym["A4"] = "INPUTS (yellow = edit)"
+    ym["A4"].font = section_font
     for i, h in enumerate(["Input", "Amount", "Notes"], 1):
-        ym.cell(row=4, column=i, value=h)
-    style_header_row(ym, 4, 1, 3)
+        ym.cell(row=5, column=i, value=h)
+    style_header_row(ym, 5, 1, 3)
 
-    label(ym["A5"], "Monthly rent")
-    money_cell(ym["B5"], formula="=Assumptions!B21")
-    label(ym["C5"], "You said $1,700")
-    label(ym["A6"], "Other monthly expenses")
-    money_cell(ym["B6"], formula="=Assumptions!B22")
-    label(ym["C6"], "You said ~$800")
-    label(ym["A7"], "Months open / paying from account")
-    money_cell(ym["B7"], formula="=Assumptions!B25")
-    ym["B7"].number_format = "0"
-    label(ym["C7"], "You said ~6")
+    label(ym["A6"], "Monthly rent")
+    money_cell(ym["B6"], formula="=Assumptions!B21")
+    label(ym["C6"], "$1,700")
 
-    label(ym["A9"], "RESULTS", True)
-    ym["A9"].font = section_font
+    label(ym["A7"], "Other monthly expenses")
+    money_cell(ym["B7"], formula="=Assumptions!B22")
+    label(ym["C7"], "~$800")
 
+    label(ym["A8"], "Months paying from account")
+    money_cell(ym["B8"], formula="=Assumptions!B25")
+    ym["B8"].number_format = "0"
+    label(ym["C8"], "~6")
+
+    label(ym["A9"], "Total shop revenue (all months)", True)
+    money_cell(ym["B9"], value=15000, editable=True)
+    label(ym["C9"], "Default $15,000 = break-even (= burn). Replace with real deposits if different.")
+
+    label(ym["A10"], "Optional: YOUR personal chair $ deposited")
+    money_cell(ym["B10"], value=0, editable=True)
+    label(ym["C10"], "Leave 0 to use 75% of shop revenue. Fill only if you track your cuts separately.")
+
+    ym["A12"] = "RESULTS — revenue that paid the bills"
+    ym["A12"].font = section_font
     for i, h in enumerate(["What", "Amount", "Meaning"], 1):
-        ym.cell(row=10, column=i, value=h)
-    style_header_row(ym, 10, 1, 3)
+        ym.cell(row=13, column=i, value=h)
+    style_header_row(ym, 13, 1, 3)
 
-    label(ym["A11"], "Total paid from shop account")
-    money_cell(ym["B11"], formula="=(B5+B6)*B7")
-    label(ym["C11"], "Rent + expenses × months")
+    label(ym["A14"], "Total rent + expenses (burn)")
+    money_cell(ym["B14"], formula="=(B6+B7)*B8")
+    label(ym["C14"], "What left the shop account for bills")
 
-    label(ym["A12"], "YOUR money in that burn (by 80% ownership)", True)
-    money_cell(ym["B12"], formula="=B11*Assumptions!B5")
-    ym["B12"].fill = warn_fill
-    ym["B12"].font = Font(name="Calibri", bold=True, size=14)
-    label(ym["C12"], "If expenses follow stated ownership → ~$12,000")
+    label(ym["A15"], "Shop revenue used to cover bills")
+    money_cell(ym["B15"], formula="=MIN(B9,B14)")
+    label(ym["C15"], "Revenue applied to bills (capped at burn)")
 
-    label(ym["A13"], "OMI's share (by 20% ownership)", True)
-    money_cell(ym["B13"], formula="=B11*Assumptions!C5")
-    label(ym["C13"], "≈ $3,000 on the 6-month ballpark")
+    label(ym["A16"], "YOUR revenue that paid rent/expenses (75%)", True)
+    money_cell(ym["B16"], formula="=B15*Assumptions!B5")
+    ym["B16"].fill = warn_fill
+    ym["B16"].font = Font(name="Calibri", bold=True, size=14)
+    label(ym["C16"], "THE NUMBER — your ownership share of revenue that covered bills")
 
-    label(ym["A14"], "YOUR money in that burn (by actual cash-in 75%)", True)
-    money_cell(ym["B14"], formula="=B11*Assumptions!B7")
-    ym["B14"].fill = warn_fill
-    label(ym["C14"], "$45k/$60k = 75% → ~$11,250")
+    label(ym["A17"], "OMI's revenue that paid rent/expenses (25%)")
+    money_cell(ym["B17"], formula="=B15*Assumptions!C5")
+    label(ym["C17"], "His ownership share of revenue that covered bills")
 
-    label(ym["A15"], "OMI's share (by actual cash-in 25%)", True)
-    money_cell(ym["B15"], formula="=B11*Assumptions!C7")
-    label(ym["C15"], "$15k/$60k = 25% → ~$3,750")
+    label(ym["A18"], "Leftover after bills (shop-level)")
+    money_cell(ym["B18"], formula="=B9-B14")
+    label(ym["C18"], "~$0 at break-even = no draw")
 
-    label(ym["A16"], "Omi monthly (20% ownership rule)")
-    money_cell(ym["B16"], formula="=(B5+B6)*Assumptions!C5")
-    ym["B16"].fill = ok_fill
-    label(ym["C16"], "~$500/mo")
+    label(ym["A19"], "Your possible draw (75% of leftover)")
+    money_cell(ym["B19"], formula="=MAX(0,B18)*Assumptions!B5")
+    label(ym["C19"], "Why it feels like $0 take-home right now")
 
-    label(ym["A17"], "Omi monthly (25% cash-in rule)")
-    money_cell(ym["B17"], formula="=(B5+B6)*Assumptions!C7")
-    ym["B17"].fill = ok_fill
-    label(ym["C17"], "~$625/mo — matches money he put in")
+    label(ym["A20"], "Chair-deposit version (only if B10 > 0)")
+    money_cell(ym["B20"], formula="=IF(B10>0,MIN(B10,B14*Assumptions!B5),B16)")
+    label(ym["C20"], "Optional alternate if you track personal cuts")
 
-    ym["A19"] = "Capital vs ownership mismatch"
-    ym["A19"].font = section_font
-    ym["A20"] = (
-        "You: $45,000 (75% of capital). Omi: $15,000 (25% of capital).\n"
-        "Stated ownership is 80/20 — that does not match the cash.\n"
-        "Pick one written rule: expenses follow ownership (80/20) OR follow capital (75/25)."
-    )
-    ym["A20"].alignment = Alignment(wrap_text=True)
-    ym.merge_cells("A20:C20")
-    ym.row_dimensions[20].height = 55
-
-    ym["A22"] = "Still need from you"
+    ym["A22"] = "Monthly going forward (75/25)"
     ym["A22"].font = section_font
-    ym["A23"] = (
-        "1) What's left in the shop account today?\n"
-        "2) Did his $15k go into the account, or mostly into buildout already spent?"
-    )
-    ym["A23"].alignment = Alignment(wrap_text=True)
-    ym.merge_cells("A23:C23")
-    ym.row_dimensions[23].height = 40
+    label(ym["A23"], "Monthly burn")
+    money_cell(ym["B23"], formula="=B6+B7")
+    label(ym["A24"], "You cover (75%)")
+    money_cell(ym["B24"], formula="=B23*Assumptions!B5")
+    label(ym["A25"], "Omi covers (25%)")
+    money_cell(ym["B25"], formula="=B23*Assumptions!C5")
+    ym["B25"].fill = ok_fill
 
-    set_widths(ym, [48, 16, 55])
+    ym["A27"] = "How to read this"
+    ym["A27"].font = section_font
+    ym["A28"] = (
+        "At break-even, shop revenue ≈ rent+expenses. No leftover to take home.\n"
+        "Your 75% ownership means ~75% of that revenue was your economic share — and it paid bills.\n"
+        "On the $15k / 6-month ballpark: about $11,250 of YOUR revenue went to rent & expenses.\n"
+        "Omi's 25% ≈ $3,750. Going forward he should fund ~$625/mo (25% of $2,500)."
+    )
+    ym["A28"].alignment = Alignment(wrap_text=True)
+    ym.merge_cells("A28:C28")
+    ym.row_dimensions[28].height = 75
+
+    set_widths(ym, [52, 16, 62])
 
     # ========== README ==========
     rd = wb.create_sheet("Readme", 0)
