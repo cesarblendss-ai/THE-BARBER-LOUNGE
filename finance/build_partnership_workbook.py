@@ -703,10 +703,10 @@ def build():
     tu["A25"] = "Simple talk track"
     tu["A25"].font = section_font
     tu["A26"] = (
-        "\"Ownership is 80/20. Bills come out of the shop account. "
-        "At break-even there's no draw — that's normal — but the burn is still ~$2,500/mo. "
-        "Your share is 20% = ~$500/mo into the account. Mine is 80%. "
-        "We're not splitting rent half-and-half unless you buy up to 50%.\""
+        "\"Ownership is 75/25 — same as the $45k / $15k we put in. "
+        "Bills come out of the shop account first. At break-even my revenue share still paid "
+        "about 75% of rent and expenses, and there's nothing left to draw. "
+        "Going forward you put in 25% of the monthly burn (~$625) so the account isn't only my money.\""
     )
     tu["A26"].alignment = Alignment(wrap_text=True)
     tu.merge_cells("A26:D26")
@@ -763,7 +763,205 @@ def build():
 
     set_widths(ca, [48, 16, 16, 14])
 
-    # ========== YOUR MONEY (quick answer) ==========
+    # ========== BUILDOUT (card statements → total shop cost) ==========
+    bd = wb.create_sheet("Buildout", 0)
+    bd.sheet_view.showGridLines = False
+    bd["A1"] = "Shop buildout cost — paste card / Amex statement lines here"
+    bd["A1"].font = title_font
+    bd.merge_cells("A1:H1")
+
+    bd["A2"] = (
+        "Goal: one number for what it cost to BUILD the shop (not monthly rent/ops). "
+        "Export Amex + other cards as CSV, paste rows below, tag Category + Buildout?=Yes. "
+        "Do NOT paste full card numbers — last4 in Card column is enough."
+    )
+    bd["A2"].font = Font(name="Calibri", italic=True, size=10, color="555555")
+    bd["A2"].alignment = Alignment(wrap_text=True)
+    bd.merge_cells("A2:H2")
+    bd.row_dimensions[2].height = 40
+
+    bd["A4"] = "HOW TO PULL STATEMENTS"
+    bd["A4"].font = section_font
+    bd["A5"] = (
+        "1) Amex → Statements & Activity → Download / Export CSV (from first build month through open).\n"
+        "2) Repeat for every other card/bank used (Visa, debit, Chase, etc.).\n"
+        "3) Paste Date, Description, Amount into columns A–D (or copy from CSV).\n"
+        "4) Set Buildout? = Yes for chairs, build, deposits, signage, stations, etc.\n"
+        "5) Set Buildout? = No for rent, utilities, product restocks, personal stuff.\n"
+        "6) Paid by = Cesar / Omi / Shop so capital true-up stays honest."
+    )
+    bd["A5"].alignment = Alignment(wrap_text=True)
+    bd.merge_cells("A5:H5")
+    bd.row_dimensions[5].height = 95
+
+    # Totals block
+    bd["A7"] = "TOTALS"
+    bd["A7"].font = section_font
+    for i, h in enumerate(["Metric", "Amount"], 1):
+        bd.cell(row=8, column=i, value=h)
+    style_header_row(bd, 8, 1, 2)
+
+    label(bd["A9"], "TOTAL BUILDOUT (Yes rows)", True)
+    money_cell(bd["B9"], formula='=SUMIF(F14:F513,"Yes",D14:D513)')
+    bd["B9"].fill = warn_fill
+    bd["B9"].font = Font(name="Calibri", bold=True, size=14)
+
+    label(bd["A10"], "All pasted lines (Yes + No)")
+    money_cell(bd["B10"], formula="=SUM(D14:D513)")
+
+    label(bd["A11"], "Buildout paid by Cesar")
+    money_cell(bd["B11"], formula='=SUMIFS(D14:D513,F14:F513,"Yes",G14:G513,"Cesar")')
+
+    label(bd["A12"], "Buildout paid by Omi")
+    money_cell(bd["B12"], formula='=SUMIFS(D14:D513,F14:F513,"Yes",G14:G513,"Omi")')
+
+    # Category rollup
+    bd["D7"] = "BY CATEGORY (buildout only)"
+    bd["D7"].font = section_font
+    for i, h in enumerate(["Category", "Total"], 4):
+        bd.cell(row=8, column=i, value=h)
+    style_header_row(bd, 8, 4, 5)
+
+    categories = [
+        "Lease deposit / first-last",
+        "Construction / contractor / permits",
+        "Plumbing / electrical / HVAC",
+        "Flooring / paint / finishes",
+        "Barber chairs / stations / mirrors",
+        "Waiting area / furniture",
+        "Signage / exterior / branding",
+        "POS / computers / cameras / WiFi",
+        "Opening supplies / inventory",
+        "Licenses / legal / LLC / insurance setup",
+        "Marketing / grand opening",
+        "Other buildout",
+    ]
+    for idx, cat in enumerate(categories):
+        r = 9 + idx
+        label(bd.cell(row=r, column=4), cat)
+        bd.cell(row=r, column=4).border = thin
+        money_cell(
+            bd.cell(row=r, column=5),
+            formula=f'=SUMIFS($D$14:$D$513,$F$14:$F$513,"Yes",$E$14:$E$513,D{r})',
+        )
+
+    # Line item table
+    bd["A13"] = "STATEMENT LINES (paste / type below — 500 rows)"
+    bd["A13"].font = section_font
+    headers = [
+        "Date",
+        "Card (Amex/Visa/etc + last4)",
+        "Description (from statement)",
+        "Amount",
+        "Category",
+        "Buildout? (Yes/No)",
+        "Paid by (Cesar/Omi/Shop)",
+        "Notes",
+    ]
+    for i, h in enumerate(headers, 1):
+        bd.cell(row=14, column=i, value=h) if False else None
+    # header is row 14? Better: headers on 14, data from 15... but formulas use 14:513 including header.
+    # Fix: headers on row 13 area, data starts 15, formulas D15:D514
+    # Simpler: put headers on row 14, data 15-514, update formulas.
+
+    # Actually I already used F14:F513 — include header in range is bad for SUMIF if header isn't Yes.
+    # Header text won't match Yes so OK. Amount header isn't a number. Fine.
+    # But Date column header in row 14 — data should start row 15.
+
+    for i, h in enumerate(headers, 1):
+        bd.cell(row=14, column=i, value=h)
+    style_header_row(bd, 14, 1, 8)
+    bd.row_dimensions[14].height = 36
+
+    # Example starter rows (yellow) — Cesar replaces
+    examples = [
+        ("", "Amex-1009", "EXAMPLE — Home Depot build materials", 0, "Flooring / paint / finishes", "Yes", "Cesar", "Delete/replace"),
+        ("", "Amex-1009", "EXAMPLE — Barber chair vendor", 0, "Barber chairs / stations / mirrors", "Yes", "Cesar", ""),
+        ("", "Visa-4321", "EXAMPLE — Monthly rent (NOT buildout)", 0, "Other buildout", "No", "Shop", "Ops — exclude from buildout total"),
+    ]
+    for idx, row in enumerate(examples):
+        r = 15 + idx
+        for c, val in enumerate(row, 1):
+            cell = bd.cell(row=r, column=c, value=val)
+            cell.border = thin
+            cell.fill = input_fill
+            if c == 4:
+                cell.number_format = money
+
+    # Leave remaining rows empty for paste (format first 100 for guidance)
+    for r in range(18, 115):
+        for c in range(1, 9):
+            cell = bd.cell(row=r, column=c, value=None)
+            cell.border = thin
+            cell.fill = input_fill
+            if c == 4:
+                cell.number_format = money
+
+    # Category list on a tiny helper sheet (avoids Excel 255-char list limit)
+    lists = wb.create_sheet("_Lists")
+    for i, cat in enumerate(categories, 1):
+        lists.cell(row=i, column=1, value=cat)
+    lists.sheet_state = "hidden"
+
+    dv_cat = DataValidation(
+        type="list",
+        formula1="=_Lists!$A$1:$A$12",
+        allow_blank=True,
+    )
+    dv_cat.error = "Pick a category"
+    dv_cat.errorTitle = "Category"
+    bd.add_data_validation(dv_cat)
+    dv_cat.add("E15:E514")
+
+    dv_yes = DataValidation(type="list", formula1='"Yes,No"', allow_blank=True)
+    bd.add_data_validation(dv_yes)
+    dv_yes.add("F15:F514")
+
+    dv_paid = DataValidation(type="list", formula1='"Cesar,Omi,Shop"', allow_blank=True)
+    bd.add_data_validation(dv_paid)
+    dv_paid.add("G15:G514")
+
+    # Fix totals to start at row 15 (skip header). Header amount isn't numeric so SUMIF was ok,
+    # but Paid by SUMIFS on row 14 is fine. Update to 15:514 for clarity.
+    bd["B9"] = '=SUMIF(F15:F514,"Yes",D15:D514)'
+    bd["B9"].number_format = money
+    bd["B9"].fill = warn_fill
+    bd["B9"].font = Font(name="Calibri", bold=True, size=14)
+    bd["B9"].border = thin
+
+    bd["B10"] = "=SUM(D15:D514)"
+    bd["B10"].number_format = money
+    bd["B10"].fill = calc_fill
+    bd["B10"].border = thin
+
+    bd["B11"] = '=SUMIFS(D15:D514,F15:F514,"Yes",G15:G514,"Cesar")'
+    bd["B11"].number_format = money
+    bd["B11"].fill = calc_fill
+    bd["B11"].border = thin
+
+    bd["B12"] = '=SUMIFS(D15:D514,F15:F514,"Yes",G15:G514,"Omi")'
+    bd["B12"].number_format = money
+    bd["B12"].fill = calc_fill
+    bd["B12"].border = thin
+
+    for idx in range(len(categories)):
+        r = 9 + idx
+        bd.cell(
+            row=r,
+            column=5,
+            value=f'=SUMIFS($D$15:$D$514,$F$15:$F$514,"Yes",$E$15:$E$514,D{r})',
+        )
+        bd.cell(row=r, column=5).number_format = money
+        bd.cell(row=r, column=5).fill = calc_fill
+        bd.cell(row=r, column=5).border = thin
+
+    bd.freeze_panes = "A15"
+    set_widths(bd, [12, 22, 42, 12, 36, 16, 18, 28])
+
+    # Hook on Assumptions for reference
+    # (optional) — skip
+
+    # ========== YOUR MONEY ==========
     ym = wb.create_sheet("YourMoney", 0)
     ym.sheet_view.showGridLines = False
     ym["A1"] = "How much of YOUR revenue paid rent & expenses?"
@@ -875,33 +1073,27 @@ def build():
     rd["A3"] = "Sheets"
     rd["A3"].font = section_font
     rd["A4"] = (
-        "1. Summary — the story + bottom-line true-up\n"
-        "2. Assumptions — ownership %, capital, split rules, example rent (yellow = edit)\n"
-        "3. Scenarios — one break-even month and one profit month, current vs fair\n"
-        "4. MonthlyTracker — your real history (replace sample months)\n"
-        "5. TrueUp — the ask: what Partner pays you + going-forward options\n"
-        "6. CapitalAccounts — running capital picture"
+        "1. Buildout — paste Amex/card lines → TOTAL shop build cost (start for buildout question)\n"
+        "2. YourMoney — how much of YOUR revenue paid rent/expenses\n"
+        "3. Summary — story + bottom-line numbers\n"
+        "4. Assumptions — 75/25 ownership, $45k/$15k, rent/ops\n"
+        "5. Scenarios / MonthlyTracker / TrueUp / CapitalAccounts"
     )
     rd["A4"].alignment = Alignment(wrap_text=True, vertical="top")
     rd.merge_cells("A4:B4")
-    rd.row_dimensions[4].height = 110
+    rd.row_dimensions[4].height = 100
 
-    rd["A6"] = "Direct answer"
+    rd["A6"] = "Two different questions"
     rd["A6"].font = section_font
     rd["A7"] = (
-        "CAPITAL (exact): Cesar $45,000 + Omi $15,000 = $60,000 → 75% / 25% of the money.\n"
-        "STATED OWNERSHIP: 80% / 20%.\n\n"
-        "6-month burn ballpark: ($1,700 + $800) × 6 = $15,000 from the shop account.\n"
-        "• If bills follow ownership 80/20 → your money ≈ $12,000 / his ≈ $3,000\n"
-        "• If bills follow cash-in 75/25 → your money ≈ $11,250 / his ≈ $3,750\n\n"
-        "Going forward monthly into the account:\n"
-        "• 20% rule → Omi ≈ $500/mo\n"
-        "• 25% rule → Omi ≈ $625/mo\n"
-        "Not 50%. Not an extra '30%'. Write down which % you both agree governs expenses."
+        "A) BUILDOUT COST (one-time): what did it cost to open the shop? → Buildout sheet + Amex/CSVs.\n"
+        "B) MONTHLY BURN / REVENUE: what did operations cost after open? → YourMoney / MonthlyTracker.\n\n"
+        "Ownership = 75/25 ($45k / $15k). At break-even ballpark, ~$11,250 of Cesar's revenue share paid bills.\n"
+        "Do not mix rent/utilities into Buildout — mark those Buildout?=No."
     )
     rd["A7"].alignment = Alignment(wrap_text=True, vertical="top")
     rd.merge_cells("A7:B7")
-    rd.row_dimensions[7].height = 150
+    rd.row_dimensions[7].height = 110
 
     set_widths(rd, [100, 20])
 
