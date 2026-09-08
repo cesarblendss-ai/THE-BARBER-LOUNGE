@@ -131,12 +131,12 @@ def build():
     ws["A15"] = "THE PROBLEM (plain English)"
     ws["A15"].font = section_font
     ws["A16"] = (
-        "1) Ownership is 80/20 (Cesar / Omi). Omi put in ~$17k; Cesar's capital cell is an estimate — edit it.\n"
-        "2) Rent + expenses come out of the shop bank account (recently always).\n"
-        "3) When there WAS leftover, you already split profit 80/20 — that part was fair.\n"
-        "4) At break-even there is $0 leftover, so $0 draw — but the account still pays ~$2,500/mo.\n"
-        "5) Under 80/20, Omi should fund 20% of that burn out of pocket (or leave capital in) — NOT 50%, and NOT an extra '30%'.\n"
-        "6) The '30%' idea is the gap between half (50%) and his ownership (20%). Don't use that. Fair = he pays 20%."
+        "1) Cash-in is exact now: Cesar $45,000 / Omi $15,000 = $60,000 total (75% / 25% of the money).\n"
+        "2) Stated ownership is still 80/20 — that does NOT match the cash (Omi put in 25% of capital for 20% ownership).\n"
+        "3) Rent + expenses come out of the shop bank account (recently always).\n"
+        "4) When there WAS leftover, profit was split 80/20.\n"
+        "5) At break-even there is $0 leftover, so $0 draw — account still pays ~$2,500/mo.\n"
+        "6) Fair monthly out-of-pocket for Omi = his ownership % of bills (20% ≈ $500), OR match cash-in % (25% ≈ $625) — pick one rule and write it down."
     )
     ws["A16"].alignment = Alignment(wrap_text=True, vertical="top")
     ws.merge_cells("A16:F16")
@@ -220,9 +220,8 @@ def build():
     wa["D5"].border = thin
 
     label(wa["A6"], "Startup capital contributed ($)", True)
-    # Cesar amount ESTIMATE if ~$60k total and Omi put $17k — EDIT yellow cell when you know exact
-    money_cell(wa["B6"], value=43000, editable=True)
-    money_cell(wa["C6"], value=17000, editable=True)
+    money_cell(wa["B6"], value=45000, editable=True)
+    money_cell(wa["C6"], value=15000, editable=True)
     money_cell(wa["D6"], formula="=B6+C6")
 
     label(wa["A7"], "% of capital funded")
@@ -309,9 +308,9 @@ def build():
     wa["A27"] = "Notes"
     wa["A27"].font = section_font
     wa["A28"] = (
-        "• Cesar capital defaults to $43,000 (= ~$60k total − Omi's $17k). Replace with your real total cash-in.\n"
-        "• Ownership is still set to 80/20 even if cash-in % differs — decide whether ownership follows the deal or the money.\n"
-        "• Profit leftover split is 80/20 (per Cesar). Expense funding from the account is modeled at ownership %.\n"
+        "• Capital is locked at Cesar $45,000 / Omi $15,000 ($60,000 total) unless you edit the yellow cells.\n"
+        "• Cash-in % = 75% / 25%. Stated ownership = 80% / 20%. Those differ — decide which % governs expenses.\n"
+        "• Profit leftover split is modeled at 80/20 (per Cesar).\n"
         "• This workbook is a negotiation tool, not legal advice. Put the final deal in writing."
     )
     wa["A28"].alignment = Alignment(wrap_text=True)
