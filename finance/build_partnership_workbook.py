@@ -800,50 +800,57 @@ def build():
     money_cell(ym["B11"], formula="=(B5+B6)*B7")
     label(ym["C11"], "Rent + expenses × months")
 
-    label(ym["A12"], "YOUR money in that burn (80%)", True)
+    label(ym["A12"], "YOUR money in that burn (by 80% ownership)", True)
     money_cell(ym["B12"], formula="=B11*Assumptions!B5")
     ym["B12"].fill = warn_fill
     ym["B12"].font = Font(name="Calibri", bold=True, size=14)
-    label(ym["C12"], "This is the painful number — your capital that paid bills")
+    label(ym["C12"], "If expenses follow stated ownership → ~$12,000")
 
-    label(ym["A13"], "OMI's share of that burn (20%)", True)
+    label(ym["A13"], "OMI's share (by 20% ownership)", True)
     money_cell(ym["B13"], formula="=B11*Assumptions!C5")
-    label(ym["C13"], "What his ownership requires him to have funded")
+    label(ym["C13"], "≈ $3,000 on the 6-month ballpark")
 
-    label(ym["A14"], "Omi should send each month going forward")
-    money_cell(ym["B14"], formula="=(B5+B6)*Assumptions!C5")
-    ym["B14"].fill = ok_fill
-    label(ym["C14"], "20% of rent+ops — NOT 30%, NOT 50%")
+    label(ym["A14"], "YOUR money in that burn (by actual cash-in 75%)", True)
+    money_cell(ym["B14"], formula="=B11*Assumptions!B7")
+    ym["B14"].fill = warn_fill
+    label(ym["C14"], "$45k/$60k = 75% → ~$11,250")
 
-    label(ym["A15"], "You should cover each month")
-    money_cell(ym["B15"], formula="=(B5+B6)*Assumptions!B5")
-    label(ym["C15"], "80% of rent+ops")
+    label(ym["A15"], "OMI's share (by actual cash-in 25%)", True)
+    money_cell(ym["B15"], formula="=B11*Assumptions!C7")
+    label(ym["C15"], "$15k/$60k = 25% → ~$3,750")
 
-    ym["A17"] = "The '30%' mix-up"
-    ym["A17"].font = section_font
-    ym["A18"] = (
-        "Half of the bills = 50%. His ownership = 20%. The gap is 30% — but that gap is NOT what he owes.\n"
-        "If you make him pay 50% while he only owns 20%, you're overcharging a minority partner "
-        "(unless he buys up to 50%).\n"
-        "Fair ask: he pays 20% (~$500/mo). Unfair to YOU is only if the account is YOUR refill money "
-        "and he puts in $0 while still owning 20%."
+    label(ym["A16"], "Omi monthly (20% ownership rule)")
+    money_cell(ym["B16"], formula="=(B5+B6)*Assumptions!C5")
+    ym["B16"].fill = ok_fill
+    label(ym["C16"], "~$500/mo")
+
+    label(ym["A17"], "Omi monthly (25% cash-in rule)")
+    money_cell(ym["B17"], formula="=(B5+B6)*Assumptions!C7")
+    ym["B17"].fill = ok_fill
+    label(ym["C17"], "~$625/mo — matches money he put in")
+
+    ym["A19"] = "Capital vs ownership mismatch"
+    ym["A19"].font = section_font
+    ym["A20"] = (
+        "You: $45,000 (75% of capital). Omi: $15,000 (25% of capital).\n"
+        "Stated ownership is 80/20 — that does not match the cash.\n"
+        "Pick one written rule: expenses follow ownership (80/20) OR follow capital (75/25)."
     )
-    ym["A18"].alignment = Alignment(wrap_text=True)
-    ym.merge_cells("A18:C18")
-    ym.row_dimensions[18].height = 70
+    ym["A20"].alignment = Alignment(wrap_text=True)
+    ym.merge_cells("A20:C20")
+    ym.row_dimensions[20].height = 55
 
-    ym["A20"] = "Still need from you to tighten this"
-    ym["A20"].font = section_font
-    ym["A21"] = (
-        "1) Exact total YOU deposited (cash-in), not the estimate\n"
-        "2) What's left in the shop account today\n"
-        "3) Did Omi's $17k go into the account, or mostly into buildout already spent?"
+    ym["A22"] = "Still need from you"
+    ym["A22"].font = section_font
+    ym["A23"] = (
+        "1) What's left in the shop account today?\n"
+        "2) Did his $15k go into the account, or mostly into buildout already spent?"
     )
-    ym["A21"].alignment = Alignment(wrap_text=True)
-    ym.merge_cells("A21:C21")
-    ym.row_dimensions[21].height = 55
+    ym["A23"].alignment = Alignment(wrap_text=True)
+    ym.merge_cells("A23:C23")
+    ym.row_dimensions[23].height = 40
 
-    set_widths(ym, [42, 16, 55])
+    set_widths(ym, [48, 16, 55])
 
     # ========== README ==========
     rd = wb.create_sheet("Readme", 0)
@@ -867,16 +874,15 @@ def build():
     rd["A6"] = "Direct answer"
     rd["A6"].font = section_font
     rd["A7"] = (
-        "HOW MUCH OF YOUR MONEY GOT SPENT (6-month ballpark)\n\n"
-        "Monthly burn ≈ $1,700 rent + $800 expenses = $2,500\n"
-        "× 6 months ≈ $15,000 paid from the shop account\n\n"
-        "Your share (80%) ≈ $12,000 of YOUR capital went to keeping the shop open\n"
-        "Omi's share (20%) ≈ $3,000 — that is what his ownership requires him to fund\n\n"
-        "If leftover profit was already split 80/20, he was NOT ripping you on the profit side.\n"
-        "The stress is: at break-even you take home $0 while your capital still pays ~$2,000/mo of the burn.\n\n"
-        "Do NOT charge him an extra '30%'. Fair out-of-pocket for a 20% owner = 20% of bills "
-        "(~$500/mo today), not 50% and not 30%.\n"
-        "Only move to 50/50 expenses if he buys up to 50% ownership."
+        "CAPITAL (exact): Cesar $45,000 + Omi $15,000 = $60,000 → 75% / 25% of the money.\n"
+        "STATED OWNERSHIP: 80% / 20%.\n\n"
+        "6-month burn ballpark: ($1,700 + $800) × 6 = $15,000 from the shop account.\n"
+        "• If bills follow ownership 80/20 → your money ≈ $12,000 / his ≈ $3,000\n"
+        "• If bills follow cash-in 75/25 → your money ≈ $11,250 / his ≈ $3,750\n\n"
+        "Going forward monthly into the account:\n"
+        "• 20% rule → Omi ≈ $500/mo\n"
+        "• 25% rule → Omi ≈ $625/mo\n"
+        "Not 50%. Not an extra '30%'. Write down which % you both agree governs expenses."
     )
     rd["A7"].alignment = Alignment(wrap_text=True, vertical="top")
     rd.merge_cells("A7:B7")
