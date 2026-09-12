@@ -126,12 +126,17 @@ class SidingJobTest(unittest.TestCase):
                 item.description.startswith("Prep window trims")
                 or item.description.startswith("Reinstall window trims")
                 or item.description.startswith("Paint window trims")
-                or item.description.startswith("Window trim material")
             )
         ]
-        self.assertEqual(len(counted), 4)
+        self.assertEqual(len(counted), 3)
         for item in counted:
             self.assertEqual(item.qty, 13)
+
+    def test_window_trim_wood_cost(self) -> None:
+        wood = next(item for item in self.lines if item.description == "Window trim material")
+        self.assertEqual(wood.cost_cents, 16_000)
+        self.assertEqual(wood.quoted_cents, apply_material_then_profit(16_000, 20, 30))
+        self.assertEqual(wood.quoted_cents, 24_960)
 
     def test_dump_is_separate_from_demo(self) -> None:
         dump = next(item for item in self.lines if item.kind == "fee")

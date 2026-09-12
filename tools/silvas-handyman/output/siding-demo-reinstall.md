@@ -38,7 +38,7 @@
 | Paint / Color Match | Paint window trims — color-matched | Labor | 13 ea | $546.00 | $709.80 |
 | Materials | Siding boards — house wall (incl. waste) | Material | 495 sq ft | $1,608.75 | $2,509.65 |
 | Materials | Siding boards — chimney wrap (incl. waste) | Material | 230 sq ft | $747.50 | $1,166.10 |
-| Materials | Window trim material | Material | 13 ea | $546.00 | $851.76 |
+| Materials | Window trim material | Material | 1 ls | $160.00 | $249.60 |
 | Materials | Chimney chase corner boards | Material | 75 lf | $180.00 | $280.80 |
 | Materials | Fasteners and accessories | Material | 650 sq ft | $117.00 | $182.52 |
 | Materials | Paint and primer — siding | Material | 450 sq ft | $247.50 | $386.10 |
@@ -51,11 +51,11 @@
 | | Hard cost | Quoted (after markup / margin) |
 |---|---:|---:|
 | Labor | $7,792.50 | $10,130.25 |
-| Materials | $3,601.25 | $5,617.95 |
+| Materials | $3,215.25 | $5,015.79 |
 | Fees (dump) | $550.00 | $715.00 |
-| **Subtotal** | **$11,943.75** | **$16,463.20** |
-| Built-in margin | | $4,519.45 |
-| **Total** | | **$16,463.20** |
+| **Subtotal** | **$11,557.75** | **$15,861.04** |
+| Built-in margin | | $4,303.29 |
+| **Total** | | **$15,861.04** |
 
 ## Photo survey
 
@@ -75,7 +75,8 @@
 - The $1,000 demo figure is hard cost only. Standard profit margin is applied on top — not a pass-through.
 - Dump/disposal is a separate hauling fee, not part of the $1,000 demo labor.
 - Photo survey 2026-09-09: chimney is a siding-clad chase with gray corner boards. Takeoff remains 25 ft × 8 ft assumed wrap = 200 sq ft (bump-out sides + above-roof stack).
-- The 13 trim units include mixed openings seen on site (small hoppers, sliders, half-round transom, patio slider). Same unit rate; arch and door are the hard ones, small uppers are faster.
+- Window trim wood is 24 sticks of 10 lf for the 13 openings. Hard cost $160, then 20% material markup and 30% profit — not a pass-through.
+- The 13 trim units include mixed openings seen on site (small hoppers, sliders, half-round transom, patio slider). Same labor unit rate; arch and door are the hard ones, small uppers are faster.
 - Color match: siding to existing cream/off-white field paint; trim to existing gray. Both are field-painted, not a factory color.
 - Reinstall and paint on the house wall are 450 sq ft. Chimney reinstall is the 200 sq ft wrap at the height-premium labor rate, including corner boards.
 - Does not include dry-rot/sheathing repair, housewrap, flashing upgrades, scaffolding rental as a separate line, permits, or lead testing.

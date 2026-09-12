@@ -123,6 +123,26 @@ def _fee_line(
     )
 
 
+def window_trim_qty_cost(
+    scope: dict[str, Any], materials: dict[str, Any], trims: float
+) -> tuple[float, str, float]:
+    if scope.get("windowTrimWoodCost") is not None:
+        return (1, "ls", float(scope["windowTrimWoodCost"]))
+    return (trims, "ea", float(materials["trimEach"]))
+
+
+def window_trim_note(scope: dict[str, Any], trims: float) -> str:
+    if scope.get("windowTrimWoodCost") is None:
+        return ""
+    boards = scope.get("windowTrimBoards", 1)
+    length = scope.get("windowTrimBoardLengthFt", 10)
+    cost = float(scope["windowTrimWoodCost"])
+    return (
+        f"{boards} sticks × {length:g} lf for {int(trims)} openings. "
+        f"Hard cost ${cost:g}, then material markup + profit."
+    )
+
+
 def build_siding_demo_reinstall_lines(
     pricing: dict[str, Any], job: dict[str, Any]
 ) -> list[LineItem]:
@@ -278,11 +298,10 @@ def build_siding_demo_reinstall_lines(
             _material_line(
                 "Materials",
                 "Window trim material",
-                trims,
-                "ea",
-                float(materials["trimEach"]),
+                *window_trim_qty_cost(scope, materials, trims),
                 material_markup,
                 profit,
+                notes=window_trim_note(scope, trims),
             ),
         ]
     )
