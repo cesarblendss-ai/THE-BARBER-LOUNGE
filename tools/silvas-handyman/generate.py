@@ -120,6 +120,17 @@ def render_markdown(payload: dict, lines: list[LineItem]) -> str:
     out.append(f"| **Total** | | **{format_usd(totals['total_cents'])}** |")
     out.append("")
 
+    survey = job.get("photoSurvey")
+    if survey:
+        out.append("## Photo survey")
+        out.append("")
+        out.append(f"- Date: {survey.get('date', '—')}")
+        if survey.get("source"):
+            out.append(f"- Source: {survey['source']}")
+        for finding in survey.get("findings", []):
+            out.append(f"- {finding}")
+        out.append("")
+
     if job.get("scopeNotes"):
         out.append("## Notes")
         out.append("")
@@ -158,6 +169,17 @@ def render_html(payload: dict, lines: list[LineItem]) -> str:
             "</tr>"
         )
 
+    survey = job.get("photoSurvey") or {}
+    survey_items = "".join(f"<li>{esc(finding)}</li>" for finding in survey.get("findings", []))
+    survey_block = ""
+    if survey_items:
+        survey_meta = esc(survey.get("date", "—"))
+        source = esc(survey["source"]) if survey.get("source") else ""
+        survey_block = f"""
+    <h2>Photo survey</h2>
+    <p class="rules">Date: {survey_meta}{f" · {source}" if source else ""}</p>
+    <ul>{survey_items}</ul>
+"""
     notes = "".join(f"<li>{esc(note)}</li>" for note in job.get("scopeNotes", []))
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -320,6 +342,7 @@ def render_html(payload: dict, lines: list[LineItem]) -> str:
       <tr class="grand"><td><strong>Total</strong></td><td class="num"><strong>{format_usd(totals['total_cents'])}</strong></td></tr>
     </table>
 
+    {survey_block}
     <h2>Notes</h2>
     <ul>{notes}</ul>
     <footer>This is an estimate, not a contract. Prices may change after site inspection.</footer>

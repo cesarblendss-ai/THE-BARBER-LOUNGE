@@ -17,14 +17,31 @@
     "chimneyWrapGirthFt": 8,
     "chimneySf": 200.0,
     "windowTrims": 13,
+    "fixtures": 5,
+    "chimneyCornerBoardsLf": 75,
     "scopeNotes": [
-      "Demo is ONE lump: existing siding (450 sq ft), chimney section (~25 ft height), and all 13 window trims. Not split per surface.",
+      "Demo is ONE lump: existing siding (450 sq ft), chimney chase (~25 ft height), and all 13 window/door trims. Not split per surface.",
       "The $1,000 demo figure is hard cost only. Standard profit margin is applied on top \u2014 not a pass-through.",
       "Dump/disposal is a separate hauling fee, not part of the $1,000 demo labor.",
-      "Chimney material takeoff uses 25 ft height \u00d7 8 ft assumed wrap girth = 200 sq ft (3-side wrap on a typical 3\u20134 ft chimney).",
-      "Reinstall and paint on the house wall are 450 sq ft. Chimney reinstall is the 200 sq ft wrap at the height-premium labor rate.",
+      "Photo survey 2026-09-09: chimney is a siding-clad chase with gray corner boards. Takeoff remains 25 ft \u00d7 8 ft assumed wrap = 200 sq ft (bump-out sides + above-roof stack).",
+      "The 13 trim units include mixed openings seen on site (small hoppers, sliders, half-round transom, patio slider). Same unit rate; arch and door are the hard ones, small uppers are faster.",
+      "Color match: siding to existing cream/off-white field paint; trim to existing gray. Both are field-painted, not a factory color.",
+      "Reinstall and paint on the house wall are 450 sq ft. Chimney reinstall is the 200 sq ft wrap at the height-premium labor rate, including corner boards.",
       "Does not include dry-rot/sheathing repair, housewrap, flashing upgrades, scaffolding rental as a separate line, permits, or lead testing."
-    ]
+    ],
+    "photoSurvey": {
+      "date": "2026-09-09",
+      "source": "iCloud Live Photos IMG_1909\u20131928",
+      "findings": [
+        "Two-story cream / pale-yellow horizontal lap (wood-grain), gray window and corner trim \u2014 matches prior SmartSide-style ID.",
+        "Chimney is a siding-clad chase / bump-out, not brick: stacked windows on the front, a side-face window, gray corner boards running grade-to-cap, stack continuing above the ridge (~25 ft height confirmed).",
+        "13 openings on the surveyed walls include mixed sizes: small uppers, sliders, one half-round transom, and a patio sliding door. All existing gray trim is weathered; several pieces are peeling (especially the horizontal slider).",
+        "Siding has open butt joints and hairline cracks at window corners \u2014 supports full demo/reinstall, not paint-only.",
+        "Fixtures to pull and reset: wall lights, camera, junction/electrical covers (counted as 5).",
+        "A painted 16-ft leftover lap board is on site (sample / spare). Not credited against material.",
+        "Tree limbs close to the wall; 2-story ladder/scaffold access required for the chase."
+      ]
+    }
   },
   "rates": {
     "profitMarginPercent": 30,
@@ -85,7 +102,7 @@
       "unit_cost_cents": 575,
       "cost_cents": 115000,
       "quoted_cents": 149500,
-      "notes": "25 ft height \u00d7 8 ft assumed wrap = 200 sq ft. Height-premium labor rate."
+      "notes": "25 ft height \u00d7 8 ft assumed wrap = 200 sq ft. Siding-clad chase (photo survey), not masonry. Height-premium labor rate."
     },
     {
       "section": "Reinstall / Install",
@@ -96,7 +113,18 @@
       "unit_cost_cents": 8500,
       "cost_cents": 110500,
       "quoted_cents": 143650,
-      "notes": ""
+      "notes": "Includes mixed sizes from photo survey: small uppers, sliders, half-round transom, patio slider."
+    },
+    {
+      "section": "Reinstall / Install",
+      "description": "Pull and reset exterior fixtures (lights, camera, covers)",
+      "kind": "labor",
+      "qty": 5.0,
+      "unit": "ea",
+      "unit_cost_cents": 3500,
+      "cost_cents": 17500,
+      "quoted_cents": 22750,
+      "notes": "Photo survey: wall lights, camera, junction/electrical covers on the work wall."
     },
     {
       "section": "Paint / Color Match",
@@ -177,6 +205,17 @@
     },
     {
       "section": "Materials",
+      "description": "Chimney chase corner boards",
+      "kind": "material",
+      "qty": 75.0,
+      "unit": "lf",
+      "unit_cost_cents": 240,
+      "cost_cents": 18000,
+      "quoted_cents": 28080,
+      "notes": "3 gray vertical corners \u00d7 25 ft (photo survey)."
+    },
+    {
+      "section": "Materials",
       "description": "Fasteners and accessories",
       "kind": "material",
       "qty": 650.0,
@@ -232,15 +271,15 @@
     }
   ],
   "totals": {
-    "labor_cost_cents": 761750,
-    "labor_quoted_cents": 990275,
-    "material_cost_cents": 342125,
-    "material_quoted_cents": 533715,
+    "labor_cost_cents": 779250,
+    "labor_quoted_cents": 1013025,
+    "material_cost_cents": 360125,
+    "material_quoted_cents": 561795,
     "fee_cost_cents": 55000,
     "fee_quoted_cents": 71500,
-    "subtotal_cost_cents": 1158875,
-    "subtotal_quoted_cents": 1595490,
-    "total_cents": 1595490,
-    "profit_cents": 436615
+    "subtotal_cost_cents": 1194375,
+    "subtotal_quoted_cents": 1646320,
+    "total_cents": 1646320,
+    "profit_cents": 451945
   }
 }

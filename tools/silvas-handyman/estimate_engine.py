@@ -184,7 +184,10 @@ def build_siding_demo_reinstall_lines(
             "sq ft",
             float(labor["reinstallChimneyPerSf"]),
             profit,
-            notes=f"{chimney_height:g} ft height × {chimney_girth:g} ft assumed wrap = {chimney_sf:g} sq ft. Height-premium labor rate.",
+            notes=(
+                f"{chimney_height:g} ft height × {chimney_girth:g} ft assumed wrap = {chimney_sf:g} sq ft. "
+                "Siding-clad chase (photo survey), not masonry. Height-premium labor rate."
+            ),
         ),
         _labor_line(
             "Reinstall / Install",
@@ -193,8 +196,23 @@ def build_siding_demo_reinstall_lines(
             "ea",
             float(labor["reinstallTrimEach"]),
             profit,
+            notes="Includes mixed sizes from photo survey: small uppers, sliders, half-round transom, patio slider.",
         ),
     ]
+
+    fixtures = float(scope.get("fixtures") or 0)
+    if fixtures:
+        lines.append(
+            _labor_line(
+                "Reinstall / Install",
+                "Pull and reset exterior fixtures (lights, camera, covers)",
+                fixtures,
+                "ea",
+                float(labor["fixtureResetEach"]),
+                profit,
+                notes="Photo survey: wall lights, camera, junction/electrical covers on the work wall.",
+            )
+        )
 
     if scope.get("colorMatchSiding", True):
         lines.append(
@@ -266,6 +284,28 @@ def build_siding_demo_reinstall_lines(
                 material_markup,
                 profit,
             ),
+        ]
+    )
+
+    corner_lf = float(scope.get("chimneyCornerBoardsLf") or 0)
+    extra_materials: list[LineItem] = []
+    if corner_lf:
+        extra_materials.append(
+            _material_line(
+                "Materials",
+                "Chimney chase corner boards",
+                corner_lf,
+                "lf",
+                float(materials["cornerBoardPerLf"]),
+                material_markup,
+                profit,
+                notes="3 gray vertical corners × 25 ft (photo survey).",
+            )
+        )
+
+    lines.extend(extra_materials)
+    lines.extend(
+        [
             _material_line(
                 "Materials",
                 "Fasteners and accessories",
@@ -375,7 +415,10 @@ def estimate_payload(
             "chimneyWrapGirthFt": scope["chimneyWrapGirthFt"],
             "chimneySf": chimney_sf,
             "windowTrims": scope["windowTrims"],
+            "fixtures": scope.get("fixtures", 0),
+            "chimneyCornerBoardsLf": scope.get("chimneyCornerBoardsLf", 0),
             "scopeNotes": job.get("scopeNotes", []),
+            "photoSurvey": job.get("photoSurvey"),
         },
         "rates": {
             "profitMarginPercent": pricing["profitMarginPercent"],

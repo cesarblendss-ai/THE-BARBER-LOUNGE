@@ -12,6 +12,8 @@ Generated a Silva's Handyman **siding demo / reinstall / color-match paint** est
 
 Rules applied: $1,000 demo is one lump (siding + chimney + 13 trims), then profit margin. Dump fee is separate. Every line is marked up — nothing at raw cost.
 
+**Photo survey (2026-09-09, iCloud IMG_1909–1928):** two-story cream lap, siding-clad chimney chase ~25 ft with gray corner boards, 13 mixed openings (incl. half-round transom + patio slider), weathered gray trim, open butt joints. Added fixture reset (5) and chase corner boards (75 lf). Quoted total **$16,463.20**.
+
 Desktop hub rates are still **not** in GitHub. If Cesar's live wizard differs, edit `wizard-pricing.json` and rerun `python3 generate.py`.
 
 ---

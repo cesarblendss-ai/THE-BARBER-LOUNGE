@@ -17,13 +17,15 @@
     "reinstallTrimEach": 85.0,
     "colorMatchEach": 95.0,
     "paintSidingPerSf": 1.85,
-    "paintTrimEach": 42.0
+    "paintTrimEach": 42.0,
+    "fixtureResetEach": 35.0
   },
   "materials": {
     "sidingPerSf": 3.25,
     "sidingWastePercent": 10,
     "chimneyWastePercent": 15,
     "trimEach": 42.0,
+    "cornerBoardPerLf": 2.4,
     "fastenersPerSf": 0.18,
     "paintSidingPerSf": 0.55,
     "paintTrimEach": 8.5,
@@ -38,7 +40,7 @@
     "Materials get material markup first, then the same profit margin.",
     "Labor unit rates are hard cost (not already-marked-up sell prices).",
     "Siding product assumption: 16 ft LP SmartSide-style lap, ~8 in exposure, field-painted to match existing cream/off-white.",
-    "Chimney wrap area = height × assumed girth (default 8 ft). Height premium is in the chimney reinstall unit rate.",
+    "Chimney wrap area = height × assumed girth. Photo survey (Sep 9, 2026): siding-clad chase / bump-out with gray corner boards, not masonry. Height premium is in the chimney reinstall unit rate.",
     "Dump fee is a 10-yard East Bay debris-box hard cost, separate from the $1,000 demo labor lump."
   ]
 }

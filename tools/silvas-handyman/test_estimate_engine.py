@@ -146,6 +146,14 @@ class SidingJobTest(unittest.TestCase):
         self.assertEqual(self.totals["subtotal_cost_cents"], cost)
         self.assertEqual(self.totals["profit_cents"], quoted - cost)
 
+    def test_photo_survey_adds_fixtures_and_corner_boards(self) -> None:
+        fixtures = next(item for item in self.lines if "fixtures" in item.description.lower())
+        corners = next(item for item in self.lines if "corner boards" in item.description.lower())
+        self.assertEqual(fixtures.qty, 5)
+        self.assertEqual(corners.qty, 75)
+        self.assertGreater(fixtures.quoted_cents, fixtures.cost_cents)
+        self.assertGreater(corners.quoted_cents, corners.cost_cents)
+
 
 if __name__ == "__main__":
     unittest.main()

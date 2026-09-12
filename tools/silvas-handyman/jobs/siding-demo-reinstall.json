@@ -12,14 +12,31 @@
     "demoLumpCost": 1000,
     "colorMatchSiding": true,
     "colorMatchTrim": true,
-    "includeDumpFee": true
+    "includeDumpFee": true,
+    "fixtures": 5,
+    "chimneyCornerBoardsLf": 75
+  },
+  "photoSurvey": {
+    "date": "2026-09-09",
+    "source": "iCloud Live Photos IMG_1909–1928",
+    "findings": [
+      "Two-story cream / pale-yellow horizontal lap (wood-grain), gray window and corner trim — matches prior SmartSide-style ID.",
+      "Chimney is a siding-clad chase / bump-out, not brick: stacked windows on the front, a side-face window, gray corner boards running grade-to-cap, stack continuing above the ridge (~25 ft height confirmed).",
+      "13 openings on the surveyed walls include mixed sizes: small uppers, sliders, one half-round transom, and a patio sliding door. All existing gray trim is weathered; several pieces are peeling (especially the horizontal slider).",
+      "Siding has open butt joints and hairline cracks at window corners — supports full demo/reinstall, not paint-only.",
+      "Fixtures to pull and reset: wall lights, camera, junction/electrical covers (counted as 5).",
+      "A painted 16-ft leftover lap board is on site (sample / spare). Not credited against material.",
+      "Tree limbs close to the wall; 2-story ladder/scaffold access required for the chase."
+    ]
   },
   "scopeNotes": [
-    "Demo is ONE lump: existing siding (450 sq ft), chimney section (~25 ft height), and all 13 window trims. Not split per surface.",
+    "Demo is ONE lump: existing siding (450 sq ft), chimney chase (~25 ft height), and all 13 window/door trims. Not split per surface.",
     "The $1,000 demo figure is hard cost only. Standard profit margin is applied on top — not a pass-through.",
     "Dump/disposal is a separate hauling fee, not part of the $1,000 demo labor.",
-    "Chimney material takeoff uses 25 ft height × 8 ft assumed wrap girth = 200 sq ft (3-side wrap on a typical 3–4 ft chimney).",
-    "Reinstall and paint on the house wall are 450 sq ft. Chimney reinstall is the 200 sq ft wrap at the height-premium labor rate.",
+    "Photo survey 2026-09-09: chimney is a siding-clad chase with gray corner boards. Takeoff remains 25 ft × 8 ft assumed wrap = 200 sq ft (bump-out sides + above-roof stack).",
+    "The 13 trim units include mixed openings seen on site (small hoppers, sliders, half-round transom, patio slider). Same unit rate; arch and door are the hard ones, small uppers are faster.",
+    "Color match: siding to existing cream/off-white field paint; trim to existing gray. Both are field-painted, not a factory color.",
+    "Reinstall and paint on the house wall are 450 sq ft. Chimney reinstall is the 200 sq ft wrap at the height-premium labor rate, including corner boards.",
     "Does not include dry-rot/sheathing repair, housewrap, flashing upgrades, scaffolding rental as a separate line, permits, or lead testing."
   ]
 }
