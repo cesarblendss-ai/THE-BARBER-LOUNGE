@@ -1,0 +1,44 @@
+{
+  "businessId": "silvas-handyman",
+  "legalName": "Silva's Handyman",
+  "contact": "Cesar Silva",
+  "phone": "TBD",
+  "email": "TBD",
+  "serviceArea": "Antioch / East Bay, CA",
+  "currency": "USD",
+  "profitMarginPercent": 30,
+  "materialMarkupPercent": 20,
+  "labor": {
+    "hourlyCost": 75.0,
+    "prepSidingPerSf": 1.15,
+    "prepTrimEach": 28.0,
+    "reinstallSidingPerSf": 4.25,
+    "reinstallChimneyPerSf": 5.75,
+    "reinstallTrimEach": 85.0,
+    "colorMatchEach": 95.0,
+    "paintSidingPerSf": 1.85,
+    "paintTrimEach": 42.0
+  },
+  "materials": {
+    "sidingPerSf": 3.25,
+    "sidingWastePercent": 10,
+    "chimneyWastePercent": 15,
+    "trimEach": 42.0,
+    "fastenersPerSf": 0.18,
+    "paintSidingPerSf": 0.55,
+    "paintTrimEach": 8.5,
+    "colorMatchTintEach": 22.0
+  },
+  "fees": {
+    "dump10Yard": 550.0
+  },
+  "assumptions": [
+    "These are the repo wizard defaults for Silva's Handyman. Desktop hub rates are not in GitHub — edit this file to match Cesar's live config.",
+    "Profit margin is applied on top of every cost line. Nothing is quoted at raw cost.",
+    "Materials get material markup first, then the same profit margin.",
+    "Labor unit rates are hard cost (not already-marked-up sell prices).",
+    "Siding product assumption: 16 ft LP SmartSide-style lap, ~8 in exposure, field-painted to match existing cream/off-white.",
+    "Chimney wrap area = height × assumed girth (default 8 ft). Height premium is in the chimney reinstall unit rate.",
+    "Dump fee is a 10-yard East Bay debris-box hard cost, separate from the $1,000 demo labor lump."
+  ]
+}

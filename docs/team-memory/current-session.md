@@ -1,4 +1,22 @@
-# Session Progress ? Aug 10, 2026 (launch checklist)
+# Session Progress — Sep 12, 2026 (siding estimate)
+
+**Last verified:** 2026-09-12
+
+Generated a Silva's Handyman **siding demo / reinstall / color-match paint** estimate from repo wizard rates.
+
+| Item | Path |
+|------|------|
+| Wizard rates | `tools/silvas-handyman/wizard-pricing.json` — 30% profit, 20% material markup, $75/hr labor reference |
+| Job takeoff | `tools/silvas-handyman/jobs/siding-demo-reinstall.json` |
+| Quote | `tools/silvas-handyman/output/siding-demo-reinstall.md` (+ `.html`, `.json`) |
+
+Rules applied: $1,000 demo is one lump (siding + chimney + 13 trims), then profit margin. Dump fee is separate. Every line is marked up — nothing at raw cost.
+
+Desktop hub rates are still **not** in GitHub. If Cesar's live wizard differs, edit `wizard-pricing.json` and rerun `python3 generate.py`.
+
+---
+
+# Session Progress — Aug 10, 2026 (launch checklist)
 
 ## Completed this session
 

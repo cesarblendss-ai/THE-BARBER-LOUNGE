@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Silva&#x27;s Handyman — Siding demo, reinstall, and color-match paint</title>
+  <style>
+    :root {
+      --ink: #2a1c14;
+      --muted: #6b5344;
+      --line: #e4d3c4;
+      --paper: #fffaf4;
+      --rust: #c45c26;
+      --rust-dark: #8d3d14;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+      color: var(--ink);
+      background: #f3ebe3;
+    }
+    .page {
+      max-width: 880px;
+      margin: 24px auto;
+      background: var(--paper);
+      padding: 36px 40px 48px;
+      box-shadow: 0 8px 30px rgba(42, 28, 20, 0.08);
+    }
+    h1 {
+      margin: 0 0 4px;
+      font-size: 28px;
+      letter-spacing: 0.02em;
+      color: var(--rust-dark);
+    }
+    .tag {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--rust);
+      margin-bottom: 8px;
+    }
+    h2 {
+      margin: 28px 0 10px;
+      font-size: 16px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--rust-dark);
+    }
+    .meta, .scope {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 24px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .rules { color: var(--muted); font-size: 14px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th, td {
+      border-bottom: 1px solid var(--line);
+      padding: 8px 6px;
+      vertical-align: top;
+      text-align: left;
+    }
+    th {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .note { color: var(--muted); font-size: 12px; margin-top: 3px; }
+    .totals {
+      width: min(420px, 100%);
+      margin-left: auto;
+      margin-top: 8px;
+    }
+    .totals td { border-bottom: none; padding: 5px 6px; }
+    .totals .grand td {
+      border-top: 2px solid var(--ink);
+      font-size: 18px;
+      padding-top: 10px;
+    }
+    ul { color: var(--muted); padding-left: 18px; }
+    footer {
+      margin-top: 28px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    @media print {
+      body { background: white; }
+      .page { box-shadow: none; margin: 0; padding: 12px; }
+    }
+    @media (max-width: 640px) {
+      .page { padding: 20px 16px; }
+      .meta, .scope { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <article class="page">
+    <div class="tag">Estimate</div>
+    <h1>Silva&#x27;s Handyman</h1>
+    <p><strong>Siding demo, reinstall, and color-match paint</strong></p>
+    <div class="meta">
+      <div>Prepared: 2026-09-12</div>
+      <div>Prepared for: —</div>
+      <div>Job site: —</div>
+      <div>Contact: Cesar Silva · Antioch / East Bay, CA</div>
+    </div>
+
+    <h2>Scope</h2>
+    <div class="scope">
+      <div>House siding: <strong>450 sq ft</strong></div>
+      <div>Window trims: <strong>13</strong></div>
+      <div>Chimney: <strong>25 ft</strong> height × 8 ft wrap = <strong>200 sq ft</strong></div>
+      <div>Demo: <strong>one lump</strong> — siding + chimney + all 13 trims</div>
+    </div>
+
+    <h2>Pricing rules</h2>
+    <p class="rules">
+      Labor and dump fee: hard cost × (1 + 30% profit margin).
+      Materials: hard cost × (1 + 20% material markup)
+      × (1 + 30% profit margin).
+      Wizard labor reference: $75.00/hr.
+      No line is quoted at raw cost.
+    </p>
+
+    <h2>Line items</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Section</th>
+          <th>Description</th>
+          <th>Type</th>
+          <th class="num">Qty</th>
+          <th class="num">Cost</th>
+          <th class="num">Quoted</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Demolition</td><td>Demo and remove existing siding, chimney section, and 13 window trims (lump)<div class="note">Hard cost $1,000 covers 450 sq ft siding + ~25 ft chimney + all 13 trims. Not split per surface.</div></td><td>Labor</td><td class='num'>1 ls</td><td class='num'>$1,000.00</td><td class='num'><strong>$1,300.00</strong></td></tr><tr><td>Prep</td><td>Prep siding surface for paint</td><td>Labor</td><td class='num'>450 sq ft</td><td class='num'>$517.50</td><td class='num'><strong>$672.75</strong></td></tr><tr><td></td><td>Prep window trims for paint</td><td>Labor</td><td class='num'>13 ea</td><td class='num'>$364.00</td><td class='num'><strong>$473.20</strong></td></tr><tr><td>Reinstall / Install</td><td>Reinstall siding, side of house</td><td>Labor</td><td class='num'>450 sq ft</td><td class='num'>$1,912.50</td><td class='num'><strong>$2,486.25</strong></td></tr><tr><td></td><td>Reinstall siding around chimney<div class="note">25 ft height × 8 ft assumed wrap = 200 sq ft. Height-premium labor rate.</div></td><td>Labor</td><td class='num'>200 sq ft</td><td class='num'>$1,150.00</td><td class='num'><strong>$1,495.00</strong></td></tr><tr><td></td><td>Reinstall window trims</td><td>Labor</td><td class='num'>13 ea</td><td class='num'>$1,105.00</td><td class='num'><strong>$1,436.50</strong></td></tr><tr><td>Paint / Color Match</td><td>Color match paint to existing siding</td><td>Labor</td><td class='num'>1 ea</td><td class='num'>$95.00</td><td class='num'><strong>$123.50</strong></td></tr><tr><td></td><td>Color match paint to existing window trim color</td><td>Labor</td><td class='num'>1 ea</td><td class='num'>$95.00</td><td class='num'><strong>$123.50</strong></td></tr><tr><td></td><td>Paint siding, side of house — color-matched</td><td>Labor</td><td class='num'>450 sq ft</td><td class='num'>$832.50</td><td class='num'><strong>$1,082.25</strong></td></tr><tr><td></td><td>Paint window trims — color-matched</td><td>Labor</td><td class='num'>13 ea</td><td class='num'>$546.00</td><td class='num'><strong>$709.80</strong></td></tr><tr><td>Materials</td><td>Siding boards — house wall (incl. waste)<div class="note">450 sq ft + 10% waste</div></td><td>Material</td><td class='num'>495 sq ft</td><td class='num'>$1,608.75</td><td class='num'><strong>$2,509.65</strong></td></tr><tr><td></td><td>Siding boards — chimney wrap (incl. waste)<div class="note">200 sq ft + 15% waste</div></td><td>Material</td><td class='num'>230 sq ft</td><td class='num'>$747.50</td><td class='num'><strong>$1,166.10</strong></td></tr><tr><td></td><td>Window trim material</td><td>Material</td><td class='num'>13 ea</td><td class='num'>$546.00</td><td class='num'><strong>$851.76</strong></td></tr><tr><td></td><td>Fasteners and accessories<div class="note">House wall + chimney wrap, no waste factor</div></td><td>Material</td><td class='num'>650 sq ft</td><td class='num'>$117.00</td><td class='num'><strong>$182.52</strong></td></tr><tr><td></td><td>Paint and primer — siding</td><td>Material</td><td class='num'>450 sq ft</td><td class='num'>$247.50</td><td class='num'><strong>$386.10</strong></td></tr><tr><td></td><td>Paint and primer — window trims</td><td>Material</td><td class='num'>13 ea</td><td class='num'>$110.50</td><td class='num'><strong>$172.38</strong></td></tr><tr><td></td><td>Color-match tint / sample</td><td>Material</td><td class='num'>2 ea</td><td class='num'>$44.00</td><td class='num'><strong>$68.64</strong></td></tr><tr><td>Additional Costs</td><td>Dump / disposal fee — removed siding and trim debris<div class="note">10-yard debris box hard cost. Separate from the $1,000 demo labor lump.</div></td><td>Fee</td><td class='num'>1 ls</td><td class='num'>$550.00</td><td class='num'><strong>$715.00</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h2>Labor vs. material</h2>
+    <table class="totals">
+      <tr><td>Labor (quoted)</td><td class="num">$9,902.75</td></tr>
+      <tr><td>Materials (quoted)</td><td class="num">$5,337.15</td></tr>
+      <tr><td>Dump / disposal (quoted)</td><td class="num">$715.00</td></tr>
+      <tr><td>Subtotal</td><td class="num">$15,954.90</td></tr>
+      <tr><td>Hard cost</td><td class="num">$11,588.75</td></tr>
+      <tr><td>Margin included</td><td class="num">$4,366.15</td></tr>
+      <tr class="grand"><td><strong>Total</strong></td><td class="num"><strong>$15,954.90</strong></td></tr>
+    </table>
+
+    <h2>Notes</h2>
+    <ul><li>Demo is ONE lump: existing siding (450 sq ft), chimney section (~25 ft height), and all 13 window trims. Not split per surface.</li><li>The $1,000 demo figure is hard cost only. Standard profit margin is applied on top — not a pass-through.</li><li>Dump/disposal is a separate hauling fee, not part of the $1,000 demo labor.</li><li>Chimney material takeoff uses 25 ft height × 8 ft assumed wrap girth = 200 sq ft (3-side wrap on a typical 3–4 ft chimney).</li><li>Reinstall and paint on the house wall are 450 sq ft. Chimney reinstall is the 200 sq ft wrap at the height-premium labor rate.</li><li>Does not include dry-rot/sheathing repair, housewrap, flashing upgrades, scaffolding rental as a separate line, permits, or lead testing.</li></ul>
+    <footer>This is an estimate, not a contract. Prices may change after site inspection.</footer>
+  </article>
+</body>
+</html>

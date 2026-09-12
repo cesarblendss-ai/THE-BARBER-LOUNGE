@@ -1,0 +1,246 @@
+{
+  "business": {
+    "legalName": "Silva's Handyman",
+    "contact": "Cesar Silva",
+    "phone": "TBD",
+    "email": "TBD",
+    "serviceArea": "Antioch / East Bay, CA"
+  },
+  "job": {
+    "id": "siding-demo-reinstall",
+    "title": "Siding demo, reinstall, and color-match paint",
+    "clientName": "\u2014",
+    "jobSite": "\u2014",
+    "preparedDate": "2026-09-12",
+    "sidingSf": 450,
+    "chimneyHeightFt": 25,
+    "chimneyWrapGirthFt": 8,
+    "chimneySf": 200.0,
+    "windowTrims": 13,
+    "scopeNotes": [
+      "Demo is ONE lump: existing siding (450 sq ft), chimney section (~25 ft height), and all 13 window trims. Not split per surface.",
+      "The $1,000 demo figure is hard cost only. Standard profit margin is applied on top \u2014 not a pass-through.",
+      "Dump/disposal is a separate hauling fee, not part of the $1,000 demo labor.",
+      "Chimney material takeoff uses 25 ft height \u00d7 8 ft assumed wrap girth = 200 sq ft (3-side wrap on a typical 3\u20134 ft chimney).",
+      "Reinstall and paint on the house wall are 450 sq ft. Chimney reinstall is the 200 sq ft wrap at the height-premium labor rate.",
+      "Does not include dry-rot/sheathing repair, housewrap, flashing upgrades, scaffolding rental as a separate line, permits, or lead testing."
+    ]
+  },
+  "rates": {
+    "profitMarginPercent": 30,
+    "materialMarkupPercent": 20,
+    "laborHourlyCost": 75.0
+  },
+  "lines": [
+    {
+      "section": "Demolition",
+      "description": "Demo and remove existing siding, chimney section, and 13 window trims (lump)",
+      "kind": "labor",
+      "qty": 1,
+      "unit": "ls",
+      "unit_cost_cents": 100000,
+      "cost_cents": 100000,
+      "quoted_cents": 130000,
+      "notes": "Hard cost $1,000 covers 450 sq ft siding + ~25 ft chimney + all 13 trims. Not split per surface."
+    },
+    {
+      "section": "Prep",
+      "description": "Prep siding surface for paint",
+      "kind": "labor",
+      "qty": 450.0,
+      "unit": "sq ft",
+      "unit_cost_cents": 115,
+      "cost_cents": 51750,
+      "quoted_cents": 67275,
+      "notes": ""
+    },
+    {
+      "section": "Prep",
+      "description": "Prep window trims for paint",
+      "kind": "labor",
+      "qty": 13.0,
+      "unit": "ea",
+      "unit_cost_cents": 2800,
+      "cost_cents": 36400,
+      "quoted_cents": 47320,
+      "notes": ""
+    },
+    {
+      "section": "Reinstall / Install",
+      "description": "Reinstall siding, side of house",
+      "kind": "labor",
+      "qty": 450.0,
+      "unit": "sq ft",
+      "unit_cost_cents": 425,
+      "cost_cents": 191250,
+      "quoted_cents": 248625,
+      "notes": ""
+    },
+    {
+      "section": "Reinstall / Install",
+      "description": "Reinstall siding around chimney",
+      "kind": "labor",
+      "qty": 200.0,
+      "unit": "sq ft",
+      "unit_cost_cents": 575,
+      "cost_cents": 115000,
+      "quoted_cents": 149500,
+      "notes": "25 ft height \u00d7 8 ft assumed wrap = 200 sq ft. Height-premium labor rate."
+    },
+    {
+      "section": "Reinstall / Install",
+      "description": "Reinstall window trims",
+      "kind": "labor",
+      "qty": 13.0,
+      "unit": "ea",
+      "unit_cost_cents": 8500,
+      "cost_cents": 110500,
+      "quoted_cents": 143650,
+      "notes": ""
+    },
+    {
+      "section": "Paint / Color Match",
+      "description": "Color match paint to existing siding",
+      "kind": "labor",
+      "qty": 1,
+      "unit": "ea",
+      "unit_cost_cents": 9500,
+      "cost_cents": 9500,
+      "quoted_cents": 12350,
+      "notes": ""
+    },
+    {
+      "section": "Paint / Color Match",
+      "description": "Color match paint to existing window trim color",
+      "kind": "labor",
+      "qty": 1,
+      "unit": "ea",
+      "unit_cost_cents": 9500,
+      "cost_cents": 9500,
+      "quoted_cents": 12350,
+      "notes": ""
+    },
+    {
+      "section": "Paint / Color Match",
+      "description": "Paint siding, side of house \u2014 color-matched",
+      "kind": "labor",
+      "qty": 450.0,
+      "unit": "sq ft",
+      "unit_cost_cents": 185,
+      "cost_cents": 83250,
+      "quoted_cents": 108225,
+      "notes": ""
+    },
+    {
+      "section": "Paint / Color Match",
+      "description": "Paint window trims \u2014 color-matched",
+      "kind": "labor",
+      "qty": 13.0,
+      "unit": "ea",
+      "unit_cost_cents": 4200,
+      "cost_cents": 54600,
+      "quoted_cents": 70980,
+      "notes": ""
+    },
+    {
+      "section": "Materials",
+      "description": "Siding boards \u2014 house wall (incl. waste)",
+      "kind": "material",
+      "qty": 495.0,
+      "unit": "sq ft",
+      "unit_cost_cents": 325,
+      "cost_cents": 160875,
+      "quoted_cents": 250965,
+      "notes": "450 sq ft + 10% waste"
+    },
+    {
+      "section": "Materials",
+      "description": "Siding boards \u2014 chimney wrap (incl. waste)",
+      "kind": "material",
+      "qty": 230.0,
+      "unit": "sq ft",
+      "unit_cost_cents": 325,
+      "cost_cents": 74750,
+      "quoted_cents": 116610,
+      "notes": "200 sq ft + 15% waste"
+    },
+    {
+      "section": "Materials",
+      "description": "Window trim material",
+      "kind": "material",
+      "qty": 13.0,
+      "unit": "ea",
+      "unit_cost_cents": 4200,
+      "cost_cents": 54600,
+      "quoted_cents": 85176,
+      "notes": ""
+    },
+    {
+      "section": "Materials",
+      "description": "Fasteners and accessories",
+      "kind": "material",
+      "qty": 650.0,
+      "unit": "sq ft",
+      "unit_cost_cents": 18,
+      "cost_cents": 11700,
+      "quoted_cents": 18252,
+      "notes": "House wall + chimney wrap, no waste factor"
+    },
+    {
+      "section": "Materials",
+      "description": "Paint and primer \u2014 siding",
+      "kind": "material",
+      "qty": 450.0,
+      "unit": "sq ft",
+      "unit_cost_cents": 55,
+      "cost_cents": 24750,
+      "quoted_cents": 38610,
+      "notes": ""
+    },
+    {
+      "section": "Materials",
+      "description": "Paint and primer \u2014 window trims",
+      "kind": "material",
+      "qty": 13.0,
+      "unit": "ea",
+      "unit_cost_cents": 850,
+      "cost_cents": 11050,
+      "quoted_cents": 17238,
+      "notes": ""
+    },
+    {
+      "section": "Materials",
+      "description": "Color-match tint / sample",
+      "kind": "material",
+      "qty": 2,
+      "unit": "ea",
+      "unit_cost_cents": 2200,
+      "cost_cents": 4400,
+      "quoted_cents": 6864,
+      "notes": ""
+    },
+    {
+      "section": "Additional Costs",
+      "description": "Dump / disposal fee \u2014 removed siding and trim debris",
+      "kind": "fee",
+      "qty": 1,
+      "unit": "ls",
+      "unit_cost_cents": 55000,
+      "cost_cents": 55000,
+      "quoted_cents": 71500,
+      "notes": "10-yard debris box hard cost. Separate from the $1,000 demo labor lump."
+    }
+  ],
+  "totals": {
+    "labor_cost_cents": 761750,
+    "labor_quoted_cents": 990275,
+    "material_cost_cents": 342125,
+    "material_quoted_cents": 533715,
+    "fee_cost_cents": 55000,
+    "fee_quoted_cents": 71500,
+    "subtotal_cost_cents": 1158875,
+    "subtotal_quoted_cents": 1595490,
+    "total_cents": 1595490,
+    "profit_cents": 436615
+  }
+}

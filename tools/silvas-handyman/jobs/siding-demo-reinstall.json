@@ -1,0 +1,25 @@
+{
+  "id": "siding-demo-reinstall",
+  "title": "Siding demo, reinstall, and color-match paint",
+  "clientName": "",
+  "jobSite": "",
+  "preparedDate": "2026-09-12",
+  "scope": {
+    "sidingSf": 450,
+    "chimneyHeightFt": 25,
+    "chimneyWrapGirthFt": 8,
+    "windowTrims": 13,
+    "demoLumpCost": 1000,
+    "colorMatchSiding": true,
+    "colorMatchTrim": true,
+    "includeDumpFee": true
+  },
+  "scopeNotes": [
+    "Demo is ONE lump: existing siding (450 sq ft), chimney section (~25 ft height), and all 13 window trims. Not split per surface.",
+    "The $1,000 demo figure is hard cost only. Standard profit margin is applied on top — not a pass-through.",
+    "Dump/disposal is a separate hauling fee, not part of the $1,000 demo labor.",
+    "Chimney material takeoff uses 25 ft height × 8 ft assumed wrap girth = 200 sq ft (3-side wrap on a typical 3–4 ft chimney).",
+    "Reinstall and paint on the house wall are 450 sq ft. Chimney reinstall is the 200 sq ft wrap at the height-premium labor rate.",
+    "Does not include dry-rot/sheathing repair, housewrap, flashing upgrades, scaffolding rental as a separate line, permits, or lead testing."
+  ]
+}
