@@ -1,0 +1,260 @@
+{
+  "version": 1,
+  "title": "HIPAA Readiness Assessment",
+  "disclaimer": "This is a readiness checklist for internal planning. It is not legal advice, a HIPAA certification, or a guarantee of compliance.",
+  "phi_warning": "Do not enter patient names, medical details, or any other PHI. Use practice names and vendor names only.",
+  "answers": [
+    { "id": "yes", "label": "Yes", "points": 2 },
+    { "id": "partial", "label": "Partial", "points": 1 },
+    { "id": "no", "label": "No", "points": 0 },
+    { "id": "na", "label": "N/A", "points": null }
+  ],
+  "sections": [
+    {
+      "id": "privacy",
+      "title": "Privacy Rule",
+      "blurb": "How the practice notices patients, limits uses of PHI, and honors patient rights.",
+      "questions": [
+        {
+          "id": "npp_given",
+          "text": "Patients receive a Notice of Privacy Practices, and a current copy is posted where people can see it.",
+          "help": "HIPAA requires a NPP at first service and a posted copy. Keep a signed acknowledgment or document a good-faith attempt.",
+          "priority": "high"
+        },
+        {
+          "id": "minimum_necessary",
+          "text": "Staff only access the minimum PHI needed for their job (role-based access, not 'everyone sees everything').",
+          "help": "Shared logins and open charts on every workstation are common gaps.",
+          "priority": "high"
+        },
+        {
+          "id": "auth_non_treatment",
+          "text": "A written authorization is collected before using PHI for marketing or other non-treatment purposes.",
+          "help": "Treatment, payment, and health-care operations usually do not need extra authorization. Marketing and most sale of PHI do.",
+          "priority": "high"
+        },
+        {
+          "id": "patient_access",
+          "text": "There is a written process to give patients a copy of their records within the required time (typically 30 days).",
+          "help": "Delays and 'we don't release records' policies are frequent complaint triggers.",
+          "priority": "high"
+        },
+        {
+          "id": "amendments_disclosures",
+          "text": "Patients can request amendments and an accounting of certain disclosures, and staff know how to handle that.",
+          "help": "You do not have to agree to every amendment, but you do need a documented process and response.",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "id": "admin",
+      "title": "Administrative safeguards",
+      "blurb": "Named owners, written policies, risk analysis, training, and a backup plan.",
+      "questions": [
+        {
+          "id": "security_official",
+          "text": "A named security official (and privacy official, if different) is responsible for HIPAA.",
+          "help": "In a small practice this can be the owner plus a manager — but someone has to own it in writing.",
+          "priority": "high"
+        },
+        {
+          "id": "written_policies",
+          "text": "Written HIPAA privacy and security policies exist and staff can find them.",
+          "help": "Verbal rules only will not hold up in an investigation.",
+          "priority": "high"
+        },
+        {
+          "id": "risk_analysis",
+          "text": "A security risk analysis has been completed in the last 12 months and is written down.",
+          "help": "OCR almost always asks for this. A one-page inventory of systems + threats + current controls is a start.",
+          "priority": "high"
+        },
+        {
+          "id": "risk_management",
+          "text": "Open risks have owners, due dates, and a follow-up review.",
+          "help": "Finding gaps without fixing them is still a finding.",
+          "priority": "high"
+        },
+        {
+          "id": "workforce_training",
+          "text": "New hires get HIPAA training before handling PHI, and the whole team trains at least annually, with attendance logged.",
+          "help": "Keep dated sign-in sheets or LMS records. Include front desk, providers, and anyone who can see the schedule.",
+          "priority": "high"
+        },
+        {
+          "id": "sanctions",
+          "text": "There is a written sanction policy for workforce HIPAA violations, and it is applied consistently.",
+          "help": "Covers snooping in charts, sharing passwords, and texting PHI on personal phones.",
+          "priority": "medium"
+        },
+        {
+          "id": "contingency",
+          "text": "There is a contingency plan: backups, how to restore, and how to operate if systems are down.",
+          "help": "Include ransomware and a lost/stolen laptop scenario.",
+          "priority": "high"
+        },
+        {
+          "id": "periodic_eval",
+          "text": "Security measures are reviewed at least yearly or after a major system change.",
+          "help": "New EHR, new billing vendor, or a move to a new office should trigger a review.",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "id": "physical",
+      "title": "Physical safeguards",
+      "blurb": "Who can walk in, what screens show, and how devices are stored or destroyed.",
+      "questions": [
+        {
+          "id": "facility_access",
+          "text": "Only authorized people can reach areas and rooms where PHI is stored or discussed.",
+          "help": "Locked records room, badge or key control, and a visitor process.",
+          "priority": "high"
+        },
+        {
+          "id": "workstation_view",
+          "text": "Workstations and waiting-area screens are positioned so visitors cannot read PHI.",
+          "help": "Privacy screens and turning monitors away from the lobby count.",
+          "priority": "medium"
+        },
+        {
+          "id": "screen_lock",
+          "text": "Unattended computers lock automatically and staff lock when they step away.",
+          "help": "Five minutes or less is a practical default for front-desk machines.",
+          "priority": "high"
+        },
+        {
+          "id": "device_inventory",
+          "text": "There is an inventory of laptops, phones, USBs, and servers that can store ePHI.",
+          "help": "You cannot protect what you have not listed.",
+          "priority": "high"
+        },
+        {
+          "id": "media_disposal",
+          "text": "Paper PHI is shredded and electronic media is wiped or destroyed before reuse or disposal.",
+          "help": "Old hard drives in a closet and dumpster charts are classic failures.",
+          "priority": "high"
+        }
+      ]
+    },
+    {
+      "id": "technical",
+      "title": "Technical safeguards",
+      "blurb": "Unique logins, encryption, logs, and access that ends when someone leaves.",
+      "questions": [
+        {
+          "id": "unique_ids",
+          "text": "Every user has a unique login. Shared EHR or email passwords are not used.",
+          "help": "Shared 'front desk' accounts make it impossible to know who accessed a chart.",
+          "priority": "high"
+        },
+        {
+          "id": "mfa_passwords",
+          "text": "MFA is on for email, EHR, and remote access. Passwords are not reused or written on sticky notes.",
+          "help": "Email is often how attackers reach ePHI even when the EHR is stronger.",
+          "priority": "high"
+        },
+        {
+          "id": "auto_logoff",
+          "text": "EHR and workstations auto-logoff after inactivity.",
+          "help": "Required under technical safeguards as an addressable access-control method. Use it unless you have a documented alternative.",
+          "priority": "medium"
+        },
+        {
+          "id": "encryption_rest",
+          "text": "Devices and backups that hold ePHI are encrypted at rest.",
+          "help": "Full-disk encryption on laptops plus encrypted backups. A stolen unencrypted laptop is a reportable incident.",
+          "priority": "high"
+        },
+        {
+          "id": "encryption_transit",
+          "text": "ePHI is sent only over encrypted channels (HTTPS, TLS email, secure portal) — not open SMS or personal email.",
+          "help": "Texting photos of charts on iMessage/WhatsApp is a common small-practice gap.",
+          "priority": "high"
+        },
+        {
+          "id": "audit_logs",
+          "text": "Access logs exist for the EHR (and key systems) and someone reviews them on a schedule.",
+          "help": "Even a monthly spot-check for snooping is better than never looking.",
+          "priority": "medium"
+        },
+        {
+          "id": "offboarding",
+          "text": "Access is removed the same day a staff member or contractor leaves.",
+          "help": "Include EHR, email, cloud drives, and the alarm code.",
+          "priority": "high"
+        },
+        {
+          "id": "endpoint_protect",
+          "text": "Workstations have current OS updates and malware protection.",
+          "help": "Unpatched Windows boxes at the front desk are a frequent ransomware entry.",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "id": "baa",
+      "title": "Business associates",
+      "blurb": "Anyone outside the practice who can see PHI needs a signed BAA.",
+      "questions": [
+        {
+          "id": "vendor_inventory",
+          "text": "There is a current list of every vendor that creates, receives, maintains, or transmits PHI.",
+          "help": "EHR, billing, IT, cloud backup, email, SMS, answering service, shredding, and website forms if they collect health info.",
+          "priority": "high"
+        },
+        {
+          "id": "baa_signed",
+          "text": "A signed Business Associate Agreement is on file for each of those vendors.",
+          "help": "A vendor Terms of Service is not a BAA. Use the BAA register in this tool to track them.",
+          "priority": "high"
+        },
+        {
+          "id": "baa_review",
+          "text": "BAAs are reviewed when a vendor is added, changed, or dropped.",
+          "help": "Switching billing companies or adding an AI scribe is a trigger.",
+          "priority": "medium"
+        },
+        {
+          "id": "subcontractor_flow",
+          "text": "BAAs require vendors to flow HIPAA duties down to their subcontractors.",
+          "help": "Standard in a proper BAA template. Confirm it is actually in the signed copy.",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "id": "breach",
+      "title": "Breach notification",
+      "blurb": "What happens in the first 24 hours if PHI is lost, stolen, or exposed.",
+      "questions": [
+        {
+          "id": "incident_plan",
+          "text": "There is a written incident / breach response plan with who to call first.",
+          "help": "Owner, privacy official, IT, and counsel. Include after-hours contacts.",
+          "priority": "high"
+        },
+        {
+          "id": "risk_assessment_breach",
+          "text": "Staff know to run a four-factor breach risk assessment before deciding it is 'not a breach.'",
+          "help": "Nature of PHI, who received it, whether it was actually viewed, and mitigation. Document the decision either way.",
+          "priority": "high"
+        },
+        {
+          "id": "hhs_timeline",
+          "text": "The team knows the clock: notify affected people and HHS without unreasonable delay and no later than 60 days after discovery (sooner for large breaches).",
+          "help": "500+ individuals has extra media / HHS timing rules. State AG rules may be faster — check counsel.",
+          "priority": "high"
+        },
+        {
+          "id": "lost_device_drill",
+          "text": "Lost phone / stolen laptop / misdirected email has been walked through at least once this year.",
+          "help": "A 15-minute tabletop counts. Write down what you would actually do.",
+          "priority": "medium"
+        }
+      ]
+    }
+  ]
+}

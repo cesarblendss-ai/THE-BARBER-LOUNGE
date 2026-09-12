@@ -1,4 +1,16 @@
-# Session Progress ? Aug 10, 2026 (launch checklist)
+# Session Progress — Sep 12, 2026 (HIPAA tool)
+
+**Last verified:** 2026-09-12
+
+| Task | Result |
+|------|--------|
+| **HIPAA readiness tool** | Local app at `tools/hipaa/` — `python3 server.py` → http://127.0.0.1:8755 |
+| **Not on public site** | Operator tool only; do not enter PHI |
+| **Sales copy** | `docs/HIPAA-READINESS-OFFERING.md` |
+
+---
+
+# Session Progress — Aug 10, 2026 (launch checklist)
 
 ## Completed this session
 
