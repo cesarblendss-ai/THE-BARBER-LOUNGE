@@ -10,16 +10,18 @@ The original Cesar's Hub wizard lives on Desktop, not this GitHub repo (`docs/te
 - **Materials** also get `materialMarkupPercent` first, then profit margin.
 - Demo for the siding job is **one $1,000 lump** (siding + chimney + all window trims), then margin. Dump/disposal is a separate fee.
 
-## Generate the siding demo / reinstall estimate
+## Generate estimates
 
 ```bash
 cd tools/silvas-handyman
 python3 generate.py
+python3 generate.py --job jobs/hardwood-flooring.json
 python3 -m unittest test_estimate_engine.py
 ```
 
 Output:
 
-- `output/siding-demo-reinstall.md`
-- `output/siding-demo-reinstall.html`
-- `output/siding-demo-reinstall.json`
+- `output/siding-demo-reinstall.md` (+ `.html`, `.json`)
+- `output/hardwood-flooring.md` (+ `.html`, `.json`)
+
+Hardwood labor is **$6.50 / sq ft** hard cost (Desktop wizard rate), then profit margin.

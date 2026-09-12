@@ -1,0 +1,133 @@
+{
+  "business": {
+    "legalName": "Silva's Handyman",
+    "contact": "Cesar Silva",
+    "phone": "TBD",
+    "email": "TBD",
+    "serviceArea": "Antioch / East Bay, CA"
+  },
+  "job": {
+    "id": "hardwood-flooring",
+    "type": "hardwood-flooring",
+    "title": "Hardwood floor refinish",
+    "clientName": "\u2014",
+    "jobSite": "\u2014",
+    "preparedDate": "2026-09-12",
+    "scopeLines": [
+      "Hardwood refinish: **1,200 sq ft** (living, halls, bedrooms on the same two-story house as the siding job)",
+      "Shoe molding: **180 lf** pull and reset",
+      "Transitions: **4**",
+      "Wizard hardwood labor: **$6.50 / sq ft** hard cost, then profit margin"
+    ],
+    "scopeNotes": [
+      "Desktop wizard stopped on hardwood labor $6.50 / sq ft (Aug 16 2026). This quote finishes that job with the same markup rules as siding.",
+      "$6.50 is hard-cost labor (sand, stain, and finish coats). 30% profit is applied on top \u2014 quoted labor is $8.45 / sq ft.",
+      "1,200 sq ft is a working takeoff for this house: first + second floor living, halls, and bedrooms. Excludes baths, kitchen, and laundry. Tape rooms to lock the number.",
+      "This is a refinish of existing hardwood, not a new plank install. New flooring wood would be a separate material buy (same as the $160 window-trim wood).",
+      "Does not include repairs to cupped / rotten boards, stair nosing rebuild, or moving off-site storage."
+    ],
+    "photoSurvey": null,
+    "scope": {
+      "floorSf": 1200,
+      "shoeLf": 180,
+      "transitions": 4,
+      "includeDumpFee": true
+    }
+  },
+  "rates": {
+    "profitMarginPercent": 30,
+    "materialMarkupPercent": 20,
+    "laborHourlyCost": 75.0
+  },
+  "lines": [
+    {
+      "section": "Prep",
+      "description": "Shift furniture and protect adjacent rooms",
+      "kind": "labor",
+      "qty": 1,
+      "unit": "ls",
+      "unit_cost_cents": 25000,
+      "cost_cents": 25000,
+      "quoted_cents": 32500,
+      "notes": ""
+    },
+    {
+      "section": "Labor",
+      "description": "Hardwood labor \u2014 sand, stain, and finish",
+      "kind": "labor",
+      "qty": 1200.0,
+      "unit": "sq ft",
+      "unit_cost_cents": 650,
+      "cost_cents": 780000,
+      "quoted_cents": 1014000,
+      "notes": "Desktop wizard rate $6.50 / sq ft hard cost. Quoted with profit on top."
+    },
+    {
+      "section": "Labor",
+      "description": "Pull and reset shoe molding",
+      "kind": "labor",
+      "qty": 180.0,
+      "unit": "lf",
+      "unit_cost_cents": 125,
+      "cost_cents": 22500,
+      "quoted_cents": 29250,
+      "notes": ""
+    },
+    {
+      "section": "Materials",
+      "description": "Shoe molding",
+      "kind": "material",
+      "qty": 180.0,
+      "unit": "lf",
+      "unit_cost_cents": 140,
+      "cost_cents": 25200,
+      "quoted_cents": 39312,
+      "notes": ""
+    },
+    {
+      "section": "Materials",
+      "description": "Sandpaper, stain, and finish system",
+      "kind": "material",
+      "qty": 1200.0,
+      "unit": "sq ft",
+      "unit_cost_cents": 115,
+      "cost_cents": 138000,
+      "quoted_cents": 215280,
+      "notes": ""
+    },
+    {
+      "section": "Materials",
+      "description": "Floor transitions",
+      "kind": "material",
+      "qty": 4.0,
+      "unit": "ea",
+      "unit_cost_cents": 2200,
+      "cost_cents": 8800,
+      "quoted_cents": 13728,
+      "notes": ""
+    },
+    {
+      "section": "Additional Costs",
+      "description": "Dump / disposal \u2014 sanding debris and shoe scraps",
+      "kind": "fee",
+      "qty": 1,
+      "unit": "ls",
+      "unit_cost_cents": 12500,
+      "cost_cents": 12500,
+      "quoted_cents": 16250,
+      "notes": "Small debris haul, not a 10-yard box."
+    }
+  ],
+  "totals": {
+    "labor_cost_cents": 827500,
+    "labor_quoted_cents": 1075750,
+    "material_cost_cents": 172000,
+    "material_quoted_cents": 268320,
+    "fee_cost_cents": 12500,
+    "fee_quoted_cents": 16250,
+    "subtotal_cost_cents": 1012000,
+    "subtotal_quoted_cents": 1360320,
+    "total_cents": 1360320,
+    "profit_cents": 348320
+  }
+}

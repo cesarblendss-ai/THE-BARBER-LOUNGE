@@ -116,8 +116,10 @@ Latest good output: `tools/seo-agent/output/the_barber_lounge_2026_08_08_v2/`
 |------|---------|
 | `wizard-pricing.json` | Labor rates, material markup %, profit margin |
 | `jobs/siding-demo-reinstall.json` | Siding demo / reinstall / paint takeoff |
+| `jobs/hardwood-flooring.json` | Hardwood refinish takeoff ($6.50/sf labor) |
 | `generate.py` | Writes formatted estimate (md / html / json) |
-| `output/siding-demo-reinstall.md` | Latest generated quote |
+| `output/siding-demo-reinstall.md` | Latest siding quote |
+| `output/hardwood-flooring.md` | Latest flooring quote |
 
 ---
 

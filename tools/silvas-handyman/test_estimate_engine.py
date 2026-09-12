@@ -9,6 +9,7 @@ from pathlib import Path
 from estimate_engine import (
     apply_material_then_profit,
     apply_profit,
+    build_hardwood_flooring_lines,
     build_siding_demo_reinstall_lines,
     chimney_area_sf,
     dollars_to_cents,
@@ -158,6 +159,39 @@ class SidingJobTest(unittest.TestCase):
         self.assertEqual(corners.qty, 75)
         self.assertGreater(fixtures.quoted_cents, fixtures.cost_cents)
         self.assertGreater(corners.quoted_cents, corners.cost_cents)
+
+
+class HardwoodJobTest(unittest.TestCase):
+    def setUp(self) -> None:
+        self.pricing, _siding = load()
+        self.job = json.loads((ROOT / "jobs" / "hardwood-flooring.json").read_text(encoding="utf-8"))
+        self.lines = build_hardwood_flooring_lines(self.pricing, self.job)
+        self.totals = summarize(self.lines)
+
+    def test_wizard_labor_rate(self) -> None:
+        labor = next(item for item in self.lines if item.description.startswith("Hardwood labor"))
+        self.assertEqual(labor.qty, 1200)
+        self.assertEqual(labor.unit_cost_cents, 650)
+        self.assertEqual(labor.cost_cents, 780_000)
+        self.assertEqual(labor.quoted_cents, apply_profit(780_000, 30))
+
+    def test_no_line_quoted_at_raw_cost(self) -> None:
+        for item in self.lines:
+            self.assertGreater(item.quoted_cents, item.cost_cents, msg=item.description)
+
+    def test_materials_get_both_markups(self) -> None:
+        for item in self.lines:
+            if item.kind != "material":
+                continue
+            self.assertEqual(
+                item.quoted_cents,
+                apply_material_then_profit(item.cost_cents, 20, 30),
+                msg=item.description,
+            )
+
+    def test_totals_add_up(self) -> None:
+        quoted = sum(item.quoted_cents for item in self.lines)
+        self.assertEqual(self.totals["total_cents"], quoted)
 
 
 if __name__ == "__main__":

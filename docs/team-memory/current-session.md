@@ -12,7 +12,9 @@ Generated a Silva's Handyman **siding demo / reinstall / color-match paint** est
 
 Rules applied: $1,000 demo is one lump (siding + chimney + 13 trims), then profit margin. Dump fee is separate. Every line is marked up — nothing at raw cost.
 
-**Photo survey (2026-09-09, iCloud IMG_1909–1928):** two-story cream lap, siding-clad chimney chase ~25 ft with gray corner boards, 13 mixed openings (incl. half-round transom + patio slider), weathered gray trim, open butt joints. Added fixture reset (5) and chase corner boards (75 lf). Window trim wood hard cost **$160** (24×10 lf) → **$249.60** quoted. Job total **$15,861.04**.
+**Photo survey (2026-09-09, iCloud IMG_1909–1928):** two-story cream lap, siding-clad chimney chase ~25 ft with gray corner boards, 13 mixed openings (incl. half-round transom + patio slider), weathered gray trim, open butt joints. Added fixture reset (5) and chase corner boards (75 lf). Window trim wood hard cost **$160** (24×10 lf) → **$249.60** quoted. Siding total **$15,861.04**.
+
+**Flooring (finished):** Desktop wizard hardwood labor **$6.50/sf** as hard cost, then 30% profit. Working takeoff **1,200 sq ft** refinish + shoe + transitions. Quote: `tools/silvas-handyman/output/hardwood-flooring.md`.
 
 Desktop hub rates are still **not** in GitHub. If Cesar's live wizard differs, edit `wizard-pricing.json` and rerun `python3 generate.py`.
 

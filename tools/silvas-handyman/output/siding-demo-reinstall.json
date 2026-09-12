@@ -8,17 +8,17 @@
   },
   "job": {
     "id": "siding-demo-reinstall",
+    "type": "siding-demo-reinstall",
     "title": "Siding demo, reinstall, and color-match paint",
     "clientName": "\u2014",
     "jobSite": "\u2014",
     "preparedDate": "2026-09-12",
-    "sidingSf": 450,
-    "chimneyHeightFt": 25,
-    "chimneyWrapGirthFt": 8,
-    "chimneySf": 200.0,
-    "windowTrims": 13,
-    "fixtures": 5,
-    "chimneyCornerBoardsLf": 75,
+    "scopeLines": [
+      "House siding: **450 sq ft**",
+      "Chimney: **25 ft height** (assumed 8 ft wrap = **200 sq ft**)",
+      "Window trims: **13**",
+      "Demo: **one lump** covering siding + chimney + all 13 trims (not split per surface)"
+    ],
     "scopeNotes": [
       "Demo is ONE lump: existing siding (450 sq ft), chimney chase (~25 ft height), and all 13 window/door trims. Not split per surface.",
       "The $1,000 demo figure is hard cost only. Standard profit margin is applied on top \u2014 not a pass-through.",
@@ -42,6 +42,21 @@
         "A painted 16-ft leftover lap board is on site (sample / spare). Not credited against material.",
         "Tree limbs close to the wall; 2-story ladder/scaffold access required for the chase."
       ]
+    },
+    "scope": {
+      "sidingSf": 450,
+      "chimneyHeightFt": 25,
+      "chimneyWrapGirthFt": 8,
+      "windowTrims": 13,
+      "demoLumpCost": 1000,
+      "colorMatchSiding": true,
+      "colorMatchTrim": true,
+      "includeDumpFee": true,
+      "fixtures": 5,
+      "chimneyCornerBoardsLf": 75,
+      "windowTrimWoodCost": 160,
+      "windowTrimBoards": 24,
+      "windowTrimBoardLengthFt": 10
     }
   },
   "rates": {

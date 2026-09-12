@@ -18,7 +18,10 @@
     "colorMatchEach": 95.0,
     "paintSidingPerSf": 1.85,
     "paintTrimEach": 42.0,
-    "fixtureResetEach": 35.0
+    "fixtureResetEach": 35.0,
+    "hardwoodLaborPerSf": 6.5,
+    "hardwoodShoeLaborPerLf": 1.25,
+    "hardwoodFurnitureLump": 250.0
   },
   "materials": {
     "sidingPerSf": 3.25,
@@ -29,10 +32,14 @@
     "fastenersPerSf": 0.18,
     "paintSidingPerSf": 0.55,
     "paintTrimEach": 8.5,
-    "colorMatchTintEach": 22.0
+    "colorMatchTintEach": 22.0,
+    "hardwoodFinishPerSf": 1.15,
+    "hardwoodShoePerLf": 1.4,
+    "hardwoodTransitionEach": 22.0
   },
   "fees": {
-    "dump10Yard": 550.0
+    "dump10Yard": 550.0,
+    "dumpFlooringSmall": 125.0
   },
   "assumptions": [
     "These are the repo wizard defaults for Silva's Handyman. Desktop hub rates are not in GitHub — edit this file to match Cesar's live config.",
@@ -41,6 +48,7 @@
     "Labor unit rates are hard cost (not already-marked-up sell prices).",
     "Siding product assumption: 16 ft LP SmartSide-style lap, ~8 in exposure, field-painted to match existing cream/off-white.",
     "Chimney wrap area = height × assumed girth. Photo survey (Sep 9, 2026): siding-clad chase / bump-out with gray corner boards, not masonry. Height premium is in the chimney reinstall unit rate.",
-    "Dump fee is a 10-yard East Bay debris-box hard cost, separate from the $1,000 demo labor lump."
+    "Dump fee is a 10-yard East Bay debris-box hard cost, separate from the $1,000 demo labor lump.",
+    "Hardwood labor $6.50 / sq ft is the Desktop wizard rate (last configured line, Aug 16 2026). Treated as hard cost; profit margin applies on top."
   ]
 }

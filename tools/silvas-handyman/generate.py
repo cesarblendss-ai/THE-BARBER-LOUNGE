@@ -6,13 +6,14 @@ from __future__ import annotations
 import argparse
 import html
 import json
+import re
 from collections import OrderedDict
 from datetime import date
 from pathlib import Path
 
 from estimate_engine import (
     LineItem,
-    build_siding_demo_reinstall_lines,
+    build_lines,
     estimate_payload,
     format_usd,
     summarize,
@@ -42,6 +43,10 @@ def kind_label(kind: str) -> str:
     return {"labor": "Labor", "material": "Material", "fee": "Fee"}[kind]
 
 
+def md_inline(text: str) -> str:
+    return re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", html.escape(text))
+
+
 def render_markdown(payload: dict, lines: list[LineItem]) -> str:
     biz = payload["business"]
     job = payload["job"]
@@ -65,16 +70,8 @@ def render_markdown(payload: dict, lines: list[LineItem]) -> str:
     out.append("")
     out.append("## Scope")
     out.append("")
-    out.append(f"- House siding: **{job['sidingSf']} sq ft**")
-    out.append(
-        f"- Chimney: **{job['chimneyHeightFt']} ft height** "
-        f"(assumed {job['chimneyWrapGirthFt']} ft wrap = **{job['chimneySf']:g} sq ft**)"
-    )
-    out.append(f"- Window trims: **{job['windowTrims']}**")
-    out.append(
-        "- Demo: **one lump** covering siding + chimney + all 13 trims "
-        "(not split per surface)"
-    )
+    for line in job.get("scopeLines") or []:
+        out.append(f"- {line}")
     out.append("")
     out.append("## Pricing rules used")
     out.append("")
@@ -299,10 +296,7 @@ def render_html(payload: dict, lines: list[LineItem]) -> str:
 
     <h2>Scope</h2>
     <div class="scope">
-      <div>House siding: <strong>{esc(job['sidingSf'])} sq ft</strong></div>
-      <div>Window trims: <strong>{esc(job['windowTrims'])}</strong></div>
-      <div>Chimney: <strong>{esc(job['chimneyHeightFt'])} ft</strong> height × {esc(job['chimneyWrapGirthFt'])} ft wrap = <strong>{job['chimneySf']:g} sq ft</strong></div>
-      <div>Demo: <strong>one lump</strong> — siding + chimney + all 13 trims</div>
+      {''.join(f'<div>{md_inline(line)}</div>' for line in (job.get('scopeLines') or []))}
     </div>
 
     <h2>Pricing rules</h2>
@@ -371,7 +365,7 @@ def main() -> int:
     if not job.get("preparedDate"):
         job["preparedDate"] = date.today().isoformat()
 
-    lines = build_siding_demo_reinstall_lines(pricing, job)
+    lines = build_lines(pricing, job)
     payload = estimate_payload(pricing, job, lines)
     totals = summarize(lines)
 

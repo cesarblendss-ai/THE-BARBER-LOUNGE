@@ -386,6 +386,125 @@ def build_siding_demo_reinstall_lines(
     return lines
 
 
+def build_hardwood_flooring_lines(
+    pricing: dict[str, Any], job: dict[str, Any]
+) -> list[LineItem]:
+    scope = job["scope"]
+    labor = pricing["labor"]
+    materials = pricing["materials"]
+    fees = pricing["fees"]
+    profit = float(pricing["profitMarginPercent"])
+    material_markup = float(pricing["materialMarkupPercent"])
+
+    floor_sf = float(scope["floorSf"])
+    shoe_lf = float(scope.get("shoeLf") or 0)
+    transitions = float(scope.get("transitions") or 0)
+
+    lines: list[LineItem] = [
+        _labor_line(
+            "Prep",
+            "Shift furniture and protect adjacent rooms",
+            1,
+            "ls",
+            float(labor["hardwoodFurnitureLump"]),
+            profit,
+        ),
+        _labor_line(
+            "Labor",
+            "Hardwood labor — sand, stain, and finish",
+            floor_sf,
+            "sq ft",
+            float(labor["hardwoodLaborPerSf"]),
+            profit,
+            notes="Desktop wizard rate $6.50 / sq ft hard cost. Quoted with profit on top.",
+        ),
+    ]
+    if shoe_lf:
+        lines.append(
+            _labor_line(
+                "Labor",
+                "Pull and reset shoe molding",
+                shoe_lf,
+                "lf",
+                float(labor["hardwoodShoeLaborPerLf"]),
+                profit,
+            )
+        )
+        lines.append(
+            _material_line(
+                "Materials",
+                "Shoe molding",
+                shoe_lf,
+                "lf",
+                float(materials["hardwoodShoePerLf"]),
+                material_markup,
+                profit,
+            )
+        )
+    lines.append(
+        _material_line(
+            "Materials",
+            "Sandpaper, stain, and finish system",
+            floor_sf,
+            "sq ft",
+            float(materials["hardwoodFinishPerSf"]),
+            material_markup,
+            profit,
+        )
+    )
+    if transitions:
+        lines.append(
+            _material_line(
+                "Materials",
+                "Floor transitions",
+                transitions,
+                "ea",
+                float(materials["hardwoodTransitionEach"]),
+                material_markup,
+                profit,
+            )
+        )
+    if scope.get("includeDumpFee", True):
+        lines.append(
+            _fee_line(
+                "Additional Costs",
+                "Dump / disposal — sanding debris and shoe scraps",
+                float(fees["dumpFlooringSmall"]),
+                profit,
+                notes="Small debris haul, not a 10-yard box.",
+            )
+        )
+    return lines
+
+
+def build_lines(pricing: dict[str, Any], job: dict[str, Any]) -> list[LineItem]:
+    kind = job.get("type") or job.get("id")
+    if kind == "hardwood-flooring":
+        return build_hardwood_flooring_lines(pricing, job)
+    return build_siding_demo_reinstall_lines(pricing, job)
+
+
+def default_scope_lines(job: dict[str, Any]) -> list[str]:
+    if job.get("scopeLines"):
+        return list(job["scopeLines"])
+    scope = job.get("scope") or {}
+    if (job.get("type") or job.get("id")) == "hardwood-flooring":
+        return [
+            f"Hardwood refinish: **{scope.get('floorSf')} sq ft**",
+            f"Shoe molding: **{scope.get('shoeLf')} lf**",
+        ]
+    chimney_sf = chimney_area_sf(
+        scope.get("chimneyHeightFt", 0), scope.get("chimneyWrapGirthFt", 0)
+    )
+    return [
+        f"House siding: **{scope.get('sidingSf')} sq ft**",
+        f"Chimney: **{scope.get('chimneyHeightFt')} ft height** "
+        f"(assumed {scope.get('chimneyWrapGirthFt')} ft wrap = **{chimney_sf:g} sq ft**)",
+        f"Window trims: **{scope.get('windowTrims')}**",
+        "Demo: **one lump** covering siding + chimney + all 13 trims (not split per surface)",
+    ]
+
+
 def summarize(lines: list[LineItem]) -> dict[str, int]:
     labor_cost = sum(item.cost_cents for item in lines if item.kind == "labor")
     labor_quoted = sum(item.quoted_cents for item in lines if item.kind == "labor")
@@ -411,10 +530,8 @@ def summarize(lines: list[LineItem]) -> dict[str, int]:
 def estimate_payload(
     pricing: dict[str, Any], job: dict[str, Any], lines: list[LineItem] | None = None
 ) -> dict[str, Any]:
-    built = lines if lines is not None else build_siding_demo_reinstall_lines(pricing, job)
+    built = lines if lines is not None else build_lines(pricing, job)
     totals = summarize(built)
-    scope = job["scope"]
-    chimney_sf = chimney_area_sf(scope["chimneyHeightFt"], scope["chimneyWrapGirthFt"])
     return {
         "business": {
             "legalName": pricing["legalName"],
@@ -425,19 +542,15 @@ def estimate_payload(
         },
         "job": {
             "id": job["id"],
+            "type": job.get("type") or job["id"],
             "title": job["title"],
             "clientName": job.get("clientName") or "—",
             "jobSite": job.get("jobSite") or "—",
             "preparedDate": job["preparedDate"],
-            "sidingSf": scope["sidingSf"],
-            "chimneyHeightFt": scope["chimneyHeightFt"],
-            "chimneyWrapGirthFt": scope["chimneyWrapGirthFt"],
-            "chimneySf": chimney_sf,
-            "windowTrims": scope["windowTrims"],
-            "fixtures": scope.get("fixtures", 0),
-            "chimneyCornerBoardsLf": scope.get("chimneyCornerBoardsLf", 0),
+            "scopeLines": default_scope_lines(job),
             "scopeNotes": job.get("scopeNotes", []),
             "photoSurvey": job.get("photoSurvey"),
+            "scope": job.get("scope", {}),
         },
         "rates": {
             "profitMarginPercent": pricing["profitMarginPercent"],
