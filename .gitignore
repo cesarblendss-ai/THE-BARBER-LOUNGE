@@ -46,3 +46,6 @@ next-env.d.ts
 
 # local db dumps (scripts/export-db.ps1)
 /backups/
+
+# HIPAA readiness assessments (may contain practice names; never PHI)
+/tools/hipaa/storage/

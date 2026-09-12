@@ -1,6 +1,6 @@
 # Repo Layout — Key Paths
 
-**Last verified:** 2026-08-08
+**Last verified:** 2026-09-12
 
 Quick map for agents navigating the codebase. Architecture rationale: `docs/org-conventions/tech-stack-decisions.md`.
 
@@ -15,6 +15,7 @@ the-barber-lounge/
 ├── data/                   # appointments.json (local persistence)
 ├── prisma/                 # Analytics schema
 ├── tools/seo-agent/        # Monthly SEO content factory (Python)
+├── tools/hipaa/            # Local HIPAA readiness checklist (port 8755)
 ├── docs/
 │   ├── org-conventions/    # Read-only reference
 │   └── team-memory/        # Working state (this folder)
@@ -109,6 +110,25 @@ the-barber-lounge/
 | `README.md` | Run instructions |
 
 Latest good output: `tools/seo-agent/output/the_barber_lounge_2026_08_08_v2/`
+
+---
+
+## `tools/hipaa/`
+
+Local HIPAA readiness tool for healthcare-adjacent clients. **Not** on the public Barber Lounge site. Do not enter PHI.
+
+| Path | Purpose |
+|------|---------|
+| `server.py` | Python stdlib server, port **8755** |
+| `data/questions.json` | Privacy / Security / BAA / breach checklist |
+| `storage/` | Saved assessments (gitignored) |
+| `README.md` | How to run |
+| `docs/HIPAA-READINESS-OFFERING.md` | Internal sales language |
+
+```bash
+cd tools/hipaa && python3 server.py
+# http://127.0.0.1:8755
+```
 
 ---
 
