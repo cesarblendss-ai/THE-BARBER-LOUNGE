@@ -39,6 +39,9 @@ Local build matches production deploy `dpl_gnu4dpympcKPotU6n5YmAbmWEHpk` — **5
 | `DATABASE_URL` | Not connected |
 | `TWILIO_*` | Add after KYC |
 | `OPENAI_API_KEY` | Add if booking chat needed in prod |
+| `STRIPE_SECRET_KEY` | **Not set** — needed for estimate deposits |
+| `STRIPE_WEBHOOK_SECRET` | **Not set** — webhook signing |
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | **Not set** — Checkout publishable key |
 
 ---
 

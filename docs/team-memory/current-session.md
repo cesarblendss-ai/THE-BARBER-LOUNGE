@@ -1,3 +1,28 @@
+# Session Progress — Aug 16, 2026 (estimate tracker MVP)
+
+## Completed this session
+
+| Task | Result |
+|------|--------|
+| **Estimate tracker MVP** | Admin create + shareable `/e/[token]`, e-sign, Stripe Checkout deposit, webhook marks paid |
+| **Auth** | Admin create/list behind `ADMIN_UPLOAD_KEY`; public page is token-gated |
+| **Env names** | `.env.example` documents `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` (no real keys) |
+| **Cesar setup doc** | `docs/team-memory/estimates-stripe.md` — Stripe account + bank + Vercel env + webhook URL |
+
+**Not deployed this session.** Cesar still adds Stripe keys on Vercel after connecting Dashboard + bank.
+
+## Routes
+
+| Kind | Path |
+|------|------|
+| Admin UI | `/admin/estimates` |
+| Public | `/e/[token]` |
+| Admin API | `GET/POST /api/estimates` |
+| Public API | `GET /api/estimates/[token]`, `POST .../sign`, `POST .../checkout` |
+| Webhook | `POST /api/stripe/webhook` |
+
+---
+
 # Session Progress ? Aug 10, 2026 (launch checklist)
 
 ## Completed this session
