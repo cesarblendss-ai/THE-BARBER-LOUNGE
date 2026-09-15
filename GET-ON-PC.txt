@@ -1,0 +1,24 @@
+Save path (create folders if needed):
+  Desktop\Clients\CesarBlendss\THE-BARBER-LOUNGE
+
+1. On the codebase / GitHub file list, download THE-BARBER-LOUNGE.zip
+   (same kind of download as package.json — click the file, then Download).
+
+2. Extract the zip. You should get a folder named THE-BARBER-LOUNGE.
+
+3. Double-click Install-THE-BARBER-LOUNGE.bat inside that folder.
+   Explorer only — do not paste anything into PowerShell.
+
+4. That copies the app to Desktop\Clients\CesarBlendss\THE-BARBER-LOUNGE
+   and puts a Desktop shortcut named "The Barber Lounge".
+
+5. Double-click "The Barber Lounge" on your Desktop (or Start.bat in the folder).
+   The site opens at http://localhost:3847
+
+You need Node.js installed once from https://nodejs.org (LTS).
+Do not use git.
+
+Optional hero videos (large):
+  On the codebase page open public/gallery/ and download hero-video.mp4,
+  hero-video-1.mp4, hero-video-2.mp4, hero-video-3.mp4 into
+  Desktop\Clients\CesarBlendss\THE-BARBER-LOUNGE\public\gallery\
