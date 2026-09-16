@@ -14,6 +14,10 @@ Save path (create folders if needed):
 
 5. Double-click "The Barber Lounge" on your Desktop (or Start.bat in the folder).
    The site opens at http://localhost:3847
+   That shortcut uses the Barber Lounge logo (not a plain URL icon).
+
+Already installed and only need the logo shortcut again?
+  Double-click Make-Desktop-Shortcut.bat in the install folder.
 
 You need Node.js installed once from https://nodejs.org (LTS).
 Do not use git.

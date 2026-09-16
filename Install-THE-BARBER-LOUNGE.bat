@@ -23,13 +23,16 @@ if %RC% GEQ 8 (
   exit /b 1
 )
 
-set "SHORTCUT=%USERPROFILE%\Desktop\%SHORTCUT_NAME%.lnk"
-powershell -NoProfile -ExecutionPolicy Bypass -Command ^
-  "$ws = New-Object -ComObject WScript.Shell; $s = $ws.CreateShortcut('%SHORTCUT%'); $s.TargetPath = '%DEST%\Start.bat'; $s.WorkingDirectory = '%DEST%'; $s.IconLocation = 'shell32.dll,137'; $s.Save()"
+call "%DEST%\Make-Desktop-Shortcut.bat" /silent
+if errorlevel 1 (
+  echo Shortcut create failed.
+  pause
+  exit /b 1
+)
 
 echo.
 echo Done.
 echo Folder: %DEST%
-echo Shortcut: %SHORTCUT%
-echo Double-click "%SHORTCUT_NAME%" on your Desktop, or open Start.bat in that folder.
+echo Desktop shortcut: %SHORTCUT_NAME%  (with Barber Lounge logo)
+echo Double-click "%SHORTCUT_NAME%" on your Desktop to start.
 pause
