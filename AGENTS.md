@@ -52,3 +52,11 @@ Legacy redirects remain in `docs/knowledge/` for old links.
 2. `src/lib/content.ts` — public site copy  
 3. `tools/seo-agent/clients/the_barber_lounge.json` — SEO client profile  
 4. `tools/seo-agent/AGENCY_PLAYBOOK.md` — full agency SOP
+
+## Cursor Cloud
+
+Local site work does not need secrets. `npm ci` installs dependencies and runs `prisma generate`. Leave `DATABASE_URL` unset: analytics no-ops, and bookings save to `data/appointments.json`. A placeholder URL that starts with `postgres` makes `npm run build` run `prisma db push` against that host.
+
+- Dev server: `npm run dev` (already binds `0.0.0.0:3000`)
+- Checks: `npm run lint`, `npx tsc --noEmit`, `npm run build`
+- Do not run `npm run test:sms` — it sends a real Twilio message when credentials are present
