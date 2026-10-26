@@ -1,8 +1,9 @@
 # Deploy Status
 
-**Last verified:** 2026-08-08  
-**Status:** **LIVE** — both production URLs return 200  
-**Vercel project:** `cesarblendss-7234s-projects/the-barber-lounge`
+**Last verified:** 2026-10-26 (America/Los_Angeles)  
+**Status:** **LIVE** — production deploy succeeded after PR #12 merge  
+**Vercel project:** `cesarblendss-7234s-projects/the-barber-lounge`  
+**Production commit:** `76242a1` (merge of cinematic homepage + Halloween)
 
 ---
 
@@ -13,20 +14,18 @@
 Also works:
 - https://the-barber-lounge-cesarblendss-7234s-projects.vercel.app
 - https://the-barber-lounge-antioch.vercel.app (alias)
+- Custom domain redirect: `https://thebarberlounge.com/` (configured on Vercel; verify SSL in browser)
+
+**Deploy dashboard:** https://vercel.com/cesarblendss-7234s-projects/the-barber-lounge/3mbtVtPwVBToCMWKLDNN6giSd94N
 
 ---
 
-## Latest fix (resolved)
+## What’s live (2026-10-26)
 
-Vercel framework was **Other** + output dir `.` → empty routing. Fixed via `npx vercel project update` to **Next.js**, redeployed, re-aliased. Deployment: `dpl_4BzeNheB9NRpnVFAcCpZsVRNvhtz`.
-
-**ADMIN_UPLOAD_KEY:** Set in Vercel Production + `.env.local` (check local file for value).
-
----
-
-## Local vs production
-
-Local build matches production deploy `dpl_gnu4dpympcKPotU6n5YmAbmWEHpk` — **57 routes** live.
+- Cinematic video hero (3 clips)
+- Conversion services + barber Booksy staffer deep links
+- Halloween spider-web overlay / orange CTAs
+- Clean footer (no public staff management links)
 
 ---
 
@@ -47,7 +46,7 @@ Local build matches production deploy `dpl_gnu4dpympcKPotU6n5YmAbmWEHpk` — **5
 
 ## `SITE_URL` in code
 
-Points to `https://the-barber-lounge.vercel.app` until custom domain is live.
+Points to `https://the-barber-lounge.vercel.app` until custom domain SSL is fully verified.
 
 ---
 
