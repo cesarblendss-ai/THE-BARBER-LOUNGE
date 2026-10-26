@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { CinematicHero } from "@/components/CinematicHero";
 import { CinematicServices } from "@/components/CinematicServices";
 import { EditableText } from "@/components/EditableText";
-import { HeroVideoGrid } from "@/components/HeroVideoGrid";
 import { TestimonialCarousel } from "@/components/TestimonialCarousel";
 import { BOOKING_URL, SITE, TESTIMONIALS } from "@/lib/content";
 import { HERO_VIDEOS } from "@/lib/gallery";
@@ -44,16 +43,13 @@ export default async function HomePage() {
         primaryHref={hero.ctaPrimary.href || BOOKING_URL}
         secondaryLabel={hero.ctaSecondary.label || "Call Now"}
         secondaryHref={hero.ctaSecondary.href || `tel:${SITE.phoneTel}`}
-      />
-
-      <CinematicServices />
-
-      <HeroVideoGrid
         videos={heroVideos}
-        ctaHref={hero.ctaPrimary.href || BOOKING_URL}
-        ctaLabel="Book Appointment"
-        headline="Recent work"
       />
+
+      {/* Work nav target — clips now open the hero; services hold the booking path */}
+      <div id="work" className="scroll-mt-24">
+        <CinematicServices />
+      </div>
 
       <section
         id="testimonials"
