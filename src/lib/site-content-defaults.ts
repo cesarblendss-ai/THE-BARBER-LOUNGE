@@ -18,9 +18,9 @@ export function getDefaultSiteContent(): SiteContent {
     },
     FOOTER: {
       hoursLabel: "Hours",
-      quickLinksLabel: "Quick Links",
+      quickLinksLabel: "Explore",
       callNow: "Call Now",
-      bookOnline: "Book Online",
+      bookOnline: "Book",
       copyright: "All rights reserved.",
       updateHeroVideos: "Update Hero Videos",
       manageGallery: "Manage Gallery",

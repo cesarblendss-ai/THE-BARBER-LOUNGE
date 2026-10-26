@@ -83,10 +83,10 @@ export default async function HomePage() {
       </section>
 
       <section
-        className="border-t border-white/10 bg-black px-5 py-14 sm:px-8 sm:py-20"
+        className="bg-black px-5 pb-16 pt-14 sm:px-8 sm:pb-20 sm:pt-16"
         aria-labelledby="final-cta-heading"
       >
-        <div className="mx-auto max-w-3xl rounded-2xl border border-white/15 bg-white/[0.03] px-6 py-10 text-center sm:px-10 sm:py-12">
+        <div className="mx-auto max-w-3xl text-center">
           <EditableText
             path="HOME.finalCta.headline"
             defaultValue={finalCta.headline}
@@ -116,7 +116,6 @@ export default async function HomePage() {
               Call {SITE.phone}
             </a>
           </div>
-          <p className="mt-6 text-sm text-white/45">{SITE.address}</p>
         </div>
       </section>
     </div>
