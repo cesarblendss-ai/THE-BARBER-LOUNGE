@@ -1,32 +1,36 @@
 # Deploy Status
 
-**Last verified:** 2026-08-08  
-**Status:** **LIVE** — both production URLs return 200  
+**Last verified:** 2026-10-26  
+**Status:** **LIVE** — production deployment `67117f1` (hero video middle-band framing)  
 **Vercel project:** `cesarblendss-7234s-projects/the-barber-lounge`
 
 ---
 
 ## Share this URL
 
-**https://the-barber-lounge.vercel.app**
+**https://the-barber-lounge-antioch.vercel.app**
 
 Also works:
 - https://the-barber-lounge-cesarblendss-7234s-projects.vercel.app
-- https://the-barber-lounge-antioch.vercel.app (alias)
+- Production deployment: https://the-barber-lounge-6ktlnjqcy-cesarblendss-7234s-projects.vercel.app
+
+Note: `https://the-barber-lounge.vercel.app` currently **307 → thebarberlounge.com**, and the custom domain is still parked at HugeDomains — use the antioch / team aliases above until DNS is fixed.
 
 ---
 
-## Latest fix (resolved)
+## Latest ship (2026-10-26)
 
-Vercel framework was **Other** + output dir `.` → empty routing. Fixed via `npx vercel project update` to **Next.js**, redeployed, re-aliased. Deployment: `dpl_4BzeNheB9NRpnVFAcCpZsVRNvhtz`.
+**Hero video framing (Cesar):** media plane sits only between the fixed header nav and the address / phone / walk-ins strip. Portrait clips play in a 9:16 stage at ~90% band height (`object-cover object-center`) so the cut is milder and sharper. Branch `cursor/hero-video-sizing-c298` fast-forwarded to `main` → Vercel Production success.
+
+Prior: cinematic homepage + Halloween decor also live on the same project.
+
+---
+
+## Latest fix (resolved earlier)
+
+Vercel framework was **Other** + output dir `.` → empty routing. Fixed via `npx vercel project update` to **Next.js**, redeployed, re-aliased.
 
 **ADMIN_UPLOAD_KEY:** Set in Vercel Production + `.env.local` (check local file for value).
-
----
-
-## Local vs production
-
-Local build matches production deploy `dpl_gnu4dpympcKPotU6n5YmAbmWEHpk` — **57 routes** live.
 
 ---
 
@@ -47,7 +51,7 @@ Local build matches production deploy `dpl_gnu4dpympcKPotU6n5YmAbmWEHpk` — **5
 
 ## `SITE_URL` in code
 
-Points to `https://the-barber-lounge.vercel.app` until custom domain is live.
+Points to `https://the-barber-lounge.vercel.app` until custom domain is live (see alias note above).
 
 ---
 
