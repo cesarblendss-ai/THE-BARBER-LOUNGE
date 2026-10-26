@@ -54,7 +54,9 @@ export function Header({ labels: _labels }: HeaderProps) {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        solid ? "border-b border-white/10 bg-black/90 backdrop-blur-md" : "bg-transparent"
+        solid
+          ? "border-b border-orange-500/25 bg-black/90 backdrop-blur-md"
+          : "bg-transparent"
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
@@ -68,6 +70,9 @@ export function Header({ labels: _labels }: HeaderProps) {
             sizes="(max-width: 640px) 150px, 190px"
             className="h-auto w-[150px] object-contain brightness-0 invert sm:w-[190px]"
           />
+          <span className="absolute -right-3 -top-2 text-sm sm:-right-4 sm:text-base" aria-hidden>
+            🕷️
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Main navigation">
@@ -94,7 +99,7 @@ export function Header({ labels: _labels }: HeaderProps) {
             target="_blank"
             rel="noopener noreferrer"
             data-analytics-label="Book Appointment (header)"
-            className="inline-flex items-center rounded-md border border-white/80 px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white hover:text-black"
+            className="inline-flex items-center rounded-md border border-orange-400/80 bg-orange-500/15 px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-100 transition hover:bg-orange-400 hover:text-black"
           >
             Book Appointment
           </a>

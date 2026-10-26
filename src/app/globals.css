@@ -101,5 +101,25 @@
       #f2efea 100%
     );
   }
+
+  @keyframes halloween-sway {
+    0%,
+    100% {
+      transform: rotate(-3deg);
+    }
+    50% {
+      transform: rotate(3.5deg);
+    }
+  }
+
+  @keyframes halloween-drift {
+    0%,
+    100% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(12px, -10px);
+    }
+  }
 }
 

@@ -7,6 +7,7 @@ import { Suspense } from "react";
 import { AnalyticsTracker } from "@/components/AnalyticsTracker";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { HalloweenDecor } from "@/components/HalloweenDecor";
 import { BookingChatbot } from "@/components/BookingChatbot";
 import { EditModeRoot } from "@/components/EditModeRoot";
 import { StickyBookButton } from "@/components/StickyBookButton";
@@ -78,11 +79,14 @@ export default async function RootLayout({
         <Suspense fallback={null}>
           <AnalyticsTracker />
           <EditModeRoot cookieEnabled={editModeEnabled} adminAuthenticated={adminAuthenticated}>
+            <HalloweenDecor />
             <Header labels={content.HEADER} />
-            <main id="main-content" tabIndex={-1}>
+            <main id="main-content" tabIndex={-1} className="relative z-10">
               {children}
             </main>
-            <Footer content={content} adminAuthenticated={adminAuthenticated} />
+            <div className="relative z-10">
+              <Footer content={content} adminAuthenticated={adminAuthenticated} />
+            </div>
             <StickyBookButton />
             <BookingChatbot />
           </EditModeRoot>
