@@ -27,9 +27,11 @@ function HeroVideoCell({ src, alt }: HeroVideoItem) {
     const video = videoRef.current;
     if (!video) return;
 
+    video.defaultPlaybackRate = 1;
+    video.playbackRate = 1;
     video.load();
     void video.play().catch(() => {
-      // Autoplay may be deferred by the browser; beige background shows until frames render.
+      // Autoplay may be deferred by the browser; background shows until frames render.
     });
   }, [src]);
 
@@ -66,7 +68,8 @@ export function HeroVideoGrid({
 
   return (
     <section
-      className="relative min-h-[70vh] overflow-hidden bg-charcoal sm:min-h-[80vh]"
+      id="work"
+      className="relative min-h-[70vh] overflow-hidden bg-black sm:min-h-[80vh]"
       aria-label="Featured barbershop videos"
     >
       <div className="absolute inset-0 grid grid-cols-3">
@@ -78,43 +81,34 @@ export function HeroVideoGrid({
       </div>
 
       <div
-        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/45 to-charcoal/15"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/10"
         aria-hidden
       />
 
-      <div className="relative z-10 flex min-h-[70vh] flex-col justify-end px-4 pb-8 pt-20 sm:min-h-[80vh] sm:pb-10">
+      <div className="relative z-10 flex min-h-[70vh] flex-col justify-end px-4 pb-10 pt-20 sm:min-h-[80vh] sm:pb-12">
         <div className="mx-auto w-full max-w-md text-center">
-          <h1 className="font-serif text-3xl font-semibold leading-tight text-bone sm:text-4xl">
+          <h2 className="font-serif text-3xl font-semibold leading-tight text-white sm:text-4xl">
             {headline}
-          </h1>
-          <p className="mt-2 text-sm leading-snug text-bone/85 sm:text-base">
-            Antioch · By appointment &amp; walk-in
-          </p>
-          <p className="mt-1 text-xs text-bone/55">{SITE.address}</p>
-
-          <div className="pointer-events-auto mt-6 flex flex-col gap-3">
+          </h2>
+          <div className="pointer-events-auto mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
             <Button
               href={ctaHref}
               external
               size="lg"
               variant="primary"
-              className="w-full shadow-lg"
-              analyticsLabel="Book Now (hero)"
+              className="w-full shadow-lg sm:w-auto"
+              analyticsLabel="Book Now (videos)"
             >
               {bookLabel}
             </Button>
             <a
               href={`tel:${SITE.phoneTel}`}
-              data-analytics-label="Call Now (hero)"
-              className="inline-flex w-full items-center justify-center rounded-full border-2 border-bone bg-bone/15 px-6 py-4 text-base font-semibold text-bone backdrop-blur-sm transition-colors hover:bg-bone/25 active:scale-[0.98]"
+              data-analytics-label="Call Now (videos)"
+              className="inline-flex w-full items-center justify-center rounded-full border-2 border-white/70 bg-white/10 px-6 py-4 text-base font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/20 sm:w-auto"
             >
               Call {SITE.phone}
             </a>
           </div>
-
-          <p className="mt-4 text-xs text-bone/75">
-            {SITE.rating}★ · {SITE.reviewCount}+ reviews
-          </p>
         </div>
       </div>
     </section>

@@ -17,6 +17,7 @@ export type FeaturedService = {
 export type TeamMemberContent = {
   name: string;
   handle: string | null;
+  booksyStafferId?: string | null;
 };
 
 export type ServiceItem = {

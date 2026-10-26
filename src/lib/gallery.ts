@@ -35,6 +35,11 @@ export const GALLERY_CATEGORY_LABELS: Record<GalleryCategoryId, string> = {
 
 /** Primary featured images — used for about section, service cards, gallery, etc. */
 export const GALLERY = {
+  storefront: {
+    src: "/gallery/storefront-night.jpg",
+    alt: "The Barber Lounge storefront at night — 1518 A St, Antioch, California",
+    filename: "storefront-night.jpg",
+  },
   hero: {
     src: "/gallery/hero-interior.png",
     alt: "Client with a precision fade inside The Barber Lounge barbershop in Antioch, California",
@@ -283,21 +288,21 @@ export const HERO_VIDEOS: HeroVideoSlot[] = [
     slot: 1,
     src: "/gallery/hero-video-1.mp4",
     poster: GALLERY.hero.src,
-    alt: "Hero video — The Barber Lounge barbershop in Antioch, California",
+    alt: "Finished trim — sharp design cut at The Barber Lounge",
     filename: "hero-video-1.mp4",
   },
   {
     slot: 2,
     src: "/gallery/hero-video-2.mp4",
     poster: GALLERY.signatureHaircut.src,
-    alt: "Signature haircut hero video at The Barber Lounge",
+    alt: "Fresh cut in the blue cape at The Barber Lounge",
     filename: "hero-video-2.mp4",
   },
   {
     slot: 3,
     src: "/gallery/hero-video-3.mp4",
     poster: GALLERY.signatureHaircutBeard.src,
-    alt: "Signature haircut and beard hero video at The Barber Lounge",
+    alt: "Neck lineup with the clippers at The Barber Lounge",
     filename: "hero-video-3.mp4",
   },
 ];

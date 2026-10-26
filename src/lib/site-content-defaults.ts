@@ -18,9 +18,9 @@ export function getDefaultSiteContent(): SiteContent {
     },
     FOOTER: {
       hoursLabel: "Hours",
-      quickLinksLabel: "Quick Links",
+      quickLinksLabel: "Explore",
       callNow: "Call Now",
-      bookOnline: "Book Online",
+      bookOnline: "Book",
       copyright: "All rights reserved.",
       updateHeroVideos: "Update Hero Videos",
       manageGallery: "Manage Gallery",
@@ -42,6 +42,7 @@ export function getDefaultSiteContent(): SiteContent {
         members: ABOUT.team.map((member) => ({
           name: member.name,
           handle: member.handle,
+          booksyStafferId: member.booksyStafferId,
         })),
       },
     },

@@ -42,9 +42,9 @@
   },
   "FOOTER": {
     "hoursLabel": "Hours",
-    "quickLinksLabel": "Quick Links",
+    "quickLinksLabel": "Explore",
     "callNow": "Call Now",
-    "bookOnline": "Book Online",
+    "bookOnline": "Book",
     "copyright": "All rights reserved.",
     "updateHeroVideos": "Update Hero Videos",
     "manageGallery": "Manage Gallery",
@@ -52,16 +52,16 @@
   },
   "HOME": {
     "hero": {
-      "eyebrow": "ANTIOCH'S PREMIER BARBERSHOP EXPERIENCE",
-      "headline": "Sharp Cuts. Real Craftsmanship. Zero Compromise.",
-      "subheadline": "Precision fades, clean tapers, and modern styles — delivered by barbers who treat every chair like it's their reputation on the line.",
+      "eyebrow": "THE BARBER LOUNGE • ANTIOCH, CA",
+      "headline": "More Than a Haircut.",
+      "subheadline": "Precision cuts. Premium service. Antioch, California.",
       "ctaPrimary": {
-        "label": "Book Your Appointment",
+        "label": "Book Appointment",
         "href": "https://booksy.com/en-us/1180862_the-barber-lounge_barber-shop_103886_antioch"
       },
       "ctaSecondary": {
-        "label": "See Our Work",
-        "href": "https://www.instagram.com/thebarberlounges1/"
+        "label": "Call Now",
+        "href": "tel:+19252095995"
       },
       "trustBar": "5★ rating · 180+ five-star reviews · 1518 A St, Antioch, CA 94509"
     },
@@ -69,10 +69,6 @@
       {
         "title": "Precision, Every Time",
         "body": "Every Signature service includes a full consultation, precision cutting, styling, and a Hot Lather Finish."
-      },
-      {
-        "title": "A Standard, Not a Trend",
-        "body": "A modern barbershop experience built on precision, attention to detail, and professional service."
       },
       {
         "title": "Clean Shop, Clean Cuts",
@@ -100,17 +96,17 @@
       "bookNow": "Book Now"
     },
     "aboutTeaser": {
-      "headline": "More Than a Haircut.",
-      "body": "The Barber Lounge was built to give Antioch a barbershop where precision, consistency, and professional service come standard. Every chair runs on the same process — real consultation, careful cutting, and a finish you're proud to walk out with.",
+      "headline": "Meet the Team",
+      "body": "The Barber Lounge was built to give Antioch a barbershop where precision, consistency, and professional service come standard.",
       "cta": {
         "label": "Meet the Team",
         "href": "/about"
       }
     },
     "finalCta": {
-      "headline": "Your Next Great Haircut Is One Click Away.",
+      "headline": "Ready when you are.",
       "cta": {
-        "label": "Book Now",
+        "label": "Book Appointment",
         "href": "https://booksy.com/en-us/1180862_the-barber-lounge_barber-shop_103886_antioch"
       }
     }
@@ -145,7 +141,7 @@
     "hero": {
       "sectionLabel": "Services & Pricing",
       "headline": "Every Cut. Every Detail. Done Right.",
-      "subheadline": "Two clear options — regular haircut or haircut and beard. Every visit includes a full consultation so you leave looking exactly how you pictured it."
+      "subheadline": "Regular haircut or haircut and beard. Every visit includes a full consultation so you leave looking exactly how you pictured it."
     },
     "list": [
       {
@@ -226,8 +222,8 @@
   "CONTACT": {
     "hero": {
       "sectionLabel": "Get in Touch",
-      "headline": "Let's Get You Booked.",
-      "subheadline": "Walk in, call, or book online — however you reach us, we'll get you in the chair.",
+      "headline": "Visit the shop",
+      "subheadline": "1518 A St, Antioch — walk-ins welcome, appointments preferred.",
       "callNow": "Call Now",
       "bookNow": "Book Now"
     },

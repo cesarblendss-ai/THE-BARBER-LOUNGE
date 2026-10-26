@@ -1,169 +1,66 @@
 import type { Metadata } from "next";
 
-import { Button } from "@/components/Button";
+import { CinematicServices } from "@/components/CinematicServices";
 import { EditableText } from "@/components/EditableText";
-import { SectionLabel } from "@/components/SectionLabel";
-import { ServiceCard } from "@/components/ServiceCard";
-import { SERVICE_HAIRCUT_BEARD, SERVICE_REGULAR } from "@/lib/content";
-import { GALLERY } from "@/lib/gallery";
-import { getResolvedServiceGalleries } from "@/lib/gallery-files";
+import { BOOKING_URL, SITE } from "@/lib/content";
 import { getSiteContent } from "@/lib/get-site-content";
 import { buildPageMetadata } from "@/lib/seo";
-import Link from "next/link";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Barber Services in Antioch, CA",
   description:
-    "Explore exceptional barber services in Antioch, CA. From fades to trims, we've got your style covered!",
+    "Signature Haircut $50 and Haircut & Beard $65 at The Barber Lounge in Antioch, CA. Book online or call.",
   path: "/services",
 });
-
-const fallbackImages = [GALLERY.razorLineup];
 
 export default async function ServicesPage() {
   const content = await getSiteContent();
   const { SERVICES } = content;
-  const { hero, list, addOns, note, cta } = SERVICES;
-  const serviceGalleries = getResolvedServiceGalleries();
-  const signatureHaircutImages =
-    serviceGalleries[SERVICE_REGULAR].slice(0, 3);
-  const signatureHaircutBeardImages =
-    serviceGalleries[SERVICE_HAIRCUT_BEARD].slice(0, 3);
-  const publishedServices = list.filter((service) => !service.name.startsWith("["));
+  const { note, cta } = SERVICES;
 
   return (
-    <>
-      <section className="bg-bone px-4 pb-8 pt-28 sm:px-6 sm:pt-32">
-        <div className="mx-auto max-w-3xl text-center">
-          <SectionLabel>
-            <EditableText path="SERVICES.hero.sectionLabel" defaultValue={hero.sectionLabel} as="span" />
-          </SectionLabel>
-          <EditableText
-            path="SERVICES.hero.headline"
-            defaultValue={hero.headline}
-            as="h1"
-            className="mt-3 font-serif text-4xl font-semibold text-charcoal sm:text-5xl"
-          />
-          <EditableText
-            path="SERVICES.hero.subheadline"
-            defaultValue={hero.subheadline}
-            as="p"
-            className="mt-4 text-lg text-charcoal/70"
-            multiline
-          />
-        </div>
-      </section>
-
-      <section className="bg-bone px-4 pb-16 sm:px-6 sm:pb-24" aria-labelledby="services-list-heading">
+    <div className="bg-black text-white">
+      <section className="px-5 pb-4 pt-28 sm:px-8 sm:pt-32">
         <div className="mx-auto max-w-7xl">
-          <h2 id="services-list-heading" className="sr-only">
-            Service menu
-          </h2>
-          <div className="grid gap-10 sm:grid-cols-2">
-            {publishedServices.map((service, index) => (
-              <ServiceCard
-                key={service.name}
-                name={service.name}
-                description={service.description}
-                price={service.price}
-                time={service.time}
-                pathPrefix={`SERVICES.list.${index}`}
-                images={
-                  service.name === SERVICE_REGULAR
-                    ? signatureHaircutImages.length > 0
-                      ? signatureHaircutImages
-                      : fallbackImages
-                    : service.name === SERVICE_HAIRCUT_BEARD
-                      ? signatureHaircutBeardImages.length > 0
-                        ? signatureHaircutBeardImages
-                        : fallbackImages
-                      : serviceGalleries[service.name as keyof typeof serviceGalleries] ??
-                        fallbackImages
-                }
-              />
-            ))}
-          </div>
+          <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-white/45">Services</p>
+          <h1 className="mt-3 font-serif text-4xl font-semibold tracking-tight sm:text-5xl">
+            Book your cut
+          </h1>
+          <p className="mt-4 max-w-xl text-white/60">
+            Two clear options. Tap a card to book on Booksy, or call {SITE.phone}.
+          </p>
         </div>
       </section>
 
-      <section className="border-t border-charcoal/10 bg-bone px-4 py-12 sm:px-6" aria-labelledby="addons-heading">
+      <CinematicServices />
+
+      <section className="border-t border-white/10 px-5 py-12 sm:px-8">
         <div className="mx-auto max-w-3xl">
-          <SectionLabel>
-            <EditableText path="SERVICES.addOns.sectionLabel" defaultValue={addOns.sectionLabel} as="span" />
-          </SectionLabel>
-          <EditableText
-            path="SERVICES.addOns.headline"
-            defaultValue={addOns.headline}
-            as="h2"
-            className="mt-2 font-serif text-2xl font-semibold text-charcoal"
-          />
-          <EditableText
-            path="SERVICES.addOns.body"
-            defaultValue={addOns.body}
-            as="p"
-            className="mt-4 text-base leading-relaxed text-charcoal/70"
-            multiline
-          />
-        </div>
-      </section>
-
-      <section className="bg-bone px-4 py-8 sm:px-6" aria-label="Pricing note">
-        <div className="mx-auto max-w-3xl rounded-2xl border border-charcoal/10 bg-white p-6">
           <EditableText
             path="SERVICES.note"
             defaultValue={note}
             as="p"
-            className="text-sm leading-relaxed text-charcoal/65"
+            className="text-sm leading-relaxed text-white/55"
             multiline
           />
-        </div>
-      </section>
-
-      <section className="border-t border-charcoal/10 bg-bone px-4 py-12 sm:px-6" aria-labelledby="guides-heading">
-        <div className="mx-auto max-w-3xl">
-          <SectionLabel>GROOMING GUIDES</SectionLabel>
-          <h2 id="guides-heading" className="mt-2 font-serif text-2xl font-semibold text-charcoal">
-            Learn before you book
-          </h2>
-          <ul className="mt-6 space-y-3 text-sm">
-            <li>
-              <Link href="/blog/best-fades-barbershop-antioch" className="text-brass hover:underline">
-                Best fades in Antioch →
-              </Link>
-            </li>
-            <li>
-              <Link href="/blog/fade-vs-taper-haircut-antioch" className="text-brass hover:underline">
-                Fade vs taper for kids →
-              </Link>
-            </li>
-            <li>
-              <Link href="/blog/beard-trim-antioch-grooming" className="text-brass hover:underline">
-                Why beard trim matters →
-              </Link>
-            </li>
-            <li>
-              <Link href="/kids-cuts" className="text-brass hover:underline">
-                Kids cuts at The Barber Lounge →
-              </Link>
-            </li>
-            <li>
-              <Link href="/beard-studio" className="text-brass hover:underline">
-                Beard studio →
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <section className="bg-bone px-4 py-16 sm:px-6 sm:py-24">
-        <div className="mx-auto max-w-xl text-center">
-          <div className="mt-4">
-            <Button href={cta.href} external size="lg">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a
+              href={cta.href || BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-md bg-white px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-white/90"
+            >
               <EditableText path="SERVICES.cta.label" defaultValue={cta.label} as="span" />
-            </Button>
+            </a>
+            <a
+              href={`tel:${SITE.phoneTel}`}
+              className="inline-flex items-center justify-center rounded-md border border-white/60 px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white/10"
+            >
+              Call Now
+            </a>
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

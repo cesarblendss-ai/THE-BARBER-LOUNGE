@@ -5,9 +5,9 @@ import { cookies } from "next/headers";
 import { Suspense } from "react";
 
 import { AnalyticsTracker } from "@/components/AnalyticsTracker";
-import { IntroSplash } from "@/components/IntroSplash";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { HalloweenDecor } from "@/components/HalloweenDecor";
 import { BookingChatbot } from "@/components/BookingChatbot";
 import { EditModeRoot } from "@/components/EditModeRoot";
 import { StickyBookButton } from "@/components/StickyBookButton";
@@ -65,11 +65,10 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
-      <body className="font-sans pb-20 md:pb-0">
-        <IntroSplash />
+      <body className="bg-black font-sans text-white pb-20 md:pb-0">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-charcoal focus:px-4 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-bone focus:outline-none focus:ring-2 focus:ring-brass focus:ring-offset-2 focus:ring-offset-bone"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black"
         >
           Skip to main content
         </a>
@@ -80,11 +79,14 @@ export default async function RootLayout({
         <Suspense fallback={null}>
           <AnalyticsTracker />
           <EditModeRoot cookieEnabled={editModeEnabled} adminAuthenticated={adminAuthenticated}>
+            <HalloweenDecor />
             <Header labels={content.HEADER} />
-            <main id="main-content" tabIndex={-1}>
+            <main id="main-content" tabIndex={-1} className="relative z-10">
               {children}
             </main>
-            <Footer content={content} adminAuthenticated={adminAuthenticated} />
+            <div className="relative z-10">
+              <Footer content={content} adminAuthenticated={adminAuthenticated} />
+            </div>
             <StickyBookButton />
             <BookingChatbot />
           </EditModeRoot>
