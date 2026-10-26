@@ -5,16 +5,16 @@ export function StickyBookButton() {
   return (
     <nav
       aria-label="Quick actions"
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-brass/20 bg-charcoal/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md md:hidden"
+      className="fixed inset-x-0 bottom-0 z-50 border-t border-white/15 bg-black/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md md:hidden"
     >
       <div className="mx-auto flex max-w-lg gap-2">
         <a
           href={`tel:${SITE.phoneTel}`}
           aria-label={`Call The Barber Lounge at ${SITE.phone}`}
           data-analytics-label="Call Now (sticky)"
-          className="flex shrink-0 items-center justify-center rounded-full border border-brass/35 px-4 py-3.5 text-brass transition-colors hover:border-brass hover:bg-brass/10"
+          className="flex shrink-0 items-center justify-center rounded-md border border-white/40 px-4 py-3.5 text-white transition-colors hover:bg-white/10"
         >
-          <PhoneIcon className="h-5 w-5" />
+          <PhoneIcon className="h-5 w-5 stroke-white" />
         </a>
         <a
           href={BOOKING_URL}
@@ -22,7 +22,7 @@ export function StickyBookButton() {
           rel="noopener noreferrer"
           aria-label="Book an appointment online"
           data-analytics-label="Book Appointment (sticky)"
-          className="flex flex-1 items-center justify-center rounded-full bg-brass px-4 py-3.5 text-sm font-semibold uppercase tracking-wider text-bone transition-colors hover:bg-brass/90"
+          className="flex flex-1 items-center justify-center rounded-md bg-white px-4 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-black transition-colors hover:bg-white/90"
         >
           Book Appointment
         </a>

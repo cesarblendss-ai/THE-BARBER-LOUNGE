@@ -15,6 +15,18 @@ export const BOOKSY_SERVICE_VARIANT = {
   signatureHaircutBeard: "16190328",
 } as const;
 
+/**
+ * Booksy staffer / resource IDs from the live shop profile (us-1180862).
+ * Deep-link with `?staffer=<id>` so the customer lands on that barber.
+ */
+export const BOOKSY_STAFFER = {
+  alexisFranco: "1124582",
+  braulioGomez: "1740160",
+  cesarSilva: "1653463",
+  kristianGuerra: "1659337",
+  sebastianGuardado: "1691142",
+} as const;
+
 export type BookingIntent = {
   service: string;
   preferredDay: string;
@@ -31,6 +43,13 @@ export function getBooksyBookingUrl(): string {
 export function getBooksyServiceUrl(serviceVariantId: string): string {
   const url = new URL(BOOKING_URL);
   url.searchParams.set("service_variant_id", serviceVariantId);
+  return url.toString();
+}
+
+/** Opens Booksy with a specific barber (staffer) pre-selected. */
+export function getBooksyStafferUrl(stafferId: string): string {
+  const url = new URL(BOOKING_URL);
+  url.searchParams.set("staffer", stafferId);
   return url.toString();
 }
 

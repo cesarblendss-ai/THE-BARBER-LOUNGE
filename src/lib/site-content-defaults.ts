@@ -42,6 +42,7 @@ export function getDefaultSiteContent(): SiteContent {
         members: ABOUT.team.map((member) => ({
           name: member.name,
           handle: member.handle,
+          booksyStafferId: member.booksyStafferId,
         })),
       },
     },

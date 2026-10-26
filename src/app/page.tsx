@@ -60,11 +60,11 @@ export default async function HomePage() {
 
       <section
         id="testimonials"
-        className="border-t border-white/10 bg-black px-5 py-16 sm:px-8 sm:py-24"
+        className="border-t border-white/10 bg-black px-5 py-14 sm:px-8 sm:py-16"
         aria-labelledby="testimonials-heading"
       >
         <div className="mx-auto max-w-7xl">
-          <div className="text-center">
+          <div className="mx-auto max-w-2xl text-center">
             <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-white/45">
               {SITE.rating}★ · {SITE.reviewCount}+ reviews
             </p>
@@ -74,18 +74,19 @@ export default async function HomePage() {
             >
               {TESTIMONIALS.hero.headline}
             </h2>
+            <p className="mt-3 text-sm text-white/55">{TESTIMONIALS.hero.subheadline}</p>
           </div>
-          <div className="mt-12">
+          <div className="mt-8">
             <TestimonialCarousel quotes={TESTIMONIALS.quotes} />
           </div>
         </div>
       </section>
 
       <section
-        className="border-t border-white/10 bg-black px-5 py-20 sm:px-8 sm:py-28"
+        className="border-t border-white/10 bg-black px-5 py-14 sm:px-8 sm:py-20"
         aria-labelledby="final-cta-heading"
       >
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-3xl rounded-2xl border border-white/15 bg-white/[0.03] px-6 py-10 text-center sm:px-10 sm:py-12">
           <EditableText
             path="HOME.finalCta.headline"
             defaultValue={finalCta.headline}
@@ -93,13 +94,16 @@ export default async function HomePage() {
             id="final-cta-heading"
             className="font-serif text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl"
           />
+          <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-white/55">
+            Book online in minutes — or call the shop and we&apos;ll get you in the chair.
+          </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a
               href={finalCta.cta.href || BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
               data-analytics-label="Book Now (final CTA)"
-              className="inline-flex items-center justify-center gap-2 rounded-md bg-white px-8 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-white/90"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-white px-8 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-white/90 sm:w-auto"
             >
               <EditableText path="HOME.finalCta.cta.label" defaultValue={finalCta.cta.label} as="span" />
               <span aria-hidden>→</span>
@@ -107,7 +111,7 @@ export default async function HomePage() {
             <a
               href={`tel:${SITE.phoneTel}`}
               data-analytics-label="Call Now (final CTA)"
-              className="inline-flex items-center justify-center rounded-md border border-white/60 px-8 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white/10"
+              className="inline-flex w-full items-center justify-center rounded-md border border-white/60 px-8 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white/10 sm:w-auto"
             >
               Call {SITE.phone}
             </a>

@@ -91,6 +91,8 @@ export type TeamMember = {
   name: string;
   /** Instagram username only — lowercase, no @, no spaces */
   handle: string | null;
+  /** Booksy staffer id for deep-link booking */
+  booksyStafferId: string | null;
 };
 
 export function instagramProfileUrl(handle: string): string {
@@ -105,11 +107,11 @@ export function teamAvatarPath(handle: string): string {
 
 export const ABOUT = {
   team: [
-    { name: "Alexis Franco", handle: "lexblendzz" },
-    { name: "Braulio Gómez", handle: "925.liocutz" },
-    { name: "Cesar Silva", handle: "cesarblendss" },
-    { name: "Kristian Guerra", handle: "mr.icylinez" },
-    { name: "Sebastian Guardado", handle: "blendz_bysebas" },
+    { name: "Alexis Franco", handle: "lexblendzz", booksyStafferId: "1124582" },
+    { name: "Braulio Gómez", handle: "925.liocutz", booksyStafferId: "1740160" },
+    { name: "Cesar Silva", handle: "cesarblendss", booksyStafferId: "1653463" },
+    { name: "Kristian Guerra", handle: "mr.icylinez", booksyStafferId: "1659337" },
+    { name: "Sebastian Guardado", handle: "blendz_bysebas", booksyStafferId: "1691142" },
   ] satisfies TeamMember[],
 };
 

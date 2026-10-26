@@ -25,15 +25,15 @@ export function TestimonialCarousel({ quotes }: TestimonialCarouselProps) {
       </div>
       <blockquote
         aria-live="polite"
-        className="mx-auto mt-6 min-h-[6.5rem] max-w-2xl font-serif text-lg leading-relaxed text-white sm:min-h-[5.5rem] sm:text-xl lg:text-2xl"
+        className="mx-auto mt-5 max-w-2xl font-serif text-xl leading-snug text-white sm:text-2xl lg:text-[1.7rem] lg:leading-snug"
       >
         &ldquo;{current.quote}&rdquo;
       </blockquote>
-      <p className="mt-4 text-sm font-medium uppercase tracking-wide text-white/65">
+      <p className="mt-5 text-sm font-medium uppercase tracking-[0.14em] text-white/65">
         {current.attribution}
       </p>
 
-      <div className="mt-8 flex items-center justify-center gap-4" aria-label="Testimonial navigation">
+      <div className="mt-7 flex items-center justify-center gap-3" aria-label="Testimonial navigation">
         <button
           type="button"
           onClick={() => setIndex((i) => (i === 0 ? quotes.length - 1 : i - 1))}
