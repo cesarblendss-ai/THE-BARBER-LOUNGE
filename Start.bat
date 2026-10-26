@@ -9,6 +9,13 @@ if errorlevel 1 (
   exit /b 1
 )
 
+if not exist "package.json" (
+  echo Put Start.bat inside your the-barber-lounge folder, then double-click it.
+  echo Expected folder: Desktop\the-barber-lounge
+  pause
+  exit /b 1
+)
+
 if not exist "node_modules\" (
   echo Installing dependencies...
   call npm install
@@ -20,6 +27,7 @@ if not exist "node_modules\" (
 )
 
 echo Starting The Barber Lounge on http://localhost:3847
+echo Keep this window open while you use the site.
 start "" "http://localhost:3847"
-call npm run dev
+call npx next dev -p 3847 -H 0.0.0.0
 pause
