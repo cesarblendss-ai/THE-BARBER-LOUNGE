@@ -38,8 +38,13 @@ export default async function HomePage() {
     };
   });
 
+  const firstVideoSrc = heroVideos[0]?.src;
+
   return (
     <div className="bg-black text-white">
+      {firstVideoSrc ? (
+        <link rel="preload" as="video" href={firstVideoSrc} type="video/mp4" />
+      ) : null}
       <CinematicHero
         eyebrow={hero.eyebrow}
         headline={hero.headline}
