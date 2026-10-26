@@ -11,7 +11,7 @@
   }
 
   body {
-    @apply bg-bone text-charcoal antialiased;
+    @apply bg-black text-white antialiased;
   }
 
   a:focus-visible,

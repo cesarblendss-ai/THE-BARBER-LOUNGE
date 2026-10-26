@@ -25,8 +25,11 @@ export function CinematicHero({
   secondaryHref,
 }: CinematicHeroProps) {
   return (
-    <section className="relative isolate flex flex-col overflow-hidden bg-black text-white md:min-h-[100svh]">
-      {/* Mobile: natural 16:9 plane so the photo isn’t cover-zoomed */}
+    <section className="relative isolate overflow-hidden bg-black text-white md:min-h-[100svh]">
+      {/*
+        Mobile uses a true 16:9 media plane (photo aspect) so object-cover
+        doesn’t over-zoom. Desktop fills the viewport.
+      */}
       <div className="relative aspect-[16/9] w-full md:absolute md:inset-0 md:aspect-auto">
         <Image
           src="/gallery/storefront-night.jpg?v=4"
@@ -37,49 +40,51 @@ export function CinematicHero({
           className="object-cover object-center"
         />
         <div
-          className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/10 to-transparent"
+          className="absolute inset-0 bg-gradient-to-r from-black/35 via-transparent to-transparent"
           aria-hidden
         />
         <div
-          className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/20"
+          className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/15"
           aria-hidden
         />
-      </div>
 
-      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-end px-5 pb-10 pt-8 sm:px-8 sm:pb-12 md:absolute md:inset-0 md:pb-32 md:pt-28 lg:justify-center lg:pb-36">
-        <div className="max-w-[21rem] sm:max-w-xl lg:max-w-2xl">
-          <p className="text-[10px] font-medium uppercase tracking-[0.32em] text-white/85 sm:text-[11px]">
-            {eyebrow}
-          </p>
-          <h1 className="mt-4 font-serif text-[clamp(2.75rem,8.5vw,5.5rem)] font-semibold leading-[0.96] tracking-[-0.03em] text-white [text-shadow:0_2px_28px_rgba(0,0,0,0.55)]">
-            {headline}
-          </h1>
-          <p className="mt-5 max-w-md text-[0.95rem] leading-relaxed text-white/85 sm:text-lg">
-            {subheadline}
-          </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <a
-              href={primaryHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-analytics-label="Book Appointment (cinematic hero)"
-              className="inline-flex items-center justify-center gap-2 rounded-md bg-white px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-            >
-              {primaryLabel}
-              <span aria-hidden>→</span>
-            </a>
+        <div className="absolute inset-0 z-10 flex items-end md:items-center">
+          <div className="mx-auto w-full max-w-7xl px-5 pb-8 pt-20 sm:px-8 sm:pb-10 md:pb-36 md:pt-28">
+            <div className="max-w-[20rem] sm:max-w-xl lg:max-w-2xl">
+              <p className="text-[10px] font-medium uppercase tracking-[0.32em] text-white/85 sm:text-[11px]">
+                {eyebrow}
+              </p>
+              <h1 className="mt-3 font-serif text-[clamp(2.4rem,7.5vw,5.5rem)] font-semibold leading-[0.96] tracking-[-0.03em] text-white [text-shadow:0_2px_28px_rgba(0,0,0,0.55)] sm:mt-4">
+                {headline}
+              </h1>
+              <p className="mt-4 max-w-md text-sm leading-relaxed text-white/85 sm:mt-5 sm:text-lg">
+                {subheadline}
+              </p>
+              <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:items-center">
+                <a
+                  href={primaryHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-analytics-label="Book Appointment (cinematic hero)"
+                  className="inline-flex items-center justify-center gap-2 rounded-md bg-white px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                >
+                  {primaryLabel}
+                  <span aria-hidden>→</span>
+                </a>
             <a
               href={secondaryHref}
-              data-analytics-label="View Our Work (cinematic hero)"
+              data-analytics-label="Call Now (cinematic hero)"
               className="inline-flex items-center justify-center rounded-md border border-white/75 bg-black/20 px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             >
               {secondaryLabel}
             </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="relative z-20 mt-auto border-t border-white/10 bg-black/55 backdrop-blur-md">
+      <div className="relative z-20 border-t border-white/10 bg-black/55 backdrop-blur-md md:absolute md:inset-x-0 md:bottom-0">
         <div className="mx-auto grid max-w-7xl gap-3 px-5 py-3.5 sm:grid-cols-3 sm:gap-0 sm:px-8 sm:py-4">
           <a
             href="https://maps.google.com/?q=1518+A+St,+Antioch,+CA+94509"

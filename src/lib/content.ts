@@ -53,7 +53,7 @@ export const HOME = {
     headline: "More Than a Haircut.",
     subheadline: "Precision cuts. Premium service. Antioch, California.",
     ctaPrimary: { label: "Book Appointment", href: BOOKING_URL },
-    ctaSecondary: { label: "View Our Work", href: "#work" },
+    ctaSecondary: { label: "Call Now", href: `tel:${SITE.phoneTel}` },
     trustBar: `${SITE.rating}★ rating · ${SITE.reviewCount}+ five-star reviews · ${SITE.address}`,
   },
   valueProps: [
@@ -297,8 +297,8 @@ export const TESTIMONIALS = {
 
 export const CONTACT = {
   hero: {
-    headline: "Let's Get You Booked.",
-    subheadline: "Walk in, call, or book online — however you reach us, we'll get you in the chair.",
+    headline: "Visit the shop",
+    subheadline: "1518 A St, Antioch — walk-ins welcome, appointments preferred.",
   },
   address: SITE.address,
   hours: HOURS,

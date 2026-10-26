@@ -42,8 +42,8 @@ export default async function HomePage() {
         subheadline={hero.subheadline}
         primaryLabel={hero.ctaPrimary.label}
         primaryHref={hero.ctaPrimary.href || BOOKING_URL}
-        secondaryLabel={hero.ctaSecondary.label}
-        secondaryHref="#work"
+        secondaryLabel={hero.ctaSecondary.label || "Call Now"}
+        secondaryHref={hero.ctaSecondary.href || `tel:${SITE.phoneTel}`}
       />
 
       <CinematicServices />

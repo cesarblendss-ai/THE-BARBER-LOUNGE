@@ -60,8 +60,8 @@
         "href": "https://booksy.com/en-us/1180862_the-barber-lounge_barber-shop_103886_antioch"
       },
       "ctaSecondary": {
-        "label": "View Our Work",
-        "href": "#work"
+        "label": "Call Now",
+        "href": "tel:+19252095995"
       },
       "trustBar": "5★ rating · 180+ five-star reviews · 1518 A St, Antioch, CA 94509"
     },
@@ -222,8 +222,8 @@
   "CONTACT": {
     "hero": {
       "sectionLabel": "Get in Touch",
-      "headline": "Let's Get You Booked.",
-      "subheadline": "Walk in, call, or book online — however you reach us, we'll get you in the chair.",
+      "headline": "Visit the shop",
+      "subheadline": "1518 A St, Antioch — walk-ins welcome, appointments preferred.",
       "callNow": "Call Now",
       "bookNow": "Book Now"
     },
