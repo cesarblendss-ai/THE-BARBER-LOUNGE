@@ -116,12 +116,26 @@ export function CinematicHero({
     };
   }, [advance, getLayer, hasVideos, visibleLayer]);
 
+  const videoClassName = (layer: 0 | 1) =>
+    `absolute inset-0 h-full w-full object-cover object-[center_22%] transition-opacity ease-out ${
+      visibleLayer === layer && ready ? "opacity-100" : "opacity-0"
+    }`;
+
   return (
     <section className="relative isolate min-h-[100svh] overflow-hidden bg-black text-white">
       {/* Solid black only — no storefront poster flash on first load */}
       <div className="absolute inset-0 bg-black">
         {hasVideos ? (
-          <>
+          /*
+            Portrait phone clips (9:16) + full-viewport object-cover zoomed faces
+            on desktop. Keep a cinematic black stage, but play video inside a
+            9:16 media plane: natural height on mobile (max 100svh), centered
+            portrait column on md+.
+          */
+          <div
+            className="absolute inset-x-0 top-0 mx-auto h-[min(100svh,177.78vw)] w-full max-h-[100svh] overflow-hidden md:inset-y-0 md:left-1/2 md:right-auto md:top-0 md:h-full md:w-[min(100%,56.25svh)] md:max-h-none md:-translate-x-1/2"
+            data-hero-media-plane
+          >
             <video
               ref={layer0Ref}
               muted
@@ -131,9 +145,7 @@ export function CinematicHero({
               aria-label={videos[activeIndex]?.alt ?? "The Barber Lounge"}
               aria-hidden={visibleLayer !== 0}
               onPlaying={() => setReady(true)}
-              className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity ease-out ${
-                visibleLayer === 0 && ready ? "opacity-100" : "opacity-0"
-              }`}
+              className={videoClassName(0)}
               style={{ transitionDuration: `${CROSSFADE_MS}ms` }}
             />
             <video
@@ -144,20 +156,18 @@ export function CinematicHero({
               aria-label={videos[activeIndex]?.alt ?? "The Barber Lounge"}
               aria-hidden={visibleLayer !== 1}
               onPlaying={() => setReady(true)}
-              className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity ease-out ${
-                visibleLayer === 1 && ready ? "opacity-100" : "opacity-0"
-              }`}
+              className={videoClassName(1)}
               style={{ transitionDuration: `${CROSSFADE_MS}ms` }}
             />
-          </>
+          </div>
         ) : null}
 
         <div
-          className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/20 to-transparent"
+          className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/25 to-black/55 md:from-black/75 md:via-black/20 md:to-black/75"
           aria-hidden
         />
         <div
-          className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/25"
+          className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/30"
           aria-hidden
         />
       </div>
