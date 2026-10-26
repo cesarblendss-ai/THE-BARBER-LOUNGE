@@ -123,8 +123,8 @@ export function CinematicHero({
   }, [advance, getLayer, hasVideos, visibleLayer]);
 
   /*
-    Milder crop than a full-bleed landscape cover of 9:16 phone clips.
-    object-center (not upper-face bias) + 9:16 stage ≈ native frame = sharper.
+    Landscape source clips (16:9) in a matching stage — milder than full-bleed
+    cover of the whole band, object-center so faces aren't over-cropped.
   */
   const videoClassName = (layer: 0 | 1) =>
     `absolute inset-0 h-full w-full object-cover object-center transition-opacity ease-out ${
@@ -145,11 +145,11 @@ export function CinematicHero({
               data-hero-media-plane
             >
               {/*
-                Portrait phone clips stay in a 9:16 column inside the band.
-                Slightly short of full band height = milder zoom (sharper,
-                less humongous) vs filling the whole middle strip.
+                Landscape 16:9 plane inside the middle band.
+                Width-led with max-height so it stays a bit zoomed out
+                (sharp, not humongous) vs filling the entire strip.
               */}
-              <div className="relative h-[90%] max-w-full aspect-[9/16] overflow-hidden">
+              <div className="relative w-[94%] max-h-[90%] aspect-[16/9] overflow-hidden">
                 <video
                   ref={layer0Ref}
                   muted
