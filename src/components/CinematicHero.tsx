@@ -23,8 +23,11 @@ type CinematicHeroProps = {
 
 const CROSSFADE_MS = 700;
 
-/** Matches fixed Header: py-4 + logo (~49px mobile / ~62px sm). */
-const HEADER_BAND = "h-20 shrink-0 sm:h-24";
+/**
+ * Fixed Header clearance in px (site html font-size is 75%/12px, so rem
+ * utilities undershoot the real logo+py-4 header).
+ */
+const HEADER_BAND = "h-[74px] shrink-0 sm:h-[88px]";
 
 export function CinematicHero({
   eyebrow,
@@ -142,11 +145,11 @@ export function CinematicHero({
               data-hero-media-plane
             >
               {/*
-                Portrait phone clips stay in a 9:16 column sized to the band
-                height so object-cover does not upscale/blur faces into a
-                humongous landscape crop.
+                Portrait phone clips stay in a 9:16 column inside the band.
+                Slightly short of full band height = milder zoom (sharper,
+                less humongous) vs filling the whole middle strip.
               */}
-              <div className="relative h-full max-w-full aspect-[9/16] overflow-hidden">
+              <div className="relative h-[90%] max-w-full aspect-[9/16] overflow-hidden">
                 <video
                   ref={layer0Ref}
                   muted
