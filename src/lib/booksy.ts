@@ -1,20 +1,19 @@
 import { BOOKING_URL, SITE } from "@/lib/content";
 
 /**
- * Booksy integration limits (as of 2025):
+ * Booksy integration notes:
  *
- * - No public API for third-party appointment creation. Booksy's partner REST API
- *   requires formal onboarding, RSA key-pair auth, and is not available to
- *   individual businesses embedding booking on their own sites.
- * - Consumer booking profile URLs (booksy.com/en-us/{slug}) do not document
- *   query parameters for pre-selecting service, date, or time.
- * - The embed/widget likewise does not expose deep-link prefill for external sites.
- *
- * Our bot collects service + preferred day/time + name + phone, checks internal
- * availability, creates a website appointment request, and shows a confirmation
- * receipt. Cesar gets a push notification and enters the booking in Booksy manually.
- * BOOKING_URL remains available as an optional secondary link.
+ * - No public API for third-party appointment creation on custom sites.
+ * - Profile deep links: `service_variant_id` is preserved on the Booksy profile URL
+ *   and is the best available handoff for a specific menu item.
+ * - Chatbot still creates an internal appointment request; Cesar confirms in Booksy.
  */
+
+/** Booksy service variant IDs from the live shop profile (Signature menu). */
+export const BOOKSY_SERVICE_VARIANT = {
+  signatureHaircut: "16190327",
+  signatureHaircutBeard: "16190328",
+} as const;
 
 export type BookingIntent = {
   service: string;
@@ -23,9 +22,16 @@ export type BookingIntent = {
   guestCount?: number;
 };
 
-/** Opens the shop's Booksy profile — no prefill params are supported. */
+/** Opens the shop's Booksy profile. */
 export function getBooksyBookingUrl(): string {
   return BOOKING_URL;
+}
+
+/** Opens Booksy focused on a specific service variant when possible. */
+export function getBooksyServiceUrl(serviceVariantId: string): string {
+  const url = new URL(BOOKING_URL);
+  url.searchParams.set("service_variant_id", serviceVariantId);
+  return url.toString();
 }
 
 export function formatBookingSummary(intent: BookingIntent): string {

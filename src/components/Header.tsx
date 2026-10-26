@@ -17,9 +17,9 @@ type HeaderProps = {
 
 const CINEMATIC_NAV = [
   { href: "/", label: "Home" },
-  { href: "/services", label: "Services" },
+  { href: "/#services", label: "Services" },
   { href: "/about", label: "Barbers" },
-  { href: "/gallery", label: "Gallery" },
+  { href: "/#work", label: "Work" },
   { href: "/contact", label: "Location" },
 ] as const;
 

@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 
 import { ClockIcon, PhoneIcon, PinIcon } from "@/components/icons";
 import { SITE } from "@/lib/content";
@@ -28,31 +27,32 @@ export function CinematicHero({
   return (
     <section className="relative isolate min-h-[100svh] overflow-hidden bg-black text-white">
       <Image
-        src="/gallery/storefront-night.jpg"
+        src="/gallery/storefront-night.jpg?v=2"
         alt="The Barber Lounge storefront at night — 1518 A St, Antioch, CA"
         fill
         priority
         sizes="100vw"
-        className="object-cover object-[58%_42%] sm:object-[55%_40%] motion-safe:animate-hero-ken"
+        className="object-cover object-[42%_32%] sm:object-[46%_38%]"
       />
+      {/* Soft veil only — photograph stays visible */}
       <div
-        className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/55 to-black/10"
+        className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/15 to-transparent"
         aria-hidden
       />
       <div
-        className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/35"
+        className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/20"
         aria-hidden
       />
 
-      <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-end px-5 pb-28 pt-28 sm:px-8 sm:pb-32 lg:justify-center lg:pb-36">
-        <div className="max-w-xl motion-safe:animate-fade-up">
-          <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-white/70 sm:text-xs">
+      <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-end px-5 pb-32 pt-28 sm:px-8 sm:pb-36 lg:justify-center lg:pb-40">
+        <div className="max-w-[21rem] sm:max-w-xl lg:max-w-2xl">
+          <p className="text-[10px] font-medium uppercase tracking-[0.32em] text-white/85 sm:text-[11px]">
             {eyebrow}
           </p>
-          <h1 className="mt-4 font-serif text-[2.75rem] font-semibold leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-7xl">
+          <h1 className="mt-4 font-serif text-[clamp(3rem,9vw,6rem)] font-semibold leading-[0.94] tracking-[-0.03em] text-white [text-shadow:0_2px_28px_rgba(0,0,0,0.55)]">
             {headline}
           </h1>
-          <p className="mt-5 max-w-md text-base leading-relaxed text-white/75 sm:text-lg">
+          <p className="mt-5 max-w-md text-[0.95rem] leading-relaxed text-white/85 sm:text-lg">
             {subheadline}
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -66,24 +66,24 @@ export function CinematicHero({
               {primaryLabel}
               <span aria-hidden>→</span>
             </a>
-            <Link
+            <a
               href={secondaryHref}
               data-analytics-label="View Our Work (cinematic hero)"
-              className="inline-flex items-center justify-center rounded-md border border-white/70 bg-transparent px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+              className="inline-flex items-center justify-center rounded-md border border-white/75 bg-black/20 px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             >
               {secondaryLabel}
-            </Link>
+            </a>
           </div>
         </div>
       </div>
 
-      <div className="absolute inset-x-0 bottom-0 z-20 border-t border-white/10 bg-black/70 backdrop-blur-md">
-        <div className="mx-auto grid max-w-7xl gap-4 px-5 py-4 sm:grid-cols-3 sm:gap-0 sm:px-8 sm:py-5">
+      <div className="absolute inset-x-0 bottom-0 z-20 border-t border-white/10 bg-black/55 backdrop-blur-md">
+        <div className="mx-auto grid max-w-7xl gap-3 px-5 py-3.5 sm:grid-cols-3 sm:gap-0 sm:px-8 sm:py-4">
           <a
             href="https://maps.google.com/?q=1518+A+St,+Antioch,+CA+94509"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3 text-sm text-white/85 transition hover:text-white sm:border-r sm:border-white/10 sm:pr-6"
+            className="flex items-center gap-3 text-sm text-white/90 transition hover:text-white sm:border-r sm:border-white/10 sm:pr-6"
           >
             <PinIcon className="h-4 w-4 shrink-0 stroke-white" />
             <span>{SITE.address}</span>
@@ -91,20 +91,19 @@ export function CinematicHero({
           <a
             href={`tel:${SITE.phoneTel}`}
             data-analytics-label="Call or Text (hero info bar)"
-            className="flex items-center gap-3 text-sm text-white/85 transition hover:text-white sm:border-r sm:border-white/10 sm:px-6"
+            className="flex items-center gap-3 text-sm text-white/90 transition hover:text-white sm:border-r sm:border-white/10 sm:px-6"
           >
             <PhoneIcon className="h-4 w-4 shrink-0 stroke-white" />
             <span>
-              {SITE.phone} <span className="text-white/50">Call or Text</span>
+              {SITE.phone} <span className="text-white/55">Call or Text</span>
             </span>
           </a>
-          <div className="flex items-center gap-3 text-sm text-white/85 sm:pl-6">
+          <div className="flex items-center gap-3 text-sm text-white/90 sm:pl-6">
             <ClockIcon className="h-4 w-4 shrink-0 stroke-white" />
             <span>Walk-Ins Welcome, Appointments Preferred</span>
           </div>
         </div>
       </div>
-
     </section>
   );
 }

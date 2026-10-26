@@ -53,17 +53,13 @@ export const HOME = {
     headline: "More Than a Haircut.",
     subheadline: "Precision cuts. Premium service. Antioch, California.",
     ctaPrimary: { label: "Book Appointment", href: BOOKING_URL },
-    ctaSecondary: { label: "View Our Work", href: "/gallery" },
+    ctaSecondary: { label: "View Our Work", href: "#work" },
     trustBar: `${SITE.rating}★ rating · ${SITE.reviewCount}+ five-star reviews · ${SITE.address}`,
   },
   valueProps: [
     {
       title: "Precision, Every Time",
       body: "Every Signature service includes a full consultation, precision cutting, styling, and a Hot Lather Finish.",
-    },
-    {
-      title: "A Standard, Not a Trend",
-      body: "A modern barbershop experience built on precision, attention to detail, and professional service.",
     },
     {
       title: "Clean Shop, Clean Cuts",
@@ -79,13 +75,13 @@ export const HOME = {
     { name: "Haircut & beard", price: "$65", time: "1 hr" },
   ],
   aboutTeaser: {
-    headline: "A Standard, Not a Trend.",
-    body: "The Barber Lounge was built to give Antioch a barbershop where precision, consistency, and professional service come standard. Every chair runs on the same process — real consultation, careful cutting, and a finish you're proud to walk out with.",
+    headline: "Meet the Team",
+    body: "The Barber Lounge was built to give Antioch a barbershop where precision, consistency, and professional service come standard.",
     cta: { label: "Meet the Team", href: "/about" },
   },
   finalCta: {
-    headline: "Your Next Great Haircut Is One Click Away.",
-    cta: { label: "Book Now", href: BOOKING_URL },
+    headline: "Ready when you are.",
+    cta: { label: "Book Appointment", href: BOOKING_URL },
   },
 };
 
@@ -143,7 +139,7 @@ export const SERVICES = {
   hero: {
     headline: "Every Cut. Every Detail. Done Right.",
     subheadline:
-      "Two clear options — regular haircut or haircut and beard. Every visit includes a full consultation so you leave looking exactly how you pictured it.",
+      "Regular haircut or haircut and beard. Every visit includes a full consultation so you leave looking exactly how you pictured it.",
   },
   list: BOOKABLE_SERVICES,
   addOns:
