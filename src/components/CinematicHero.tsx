@@ -32,7 +32,7 @@ export function CinematicHero({
       */}
       <div className="relative aspect-[16/9] w-full md:absolute md:inset-0 md:aspect-auto">
         <Image
-          src="/gallery/storefront-night.jpg?v=4"
+          src="/gallery/storefront-night.jpg?v=5"
           alt="The Barber Lounge storefront at night — 1518 A St, Antioch, CA"
           fill
           priority
