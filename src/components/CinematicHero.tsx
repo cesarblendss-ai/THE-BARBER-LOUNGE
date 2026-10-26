@@ -25,27 +25,28 @@ export function CinematicHero({
   secondaryHref,
 }: CinematicHeroProps) {
   return (
-    <section className="relative isolate flex min-h-[78svh] flex-col overflow-hidden bg-black text-white md:min-h-[100svh]">
-      <div className="absolute inset-0">
+    <section className="relative isolate flex flex-col overflow-hidden bg-black text-white md:min-h-[100svh]">
+      {/* Mobile: natural 16:9 plane so the photo isn’t cover-zoomed */}
+      <div className="relative aspect-[16/9] w-full md:absolute md:inset-0 md:aspect-auto">
         <Image
           src="/gallery/storefront-night.jpg?v=4"
           alt="The Barber Lounge storefront at night — 1518 A St, Antioch, CA"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-[center_40%] md:object-center"
+          className="object-cover object-center"
         />
         <div
           className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/10 to-transparent"
           aria-hidden
         />
         <div
-          className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20"
+          className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/20"
           aria-hidden
         />
       </div>
 
-      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-end px-5 pb-28 pt-28 sm:px-8 sm:pb-32 lg:justify-center lg:pb-36">
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-end px-5 pb-10 pt-8 sm:px-8 sm:pb-12 md:absolute md:inset-0 md:pb-32 md:pt-28 lg:justify-center lg:pb-36">
         <div className="max-w-[21rem] sm:max-w-xl lg:max-w-2xl">
           <p className="text-[10px] font-medium uppercase tracking-[0.32em] text-white/85 sm:text-[11px]">
             {eyebrow}
