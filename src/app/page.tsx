@@ -28,10 +28,15 @@ export default async function HomePage() {
 
   ensureHeroVideoPlaceholders();
 
-  const heroVideos = HERO_VIDEOS.map((entry) => ({
-    src: withHeroVideoCacheBust(entry.src, getHeroVideoVersion(entry.slot), entry.slot),
-    alt: entry.alt,
-  }));
+  // Opener order: blue cape → neck lineup → finished trim (before he moves)
+  const heroPlayOrder = [2, 3, 1] as const;
+  const heroVideos = heroPlayOrder.map((slot) => {
+    const entry = HERO_VIDEOS.find((item) => item.slot === slot)!;
+    return {
+      src: withHeroVideoCacheBust(entry.src, getHeroVideoVersion(entry.slot), entry.slot),
+      alt: entry.alt,
+    };
+  });
 
   return (
     <div className="bg-black text-white">
