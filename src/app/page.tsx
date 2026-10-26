@@ -1,20 +1,18 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import Link from "next/link";
 
 import { Button } from "@/components/Button";
+import { CinematicHero } from "@/components/CinematicHero";
+import { CinematicServices } from "@/components/CinematicServices";
 import { EditableText } from "@/components/EditableText";
 import { GalleryLightbox } from "@/components/GalleryLightbox";
 import { HeroVideoGrid } from "@/components/HeroVideoGrid";
-import { SectionLabel } from "@/components/SectionLabel";
-import { ServiceCard } from "@/components/ServiceCard";
-import { TestimonialCarousel } from "@/components/TestimonialCarousel";
 import { LeaveReviewSection } from "@/components/LeaveReviewSection";
-import { StarIcon } from "@/components/icons";
-import { isPrimaryService, SERVICE_HAIRCUT_BEARD, SERVICE_REGULAR, SITE, TESTIMONIALS } from "@/lib/content";
-import { LOGO } from "@/lib/constants";
+import { TestimonialCarousel } from "@/components/TestimonialCarousel";
+import { BOOKING_URL, SITE, TESTIMONIALS } from "@/lib/content";
+import { getResolvedAllGallery } from "@/lib/gallery-files";
+import { HERO_VIDEOS } from "@/lib/gallery";
 import { getSiteContent } from "@/lib/get-site-content";
-import { GALLERY, HERO_VIDEOS } from "@/lib/gallery";
-import { getResolvedServiceGalleries, getResolvedAllGallery } from "@/lib/gallery-files";
 import {
   ensureHeroVideoPlaceholders,
   getHeroVideoVersion,
@@ -22,24 +20,18 @@ import {
 } from "@/lib/hero-video";
 import { buildPageMetadata } from "@/lib/seo";
 import { SERVICE_AREA_CITIES } from "@/lib/service-area";
-import Link from "next/link";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Best Barbershop in Antioch, CA",
   description:
-    "Discover top-notch grooming at The Barber Lounge, Antioch's premier barbershop. Book your appointment today!",
+    "More than a haircut. Precision cuts and premium service at The Barber Lounge — 1518 A St, Antioch, CA. Book online or call (925) 209-5995.",
   path: "/",
 });
 
 export default async function HomePage() {
   const content = await getSiteContent();
-  const { HOME, SERVICES } = content;
-  const { hero, valueProps, featuredServices, aboutTeaser, finalCta } = HOME;
-  const serviceGalleries = getResolvedServiceGalleries();
-  const signatureHaircutImages =
-    serviceGalleries[SERVICE_REGULAR].slice(0, 3);
-  const signatureHaircutBeardImages =
-    serviceGalleries[SERVICE_HAIRCUT_BEARD].slice(0, 3);
+  const { HOME } = content;
+  const { hero, aboutTeaser, finalCta } = HOME;
   const galleryImages = getResolvedAllGallery();
 
   ensureHeroVideoPlaceholders();
@@ -49,220 +41,92 @@ export default async function HomePage() {
     alt: entry.alt,
   }));
 
-  const serviceDescriptions = Object.fromEntries(
-    SERVICES.list.filter((s) => !s.name.startsWith("[")).map((s) => [s.name, s.description]),
-  );
-
   return (
-    <>
-      <HeroVideoGrid
-        videos={heroVideos}
-        ctaHref={hero.ctaPrimary.href}
-        ctaLabel={hero.ctaPrimary.label}
+    <div className="bg-black text-white">
+      <CinematicHero
+        eyebrow={hero.eyebrow}
         headline={hero.headline}
+        subheadline={hero.subheadline}
+        primaryLabel={hero.ctaPrimary.label}
+        primaryHref={hero.ctaPrimary.href || BOOKING_URL}
+        secondaryLabel={hero.ctaSecondary.label}
+        secondaryHref="/gallery"
       />
 
-      <section className="hidden bg-bone px-4 py-16 md:block sm:px-6 sm:py-24">
+      <CinematicServices />
+
+      <HeroVideoGrid
+        videos={heroVideos}
+        ctaHref={hero.ctaPrimary.href || BOOKING_URL}
+        ctaLabel={hero.ctaPrimary.label}
+        headline="See the craft in motion."
+      />
+
+      <section className="border-t border-white/10 bg-black px-5 py-16 sm:px-8 sm:py-24" aria-labelledby="about-heading">
         <div className="mx-auto max-w-3xl text-center">
-          <div className="mx-auto mb-6 flex justify-center">
-            <Image
-              src={LOGO.src}
-              alt={LOGO.alt}
-              width={LOGO.width}
-              height={LOGO.height}
-              priority
-              sizes="(max-width: 640px) 280px, (max-width: 768px) 360px, 420px"
-              className="h-auto w-[280px] object-contain sm:w-[360px] md:w-[420px]"
-            />
-          </div>
-          <SectionLabel>
-            <EditableText path="HOME.hero.eyebrow" defaultValue={hero.eyebrow} as="span" />
-          </SectionLabel>
+          <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-white/45">The Shop</p>
           <EditableText
-            path="HOME.hero.headline"
-            defaultValue={hero.headline}
-            as="h1"
-            className="mt-4 font-serif text-4xl font-semibold leading-tight text-charcoal sm:text-5xl lg:text-6xl"
+            path="HOME.aboutTeaser.headline"
+            defaultValue={aboutTeaser.headline}
+            as="h2"
+            id="about-heading"
+            className="mt-3 font-serif text-3xl font-semibold tracking-tight text-white sm:text-4xl"
           />
           <EditableText
-            path="HOME.hero.subheadline"
-            defaultValue={hero.subheadline}
+            path="HOME.aboutTeaser.body"
+            defaultValue={aboutTeaser.body}
             as="p"
-            className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-charcoal/70 sm:text-lg"
+            className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/65"
             multiline
           />
-          <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <Button href={hero.ctaPrimary.href} external size="lg">
-              <EditableText
-                path="HOME.hero.ctaPrimary.label"
-                defaultValue={hero.ctaPrimary.label}
-                as="span"
-              />
-            </Button>
-            <Button href={`tel:${SITE.phoneTel}`} variant="outline" size="lg" analyticsLabel="Call Now (hero section)">
-              Call {SITE.phone}
-            </Button>
-            <Button href={hero.ctaSecondary.href} variant="ghost" external>
-              <EditableText
-                path="HOME.hero.ctaSecondary.label"
-                defaultValue={hero.ctaSecondary.label}
-                as="span"
-              />
-            </Button>
-          </div>
-          <p className="mt-8 flex flex-wrap items-center justify-center gap-x-2 text-sm text-charcoal/60">
-            <StarIcon className="inline h-4 w-4 text-brass" />
-            <EditableText path="HOME.hero.trustBar" defaultValue={hero.trustBar} as="span" className="text-sm text-charcoal/60" />
-          </p>
-        </div>
-      </section>
-
-      <section className="bg-bone px-4 pb-20 sm:px-6 sm:pb-28" aria-labelledby="services-heading">
-        <div className="mx-auto max-w-7xl">
-          <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
-            <div>
-              <SectionLabel>
-                <EditableText path="HOME.hero.eyebrow" defaultValue={hero.eyebrow} as="span" />
-              </SectionLabel>
-              <EditableText
-                path="SERVICES.hero.headline"
-                defaultValue={SERVICES.hero.headline}
-                as="h2"
-                id="services-heading"
-                className="mt-2 font-serif text-3xl font-semibold text-charcoal sm:text-4xl lg:text-5xl"
-              />
-            </div>
-            <Button href="/services" variant="outline" className="shrink-0">
-              <EditableText
-                path="HOME.servicesSection.viewAll"
-                defaultValue={HOME.servicesSection.viewAll}
-                as="span"
-              />
-            </Button>
-          </div>
-
-          <div className="mt-12 grid gap-8 sm:grid-cols-2">
-            {featuredServices.map((service, index) => (
-              <div
-                key={service.name}
-                className={
-                  isPrimaryService(service.name)
-                    ? "sm:col-span-2"
-                    : undefined
-                }
-              >
-                <ServiceCard
-                  name={service.name}
-                  description={serviceDescriptions[service.name] ?? ""}
-                  price={service.price}
-                  time={service.time}
-                  pathPrefix={`HOME.featuredServices.${index}`}
-                  images={
-                    service.name === SERVICE_REGULAR
-                      ? signatureHaircutImages.length > 0
-                        ? signatureHaircutImages
-                        : [GALLERY.signatureHaircut]
-                      : service.name === SERVICE_HAIRCUT_BEARD
-                        ? signatureHaircutBeardImages.length > 0
-                          ? signatureHaircutBeardImages
-                          : [GALLERY.signatureHaircutBeard]
-                        : serviceGalleries[service.name as keyof typeof serviceGalleries] ?? [
-                            GALLERY.signatureHaircut,
-                          ]
-                  }
-                />
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-12 text-center">
-            <Button href={hero.ctaPrimary.href} external size="lg">
-              <EditableText
-                path="HOME.servicesSection.bookNow"
-                defaultValue={HOME.servicesSection.bookNow}
-                as="span"
-              />
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-bone px-4 py-16 sm:px-6 sm:py-24" aria-labelledby="about-heading">
-        <div className="mx-auto max-w-3xl">
-          <div className="text-center">
-            <SectionLabel>
-              <EditableText path="HOME.valueProps.1.title" defaultValue={valueProps[1].title} as="span" />
-            </SectionLabel>
-            <EditableText
-              path="HOME.aboutTeaser.headline"
-              defaultValue={aboutTeaser.headline}
-              as="h2"
-              id="about-heading"
-              className="mt-3 font-serif text-3xl font-semibold text-charcoal sm:text-4xl"
-            />
-            <EditableText
-              path="HOME.aboutTeaser.body"
-              defaultValue={aboutTeaser.body}
-              as="p"
-              className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-charcoal/70"
-              multiline
-            />
-          </div>
-          <ul className="mt-10 space-y-4">
-            {valueProps.map((prop, index) => (
-              <li key={prop.title} className="flex items-start gap-3">
-                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brass text-xs text-bone">
-                  ✓
-                </span>
-                <div>
-                  <EditableText
-                    path={`HOME.valueProps.${index}.title`}
-                    defaultValue={prop.title}
-                    as="p"
-                    className="font-medium text-charcoal"
-                  />
-                  <EditableText
-                    path={`HOME.valueProps.${index}.body`}
-                    defaultValue={prop.body}
-                    as="p"
-                    className="mt-0.5 text-sm text-charcoal/60"
-                    multiline
-                  />
-                </div>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-8 text-center">
-            <Button href={aboutTeaser.cta.href} variant="burgundy">
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Button href={aboutTeaser.cta.href} variant="glass" className="ring-offset-black">
               <EditableText
                 path="HOME.aboutTeaser.cta.label"
                 defaultValue={aboutTeaser.cta.label}
                 as="span"
               />
             </Button>
+            <Button
+              href={`tel:${SITE.phoneTel}`}
+              variant="ghost"
+              className="border-white/30 text-white hover:border-white hover:text-white ring-offset-black"
+              analyticsLabel="Call Now (about teaser)"
+            >
+              Call {SITE.phone}
+            </Button>
           </div>
         </div>
       </section>
 
       {galleryImages.length > 0 ? (
-        <section className="bg-bone px-4 py-16 sm:px-6 sm:py-24" aria-labelledby="gallery-heading">
+        <section
+          id="gallery"
+          className="border-t border-white/10 bg-black px-5 py-16 sm:px-8 sm:py-24"
+          aria-labelledby="gallery-heading"
+        >
           <div className="mx-auto max-w-7xl">
             <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
               <div>
-                <SectionLabel>OUR WORK</SectionLabel>
+                <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-white/45">
+                  Our Work
+                </p>
                 <h2
                   id="gallery-heading"
-                  className="mt-2 font-serif text-3xl font-semibold text-charcoal sm:text-4xl"
+                  className="mt-3 font-serif text-3xl font-semibold tracking-tight text-white sm:text-4xl"
                 >
-                  Fresh Cuts From the Chair
+                  Fresh cuts from the chair
                 </h2>
-                <p className="mt-3 max-w-xl text-charcoal/65">
+                <p className="mt-3 max-w-xl text-white/55">
                   Real clients, real fades — tap any photo to enlarge.
                 </p>
               </div>
-              <Button href="/gallery" variant="outline" className="shrink-0">
-                View Full Gallery
-              </Button>
+              <Link
+                href="/gallery"
+                className="text-xs font-semibold uppercase tracking-[0.18em] text-white/60 transition hover:text-white"
+              >
+                View full gallery →
+              </Link>
             </div>
             <div className="mt-10">
               <GalleryLightbox images={galleryImages.slice(0, 12)} columns={4} />
@@ -271,13 +135,18 @@ export default async function HomePage() {
         </section>
       ) : null}
 
-      <section className="bg-bone px-4 py-16 sm:px-6 sm:py-24" aria-labelledby="testimonials-heading">
+      <section
+        className="border-t border-white/10 bg-black px-5 py-16 sm:px-8 sm:py-24"
+        aria-labelledby="testimonials-heading"
+      >
         <div className="mx-auto max-w-7xl">
           <div className="text-center">
-            <SectionLabel>{TESTIMONIALS.hero.subheadline}</SectionLabel>
+            <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-white/45">
+              {TESTIMONIALS.hero.subheadline}
+            </p>
             <h2
               id="testimonials-heading"
-              className="mt-2 font-serif text-3xl font-semibold text-charcoal sm:text-4xl"
+              className="mt-3 font-serif text-3xl font-semibold tracking-tight text-white sm:text-4xl"
             >
               {TESTIMONIALS.hero.headline}
             </h2>
@@ -288,43 +157,55 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <LeaveReviewSection />
+      <div className="border-t border-white/10 bg-black">
+        <LeaveReviewSection />
+      </div>
 
-      <section className="bg-bone px-4 py-16 sm:px-6 sm:py-20" aria-labelledby="areas-heading">
+      <section
+        className="border-t border-white/10 bg-black px-5 py-16 sm:px-8 sm:py-20"
+        aria-labelledby="areas-heading"
+      >
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
             <div>
-              <SectionLabel>SERVICE AREA</SectionLabel>
+              <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-white/45">
+                Service Area
+              </p>
               <h2
                 id="areas-heading"
-                className="mt-2 font-serif text-3xl font-semibold text-charcoal sm:text-4xl"
+                className="mt-3 font-serif text-3xl font-semibold tracking-tight text-white sm:text-4xl"
               >
-                East Bay Cities We Serve
+                East Bay cities we serve
               </h2>
-              <p className="mt-3 max-w-xl text-charcoal/65">
+              <p className="mt-3 max-w-xl text-white/55">
                 One Antioch shop — clients drive from across Contra Costa and the Tri-Valley for
                 consistent fades.
               </p>
             </div>
-            <Button href="/locations" variant="outline" className="shrink-0">
-              All Locations
-            </Button>
+            <Link
+              href="/locations"
+              className="text-xs font-semibold uppercase tracking-[0.18em] text-white/60 transition hover:text-white"
+            >
+              All locations →
+            </Link>
           </div>
           <ul className="mt-8 flex flex-wrap gap-2">
-            {SERVICE_AREA_CITIES.filter((c) => c.slug !== "antioch").slice(0, 8).map((city) => (
-              <li key={city.slug}>
-                <Link
-                  href={`/areas/${city.slug}`}
-                  className="rounded-full border border-charcoal/15 px-4 py-2 text-sm text-charcoal/80 transition-colors hover:border-brass hover:text-brass"
-                >
-                  {city.name}
-                </Link>
-              </li>
-            ))}
+            {SERVICE_AREA_CITIES.filter((c) => c.slug !== "antioch")
+              .slice(0, 8)
+              .map((city) => (
+                <li key={city.slug}>
+                  <Link
+                    href={`/areas/${city.slug}`}
+                    className="rounded-full border border-white/15 px-4 py-2 text-sm text-white/75 transition hover:border-white/40 hover:text-white"
+                  >
+                    {city.name}
+                  </Link>
+                </li>
+              ))}
             <li>
               <Link
                 href="/locations"
-                className="rounded-full border border-brass/30 px-4 py-2 text-sm font-medium text-brass"
+                className="rounded-full border border-white/30 px-4 py-2 text-sm font-medium text-white"
               >
                 +8 more
               </Link>
@@ -333,25 +214,47 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="bg-bone px-4 py-16 sm:px-6 sm:py-24" aria-labelledby="final-cta-heading">
+      <section
+        className="border-t border-white/10 bg-black px-5 py-20 sm:px-8 sm:py-28"
+        aria-labelledby="final-cta-heading"
+      >
         <div className="mx-auto max-w-3xl text-center">
           <EditableText
             path="HOME.finalCta.headline"
             defaultValue={finalCta.headline}
             as="h2"
             id="final-cta-heading"
-            className="font-serif text-3xl font-semibold text-charcoal sm:text-4xl lg:text-5xl"
+            className="font-serif text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl"
           />
-          <div className="mt-8">
-            <Button href={finalCta.cta.href} external size="lg">
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <a
+              href={finalCta.cta.href || BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-analytics-label="Book Now (final CTA)"
+              className="inline-flex items-center justify-center gap-2 rounded-md bg-white px-8 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-white/90"
+            >
               <EditableText path="HOME.finalCta.cta.label" defaultValue={finalCta.cta.label} as="span" />
-            </Button>
+              <span aria-hidden>→</span>
+            </a>
+            <a
+              href={`tel:${SITE.phoneTel}`}
+              data-analytics-label="Call Now (final CTA)"
+              className="inline-flex items-center justify-center rounded-md border border-white/60 px-8 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white/10"
+            >
+              Call {SITE.phone}
+            </a>
           </div>
-          <p className="mt-6 text-sm text-charcoal/60">
-            <EditableText path="SITE.address" defaultValue={content.SITE.address} as="span" className="text-sm text-charcoal/60" />
+          <p className="mt-6 text-sm text-white/45">
+            <EditableText
+              path="SITE.address"
+              defaultValue={content.SITE.address}
+              as="span"
+              className="text-sm text-white/45"
+            />
           </p>
         </div>
       </section>
-    </>
+    </div>
   );
 }

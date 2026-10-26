@@ -35,6 +35,11 @@ export const GALLERY_CATEGORY_LABELS: Record<GalleryCategoryId, string> = {
 
 /** Primary featured images — used for about section, service cards, gallery, etc. */
 export const GALLERY = {
+  storefront: {
+    src: "/gallery/storefront-night.jpg",
+    alt: "The Barber Lounge storefront at night — 1518 A St, Antioch, California",
+    filename: "storefront-night.jpg",
+  },
   hero: {
     src: "/gallery/hero-interior.png",
     alt: "Client with a precision fade inside The Barber Lounge barbershop in Antioch, California",

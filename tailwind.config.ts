@@ -29,9 +29,19 @@ const config: Config = {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-2px)" },
         },
+        "fade-up": {
+          "0%": { opacity: "0", transform: "translateY(18px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "hero-ken": {
+          "0%": { transform: "scale(1.06)" },
+          "100%": { transform: "scale(1)" },
+        },
       },
       animation: {
         "robot-bob": "robot-bob 3s ease-in-out infinite",
+        "fade-up": "fade-up 0.9s ease-out both",
+        "hero-ken": "hero-ken 12s ease-out both",
       },
     },
   },

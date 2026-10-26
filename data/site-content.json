@@ -52,16 +52,16 @@
   },
   "HOME": {
     "hero": {
-      "eyebrow": "ANTIOCH'S PREMIER BARBERSHOP EXPERIENCE",
-      "headline": "Sharp Cuts. Real Craftsmanship. Zero Compromise.",
-      "subheadline": "Precision fades, clean tapers, and modern styles — delivered by barbers who treat every chair like it's their reputation on the line.",
+      "eyebrow": "THE BARBER LOUNGE • ANTIOCH, CA",
+      "headline": "More Than a Haircut.",
+      "subheadline": "Precision cuts. Premium service. Antioch, California.",
       "ctaPrimary": {
-        "label": "Book Your Appointment",
+        "label": "Book Appointment",
         "href": "https://booksy.com/en-us/1180862_the-barber-lounge_barber-shop_103886_antioch"
       },
       "ctaSecondary": {
-        "label": "See Our Work",
-        "href": "https://www.instagram.com/thebarberlounges1/"
+        "label": "View Our Work",
+        "href": "/gallery"
       },
       "trustBar": "5★ rating · 180+ five-star reviews · 1518 A St, Antioch, CA 94509"
     },
@@ -100,7 +100,7 @@
       "bookNow": "Book Now"
     },
     "aboutTeaser": {
-      "headline": "More Than a Haircut.",
+      "headline": "A Standard, Not a Trend.",
       "body": "The Barber Lounge was built to give Antioch a barbershop where precision, consistency, and professional service come standard. Every chair runs on the same process — real consultation, careful cutting, and a finish you're proud to walk out with.",
       "cta": {
         "label": "Meet the Team",

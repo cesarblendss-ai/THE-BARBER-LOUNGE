@@ -25,6 +25,7 @@ const SKIP_FILENAMES = new Set([
 
 const LEGACY_CATEGORY: Record<string, GalleryCategoryId> = {
   "hero-interior.png": "general",
+  "storefront-night.jpg": "general",
   "skin-fade-closeup.png": "signatureHaircut",
   "haircut-beard-service.png": "signatureHaircutBeard",
   "razor-lineup.png": "general",

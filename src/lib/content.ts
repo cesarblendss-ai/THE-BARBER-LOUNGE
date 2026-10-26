@@ -49,12 +49,11 @@ export const HOURS = [
 
 export const HOME = {
   hero: {
-    eyebrow: "ANTIOCH'S PREMIER BARBERSHOP EXPERIENCE",
-    headline: "Sharp Cuts. Real Craftsmanship. Zero Compromise.",
-    subheadline:
-      "Precision fades, clean tapers, and modern styles — delivered by barbers who treat every chair like it's their reputation on the line.",
-    ctaPrimary: { label: "Book Your Appointment", href: BOOKING_URL },
-    ctaSecondary: { label: "See Our Work", href: SITE.instagramUrl },
+    eyebrow: "THE BARBER LOUNGE • ANTIOCH, CA",
+    headline: "More Than a Haircut.",
+    subheadline: "Precision cuts. Premium service. Antioch, California.",
+    ctaPrimary: { label: "Book Appointment", href: BOOKING_URL },
+    ctaSecondary: { label: "View Our Work", href: "/gallery" },
     trustBar: `${SITE.rating}★ rating · ${SITE.reviewCount}+ five-star reviews · ${SITE.address}`,
   },
   valueProps: [
@@ -80,7 +79,7 @@ export const HOME = {
     { name: "Haircut & beard", price: "$65", time: "1 hr" },
   ],
   aboutTeaser: {
-    headline: "More Than a Haircut.",
+    headline: "A Standard, Not a Trend.",
     body: "The Barber Lounge was built to give Antioch a barbershop where precision, consistency, and professional service come standard. Every chair runs on the same process — real consultation, careful cutting, and a finish you're proud to walk out with.",
     cta: { label: "Meet the Team", href: "/about" },
   },

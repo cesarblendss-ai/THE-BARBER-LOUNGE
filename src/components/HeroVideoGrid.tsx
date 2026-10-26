@@ -84,9 +84,9 @@ export function HeroVideoGrid({
 
       <div className="relative z-10 flex min-h-[70vh] flex-col justify-end px-4 pb-8 pt-20 sm:min-h-[80vh] sm:pb-10">
         <div className="mx-auto w-full max-w-md text-center">
-          <h1 className="font-serif text-3xl font-semibold leading-tight text-bone sm:text-4xl">
+          <h2 className="font-serif text-3xl font-semibold leading-tight text-bone sm:text-4xl">
             {headline}
-          </h1>
+          </h2>
           <p className="mt-2 text-sm leading-snug text-bone/85 sm:text-base">
             Antioch · By appointment &amp; walk-in
           </p>
