@@ -97,6 +97,12 @@ export function instagramProfileUrl(handle: string): string {
   return `https://www.instagram.com/${handle.replace(/^@/, "").trim()}/`;
 }
 
+/** Local PFP path under public/team/ (dots in handles become hyphens). */
+export function teamAvatarPath(handle: string): string {
+  const safe = handle.replace(/^@/, "").trim().replace(/\./g, "-");
+  return `/team/${safe}.jpg`;
+}
+
 export const ABOUT = {
   team: [
     { name: "Alexis Franco", handle: "lexblendzz" },

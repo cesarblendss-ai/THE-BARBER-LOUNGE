@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { ClockIcon, PhoneIcon, PinIcon } from "@/components/icons";
@@ -119,25 +118,15 @@ export function CinematicHero({
 
   return (
     <section className="relative isolate min-h-[100svh] overflow-hidden bg-black text-white">
-      <div className="absolute inset-0">
-        {/* Poster / fallback until the first clip paints */}
-        <Image
-          src="/gallery/storefront-night.jpg?v=5"
-          alt="The Barber Lounge storefront at night — 1518 A St, Antioch, CA"
-          fill
-          priority
-          sizes="100vw"
-          className={`object-cover object-center transition-opacity duration-700 ${
-            ready && hasVideos ? "opacity-0" : "opacity-100"
-          }`}
-        />
-
+      {/* Solid black only — no storefront poster flash on first load */}
+      <div className="absolute inset-0 bg-black">
         {hasVideos ? (
           <>
             <video
               ref={layer0Ref}
               muted
               playsInline
+              autoPlay
               preload="auto"
               aria-label={videos[activeIndex]?.alt ?? "The Barber Lounge"}
               aria-hidden={visibleLayer !== 0}

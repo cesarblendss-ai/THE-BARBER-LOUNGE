@@ -20,10 +20,10 @@ export default async function AboutPage() {
       <div className="mx-auto max-w-7xl">
         <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-white/45">Barbers</p>
         <h1 className="mt-3 font-serif text-4xl font-semibold tracking-tight sm:text-5xl">
-          The team
+          Book your barber
         </h1>
         <p className="mt-4 max-w-xl text-white/60">
-          Tap a barber to open their Instagram and see recent work.
+          Pick who you want in the chair — then book online or hit their Instagram.
         </p>
         <div className="mt-12">
           <BarberInstagramGrid members={members} />

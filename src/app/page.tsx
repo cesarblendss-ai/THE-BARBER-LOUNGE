@@ -51,10 +51,7 @@ export default async function HomePage() {
         videos={heroVideos}
       />
 
-      {/* Work nav target — clips now open the hero; services hold the booking path */}
-      <div id="work" className="scroll-mt-24">
-        <CinematicServices />
-      </div>
+      <CinematicServices />
 
       <section
         id="testimonials"
