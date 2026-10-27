@@ -141,15 +141,18 @@ export function CinematicHero({
         <div className="absolute inset-0 bg-black">
           {hasVideos ? (
             <div
-              className="absolute inset-0 flex items-center justify-center overflow-hidden"
+              className="absolute inset-0 flex items-center justify-center overflow-hidden [container-type:size]"
               data-hero-media-plane
             >
               {/*
                 Landscape 16:9 plane inside the middle band.
-                Width-led with max-height so it stays a bit zoomed out
-                (sharp, not humongous) vs filling the entire strip.
+                Width = min(94% of band, 16:9 of 85% band height) so aspect
+                stays locked on desktop + mobile with a mild inset zoom.
               */}
-              <div className="relative w-[94%] max-h-[90%] aspect-[16/9] overflow-hidden">
+              <div
+                className="relative aspect-[16/9] overflow-hidden"
+                style={{ width: "min(94cqw, calc(85cqh * 16 / 9))" }}
+              >
                 <video
                   ref={layer0Ref}
                   muted
