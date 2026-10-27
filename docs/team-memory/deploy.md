@@ -1,7 +1,7 @@
 # Deploy Status
 
 **Last verified:** 2026-10-26  
-**Status:** **LIVE** — production deployment `67117f1` (hero video middle-band framing)  
+**Status:** **LIVE** — production deployment `c47e901` (hero landscape 16:9 media plane)  
 **Vercel project:** `cesarblendss-7234s-projects/the-barber-lounge`
 
 ---
@@ -12,7 +12,6 @@
 
 Also works:
 - https://the-barber-lounge-cesarblendss-7234s-projects.vercel.app
-- Production deployment: https://the-barber-lounge-6ktlnjqcy-cesarblendss-7234s-projects.vercel.app
 
 Note: `https://the-barber-lounge.vercel.app` currently **307 → thebarberlounge.com**, and the custom domain is still parked at HugeDomains — use the antioch / team aliases above until DNS is fixed.
 
@@ -20,9 +19,9 @@ Note: `https://the-barber-lounge.vercel.app` currently **307 → thebarberlounge
 
 ## Latest ship (2026-10-26)
 
-**Hero video framing (Cesar):** media plane sits only between the fixed header nav and the address / phone / walk-ins strip. Portrait clips play in a 9:16 stage at ~90% band height (`object-cover object-center`) so the cut is milder and sharper. Branch `cursor/hero-video-sizing-c298` fast-forwarded to `main` → Vercel Production success.
+**Hero landscape framing (Cesar):** media plane stays between the fixed header nav and the address / phone / walk-ins strip, now **16:9 landscape** (`min(94cqw, 85cqh×16/9)` + `object-cover object-center`) so native landscape clips are less face-cropped / milder zoom. Branch `cursor/hero-landscape-a9f2` fast-forwarded to `main` → Vercel Production.
 
-Prior: cinematic homepage + Halloween decor also live on the same project.
+Prior: portrait 9:16 middle-band framing (`67117f1`), then cinematic homepage + Halloween decor.
 
 ---
 
