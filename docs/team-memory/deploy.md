@@ -2,7 +2,7 @@
 
 **Last verified:** 2026-10-28  
 **Status:** **LIVE** — Halloween cinematic + landscape hero on public aliases  
-**Production deployment:** `dpl_J1x6qXuqeW2Q5ZzDtr8WjbZuRfYB` (`main` @ `5ab8f3f` + follow-up SITE_URL/GA4 ship)  
+**Production deployment:** `dpl_CaS4ryx4PCQXfk5FAM7EpKhVtadB` (`main` @ `e15a661` — SITE_URL → thebarberloungeca.com + GA4)  
 **Vercel project:** `cesarblendss-7234s-projects/the-barber-lounge`
 
 ---
