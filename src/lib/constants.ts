@@ -11,8 +11,8 @@ export const GEO = {
   longitude: -121.8058,
 };
 
-// Primary share URL
-export const SITE_URL = "https://thebarberlounge.com";
+// Primary public host (verified on Vercel). thebarberlounge.com is still DNS-parked.
+export const SITE_URL = "https://thebarberloungeca.com";
 
 export const NAV_LINKS = [
   { href: "/", label: "Home" },

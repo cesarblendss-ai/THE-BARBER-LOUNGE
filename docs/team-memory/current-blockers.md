@@ -1,6 +1,6 @@
 ﻿# Current Blockers
 
-**Last verified:** 2026-08-16 (estimate tracker MVP)
+**Last verified:** 2026-10-28 (Halloween public aliases)
 
 ---
 
@@ -8,7 +8,7 @@
 
 | Blocker | Detail | Doc |
 |---------|--------|-----|
-| **Custom domain DNS** | **NOT LIVE** — `thebarberlounge.com` resolves to **HugeDomains parking** (AWS IPs `54.243.117.197`, `13.223.25.84`). Vercel project has domain + SSL queued; **NameBright DNS** still wrong. Use `the-barber-lounge-antioch.vercel.app` until fixed. |
+| **`thebarberlounge.com` DNS** | Still **HugeDomains parking**. Prefer live **`https://thebarberloungeca.com`** (verified on Vercel) + antioch alias. Fix NameBright only if Cesar wants the `.com` brand live. |
 | **Booksy integration** | No API — manual Booksy entry after each website booking | `booking-system.md` |
 | **Stripe deposit env** | Code is in; **Cesar** still needs Stripe account + bank + Vercel `STRIPE_*` + webhook URL before Pay deposit works in production | `estimates-stripe.md` |
 

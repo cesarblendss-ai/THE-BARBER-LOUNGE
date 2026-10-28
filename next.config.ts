@@ -10,6 +10,12 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.thebarberloungeca.com" }],
+        destination: "https://thebarberloungeca.com/:path*",
+        permanent: true,
+      },
+      {
         source: "/start",
         destination: "https://cesar-agency.vercel.app/start",
         permanent: false,

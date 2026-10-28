@@ -1,35 +1,46 @@
 # Deploy Status
 
-**Last verified:** 2026-10-26  
-**Status:** **LIVE** — production deployment `c47e901` (hero landscape 16:9 media plane)  
+**Last verified:** 2026-10-28  
+**Status:** **LIVE** — Halloween cinematic + landscape hero on public aliases  
+**Production deployment:** `dpl_J1x6qXuqeW2Q5ZzDtr8WjbZuRfYB` (`main` @ `5ab8f3f` + follow-up SITE_URL/GA4 ship)  
 **Vercel project:** `cesarblendss-7234s-projects/the-barber-lounge`
 
 ---
 
-## Share this URL
+## Share these URLs (Halloween live)
 
-**https://the-barber-lounge-antioch.vercel.app**
+**Primary custom domain (verified):** https://thebarberloungeca.com  
 
 Also works:
+- https://the-barber-lounge-antioch.vercel.app
 - https://the-barber-lounge-cesarblendss-7234s-projects.vercel.app
+- https://the-barber-lounge.vercel.app → **307 → thebarberloungeca.com** (no longer parks on HugeDomains)
 
-Note: `https://the-barber-lounge.vercel.app` currently **307 → thebarberlounge.com**, and the custom domain is still parked at HugeDomains — use the antioch / team aliases above until DNS is fixed.
-
----
-
-## Latest ship (2026-10-26)
-
-**Hero landscape framing (Cesar):** media plane stays between the fixed header nav and the address / phone / walk-ins strip, now **16:9 landscape** (`min(94cqw, 85cqh×16/9)` + `object-cover object-center`) so native landscape clips are less face-cropped / milder zoom. Branch `cursor/hero-landscape-a9f2` fast-forwarded to `main` → Vercel Production.
-
-Prior: portrait 9:16 middle-band framing (`67117f1`), then cinematic homepage + Halloween decor.
+Note: `https://thebarberlounge.com` is still **DNS-parked at HugeDomains** — do not share it until NameBright DNS is fixed. Prefer **thebarberloungeca.com**.
 
 ---
 
-## Latest fix (resolved earlier)
+## Halloween match (2026-10-28)
 
-Vercel framework was **Other** + output dir `.` → empty routing. Fixed via `npx vercel project update` to **Next.js**, redeployed, re-aliased.
+Public aliases had drifted to an older deploy (`dpl_9fjUY…`) without HalloweenDecor. Re-aliased antioch / team / `thebarberloungeca.com` / `www` to the Halloween + landscape-hero production deployment.
 
-**ADMIN_UPLOAD_KEY:** Set in Vercel Production + `.env.local` (check local file for value).
+Verified markers on public hosts:
+- `🎃` pumpkin accents + `halloween-*` keyframes (spider webs / hanging spiders)
+- Landscape `16/9` hero media plane between nav and address strip
+- Booksy service variant deep links + staffer deep links on `/about`
+- Sticky mobile Book bar
+
+---
+
+## Google / SEO discoverability
+
+| Item | Status |
+|------|--------|
+| Public HTTP 200 | ✅ antioch + thebarberloungeca.com |
+| `SITE_URL` / canonical / sitemap / robots | Point at **`https://thebarberloungeca.com`** (code updated; redeploy required for sitemap locs) |
+| GA4 | `NEXT_PUBLIC_GA_MEASUREMENT_ID` set on Vercel Production; `GoogleAnalytics` loader restored in layout |
+| Search Console | **Cesar:** add property for `thebarberloungeca.com`, submit `https://thebarberloungeca.com/sitemap.xml` (no API credentials in repo) |
+| `thebarberlounge.com` | Still parked — keep out of Google until DNS fixed |
 
 ---
 
@@ -38,19 +49,15 @@ Vercel framework was **Other** + output dir `.` → empty routing. Fixed via `np
 | Variable | Status |
 |----------|--------|
 | `ADMIN_UPLOAD_KEY` | **Set** |
-| `NTFY_TOPIC` | Add for owner push in prod |
-| `DATABASE_URL` | Not connected |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | **Set** (Production) |
+| `NTFY_TOPIC` | **Set** |
+| `DATABASE_URL` / `TBLDB_*` | Neon store connected |
 | `TWILIO_*` | Add after KYC |
 | `OPENAI_API_KEY` | Add if booking chat needed in prod |
-| `STRIPE_SECRET_KEY` | **Not set** — needed for estimate deposits |
-| `STRIPE_WEBHOOK_SECRET` | **Not set** — webhook signing |
-| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | **Not set** — Checkout publishable key |
-
----
-
-## `SITE_URL` in code
-
-Points to `https://the-barber-lounge.vercel.app` until custom domain is live (see alias note above).
+| `STRIPE_SECRET_KEY` | **Not set** — estimate deposits |
+| `STRIPE_WEBHOOK_SECRET` | **Not set** |
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | **Not set** |
+| `NEXT_PUBLIC_SITE_URL` | Optional override; code `SITE_URL` is ca.com |
 
 ---
 

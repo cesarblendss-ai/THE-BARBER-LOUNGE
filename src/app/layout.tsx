@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 import { Suspense } from "react";
 
 import { AnalyticsTracker } from "@/components/AnalyticsTracker";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { HalloweenDecor } from "@/components/HalloweenDecor";
@@ -76,6 +77,7 @@ export default async function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <GoogleAnalytics />
         <Suspense fallback={null}>
           <AnalyticsTracker />
           <EditModeRoot cookieEnabled={editModeEnabled} adminAuthenticated={adminAuthenticated}>
