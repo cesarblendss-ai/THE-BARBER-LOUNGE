@@ -131,7 +131,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true, lead: { id: lead.id, createdAt: lead.createdAt } });
   } catch (error) {
-    console.error("[lead] unhandled error", error);
+    console.error("[lead] unhandled error", error instanceof Error ? error.message : error);
     return NextResponse.json(
       { error: "Could not save your info. Please call us — we'll get you in." },
       { status: 500 },

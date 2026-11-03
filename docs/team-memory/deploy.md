@@ -1,9 +1,23 @@
 # Deploy Status
 
-**Last verified:** 2026-10-28  
-**Status:** **LIVE** — Halloween cinematic + landscape hero on public aliases  
-**Production deployment:** `dpl_CaS4ryx4PCQXfk5FAM7EpKhVtadB` (`main` @ `e15a661` — SITE_URL → thebarberloungeca.com + GA4)  
+**Last verified:** 2026-11-03  
+**Status:** **LIVE** (production) + **PREVIEW** for Tim Cho conversion  
+**Production:** https://thebarberloungeca.com (`main` Halloween cinematic)  
+**Conversion preview:** branch `cursor/tim-cho-conversion-c298` → deploy `dpl_Dvvx2GXZLNjwP32zLDe5tgZf2BLk`  
 **Vercel project:** `cesarblendss-7234s-projects/the-barber-lounge`
+
+---
+
+## Tim Cho conversion preview (2026-11-03)
+
+Open PR from: https://github.com/cesarblendss-ai/THE-BARBER-LOUNGE/compare/main...cursor/tim-cho-conversion-c298  
+
+Preview host (git branch alias):  
+https://the-barber-lounge-git-cursor-tim-cho-conversion-c298-cesarblendss-7234s-projects.vercel.app  
+
+Inspector: https://vercel.com/cesarblendss-7234s-projects/the-barber-lounge/Dvvx2GXZLNjwP32zLDe5tgZf2BLk  
+
+Ships: lead capture modal, stronger Book/Call CTAs, `/api/lead`, `/admin/leads`. SMS campaigns still blocked — see `tim-cho-conversion.md`.
 
 ---
 

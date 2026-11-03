@@ -34,21 +34,46 @@ type LeadsFile = {
   leads: Lead[];
 };
 
-const DATA_PATH = path.join(process.cwd(), "data", "leads.json");
+/** Local repo path (gitignored runtime writes OK). On Vercel, `data/` is read-only. */
+const LOCAL_DATA_PATH = path.join(process.cwd(), "data", "leads.json");
+const VERCEL_TMP_PATH = path.join("/tmp", "tbl-leads.json");
+
+function resolveDataPath(): string {
+  if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
+    return VERCEL_TMP_PATH;
+  }
+  return LOCAL_DATA_PATH;
+}
 
 async function readStore(): Promise<LeadsFile> {
-  try {
-    const raw = await fs.readFile(DATA_PATH, "utf8");
-    const parsed = JSON.parse(raw) as LeadsFile;
-    return { leads: Array.isArray(parsed.leads) ? parsed.leads : [] };
-  } catch {
-    return { leads: [] };
+  const candidates = [resolveDataPath(), LOCAL_DATA_PATH, VERCEL_TMP_PATH];
+  for (const filePath of candidates) {
+    try {
+      const raw = await fs.readFile(filePath, "utf8");
+      const parsed = JSON.parse(raw) as LeadsFile;
+      return { leads: Array.isArray(parsed.leads) ? parsed.leads : [] };
+    } catch {
+      /* try next */
+    }
   }
+  return { leads: [] };
 }
 
 async function writeStore(store: LeadsFile): Promise<void> {
-  await fs.mkdir(path.dirname(DATA_PATH), { recursive: true });
-  await fs.writeFile(DATA_PATH, JSON.stringify(store, null, 2), "utf8");
+  const primary = resolveDataPath();
+  try {
+    await fs.mkdir(path.dirname(primary), { recursive: true });
+    await fs.writeFile(primary, JSON.stringify(store, null, 2), "utf8");
+    return;
+  } catch (error) {
+    if (primary !== VERCEL_TMP_PATH) {
+      await fs.mkdir(path.dirname(VERCEL_TMP_PATH), { recursive: true });
+      await fs.writeFile(VERCEL_TMP_PATH, JSON.stringify(store, null, 2), "utf8");
+      console.warn("[leads] wrote to /tmp fallback after primary write failed", error);
+      return;
+    }
+    throw error;
+  }
 }
 
 function newId(): string {
