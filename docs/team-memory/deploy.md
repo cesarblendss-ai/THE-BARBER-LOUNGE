@@ -3,7 +3,7 @@
 **Last verified:** 2026-11-03  
 **Status:** **LIVE** (production) + **PREVIEW** for Tim Cho conversion  
 **Production:** https://thebarberloungeca.com (`main` Halloween cinematic)  
-**Conversion preview:** branch `cursor/tim-cho-conversion-c298` → deploy `dpl_Dvvx2GXZLNjwP32zLDe5tgZf2BLk`  
+**Conversion preview:** branch `cursor/tim-cho-conversion-c298` → deploy `dpl_BmaiUVqxxtzsmugZVWrt3h7NTkBo` (`bfd4952`)  
 **Vercel project:** `cesarblendss-7234s-projects/the-barber-lounge`
 
 ---
@@ -12,12 +12,11 @@
 
 Open PR from: https://github.com/cesarblendss-ai/THE-BARBER-LOUNGE/compare/main...cursor/tim-cho-conversion-c298  
 
-Preview host (git branch alias):  
-https://the-barber-lounge-git-cursor-tim-cho-conversion-c298-cesarblendss-7234s-projects.vercel.app  
+Preview URL: https://the-barber-lounge-6w6sbfuly-cesarblendss-7234s-projects.vercel.app  
+Inspector: https://vercel.com/cesarblendss-7234s-projects/the-barber-lounge/BmaiUVqxxtzsmugZVWrt3h7NTkBo  
 
-Inspector: https://vercel.com/cesarblendss-7234s-projects/the-barber-lounge/Dvvx2GXZLNjwP32zLDe5tgZf2BLk  
-
-Ships: lead capture modal, stronger Book/Call CTAs, `/api/lead`, `/admin/leads`. SMS campaigns still blocked — see `tim-cho-conversion.md`.
+Verified: `POST /api/lead` → 200 on preview (leads use `/tmp` on Vercel — ephemeral until Postgres).  
+Ships: lead capture modal, stronger Book/Call CTAs, `/admin/leads`. SMS campaigns still blocked — see `tim-cho-conversion.md`.
 
 ---
 
