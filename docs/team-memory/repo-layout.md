@@ -1,6 +1,6 @@
 # Repo Layout — Key Paths
 
-**Last verified:** 2026-08-16
+**Last verified:** 2026-11-03 (lead capture + conversion CTAs)
 
 Quick map for agents navigating the codebase. Architecture rationale: `docs/org-conventions/tech-stack-decisions.md`.
 
@@ -54,6 +54,7 @@ the-barber-lounge/
 
 | Route | File | Purpose |
 |-------|------|---------|
+| `/api/lead` | `lead/route.ts` | Public lead/opt-in capture; admin GET list |
 | `/api/appointment-request` | `appointment-request/route.ts` | Create booking + notify |
 | `/api/availability` | `availability/route.ts` | Slot availability |
 | `/api/appointments` | `appointments/route.ts` | Admin CRUD |
@@ -96,6 +97,8 @@ the-barber-lounge/
 
 | Component | Purpose |
 |-----------|---------|
+| `LeadCaptureModal.tsx` | Name/phone/email before Booksy |
+| `StickyBookButton.tsx` | Mobile Call + Book sticky bar |
 | `BookingChatbot.tsx` | Tap-to-book FAB wizard |
 | `BookingReceipt.tsx` | Post-booking receipt |
 | `EditModeRoot.tsx` | Inline edit wrapper |

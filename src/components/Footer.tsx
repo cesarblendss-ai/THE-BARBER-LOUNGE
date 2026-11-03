@@ -1,7 +1,8 @@
 import Link from "next/link";
 
+import { BookCtaButton } from "@/components/BookCtaButton";
 import { EditableText } from "@/components/EditableText";
-import { BOOKING_URL, SITE } from "@/lib/content";
+import { SITE } from "@/lib/content";
 import type { SiteContent } from "@/lib/site-content-types";
 
 type FooterProps = {
@@ -84,14 +85,12 @@ export function Footer({ content }: FooterProps) {
                 </li>
               ))}
               <li>
-                <a
-                  href={BOOKING_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <BookCtaButton
+                  label={FOOTER.bookOnline}
+                  source="footer"
+                  analyticsLabel="Book Online (footer)"
                   className="text-orange-200 transition hover:text-orange-100"
-                >
-                  <EditableText path="FOOTER.bookOnline" defaultValue={FOOTER.bookOnline} as="span" />
-                </a>
+                />
               </li>
             </ul>
           </nav>

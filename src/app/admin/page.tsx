@@ -32,6 +32,11 @@ const TILES = [
     detail: "Create, track, e-sign, and collect deposits",
   },
   {
+    href: "/admin/leads",
+    label: "Booking leads",
+    detail: "Opt-ins before Booksy — call back + campaign list",
+  },
+  {
     href: REVIEW_QR_PATH,
     label: "Review QR card",
     detail: "Printable in-shop Google review QR",

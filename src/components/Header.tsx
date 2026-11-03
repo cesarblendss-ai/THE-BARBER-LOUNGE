@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { openLeadCapture } from "@/lib/booking-events";
 import { BOOKING_URL, SITE } from "@/lib/content";
 import { LOGO } from "@/lib/constants";
 import type { SiteContent } from "@/lib/site-content-types";
@@ -93,16 +94,27 @@ export function Header({ labels: _labels }: HeaderProps) {
           })}
         </nav>
 
-        <div className="hidden lg:block">
+        <div className="hidden items-center gap-2 lg:flex">
           <a
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={`tel:${SITE.phoneTel}`}
+            data-analytics-label="Call Now (header)"
+            className="inline-flex items-center rounded-md border border-white/35 px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/90 transition hover:border-white hover:text-white"
+          >
+            Call Now
+          </a>
+          <button
+            type="button"
             data-analytics-label="Book Appointment (header)"
-            className="inline-flex items-center rounded-md border border-orange-400/80 bg-orange-500/15 px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-100 transition hover:bg-orange-400 hover:text-black"
+            onClick={() =>
+              openLeadCapture({
+                source: "header_desktop",
+                booksyUrl: BOOKING_URL,
+              })
+            }
+            className="inline-flex items-center rounded-md border border-orange-400/80 bg-orange-500 px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-orange-400"
           >
             Book Appointment
-          </a>
+          </button>
         </div>
 
         <div className="flex items-center gap-2 lg:hidden">
@@ -113,15 +125,19 @@ export function Header({ labels: _labels }: HeaderProps) {
           >
             Call
           </a>
-          <a
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="button"
             data-analytics-label="Book Now (mobile header)"
-            className="rounded-md bg-white px-3 py-2 text-[10px] font-semibold uppercase tracking-wide text-black"
+            onClick={() =>
+              openLeadCapture({
+                source: "header_mobile",
+                booksyUrl: BOOKING_URL,
+              })
+            }
+            className="rounded-md bg-orange-500 px-3 py-2 text-[10px] font-semibold uppercase tracking-wide text-black"
           >
             Book
-          </a>
+          </button>
           <button
             ref={menuButtonRef}
             type="button"

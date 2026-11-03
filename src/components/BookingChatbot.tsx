@@ -9,6 +9,7 @@ import {
   type ReceiptData,
 } from "@/components/BookingReceipt";
 import { CloseIcon } from "@/components/icons";
+import { OPEN_BOOKING_CHAT_EVENT } from "@/lib/booking-events";
 import { BOOKING_URL, SITE } from "@/lib/content";
 import { parseJsonResponse } from "@/lib/fetch-json";
 import { normalizePhoneE164, formatPhoneDisplay } from "@/lib/sms-receipt";
@@ -491,6 +492,15 @@ export function BookingChatbot() {
     setShowTeaser(false);
     setOpen(true);
   };
+
+  useEffect(() => {
+    function onExternalOpen() {
+      handleOpen();
+      track("booking_chat_opened", { source: "external_event" });
+    }
+    window.addEventListener(OPEN_BOOKING_CHAT_EVENT, onExternalOpen);
+    return () => window.removeEventListener(OPEN_BOOKING_CHAT_EVENT, onExternalOpen);
+  }, []);
 
   const showServiceChips = step === "service" && !receipt;
   const showDayChips = step === "day" && !receipt;

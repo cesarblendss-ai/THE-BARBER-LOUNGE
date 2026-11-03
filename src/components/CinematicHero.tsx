@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { ClockIcon, PhoneIcon, PinIcon } from "@/components/icons";
+import { openLeadCapture } from "@/lib/booking-events";
 import { SITE } from "@/lib/content";
 
 type HeroVideoItem = {
@@ -202,25 +203,30 @@ export function CinematicHero({
               <p className="mt-4 max-w-md text-sm leading-relaxed text-white/85 sm:mt-5 sm:text-lg">
                 {subheadline}
               </p>
-              <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:items-center">
-                <a
-                  href={primaryHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-analytics-label="Book Appointment (cinematic hero)"
-                  className="inline-flex items-center justify-center gap-2 rounded-md bg-white px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-                >
-                  {primaryLabel}
-                  <span aria-hidden>→</span>
-                </a>
-                <a
-                  href={secondaryHref}
-                  data-analytics-label="Call Now (cinematic hero)"
-                  className="inline-flex items-center justify-center rounded-md border border-white/75 bg-black/20 px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-                >
-                  {secondaryLabel}
-                </a>
-              </div>
+            <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:items-center">
+              <button
+                type="button"
+                data-analytics-label="Book Appointment (cinematic hero)"
+                onClick={() =>
+                  openLeadCapture({
+                    source: "cinematic_hero",
+                    booksyUrl: primaryHref,
+                  })
+                }
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-orange-500 px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-orange-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+              >
+                {primaryLabel}
+                <span aria-hidden>→</span>
+              </button>
+              <a
+                href={secondaryHref}
+                data-analytics-label="Call Now (cinematic hero)"
+                className="inline-flex items-center justify-center gap-2 rounded-md border border-white/75 bg-black/20 px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+              >
+                <PhoneIcon className="h-4 w-4 stroke-white" />
+                {secondaryLabel}
+              </a>
+            </div>
             </div>
           </div>
         </div>

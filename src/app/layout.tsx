@@ -11,6 +11,7 @@ import { Footer } from "@/components/Footer";
 import { HalloweenDecor } from "@/components/HalloweenDecor";
 import { BookingChatbot } from "@/components/BookingChatbot";
 import { EditModeRoot } from "@/components/EditModeRoot";
+import { LeadCaptureModal } from "@/components/LeadCaptureModal";
 import { StickyBookButton } from "@/components/StickyBookButton";
 import { EDIT_MODE_COOKIE, isAdminAuthenticated } from "@/lib/admin-auth";
 import { getSiteContent } from "@/lib/get-site-content";
@@ -90,6 +91,7 @@ export default async function RootLayout({
               <Footer content={content} adminAuthenticated={adminAuthenticated} />
             </div>
             <StickyBookButton />
+            <LeadCaptureModal />
             <BookingChatbot />
           </EditModeRoot>
         </Suspense>

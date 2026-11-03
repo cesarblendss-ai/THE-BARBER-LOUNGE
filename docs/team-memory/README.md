@@ -27,6 +27,7 @@ This folder is **read-write** for agents. It holds what's true *right now* — d
 | `flaky-tests.md` | Known local/dev issues — OneDrive, SEO v1 bug, dev server |
 | `twilio-sms-status.md` | SMS delivery state, error codes, KYC checklist |
 | `estimates-stripe.md` | Estimate tracker + Cesar Stripe/bank/Vercel webhook setup |
+| `tim-cho-conversion.md` | Tim Cho audit → conversion ship map; SMS/CRM blockers |
 
 ## Agent workflow
 

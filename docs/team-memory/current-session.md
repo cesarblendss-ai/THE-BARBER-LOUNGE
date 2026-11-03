@@ -1,23 +1,22 @@
 # Current Session
 
-**Last verified:** 2026-10-26 (America/Los_Angeles)
+**Last verified:** 2026-11-03
 
 ## Finished
-- Preserved pre-redesign site on branch `preserve/pre-cinematic-homepage-c298` (tracks prior `main`)
-- Implemented cinematic homepage redesign on `cursor/cinematic-homepage-redesign-c298`
-  - Full-bleed night storefront hero (`public/gallery/storefront-night.jpg`)
-  - Mockup copy: “More Than a Haircut.” + Book / View Our Work CTAs
-  - Info bar (address, call/text, walk-ins)
-  - Dark service cards for published $50 / $65 only (no invented $35)
-  - Kept hero videos, gallery, booking chatbot, SEO metadata, Booksy links
-- **Not deployed** — awaiting Cesar preview approval
+- Tim Cho conversion pass on `cursor/tim-cho-conversion-c298`
+  - Same-page lead capture modal (name/phone/email) before Booksy
+  - Stronger Book + Call Now CTAs (hero, header, sticky, services, final CTA)
+  - `POST /api/lead` + `data/leads.json` + `/admin/leads`
+  - Documented SMS/CRM campaign blockers (Twilio KYC, email provider)
+  - Mapping: `docs/team-memory/tim-cho-conversion.md`
 
 ## In flight
-- PR for cinematic redesign review / local preview only
+- PR to `main` for conversion ship; preview first if needed, production preferred
 
 ## User notes
-- Cesar runs Windows via Desktop copy + Start.bat; local port may be 3000 or 3847 depending on package.json
-- Do not paste `.bat` into PowerShell
+- Cesar: “use the sauce” — Tim’s audit → conversion systems
+- Phone ground truth: `(925) 209-5995` / `tel:+19252095995`
+- Do not invent Twilio as live
 
 ## Blockers
-- See `current-blockers.md` for Twilio/SMS/domain items (unchanged by this redesign)
+- See `current-blockers.md` — SMS campaigns, CRM notes, durable leads storage
