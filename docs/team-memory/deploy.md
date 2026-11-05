@@ -1,9 +1,21 @@
 # Deploy Status
 
-**Last verified:** 2026-10-28  
-**Status:** **LIVE** — Halloween cinematic + landscape hero on public aliases  
+**Last verified:** 2026-11-05  
+**Status:** **LIVE** (production) + **PREVIEW** Tim Cho `/book` UI  
 **Production deployment:** `dpl_CaS4ryx4PCQXfk5FAM7EpKhVtadB` (`main` @ `e15a661` — SITE_URL → thebarberloungeca.com + GA4)  
+**Tim book UI preview:** branch `cursor/tim-book-ui-c298` → `dpl_6n9CDy3K79oBiUMeWQjreLDzrdYs` (`471f924`) — **do not prod-promote until Cesar approves**  
 **Vercel project:** `cesarblendss-7234s-projects/the-barber-lounge`
+
+---
+
+## Tim Cho `/book` preview (2026-11-05)
+
+Open PR from: https://github.com/cesarblendss-ai/THE-BARBER-LOUNGE/compare/main...cursor/tim-book-ui-c298  
+
+Preview: https://the-barber-lounge-fzibjjjtm-cesarblendss-7234s-projects.vercel.app/book  
+Inspector: https://vercel.com/cesarblendss-7234s-projects/the-barber-lounge/6n9CDy3K79oBiUMeWQjreLDzrdYs  
+
+Verified READY: `/book` shows Tim Step 1 (BOOK YOUR CUT., Online Booking, Signature Haircut $50 / Haircut & Beard $65). Halloween chrome absent on this route.
 
 ---
 
