@@ -7,6 +7,7 @@ import { BookingChatbot } from "@/components/BookingChatbot";
 import { Footer } from "@/components/Footer";
 import { HalloweenDecor } from "@/components/HalloweenDecor";
 import { Header } from "@/components/Header";
+import { LeadCaptureModal } from "@/components/LeadCaptureModal";
 import { StickyBookButton } from "@/components/StickyBookButton";
 import type { SiteContent } from "@/lib/site-content-types";
 
@@ -51,6 +52,7 @@ export function ConditionalSiteChrome({
         <Footer content={content} adminAuthenticated={adminAuthenticated} />
       </div>
       <StickyBookButton />
+      <LeadCaptureModal />
       <BookingChatbot />
     </>
   );

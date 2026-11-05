@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { EditableText } from "@/components/EditableText";
-import { BOOKING_URL, SITE } from "@/lib/content";
+import { SITE, SITE_BOOK_PATH } from "@/lib/content";
 import type { SiteContent } from "@/lib/site-content-types";
 
 type FooterProps = {
@@ -85,9 +85,8 @@ export function Footer({ content }: FooterProps) {
               ))}
               <li>
                 <a
-                  href={BOOKING_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={SITE_BOOK_PATH}
+                  data-analytics-label="Book Online (footer)"
                   className="text-orange-200 transition hover:text-orange-100"
                 >
                   <EditableText path="FOOTER.bookOnline" defaultValue={FOOTER.bookOnline} as="span" />

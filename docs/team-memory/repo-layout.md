@@ -1,6 +1,6 @@
 # Repo Layout — Key Paths
 
-**Last verified:** 2026-11-05
+**Last verified:** 2026-11-05 (Tim `/book` + lead capture integration)
 
 Quick map for agents navigating the codebase. Architecture rationale: `docs/org-conventions/tech-stack-decisions.md`.
 
@@ -55,6 +55,7 @@ the-barber-lounge/
 
 | Route | File | Purpose |
 |-------|------|---------|
+| `/api/lead` | `lead/route.ts` | Public lead/opt-in capture; admin GET list |
 | `/api/appointment-request` | `appointment-request/route.ts` | Create booking + notify |
 | `/api/availability` | `availability/route.ts` | Slot availability |
 | `/api/appointments` | `appointments/route.ts` | Admin CRUD |
@@ -97,10 +98,14 @@ the-barber-lounge/
 
 | Component | Purpose |
 |-----------|---------|
+| `book/TimBookWizard.tsx` | Tim Cho `/book` 4-step funnel |
+| `LeadCaptureModal.tsx` | Opt-in / callback lead capture (Book continues to `/book`) |
+| `StickyBookButton.tsx` | Mobile Call + Book sticky bar → `/book` |
 | `BookingChatbot.tsx` | Tap-to-book FAB wizard |
 | `BookingReceipt.tsx` | Post-booking receipt |
 | `EditModeRoot.tsx` | Inline edit wrapper |
 | `Header.tsx`, `Footer.tsx` | Layout |
+| `ConditionalSiteChrome.tsx` | Hides Halloween/FAB/sticky on `/book` |
 | `GalleryUpload.tsx`, `GalleryBulkUpload.tsx` | Admin gallery |
 | `HeroVideoUpload.tsx` | Admin hero |
 | `AdminAppointments.tsx` | Appointment list |

@@ -1,35 +1,36 @@
 # Deploy Status
 
 **Last verified:** 2026-11-05  
-**Status:** **LIVE** (production) + **PREVIEW** Tim Cho `/book` UI  
-**Production deployment:** `dpl_CaS4ryx4PCQXfk5FAM7EpKhVtadB` (`main` @ `e15a661` — SITE_URL → thebarberloungeca.com + GA4)  
-**Tim book UI preview:** branch `cursor/tim-book-ui-c298` @ `9dc0179` (PR #16) — functional funnel READY — **do not prod-promote until Cesar approves**  
+**Status:** **LIVE** — Tim `/book` funnel + Call CTAs + lead/opt-in capture on production  
+**Production host:** https://thebarberloungeca.com  
+**Integration branch:** `cursor/apply-tim-stack-c298` (merges PR #16 book UI + PR #15 conversion + PR #17 transcripts)  
 **Vercel project:** `cesarblendss-7234s-projects/the-barber-lounge`
 
 ---
 
-## Tim Cho `/book` preview (2026-11-05)
+## What shipped (Tim stack apply)
 
-PR #16: https://github.com/cesarblendss-ai/THE-BARBER-LOUNGE/pull/16  
-Branch: `cursor/tim-book-ui-c298` @ `9dc0179`
-
-**Functional preview:** https://the-barber-lounge-ge0mw5zs5-cesarblendss-7234s-projects.vercel.app/book  
-Inspector: https://vercel.com/cesarblendss-7234s-projects/the-barber-lounge/EedjgKCZ8AgEFTrC85NszucumBQ8  
-
-Verified READY on preview: `/book` 4-step funnel + `POST /api/appointment-request` receipt (`TBL-…`); Call Now `tel:+19252095995`; $50/$65 only. Awaiting Cesar design sign-off before prod promote.
-
-See `docs/team-memory/tim-book-ui.md`.
+| Item | Live? |
+|------|-------|
+| `/book` 4-step funnel (service → barber → day/time → contact → receipt) | ✅ Primary Book path |
+| Homepage / header / sticky / services / footer Book → `/book` | ✅ |
+| Call Now `tel:+19252095995` on hero, header, sticky, services, final CTA, `/book` | ✅ |
+| Lead capture API + `/admin/leads` + opt-in prefs from `/book` | ✅ Code live; campaigns Phase 2 |
+| Booksy deep links | ✅ Fallback on `/book` receipt + barber staffer links |
+| Customer SMS campaigns | ❌ Blocked — Twilio KYC (`twilio-sms-status.md`) |
+| Tim Chao transcript archive | ✅ Docs under `docs/team-memory/tim-chao-youtube/` |
 
 ---
 
-## Share these URLs (Halloween live)
+## Share these URLs
 
 **Primary custom domain (verified):** https://thebarberloungeca.com  
+**Book online:** https://thebarberloungeca.com/book  
 
 Also works:
 - https://the-barber-lounge-antioch.vercel.app
 - https://the-barber-lounge-cesarblendss-7234s-projects.vercel.app
-- https://the-barber-lounge.vercel.app → **307 → thebarberloungeca.com** (no longer parks on HugeDomains)
+- https://the-barber-lounge.vercel.app → **307 → thebarberloungeca.com**
 
 Note: `https://thebarberlounge.com` is still **DNS-parked at HugeDomains** — do not share it until NameBright DNS is fixed. Prefer **thebarberloungeca.com**.
 
@@ -52,7 +53,7 @@ Verified markers on public hosts:
 | Item | Status |
 |------|--------|
 | Public HTTP 200 | ✅ antioch + thebarberloungeca.com |
-| `SITE_URL` / canonical / sitemap / robots | Point at **`https://thebarberloungeca.com`** (code updated; redeploy required for sitemap locs) |
+| `SITE_URL` / canonical / sitemap / robots | Point at **`https://thebarberloungeca.com`** |
 | GA4 | `NEXT_PUBLIC_GA_MEASUREMENT_ID` set on Vercel Production; `GoogleAnalytics` loader restored in layout |
 | Search Console | **Cesar:** add property for `thebarberloungeca.com`, submit `https://thebarberloungeca.com/sitemap.xml` (no API credentials in repo) |
 | `thebarberlounge.com` | Still parked — keep out of Google until DNS fixed |

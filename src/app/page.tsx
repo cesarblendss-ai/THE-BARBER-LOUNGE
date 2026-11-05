@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { CinematicHero } from "@/components/CinematicHero";
 import { CinematicServices } from "@/components/CinematicServices";
-import { EditableText } from "@/components/EditableText";
+import { HomeFinalCta } from "@/components/HomeFinalCta";
 import { TestimonialCarousel } from "@/components/TestimonialCarousel";
 import { SITE, SITE_BOOK_PATH, TESTIMONIALS } from "@/lib/content";
 import { HERO_VIDEOS } from "@/lib/gallery";
@@ -56,6 +56,7 @@ export default async function HomePage() {
         videos={heroVideos}
       />
 
+      {/* Conversion path first: services + book/call before social proof */}
       <CinematicServices />
 
       <section
@@ -82,46 +83,11 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section
-        className="border-t border-orange-500/20 bg-black px-5 pb-16 pt-14 sm:px-8 sm:pb-20 sm:pt-16"
-        aria-labelledby="final-cta-heading"
-      >
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-orange-300/70">
-            Spooky season specials? Nah — just sharp cuts.
-          </p>
-          <EditableText
-            path="HOME.finalCta.headline"
-            defaultValue={finalCta.headline}
-            as="h2"
-            id="final-cta-heading"
-            className="mt-3 font-serif text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl"
-          />
-          <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-white/55">
-            Book online in minutes — or call the shop and we&apos;ll get you in the chair.
-          </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <a
-              href={finalCta.cta.href || SITE_BOOK_PATH}
-              {...((finalCta.cta.href || SITE_BOOK_PATH).startsWith("http")
-                ? { target: "_blank", rel: "noopener noreferrer" }
-                : {})}
-              data-analytics-label="Book Now (final CTA)"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-orange-500 px-8 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-orange-400 sm:w-auto"
-            >
-              <EditableText path="HOME.finalCta.cta.label" defaultValue={finalCta.cta.label} as="span" />
-              <span aria-hidden>→</span>
-            </a>
-            <a
-              href={`tel:${SITE.phoneTel}`}
-              data-analytics-label="Call Now (final CTA)"
-              className="inline-flex w-full items-center justify-center rounded-md border border-orange-400/50 px-8 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-orange-100 transition hover:bg-orange-500/10 sm:w-auto"
-            >
-              Call {SITE.phone}
-            </a>
-          </div>
-        </div>
-      </section>
+      <HomeFinalCta
+        headline={finalCta.headline}
+        ctaLabel={finalCta.cta.label}
+        ctaHref={finalCta.cta.href || SITE_BOOK_PATH}
+      />
     </div>
   );
 }

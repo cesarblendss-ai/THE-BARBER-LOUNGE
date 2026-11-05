@@ -1,9 +1,10 @@
 # Twilio SMS Status
 
-**Last verified:** 2026-08-10  
+**Last verified:** 2026-11-03  
 **Phase:** **Phase 2** — SMS is not required for launch. **ntfy push is the primary owner notification channel.**  
-**Admin UI:** `/admin/sms-setup` → `src/app/admin/sms-setup/page.tsx`  
-**Code:** `src/lib/sms-receipt.ts`, `src/app/api/sms-setup-status/route.ts`
+**Campaigns:** Website now captures SMS/email **opt-in leads** (`/api/lead`) but **does not send marketing SMS/email** until KYC + provider are live.  
+**Admin UI:** `/admin/sms-setup` → `src/app/admin/sms-setup/page.tsx` · leads: `/admin/leads`  
+**Code:** `src/lib/sms-receipt.ts`, `src/app/api/sms-setup-status/route.ts`, `src/app/api/lead/route.ts`
 
 ---
 

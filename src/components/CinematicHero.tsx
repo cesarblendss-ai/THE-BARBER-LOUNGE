@@ -209,7 +209,7 @@ export function CinematicHero({
                     ? { target: "_blank", rel: "noopener noreferrer" }
                     : {})}
                   data-analytics-label="Book Appointment (cinematic hero)"
-                  className="inline-flex items-center justify-center gap-2 rounded-md bg-white px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                  className="inline-flex items-center justify-center gap-2 rounded-md bg-orange-500 px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-orange-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 >
                   {primaryLabel}
                   <span aria-hidden>→</span>
@@ -217,8 +217,9 @@ export function CinematicHero({
                 <a
                   href={secondaryHref}
                   data-analytics-label="Call Now (cinematic hero)"
-                  className="inline-flex items-center justify-center rounded-md border border-white/75 bg-black/20 px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                  className="inline-flex items-center justify-center gap-2 rounded-md border border-white/75 bg-black/20 px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 >
+                  <PhoneIcon className="h-4 w-4 stroke-white" />
                   {secondaryLabel}
                 </a>
               </div>

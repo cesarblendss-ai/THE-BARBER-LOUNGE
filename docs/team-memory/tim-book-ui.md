@@ -2,9 +2,9 @@
 
 **Last verified:** 2026-11-05
 
-## What shipped (preview — not prod)
+## What shipped (production)
 
-Tim Cho AABLENDZ-style booking funnel for The Barber Lounge on branch `cursor/tim-book-ui-c298` (PR #16).
+Tim Cho AABLENDZ-style booking funnel for The Barber Lounge — integrated on `cursor/apply-tim-stack-c298` and promoted with the Tim stack apply.
 
 | Item | Detail |
 |------|--------|
@@ -14,12 +14,13 @@ Tim Cho AABLENDZ-style booking funnel for The Barber Lounge on branch `cursor/ti
 | Barber | Real `ABOUT.team` + avatars + Booksy `?staffer=` deep links |
 | Day/time | `GET /api/availability` (upcoming days + per-date slots) |
 | Submit | `POST /api/appointment-request` → on-screen `BookingReceipt` |
+| Opt-in | SMS/email checkboxes on step 4 → `POST /api/lead` (campaigns Phase 2) |
 | Call Now | Header, hero, mobile sticky, receipt — `tel:+19252095995` |
 | Chrome | Halloween overlay, sticky Book bar, and booking FAB **hidden** on `/book` |
-| CTAs | Header / sticky / home / services / about primary Book paths → `/book` |
+| CTAs | Header / sticky / home / services / about / footer primary Book paths → `/book` |
 | Booksy | Fallback on receipt + per-barber staffer links on step 2 |
 
-## Funnel status (verified locally 2026-11-05)
+## Funnel status
 
 | Step | Status |
 |------|--------|
@@ -28,33 +29,16 @@ Tim Cho AABLENDZ-style booking funnel for The Barber Lounge on branch `cursor/ti
 | 3 Day/time | ✅ `/api/availability` |
 | 4 Contact → receipt | ✅ `POST /api/appointment-request` returns `TBL-…` receipt |
 
-## Do not
+## Production
 
-- Prod-deploy this UI until Cesar signs off on the Tim design specifically
-- Invent extra menu prices to fill the mock’s 6-service grid
+- **Live:** https://thebarberloungeca.com/book
+- Integration branch: `cursor/apply-tim-stack-c298`
+- Source PR: https://github.com/cesarblendss-ai/THE-BARBER-LOUNGE/pull/16
 
 ## Blockers / notes
 
 | Item | Status |
 |------|--------|
-| Twilio customer SMS | Phase 2 — receipt shows “Text receipt unavailable”; ntfy is owner primary (`twilio-sms-status.md`) |
+| Twilio customer SMS | Phase 2 — receipt may show text unavailable; ntfy is owner primary (`twilio-sms-status.md`) |
 | Booksy API | None — website captures **requests**; staff confirms in Booksy |
-| Vercel preview auth | Some preview aliases may require team login; push redeploy for a fresh public preview URL |
-| Postgres on preview | Prod has Neon; preview should inherit project env. If submit returns 503, check `DATABASE_URL` / `TBLDB_*` on Preview |
-
-## Preview
-
-- Branch: `cursor/tim-book-ui-c298` @ `9dc0179`
-- PR: https://github.com/cesarblendss-ai/THE-BARBER-LOUNGE/pull/16
-- **Functional preview:** https://the-barber-lounge-ge0mw5zs5-cesarblendss-7234s-projects.vercel.app/book
-- Inspector: https://vercel.com/cesarblendss-7234s-projects/the-barber-lounge/EedjgKCZ8AgEFTrC85NszucumBQ8
-- Prior UI-only preview: https://the-barber-lounge-fzibjjjtm-cesarblendss-7234s-projects.vercel.app/book
-
-## Screenshots (local artifacts)
-
-- `/opt/cursor/artifacts/book_func_step1_desktop.png` — Step 1 + Call Now
-- `/opt/cursor/artifacts/book_func_step2_desktop.png` / `book_func_step2_barbers_card.png` — barbers + Booksy staffer links
-- `/opt/cursor/artifacts/book_func_step3_desktop.png` — day/time
-- `/opt/cursor/artifacts/book_func_step4_desktop.png` — contact
-- `/opt/cursor/artifacts/book_func_receipt_desktop.png` — TBL receipt
-- `/opt/cursor/artifacts/book_func_step1_mobile.png` / `book_func_mobile_sticky.png` — mobile + sticky Call Now
+| Invented menu prices | Do not invent extra prices beyond $50 / $65 |

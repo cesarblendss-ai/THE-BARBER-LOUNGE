@@ -55,7 +55,7 @@ export const HOME = {
     eyebrow: "THE BARBER LOUNGE • ANTIOCH, CA",
     headline: "More Than a Haircut.",
     subheadline: "Precision cuts. Premium service. Antioch, California.",
-    ctaPrimary: { label: "Book Appointment", href: SITE_BOOK_PATH },
+    ctaPrimary: { label: "Book Your Cut", href: SITE_BOOK_PATH },
     ctaSecondary: { label: "Call Now", href: `tel:${SITE.phoneTel}` },
     trustBar: `${SITE.rating}★ rating · ${SITE.reviewCount}+ five-star reviews · ${SITE.address}`,
   },
@@ -84,7 +84,7 @@ export const HOME = {
   },
   finalCta: {
     headline: "Ready when you are.",
-    cta: { label: "Book Appointment", href: SITE_BOOK_PATH },
+    cta: { label: "Book Your Cut", href: SITE_BOOK_PATH },
   },
 };
 

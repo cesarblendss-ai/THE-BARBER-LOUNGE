@@ -108,6 +108,8 @@ export function TimBookWizard() {
   const [slot, setSlot] = useState<TimeSlot | null>(null);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [smsOptIn, setSmsOptIn] = useState(true);
+  const [emailOptIn, setEmailOptIn] = useState(false);
   const [dayOptions, setDayOptions] = useState<DayOption[]>([]);
   const [timeSlots, setTimeSlots] = useState<TimeSlot[]>([]);
   const [loadingDays, setLoadingDays] = useState(false);
@@ -266,6 +268,26 @@ export function TimBookWizard() {
         service: selectedService.displayName,
         source: "tim_book_ui",
       });
+
+      // CRM / opt-in hook — campaigns stay Phase 2 until Twilio KYC; still store the preference.
+      if (smsOptIn || emailOptIn) {
+        void fetch("/api/lead", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: displayName,
+            phone: displayPhone,
+            service: selectedService.displayName,
+            source: "tim_book_ui",
+            intent: "opt_in",
+            smsOptIn,
+            emailOptIn,
+            notes: `Booked via /book · ${serviceLabel} · ${day.dayName} ${slot.displayTime}`,
+          }),
+        }).catch(() => {
+          /* booking already succeeded — opt-in is best-effort */
+        });
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
     } finally {
@@ -786,8 +808,32 @@ export function TimBookWizard() {
                     />
                   </label>
 
+                  <fieldset className="space-y-2 rounded-xl border border-white/[0.08] bg-[#121212] px-4 py-3">
+                    <legend className="px-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/40">
+                      Stay in the loop
+                    </legend>
+                    <label className="flex items-start gap-2.5 text-[13px] text-white/70">
+                      <input
+                        type="checkbox"
+                        checked={smsOptIn}
+                        onChange={(e) => setSmsOptIn(e.target.checked)}
+                        className="mt-0.5 h-4 w-4 rounded border-white/30 bg-black accent-[#C9A86C]"
+                      />
+                      <span>Text me about openings and seasonal cuts when texts are available.</span>
+                    </label>
+                    <label className="flex items-start gap-2.5 text-[13px] text-white/70">
+                      <input
+                        type="checkbox"
+                        checked={emailOptIn}
+                        onChange={(e) => setEmailOptIn(e.target.checked)}
+                        className="mt-0.5 h-4 w-4 rounded border-white/30 bg-black accent-[#C9A86C]"
+                      />
+                      <span>Email me offers and reminders.</span>
+                    </label>
+                  </fieldset>
+
                   <p className="text-[13px] text-white/45">
-                    Pay in the shop. We&apos;ll text or call to confirm. Shop line:{" "}
+                    Pay in the shop. We&apos;ll call to confirm. Shop line:{" "}
                     <a href={`tel:${SITE.phoneTel}`} className="text-[#C9A86C]">
                       {SITE.phone}
                     </a>

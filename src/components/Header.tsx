@@ -93,11 +93,18 @@ export function Header({ labels: _labels }: HeaderProps) {
           })}
         </nav>
 
-        <div className="hidden lg:block">
+        <div className="hidden items-center gap-2 lg:flex">
+          <a
+            href={`tel:${SITE.phoneTel}`}
+            data-analytics-label="Call Now (header)"
+            className="inline-flex items-center rounded-md border border-white/35 px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/90 transition hover:border-white hover:text-white"
+          >
+            Call Now
+          </a>
           <a
             href={SITE_BOOK_PATH}
             data-analytics-label="Book Appointment (header)"
-            className="inline-flex items-center rounded-md border border-orange-400/80 bg-orange-500/15 px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-100 transition hover:bg-orange-400 hover:text-black"
+            className="inline-flex items-center rounded-md border border-orange-400/80 bg-orange-500 px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-orange-400"
           >
             Book Appointment
           </a>
@@ -114,7 +121,7 @@ export function Header({ labels: _labels }: HeaderProps) {
           <a
             href={SITE_BOOK_PATH}
             data-analytics-label="Book Now (mobile header)"
-            className="rounded-md bg-white px-3 py-2 text-[10px] font-semibold uppercase tracking-wide text-black"
+            className="rounded-md bg-orange-500 px-3 py-2 text-[10px] font-semibold uppercase tracking-wide text-black"
           >
             Book
           </a>
