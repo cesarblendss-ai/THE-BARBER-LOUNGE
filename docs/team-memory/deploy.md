@@ -3,7 +3,7 @@
 **Last verified:** 2026-11-05  
 **Status:** **LIVE** (production) + **PREVIEW** Tim Cho `/book` UI  
 **Production deployment:** `dpl_CaS4ryx4PCQXfk5FAM7EpKhVtadB` (`main` @ `e15a661` — SITE_URL → thebarberloungeca.com + GA4)  
-**Tim book UI preview:** branch `cursor/tim-book-ui-c298` (PR #16) — functional 4-step funnel; prior READY `dpl_6n9CDy3K79oBiUMeWQjreLDzrdYs` — **do not prod-promote until Cesar approves**  
+**Tim book UI preview:** branch `cursor/tim-book-ui-c298` @ `9dc0179` (PR #16) — functional funnel READY — **do not prod-promote until Cesar approves**  
 **Vercel project:** `cesarblendss-7234s-projects/the-barber-lounge`
 
 ---
@@ -11,12 +11,12 @@
 ## Tim Cho `/book` preview (2026-11-05)
 
 PR #16: https://github.com/cesarblendss-ai/THE-BARBER-LOUNGE/pull/16  
-Branch: `cursor/tim-book-ui-c298`
+Branch: `cursor/tim-book-ui-c298` @ `9dc0179`
 
-Prior preview: https://the-barber-lounge-fzibjjjtm-cesarblendss-7234s-projects.vercel.app/book  
-Inspector (prior): https://vercel.com/cesarblendss-7234s-projects/the-barber-lounge/6n9CDy3K79oBiUMeWQjreLDzrdYs  
+**Functional preview:** https://the-barber-lounge-ge0mw5zs5-cesarblendss-7234s-projects.vercel.app/book  
+Inspector: https://vercel.com/cesarblendss-7234s-projects/the-barber-lounge/EedjgKCZ8AgEFTrC85NszucumBQ8  
 
-**Functional funnel (local verified 2026-11-05):** service → barber (ABOUT + Booksy staffer) → `/api/availability` → `POST /api/appointment-request` receipt; Call Now `tel:` links; $50/$65 only. Awaiting Cesar design sign-off before prod promote. Fresh preview URL lands after this branch push.
+Verified READY on preview: `/book` 4-step funnel + `POST /api/appointment-request` receipt (`TBL-…`); Call Now `tel:+19252095995`; $50/$65 only. Awaiting Cesar design sign-off before prod promote.
 
 See `docs/team-memory/tim-book-ui.md`.
 

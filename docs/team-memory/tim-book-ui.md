@@ -44,10 +44,11 @@ Tim Cho AABLENDZ-style booking funnel for The Barber Lounge on branch `cursor/ti
 
 ## Preview
 
-- Branch: `cursor/tim-book-ui-c298`
+- Branch: `cursor/tim-book-ui-c298` @ `9dc0179`
 - PR: https://github.com/cesarblendss-ai/THE-BARBER-LOUNGE/pull/16
-- Prior deploy: `dpl_6n9CDy3K79oBiUMeWQjreLDzrdYs` — https://the-barber-lounge-fzibjjjtm-cesarblendss-7234s-projects.vercel.app/book
-- New preview URL: refresh after this push (Vercel auto-preview on branch)
+- **Functional preview:** https://the-barber-lounge-ge0mw5zs5-cesarblendss-7234s-projects.vercel.app/book
+- Inspector: https://vercel.com/cesarblendss-7234s-projects/the-barber-lounge/EedjgKCZ8AgEFTrC85NszucumBQ8
+- Prior UI-only preview: https://the-barber-lounge-fzibjjjtm-cesarblendss-7234s-projects.vercel.app/book
 
 ## Screenshots (local artifacts)
 
