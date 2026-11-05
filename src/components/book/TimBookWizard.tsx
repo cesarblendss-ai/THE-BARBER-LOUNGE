@@ -6,7 +6,16 @@ import Link from "next/link";
 import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 
 import { BookingReceipt, type ReceiptData } from "@/components/BookingReceipt";
-import { ABOUT, BOOKABLE_SERVICES, BOOKING_URL, SITE, type TeamMember } from "@/lib/content";
+import { PhoneIcon } from "@/components/icons";
+import { getBooksyStafferUrl } from "@/lib/booksy";
+import {
+  ABOUT,
+  BOOKABLE_SERVICES,
+  BOOKING_URL,
+  SITE,
+  teamAvatarPath,
+  type TeamMember,
+} from "@/lib/content";
 import { LOGO } from "@/lib/constants";
 import { formatPhoneDisplay, normalizePhoneE164 } from "@/lib/sms-receipt";
 
@@ -26,14 +35,23 @@ type TimeSlot = {
   label: string;
 };
 
-type ServiceOption = (typeof BOOKABLE_SERVICES)[number] & { id: string };
+type ServiceOption = (typeof BOOKABLE_SERVICES)[number] & {
+  id: string;
+  /** Customer-facing label (Booksy / Tim UI). Submitted on booking. */
+  displayName: string;
+};
 
 const SERVICES: ServiceOption[] = BOOKABLE_SERVICES.map((svc, index) => ({
   ...svc,
   id: index === 0 ? "signature-haircut" : "haircut-beard",
+  displayName: index === 0 ? "Signature Haircut" : "Haircut & Beard",
 }));
 
-const ANY_BARBER = { name: "Any available", handle: null, booksyStafferId: null } as const;
+const ANY_BARBER = {
+  name: "Any available",
+  handle: null,
+  booksyStafferId: null,
+} as const satisfies TeamMember;
 
 const STEP_TITLES: Record<WizardStep, string> = {
   1: "Choose Your Service",
@@ -104,10 +122,19 @@ export function TimBookWizard() {
     [serviceId],
   );
 
-  const barbers: Array<TeamMember | typeof ANY_BARBER> = useMemo(
-    () => [ANY_BARBER, ...ABOUT.team],
-    [],
+  const barbers: TeamMember[] = useMemo(() => [ANY_BARBER, ...ABOUT.team], []);
+
+  const selectedBarber = useMemo(
+    () => barbers.find((b) => b.name === barberName) ?? null,
+    [barbers, barberName],
   );
+
+  const booksyFallbackHref = useMemo(() => {
+    if (selectedBarber?.booksyStafferId) {
+      return getBooksyStafferUrl(selectedBarber.booksyStafferId);
+    }
+    return BOOKING_URL;
+  }, [selectedBarber]);
 
   const fetchDays = useCallback(async () => {
     setLoadingDays(true);
@@ -116,8 +143,13 @@ export function TimBookWizard() {
       const res = await fetch("/api/availability?upcomingDays=7");
       const data = await parseJsonResponse<{ days?: DayOption[]; error?: string }>(res);
       if (!res.ok) throw new Error(data?.error ?? "Could not load days.");
-      setDayOptions(data?.days ?? []);
+      const days = data?.days ?? [];
+      setDayOptions(days);
+      if (days.length === 0) {
+        setError("No open days in the next week — call us to schedule.");
+      }
     } catch (err) {
+      setDayOptions([]);
       setError(err instanceof Error ? err.message : "Could not load days.");
     } finally {
       setLoadingDays(false);
@@ -133,6 +165,7 @@ export function TimBookWizard() {
       if (!res.ok) throw new Error(data?.error ?? "Could not load times.");
       setTimeSlots(data?.slots ?? []);
     } catch (err) {
+      setTimeSlots([]);
       setError(err instanceof Error ? err.message : "Could not load times.");
     } finally {
       setLoadingTimes(false);
@@ -140,10 +173,17 @@ export function TimBookWizard() {
   }, []);
 
   useEffect(() => {
-    if (step === 3 && dayOptions.length === 0 && !loadingDays) {
+    if (step === 3) {
       void fetchDays();
     }
-  }, [step, dayOptions.length, loadingDays, fetchDays]);
+  }, [step, fetchDays]);
+
+  useEffect(() => {
+    if (step >= 2) {
+      const card = document.getElementById("booking-card");
+      card?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [step]);
 
   const canContinue = useMemo(() => {
     if (step === 1) return Boolean(serviceId);
@@ -164,6 +204,16 @@ export function TimBookWizard() {
     if (step > 1) setStep((s) => (s - 1) as WizardStep);
   };
 
+  const selectService = (id: string) => {
+    setServiceId(id);
+    setError(null);
+  };
+
+  const selectBarber = (nameValue: string) => {
+    setBarberName(nameValue);
+    setError(null);
+  };
+
   const submitBooking = async (event: FormEvent) => {
     event.preventDefault();
     if (!selectedService || !day || !slot || submitting) return;
@@ -178,8 +228,8 @@ export function TimBookWizard() {
     const displayName = name.trim();
     const serviceLabel =
       barberName && barberName !== ANY_BARBER.name
-        ? `${selectedService.name} with ${barberName}`
-        : selectedService.name;
+        ? `${selectedService.displayName} with ${barberName}`
+        : selectedService.displayName;
 
     setSubmitting(true);
     setError(null);
@@ -190,7 +240,7 @@ export function TimBookWizard() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           service: serviceLabel,
-          preferredDay: day.label,
+          preferredDay: day.dayName,
           preferredTime: slot.displayTime,
           slotDate: day.date,
           name: displayName,
@@ -212,7 +262,10 @@ export function TimBookWizard() {
       }
 
       setReceipt(data.receipt);
-      track("booking_submitted", { service: selectedService.name, source: "tim_book_ui" });
+      track("booking_submitted", {
+        service: selectedService.displayName,
+        source: "tim_book_ui",
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
     } finally {
@@ -220,9 +273,20 @@ export function TimBookWizard() {
     }
   };
 
+  const callNowLink = (
+    <a
+      href={`tel:${SITE.phoneTel}`}
+      data-analytics-label="Call Now (tim book)"
+      className="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2.5 text-[13px] font-semibold text-white/90 transition hover:border-white/35 hover:text-white"
+    >
+      <PhoneIcon className="h-4 w-4 stroke-current" />
+      Call Now
+    </a>
+  );
+
   return (
     <div className="tim-book min-h-screen bg-black text-white">
-      {/* Header — Tim Cho mock */}
+      {/* Header — Tim Cho mock + Call Now */}
       <header className="sticky top-0 z-40 border-b border-white/[0.06] bg-black/95 backdrop-blur-md">
         <div className="mx-auto flex max-w-[1180px] items-center justify-between gap-4 px-5 py-4 sm:px-8">
           <Link href="/" className="flex shrink-0 items-center gap-2.5">
@@ -266,6 +330,7 @@ export function TimBookWizard() {
             >
               <MoonIcon className="h-4 w-4" />
             </span>
+            {callNowLink}
             <a
               href="#booking-card"
               data-analytics-label="Book Now (tim book header)"
@@ -276,15 +341,25 @@ export function TimBookWizard() {
             </a>
           </div>
 
-          <button
-            type="button"
-            className="rounded-md p-2 text-white lg:hidden"
-            aria-expanded={mobileOpen}
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-            onClick={() => setMobileOpen((v) => !v)}
-          >
-            <span className="block text-xl leading-none">{mobileOpen ? "×" : "☰"}</span>
-          </button>
+          <div className="flex items-center gap-2 lg:hidden">
+            <a
+              href={`tel:${SITE.phoneTel}`}
+              data-analytics-label="Call Now (tim book mobile header)"
+              aria-label={`Call The Barber Lounge at ${SITE.phone}`}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white"
+            >
+              <PhoneIcon className="h-4 w-4 stroke-current" />
+            </a>
+            <button
+              type="button"
+              className="rounded-md p-2 text-white"
+              aria-expanded={mobileOpen}
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              onClick={() => setMobileOpen((v) => !v)}
+            >
+              <span className="block text-xl leading-none">{mobileOpen ? "×" : "☰"}</span>
+            </button>
+          </div>
         </div>
 
         {mobileOpen ? (
@@ -304,12 +379,21 @@ export function TimBookWizard() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <a
+                  href={`tel:${SITE.phoneTel}`}
+                  className="block text-sm font-semibold text-[#C9A86C]"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  Call Now · {SITE.phone}
+                </a>
+              </li>
             </ul>
           </nav>
         ) : null}
       </header>
 
-      <div className="mx-auto max-w-[1180px] px-5 pb-24 pt-8 sm:px-8 sm:pt-10 lg:pb-16">
+      <div className="mx-auto max-w-[1180px] px-5 pb-28 pt-8 sm:px-8 sm:pt-10 lg:pb-16">
         {/* Hero */}
         <section className="grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-10">
           <div className="animate-[tim-fade-up_0.7s_ease-out_both]">
@@ -332,6 +416,16 @@ export function TimBookWizard() {
             <p className="mt-4 text-[15px] text-white/55 sm:text-base">
               Four steps. Pay in the shop.
             </p>
+
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <a
+                href="#booking-card"
+                className="tim-gold-btn inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-semibold text-[#1a140c] transition hover:brightness-110"
+              >
+                Start booking
+              </a>
+              {callNowLink}
+            </div>
           </div>
 
           <div className="relative animate-[tim-fade-up_0.85s_ease-out_0.08s_both]">
@@ -352,7 +446,7 @@ export function TimBookWizard() {
         {/* Booking card */}
         <section
           id="booking-card"
-          className="mt-10 animate-[tim-fade-up_0.8s_ease-out_0.12s_both] rounded-[28px] border border-white/[0.07] bg-[#121212] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.45)] sm:mt-12 sm:rounded-[32px] sm:p-8"
+          className="mt-10 animate-[tim-fade-up_0.8s_ease-out_0.12s_both] scroll-mt-24 rounded-[28px] border border-white/[0.07] bg-[#121212] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.45)] sm:mt-12 sm:rounded-[32px] sm:p-8"
           aria-labelledby="booking-step-title"
         >
           {receipt ? (
@@ -361,17 +455,30 @@ export function TimBookWizard() {
                 Request received
               </p>
               <BookingReceipt receipt={receipt} />
-              <p className="mt-5 text-center text-sm text-white/55">
-                We&apos;ll confirm your time. Prefer Booksy?{" "}
+              <div className="mt-5 flex flex-col items-center gap-3 text-center text-sm text-white/55">
+                <p>
+                  We&apos;ll confirm your time. Prefer Booksy?{" "}
+                  <a
+                    href={booksyFallbackHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#C9A86C] underline-offset-2 hover:underline"
+                  >
+                    Open Booksy
+                    {selectedBarber?.booksyStafferId && selectedBarber.name !== ANY_BARBER.name
+                      ? ` with ${selectedBarber.name.split(" ")[0]}`
+                      : ""}
+                  </a>
+                </p>
                 <a
-                  href={BOOKING_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#C9A86C] underline-offset-2 hover:underline"
+                  href={`tel:${SITE.phoneTel}`}
+                  data-analytics-label="Call Now (tim book receipt)"
+                  className="tim-gold-btn inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-semibold text-[#1a140c] transition hover:brightness-110"
                 >
-                  Open Booksy
+                  <PhoneIcon className="h-4 w-4 stroke-current" />
+                  Call Now · {SITE.phone}
                 </a>
-              </p>
+              </div>
             </div>
           ) : (
             <>
@@ -402,7 +509,11 @@ export function TimBookWizard() {
                         type="button"
                         role="radio"
                         aria-checked={selected}
-                        onClick={() => setServiceId(svc.id)}
+                        onClick={() => selectService(svc.id)}
+                        onDoubleClick={() => {
+                          selectService(svc.id);
+                          setStep(2);
+                        }}
                         className={`flex items-center justify-between gap-4 rounded-2xl border px-4 py-4 text-left transition sm:px-5 sm:py-5 ${
                           selected
                             ? "border-[#C9A86C]/70 bg-[#C9A86C]/10"
@@ -411,7 +522,7 @@ export function TimBookWizard() {
                       >
                         <span>
                           <span className="block text-[15px] font-semibold text-white sm:text-base">
-                            {svc.name === "Regular haircut" ? "Signature Haircut" : "Haircut & Beard"}
+                            {svc.displayName}
                           </span>
                           <span className="mt-1 block text-[12px] text-white/45 sm:text-[13px]">
                             {svc.time} · {svc.description.split(",")[0]}
@@ -448,40 +559,81 @@ export function TimBookWizard() {
                 >
                   {barbers.map((barber) => {
                     const selected = barberName === barber.name;
+                    const handle = barber.handle?.replace(/^@/, "").trim() ?? null;
+                    const avatarSrc = handle ? teamAvatarPath(handle) : null;
+                    const booksyHref = barber.booksyStafferId
+                      ? getBooksyStafferUrl(barber.booksyStafferId)
+                      : null;
+
                     return (
-                      <button
+                      <div
                         key={barber.name}
-                        type="button"
-                        role="radio"
-                        aria-checked={selected}
-                        onClick={() => setBarberName(barber.name)}
-                        className={`flex items-center justify-between gap-3 rounded-2xl border px-4 py-4 text-left transition ${
+                        className={`rounded-2xl border transition ${
                           selected
                             ? "border-[#C9A86C]/70 bg-[#C9A86C]/10"
                             : "border-white/[0.08] bg-[#171717] hover:border-white/20"
                         }`}
                       >
-                        <span>
-                          <span className="block text-[15px] font-semibold text-white">
-                            {barber.name}
-                          </span>
-                          <span className="mt-1 block text-[12px] text-white/45">
-                            {barber.handle ? `@${barber.handle}` : "First chair open"}
-                          </span>
-                        </span>
-                        <span
-                          className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 ${
-                            selected
-                              ? "border-[#C9A86C] bg-[#C9A86C]"
-                              : "border-white/35 bg-transparent"
-                          }`}
-                          aria-hidden
+                        <button
+                          type="button"
+                          role="radio"
+                          aria-checked={selected}
+                          onClick={() => selectBarber(barber.name)}
+                          onDoubleClick={() => {
+                            selectBarber(barber.name);
+                            setStep(3);
+                          }}
+                          className="flex w-full items-center gap-3 px-4 py-4 text-left"
                         >
-                          {selected ? (
-                            <span className="h-1.5 w-1.5 rounded-full bg-[#1a140c]" />
-                          ) : null}
-                        </span>
-                      </button>
+                          <span className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full border border-white/15 bg-white/5 text-sm font-semibold text-white/50">
+                            {avatarSrc ? (
+                              <Image
+                                src={avatarSrc}
+                                alt=""
+                                fill
+                                sizes="48px"
+                                className="object-cover"
+                              />
+                            ) : (
+                              barber.name.slice(0, 1)
+                            )}
+                          </span>
+                          <span className="min-w-0 flex-1">
+                            <span className="block text-[15px] font-semibold text-white">
+                              {barber.name}
+                            </span>
+                            <span className="mt-0.5 block truncate text-[12px] text-white/45">
+                              {handle ? `@${handle}` : "First chair open"}
+                            </span>
+                          </span>
+                          <span
+                            className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 ${
+                              selected
+                                ? "border-[#C9A86C] bg-[#C9A86C]"
+                                : "border-white/35 bg-transparent"
+                            }`}
+                            aria-hidden
+                          >
+                            {selected ? (
+                              <span className="h-1.5 w-1.5 rounded-full bg-[#1a140c]" />
+                            ) : null}
+                          </span>
+                        </button>
+                        {booksyHref ? (
+                          <div className="border-t border-white/[0.06] px-4 py-2.5">
+                            <a
+                              href={booksyHref}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              data-analytics-label={`Booksy staffer ${barber.name}`}
+                              className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#C9A86C]/90 transition hover:text-[#E8D5A3]"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              Booksy · {barber.name.split(" ")[0]} →
+                            </a>
+                          </div>
+                        ) : null}
+                      </div>
                     );
                   })}
                 </div>
@@ -490,11 +642,27 @@ export function TimBookWizard() {
               {step === 3 ? (
                 <div className="space-y-6">
                   <div>
-                    <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-white/45">
-                      Day
-                    </p>
+                    <div className="mb-3 flex items-center justify-between gap-3">
+                      <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-white/45">
+                        Day
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => void fetchDays()}
+                        className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/40 transition hover:text-white/70"
+                      >
+                        Refresh
+                      </button>
+                    </div>
                     {loadingDays ? (
                       <p className="text-sm text-white/50">Loading days…</p>
+                    ) : dayOptions.length === 0 ? (
+                      <p className="text-sm text-white/50">
+                        No open days right now.{" "}
+                        <a href={`tel:${SITE.phoneTel}`} className="text-[#C9A86C]">
+                          Call {SITE.phone}
+                        </a>
+                      </p>
                     ) : (
                       <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Choose a day">
                         {dayOptions.map((option) => {
@@ -568,16 +736,15 @@ export function TimBookWizard() {
               ) : null}
 
               {step === 4 ? (
-                <form id="tim-book-contact" className="mx-auto max-w-lg space-y-4" onSubmit={submitBooking}>
+                <form
+                  id="tim-book-contact"
+                  className="mx-auto max-w-lg space-y-4"
+                  onSubmit={submitBooking}
+                >
                   <div className="rounded-2xl border border-white/[0.08] bg-[#171717] px-4 py-4 text-sm text-white/60">
                     <p>
                       <span className="text-white/40">Service</span>{" "}
-                      {selectedService
-                        ? selectedService.name === "Regular haircut"
-                          ? "Signature Haircut"
-                          : "Haircut & Beard"
-                        : "—"}{" "}
-                      · {selectedService?.price}
+                      {selectedService?.displayName ?? "—"} · {selectedService?.price}
                     </p>
                     <p className="mt-1">
                       <span className="text-white/40">Barber</span> {barberName ?? "—"}
@@ -630,7 +797,12 @@ export function TimBookWizard() {
 
               {error ? (
                 <p className="mt-5 text-sm text-red-300" role="alert">
-                  {error}
+                  {error}{" "}
+                  {error.toLowerCase().includes("call") ? null : (
+                    <a href={`tel:${SITE.phoneTel}`} className="underline underline-offset-2">
+                      Call Now
+                    </a>
+                  )}
                 </p>
               ) : null}
 
@@ -671,6 +843,31 @@ export function TimBookWizard() {
           )}
         </section>
       </div>
+
+      {/* Mobile sticky Call Now — global sticky bar is hidden on /book */}
+      <nav
+        aria-label="Call the shop"
+        className="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-black/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md lg:hidden"
+      >
+        <div className="mx-auto flex max-w-lg gap-2">
+          <a
+            href={`tel:${SITE.phoneTel}`}
+            aria-label={`Call The Barber Lounge at ${SITE.phone}`}
+            data-analytics-label="Call Now (tim book sticky)"
+            className="flex flex-1 items-center justify-center gap-2 rounded-full border border-[#C9A86C]/45 px-4 py-3.5 text-sm font-semibold text-[#E8D5A3] transition hover:bg-[#C9A86C]/10"
+          >
+            <PhoneIcon className="h-4 w-4 stroke-current" />
+            Call Now
+          </a>
+          <a
+            href="#booking-card"
+            data-analytics-label="Book Now (tim book sticky)"
+            className="tim-gold-btn flex flex-1 items-center justify-center rounded-full px-4 py-3.5 text-sm font-semibold text-[#1a140c] transition hover:brightness-110"
+          >
+            Book
+          </a>
+        </div>
+      </nav>
     </div>
   );
 }
