@@ -20,12 +20,7 @@ const nextConfig: NextConfig = {
         destination: "https://cesar-agency.vercel.app/start",
         permanent: false,
       },
-      {
-        source: "/book",
-        destination:
-          "https://booksy.com/en-us/1180862_the-barber-lounge_barber-shop_103886_antioch",
-        permanent: false,
-      },
+      // /book is now the Tim Cho on-page booking funnel (was Booksy redirect).
     ];
   },
   images: {

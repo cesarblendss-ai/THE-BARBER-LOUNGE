@@ -205,8 +205,9 @@ export function CinematicHero({
               <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:items-center">
                 <a
                   href={primaryHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  {...(primaryHref.startsWith("http")
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
                   data-analytics-label="Book Appointment (cinematic hero)"
                   className="inline-flex items-center justify-center gap-2 rounded-md bg-white px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 >

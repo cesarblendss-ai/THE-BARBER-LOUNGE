@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { CinematicServices } from "@/components/CinematicServices";
 import { EditableText } from "@/components/EditableText";
-import { BOOKING_URL, SITE } from "@/lib/content";
+import { SITE, SITE_BOOK_PATH } from "@/lib/content";
 import { getSiteContent } from "@/lib/get-site-content";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -27,7 +27,7 @@ export default async function ServicesPage() {
             Book your cut
           </h1>
           <p className="mt-4 max-w-xl text-white/60">
-            Two clear options. Tap a card to book on Booksy, or call {SITE.phone}.
+            Two clear options. Tap a card to book online, or call {SITE.phone}.
           </p>
         </div>
       </section>
@@ -45,9 +45,10 @@ export default async function ServicesPage() {
           />
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
-              href={cta.href || BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={cta.href || SITE_BOOK_PATH}
+              {...((cta.href || SITE_BOOK_PATH).startsWith("http")
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
               className="inline-flex items-center justify-center rounded-md bg-white px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-white/90"
             >
               <EditableText path="SERVICES.cta.label" defaultValue={cta.label} as="span" />

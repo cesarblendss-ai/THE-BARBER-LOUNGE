@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { BarberProfileGrid } from "@/components/BarberProfileGrid";
-import { ABOUT, BOOKING_URL } from "@/lib/content";
+import { ABOUT, SITE_BOOK_PATH } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -20,7 +20,7 @@ export default function AboutPage() {
           Book your barber
         </h1>
         <p className="mt-4 max-w-xl text-base leading-relaxed text-white/60">
-          Choose who you want in the chair. Each button opens Booksy with that barber ready to book.
+          Choose who you want in the chair — book on-site in four steps, or open a barber&apos;s Booksy link.
         </p>
 
         <div className="mt-10">
@@ -28,11 +28,9 @@ export default function AboutPage() {
         </div>
 
         <div className="mt-12 flex flex-col items-start gap-3 border-t border-white/10 pt-10 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-white/55">Not sure who to book? Start on Booksy and pick from the team.</p>
+          <p className="text-sm text-white/55">Not sure who to book? Start online and pick any available chair.</p>
           <a
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={SITE_BOOK_PATH}
             data-analytics-label="Book Appointment (barbers footer)"
             className="inline-flex items-center justify-center gap-2 rounded-md bg-white px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-black transition hover:bg-white/90"
           >

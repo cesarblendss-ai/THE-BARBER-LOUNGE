@@ -1,23 +1,21 @@
 # Current Session
 
-**Last verified:** 2026-10-26 (America/Los_Angeles)
+**Last verified:** 2026-11-05 (America/Los_Angeles)
 
 ## Finished
-- Preserved pre-redesign site on branch `preserve/pre-cinematic-homepage-c298` (tracks prior `main`)
-- Implemented cinematic homepage redesign on `cursor/cinematic-homepage-redesign-c298`
-  - Full-bleed night storefront hero (`public/gallery/storefront-night.jpg`)
-  - Mockup copy: “More Than a Haircut.” + Book / View Our Work CTAs
-  - Info bar (address, call/text, walk-ins)
-  - Dark service cards for published $50 / $65 only (no invented $35)
-  - Kept hero videos, gallery, booking chatbot, SEO metadata, Booksy links
-- **Not deployed** — awaiting Cesar preview approval
+- Tim Cho booking UI on `cursor/tim-book-ui-c298` — `/book` 4-step funnel matching AABLENDZ mock
+  - Real services only ($50 / $65); shop gallery hero fade
+  - Removed `/book` → Booksy redirect; CTAs point at `/book`
+  - Halloween chrome disabled on booking route
+  - **Not prod-deployed** — Cesar must approve this UI first
+- See `tim-book-ui.md`
 
 ## In flight
-- PR for cinematic redesign review / local preview only
+- PR `cursor/tim-book-ui-c298` → `main` for preview review
 
 ## User notes
-- Cesar runs Windows via Desktop copy + Start.bat; local port may be 3000 or 3847 depending on package.json
-- Do not paste `.bat` into PowerShell
+- Cesar: “tim made this one here copy it exactly” — Tim mock is source of truth for `/book`
+- Prefer Tim `/book` over lead-modal / Booksy as primary booking path
 
 ## Blockers
-- See `current-blockers.md` for Twilio/SMS/domain items (unchanged by this redesign)
+- See `current-blockers.md` for Twilio/SMS/domain items

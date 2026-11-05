@@ -121,5 +121,46 @@
       transform: translate(12px, -10px);
     }
   }
+
+  /* Tim Cho /book UI */
+  @keyframes tim-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .tim-gold-btn {
+    background: linear-gradient(135deg, #e8d5a3 0%, #c9a86c 45%, #b08d57 100%);
+  }
+
+  .tim-gold-pill {
+    background: linear-gradient(135deg, #e8d5a3 0%, #c9a86c 50%, #b08d57 100%);
+  }
+
+  .tim-gold-text {
+    background: linear-gradient(135deg, #f0e0b8 0%, #c9a86c 55%, #a07a45 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .tim-gold-rule {
+    background: linear-gradient(90deg, #c9a86c 0%, rgba(201, 168, 108, 0.15) 70%, transparent 100%);
+  }
+
+  .tim-book a:focus-visible,
+  .tim-book button:focus-visible,
+  .tim-book input:focus-visible {
+    @apply outline-none ring-2 ring-[#C9A86C] ring-offset-2 ring-offset-black;
+  }
+
+  body.tim-book-route {
+    padding-bottom: 0;
+  }
 }
 

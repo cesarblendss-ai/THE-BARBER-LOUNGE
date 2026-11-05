@@ -12,6 +12,7 @@ const routes = [
   "/contact",
   "/blog",
   "/gallery",
+  "/book",
   "/locations",
   "/beard-studio",
   "/refer",

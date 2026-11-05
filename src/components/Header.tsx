@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { BOOKING_URL, SITE } from "@/lib/content";
+import { SITE, SITE_BOOK_PATH } from "@/lib/content";
 import { LOGO } from "@/lib/constants";
 import type { SiteContent } from "@/lib/site-content-types";
 import { CloseIcon, MenuIcon } from "./icons";
@@ -95,9 +95,7 @@ export function Header({ labels: _labels }: HeaderProps) {
 
         <div className="hidden lg:block">
           <a
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={SITE_BOOK_PATH}
             data-analytics-label="Book Appointment (header)"
             className="inline-flex items-center rounded-md border border-orange-400/80 bg-orange-500/15 px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-100 transition hover:bg-orange-400 hover:text-black"
           >
@@ -114,9 +112,7 @@ export function Header({ labels: _labels }: HeaderProps) {
             Call
           </a>
           <a
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={SITE_BOOK_PATH}
             data-analytics-label="Book Now (mobile header)"
             className="rounded-md bg-white px-3 py-2 text-[10px] font-semibold uppercase tracking-wide text-black"
           >

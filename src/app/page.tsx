@@ -4,7 +4,7 @@ import { CinematicHero } from "@/components/CinematicHero";
 import { CinematicServices } from "@/components/CinematicServices";
 import { EditableText } from "@/components/EditableText";
 import { TestimonialCarousel } from "@/components/TestimonialCarousel";
-import { BOOKING_URL, SITE, TESTIMONIALS } from "@/lib/content";
+import { SITE, SITE_BOOK_PATH, TESTIMONIALS } from "@/lib/content";
 import { HERO_VIDEOS } from "@/lib/gallery";
 import { getSiteContent } from "@/lib/get-site-content";
 import {
@@ -50,7 +50,7 @@ export default async function HomePage() {
         headline={hero.headline}
         subheadline={hero.subheadline}
         primaryLabel={hero.ctaPrimary.label}
-        primaryHref={hero.ctaPrimary.href || BOOKING_URL}
+        primaryHref={hero.ctaPrimary.href || SITE_BOOK_PATH}
         secondaryLabel={hero.ctaSecondary.label || "Call Now"}
         secondaryHref={hero.ctaSecondary.href || `tel:${SITE.phoneTel}`}
         videos={heroVideos}
@@ -102,9 +102,10 @@ export default async function HomePage() {
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a
-              href={finalCta.cta.href || BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={finalCta.cta.href || SITE_BOOK_PATH}
+              {...((finalCta.cta.href || SITE_BOOK_PATH).startsWith("http")
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
               data-analytics-label="Book Now (final CTA)"
               className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-orange-500 px-8 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-orange-400 sm:w-auto"
             >

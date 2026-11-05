@@ -1,4 +1,4 @@
-import { BOOKING_URL, SITE } from "@/lib/content";
+import { SITE, SITE_BOOK_PATH } from "@/lib/content";
 import { PhoneIcon } from "./icons";
 
 export function StickyBookButton() {
@@ -17,14 +17,12 @@ export function StickyBookButton() {
           <PhoneIcon className="h-5 w-5 stroke-orange-100" />
         </a>
         <a
-          href={BOOKING_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={SITE_BOOK_PATH}
           aria-label="Book an appointment online"
           data-analytics-label="Book Appointment (sticky)"
           className="flex flex-1 items-center justify-center rounded-md bg-orange-500 px-4 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-black transition-colors hover:bg-orange-400"
         >
-          🎃 Book Appointment
+          Book Appointment
         </a>
       </div>
     </nav>

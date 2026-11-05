@@ -1,6 +1,6 @@
 # Repo Layout — Key Paths
 
-**Last verified:** 2026-08-16
+**Last verified:** 2026-11-05
 
 Quick map for agents navigating the codebase. Architecture rationale: `docs/org-conventions/tech-stack-decisions.md`.
 
@@ -38,6 +38,7 @@ the-barber-lounge/
 | `/testimonials` | `src/app/testimonials/page.tsx` | |
 | `/contact` | `src/app/contact/page.tsx` | |
 | `/gallery` | `src/app/gallery/page.tsx` | |
+| `/book` | `src/app/book/page.tsx` | Tim Cho 4-step booking UI |
 | `/blog` | `src/app/blog/page.tsx` | |
 | `/blog/[slug]` | `src/app/blog/[slug]/page.tsx` | |
 | `/admin/edit` | `src/app/admin/edit/page.tsx` | Inline CMS |

@@ -1,4 +1,12 @@
-import { ABOUT, BOOKING_URL, FAQ, HOME, HOURS, SERVICES, SITE as SITE_META } from "./content";
+import {
+  ABOUT,
+  FAQ,
+  HOME,
+  HOURS,
+  SERVICES,
+  SITE as SITE_META,
+  SITE_BOOK_PATH,
+} from "./content";
 import type { SiteContent } from "./site-content-types";
 
 /** Default editable site copy — seeded from content.ts so CMS and source stay in sync. */
@@ -90,7 +98,7 @@ export function getDefaultSiteContent(): SiteContent {
         body: "Prefer to book directly?",
         bookOnlineLink: "Book online",
       },
-      cta: { label: "Book Your Appointment", href: BOOKING_URL },
+      cta: { label: "Book Your Appointment", href: SITE_BOOK_PATH },
     },
   };
 }

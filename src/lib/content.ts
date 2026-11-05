@@ -5,6 +5,9 @@ import { SITE_URL } from "./constants";
 export const BOOKING_URL =
   "https://booksy.com/en-us/1180862_the-barber-lounge_barber-shop_103886_antioch";
 
+/** On-page Tim Cho booking funnel (preferred CTA path). Booksy remains fallback. */
+export const SITE_BOOK_PATH = "/book";
+
 /**
  * Google review link — Cesar: paste your GBP "Ask for reviews" URL here.
  *
@@ -52,7 +55,7 @@ export const HOME = {
     eyebrow: "THE BARBER LOUNGE • ANTIOCH, CA",
     headline: "More Than a Haircut.",
     subheadline: "Precision cuts. Premium service. Antioch, California.",
-    ctaPrimary: { label: "Book Appointment", href: BOOKING_URL },
+    ctaPrimary: { label: "Book Appointment", href: SITE_BOOK_PATH },
     ctaSecondary: { label: "Call Now", href: `tel:${SITE.phoneTel}` },
     trustBar: `${SITE.rating}★ rating · ${SITE.reviewCount}+ five-star reviews · ${SITE.address}`,
   },
@@ -81,7 +84,7 @@ export const HOME = {
   },
   finalCta: {
     headline: "Ready when you are.",
-    cta: { label: "Book Appointment", href: BOOKING_URL },
+    cta: { label: "Book Appointment", href: SITE_BOOK_PATH },
   },
 };
 
@@ -153,7 +156,7 @@ export const SERVICES = {
   addOns:
     "Ask your barber about additional services — kids cuts, beard trims, designs, eyebrow cleanup, and hot towel upgrades — at your appointment.",
   note: "Regular haircut ($50) and Haircut & beard ($65) are our main bookable services. Ask in the chair or call for anything else.",
-  cta: { label: "Book Your Service", href: BOOKING_URL },
+  cta: { label: "Book Your Service", href: SITE_BOOK_PATH },
 };
 
 export function isPrimaryService(name: string): boolean {
@@ -298,7 +301,7 @@ export const TESTIMONIALS = {
       attribution: "Kristyna, Signature Haircut",
     },
   ],
-  cta: { label: "Ready to Join Them? Book Now", href: BOOKING_URL },
+  cta: { label: "Ready to Join Them? Book Now", href: SITE_BOOK_PATH },
 };
 
 // ============================= CONTACT =============================
@@ -314,7 +317,7 @@ export const CONTACT = {
   email: SITE.email,
   instagram: SITE.instagram,
   formFields: ["Name", "Phone", "Email", "Preferred Barber", "Message"],
-  cta: { label: "Book Your Appointment", href: BOOKING_URL },
+  cta: { label: "Book Your Appointment", href: SITE_BOOK_PATH },
 };
 
 // ============================= SEO / LOCAL BUSINESS SCHEMA =============================

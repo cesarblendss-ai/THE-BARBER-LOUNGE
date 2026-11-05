@@ -1,5 +1,5 @@
 import { ScissorsIcon } from "@/components/icons";
-import { BOOKSY_SERVICE_VARIANT, getBooksyServiceUrl } from "@/lib/booksy";
+import { SITE_BOOK_PATH } from "@/lib/content";
 
 type CinematicService = {
   name: string;
@@ -14,14 +14,14 @@ const DEFAULT_SERVICES: CinematicService[] = [
     name: "Signature Haircut",
     description: "Precision cut, detailed finish.",
     price: "$50",
-    href: getBooksyServiceUrl(BOOKSY_SERVICE_VARIANT.signatureHaircut),
+    href: SITE_BOOK_PATH,
     analyticsLabel: "Book Signature Haircut (service card)",
   },
   {
     name: "Haircut & Beard Trim",
     description: "Complete look, clean finish.",
     price: "$65",
-    href: getBooksyServiceUrl(BOOKSY_SERVICE_VARIANT.signatureHaircutBeard),
+    href: SITE_BOOK_PATH,
     analyticsLabel: "Book Haircut & Beard (service card)",
   },
 ];
@@ -47,7 +47,7 @@ export function CinematicServices({ services = DEFAULT_SERVICES }: CinematicServ
             Book your cut
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-white/55 sm:text-base">
-            Tap a card to open Booksy and lock in your time.
+            Tap a card to start booking — four steps, pay in the shop.
           </p>
         </div>
 
@@ -56,8 +56,9 @@ export function CinematicServices({ services = DEFAULT_SERVICES }: CinematicServ
             <a
               key={service.name}
               href={service.href}
-              target="_blank"
-              rel="noopener noreferrer"
+              {...(service.href.startsWith("http")
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
               data-analytics-label={service.analyticsLabel}
               className="group relative flex flex-col rounded-xl border border-white/15 bg-white/[0.02] p-6 outline-none transition duration-200 hover:-translate-y-0.5 hover:border-white/45 hover:bg-white/[0.06] focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:p-8"
             >
@@ -66,7 +67,7 @@ export function CinematicServices({ services = DEFAULT_SERVICES }: CinematicServ
               <p className="mt-2 text-sm text-white/55">{service.description}</p>
               <p className="mt-6 font-serif text-3xl font-semibold tracking-tight">{service.price}</p>
               <span className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-md bg-white px-4 py-3.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-black transition group-hover:bg-white/90 sm:w-auto sm:self-start">
-                Book on Booksy
+                Book Now
                 <span aria-hidden>→</span>
               </span>
             </a>
