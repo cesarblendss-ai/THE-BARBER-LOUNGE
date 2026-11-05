@@ -3,7 +3,7 @@
 **Last verified:** 2026-11-05  
 **Status:** **LIVE** — Tim `/book` funnel + Call CTAs + lead/opt-in capture on production  
 **Production host:** https://thebarberloungeca.com  
-**Production deployment:** `dpl_51eRcs8wKHx4ZU3CaGQTEb5VNix5` (`main` @ `d12fa42` + follow-up CMS Booksy→`/book` remap)  
+**Production deployment:** `dpl_4wLdatZ5b8rtwuCS8JuccLAHR3bD` (`main` @ `ad04fc6` — Tim stack + CMS Booksy→`/book` remap)  
 **Integration branch:** `cursor/apply-tim-stack-c298` (merges PR #16 book UI + PR #15 conversion + PR #17 transcripts)  
 **Vercel project:** `cesarblendss-7234s-projects/the-barber-lounge`
 
