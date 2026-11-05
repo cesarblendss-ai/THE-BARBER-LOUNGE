@@ -1,10 +1,41 @@
 import fs from "fs";
 import path from "path";
 
+import { BOOKING_URL, SITE_BOOK_PATH } from "./content";
 import { isDatabaseConfigured } from "./db";
 import { dbLoadSiteContent, dbSaveSiteContent } from "./site-content-db";
 import { getDefaultSiteContent } from "./site-content-defaults";
 import type { SiteContent } from "./site-content-types";
+
+/** Legacy CMS/Booksy deep links → same-site `/book` (primary Tim funnel). */
+function rewriteBooksyBookingHref(href: string): string {
+  const trimmed = href.trim();
+  if (!trimmed) return trimmed;
+  if (trimmed === BOOKING_URL) return SITE_BOOK_PATH;
+  if (trimmed.startsWith("https://booksy.com/en-us/1180862_the-barber-lounge")) {
+    return SITE_BOOK_PATH;
+  }
+  return trimmed;
+}
+
+function preferSiteBookPath(value: unknown): unknown {
+  if (Array.isArray(value)) {
+    return value.map((item) => preferSiteBookPath(item));
+  }
+  if (value && typeof value === "object") {
+    const record = value as Record<string, unknown>;
+    const next: Record<string, unknown> = {};
+    for (const [key, child] of Object.entries(record)) {
+      if (key === "href" && typeof child === "string") {
+        next[key] = rewriteBooksyBookingHref(child);
+      } else {
+        next[key] = preferSiteBookPath(child);
+      }
+    }
+    return next;
+  }
+  return value;
+}
 
 const DATA_DIR = path.join(process.cwd(), "data");
 const CONTENT_FILE = path.join(DATA_DIR, "site-content.json");
@@ -67,16 +98,19 @@ export function writeSiteContentFile(content: SiteContent): void {
 /** Load merged content; bootstraps Postgres or local JSON from defaults on first run. */
 export async function loadSiteContent(): Promise<SiteContent> {
   const defaults = getDefaultSiteContent();
+  let content: SiteContent = defaults;
 
   if (isDatabaseConfigured()) {
     try {
       const fromDb = await dbLoadSiteContent();
-      if (fromDb) return deepMerge(defaults, fromDb);
-
-      const fromFile = readSiteContentFile();
-      const merged = fromFile ? deepMerge(defaults, fromFile) : defaults;
-      await dbSaveSiteContent(merged);
-      return merged;
+      if (fromDb) {
+        content = deepMerge(defaults, fromDb);
+      } else {
+        const fromFile = readSiteContentFile();
+        content = fromFile ? deepMerge(defaults, fromFile) : defaults;
+        await dbSaveSiteContent(content);
+      }
+      return preferSiteBookPath(content) as SiteContent;
     } catch (error) {
       console.error("[site-content] db read failed, falling back to JSON", error);
     }
@@ -89,10 +123,10 @@ export async function loadSiteContent(): Promise<SiteContent> {
     } catch {
       // Read-only filesystem (e.g. Vercel without Postgres) — serve defaults only.
     }
-    return defaults;
+    return preferSiteBookPath(defaults) as SiteContent;
   }
 
-  return deepMerge(defaults, stored);
+  return preferSiteBookPath(deepMerge(defaults, stored)) as SiteContent;
 }
 
 export async function saveSiteContent(content: SiteContent): Promise<void> {

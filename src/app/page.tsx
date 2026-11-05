@@ -49,10 +49,10 @@ export default async function HomePage() {
         eyebrow={hero.eyebrow}
         headline={hero.headline}
         subheadline={hero.subheadline}
-        primaryLabel={hero.ctaPrimary.label}
-        primaryHref={hero.ctaPrimary.href || SITE_BOOK_PATH}
-        secondaryLabel={hero.ctaSecondary.label || "Call Now"}
-        secondaryHref={hero.ctaSecondary.href || `tel:${SITE.phoneTel}`}
+        primaryLabel={hero.ctaPrimary.label || "Book Your Cut"}
+        primaryHref={SITE_BOOK_PATH}
+        secondaryLabel="Call Now"
+        secondaryHref={`tel:${SITE.phoneTel}`}
         videos={heroVideos}
       />
 
@@ -85,8 +85,8 @@ export default async function HomePage() {
 
       <HomeFinalCta
         headline={finalCta.headline}
-        ctaLabel={finalCta.cta.label}
-        ctaHref={finalCta.cta.href || SITE_BOOK_PATH}
+        ctaLabel={finalCta.cta.label || "Book Your Cut"}
+        ctaHref={SITE_BOOK_PATH}
       />
     </div>
   );

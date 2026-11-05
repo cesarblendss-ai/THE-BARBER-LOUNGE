@@ -1,5 +1,5 @@
 import type { LandingPageConfig } from "./landing-pages";
-import { BOOKING_URL, SITE } from "./content";
+import { SITE, SITE_BOOK_PATH } from "./content";
 import { SERVICE_AREA_CITIES, type ServiceAreaCity } from "./service-area";
 
 const AREA_OVERRIDES: Partial<Record<string, Partial<LandingPageConfig>>> = {
@@ -50,7 +50,7 @@ export function buildAreaPage(city: ServiceAreaCity): LandingPageConfig {
         answer: `Booksy online or call ${SITE.phone}. Walk-ins when chairs are open.`,
       },
     ],
-    cta: { label: "Book Your Cut", href: BOOKING_URL, external: true },
+    cta: { label: "Book Your Cut", href: SITE_BOOK_PATH, external: false },
     secondaryCta: { label: `Call ${SITE.phone}`, href: `tel:${SITE.phoneTel}` },
     relatedBlog: {
       label: "Best fades in Antioch",

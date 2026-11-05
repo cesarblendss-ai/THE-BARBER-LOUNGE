@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { BOOKING_URL, SITE } from "./content";
+import { SITE, SITE_BOOK_PATH } from "./content";
 
 export type LandingFaq = { question: string; answer: string };
 
@@ -47,7 +47,7 @@ export const KIDS_CUTS_PAGE: LandingPageConfig = {
       answer: "Most fades look best with a touch-up every 2–3 weeks. Tapers can stretch a bit longer between visits.",
     },
   ],
-  cta: { label: "Book a Kids Cut", href: BOOKING_URL, external: true },
+  cta: { label: "Book a Kids Cut", href: SITE_BOOK_PATH, external: false },
   secondaryCta: {
     label: "Read: Maintain Your Fade",
     href: "/blog/maintain-your-fade-kids-haircut-antioch",
@@ -83,7 +83,7 @@ export const BEARD_STUDIO_PAGE: LandingPageConfig = {
       answer: "Book Haircut & beard ($65) for the full package, or ask your barber about additional grooming at your visit.",
     },
   ],
-  cta: { label: "Book Haircut & Beard", href: BOOKING_URL, external: true },
+  cta: { label: "Book Haircut & Beard", href: SITE_BOOK_PATH, external: false },
   secondaryCta: { label: "Full Service Menu", href: "/services" },
   relatedBlog: {
     label: "Why beard trim matters",
