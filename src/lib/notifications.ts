@@ -1,4 +1,5 @@
 import type { Appointment } from "@/lib/appointments-store";
+import { barberFromServiceLabel } from "@/lib/busy-blocks";
 
 /** Shop owner SMS/push target — always +1 925-209-5995 unless OWNER_PHONE overrides. */
 export const DEFAULT_OWNER_PHONE = "+19252095995";
@@ -10,7 +11,10 @@ export type PushNotificationResult = {
 };
 
 function resolveSiteUrl(): string {
-  return process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://the-barber-lounge-antioch.vercel.app";
+  return (
+    process.env.NEXT_PUBLIC_SITE_URL?.trim() ||
+    "https://thebarberloungeca.com"
+  );
 }
 
 function formatNotificationBody(appointment: Appointment): string {
@@ -18,12 +22,19 @@ function formatNotificationBody(appointment: Appointment): string {
     appointment.guestCount && appointment.guestCount > 1
       ? ` (${appointment.guestCount} guests)`
       : "";
+  const barber = barberFromServiceLabel(appointment.service);
   return [
-    `New booking: ${appointment.name}`,
+    `New booking request: ${appointment.name}`,
     `${appointment.service}${guests}`,
     `${appointment.preferredDay} ${appointment.preferredTime}`,
     `Phone: ${appointment.phone}`,
     `Code: ${appointment.confirmationCode}`,
+    "",
+    "CONFIRM IN BOOKSY — website is not live-synced.",
+    barber
+      ? `Check ${barber.split(" ")[0]}'s Booksy chair before holding the slot.`
+      : "Check the requested barber's Booksy chair before confirming.",
+    "Busy blocks (all staffers): /admin/calendar-sync",
   ].join("\n");
 }
 
@@ -32,7 +43,9 @@ function formatNotificationTitle(appointment: Appointment): string {
     appointment.guestCount && appointment.guestCount > 1
       ? ` - ${appointment.guestCount} guests`
       : "";
-  return `New booking: ${appointment.name}${guests}`;
+  const barber = barberFromServiceLabel(appointment.service);
+  const prefix = barber ? `Booksy risk (${barber.split(" ")[0]})` : "Booksy risk";
+  return `${prefix}: ${appointment.name}${guests}`;
 }
 
 export function resolveNtfyTopic(): string | null {
@@ -130,9 +143,9 @@ export async function notifyOwnerOfBooking(
   const push = await sendNtfyPush({
     title,
     body,
-    tags: "barber,appointment",
-    priority: "high",
-    click: `${resolveSiteUrl()}/book`,
+    tags: "barber,appointment,warning",
+    priority: "urgent",
+    click: `${resolveSiteUrl()}/admin/calendar-sync`,
   });
 
   if (!push.configured) {

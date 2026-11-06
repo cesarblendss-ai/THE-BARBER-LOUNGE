@@ -39,7 +39,7 @@ the-barber-lounge/
 | `/contact` | `src/app/contact/page.tsx` | |
 | `/gallery` | `src/app/gallery/page.tsx` | |
 | `/book` | `src/app/book/page.tsx` | Tim Cho 4-step booking UI — **primary landing** |
-| `/admin/calendar-sync` | `src/app/admin/calendar-sync/page.tsx` | Force refresh + lastSyncedAt |
+| `/admin/calendar-sync` | `src/app/admin/calendar-sync/page.tsx` | Force refresh + Booksy busy blocks (Alexis) |
 | `/blog` | `src/app/blog/page.tsx` | |
 | `/blog/[slug]` | `src/app/blog/[slug]/page.tsx` | |
 | `/admin/edit` | `src/app/admin/edit/page.tsx` | Inline CMS |

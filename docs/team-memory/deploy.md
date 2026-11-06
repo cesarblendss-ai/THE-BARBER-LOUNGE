@@ -1,14 +1,15 @@
 # Deploy Status
 
 **Last verified:** 2026-11-06  
-**Status:** **LIVE** — Book-first site (`/` → `/book`) + calendar refresh agent  
+**Status:** **LIVE** — Book-first site; shop-wide Booksy busy blocks shipping on `cursor/booksy-sync-all-barbers-c298`  
 **Production host:** https://thebarberloungeca.com  
-**Production deployment:** `dpl_GnVj3KPzfCaeJUaWaBSZCem9wmec` (`cursor/book-first-calendar-sync-c298` @ `65744c1`)  
+**Production deployment:** (update after `vercel --prod` for shop-wide sync)  
+**Branch:** `cursor/booksy-sync-all-barbers-c298`  
 **Vercel project:** `cesarblendss-7234s-projects/the-barber-lounge`
 
 ---
 
-## What shipped (book-first + calendar sync)
+## What shipped / shipping
 
 | Item | Live? |
 |------|-------|
@@ -17,10 +18,16 @@
 | All primary Book CTAs → `/book` | ✅ |
 | Call Now `tel:+19252095995` | ✅ |
 | Availability refresh agent (cron every 10 min + 60s TTL + client poll) | ✅ |
-| Admin force refresh `/admin/calendar-sync` | ✅ |
+| Cron rebuilds **all staffers** + shop-wide slices | ✅ (this ship) |
+| Admin force refresh + **per-barber busy blocks** `/admin/calendar-sync` | ✅ (this ship) |
+| `/book` filters availability by selected barber | ✅ (this ship) |
+| 3-day public book window + request/confirm copy | ✅ |
+| ntfy **CONFIRM IN BOOKSY** (any staffer, not Alexis-only) | ✅ (this ship) |
 | `lastSyncedAt` on `/api/availability` + `/book` day step | ✅ |
 | Appointment submit → Twilio/ntfy path | ✅ Code live (SMS Phase 2 KYC) |
-| Live Booksy calendar pull | ❌ Impossible — no public API |
+| Live Booksy calendar pull | ❌ Impossible — no public API / ICS export |
+
+Staffers: Alexis `1124582`, Braulio `1740160`, Cesar `1653463`, Kristian `1659337`, Sebastian `1691142`.
 
 ---
 
@@ -74,4 +81,4 @@ npm run build
 npx vercel --prod --yes
 ```
 
-See `docs/team-memory/calendar-sync-agent.md` for the refresh agent.
+See `docs/team-memory/calendar-sync-agent.md` for the shop-wide refresh agent.

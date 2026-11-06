@@ -38,8 +38,8 @@ const TILES = [
   },
   {
     href: "/admin/calendar-sync",
-    label: "Calendar sync",
-    detail: "Availability refresh agent — last sync + force rebuild",
+    label: "Calendar sync + Booksy busy",
+    detail: "Per-barber Booksy busy blocks (full team) · force refresh",
   },
   {
     href: REVIEW_QR_PATH,

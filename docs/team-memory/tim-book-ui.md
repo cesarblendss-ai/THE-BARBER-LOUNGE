@@ -12,7 +12,7 @@ Tim Cho AABLENDZ-style booking funnel for The Barber Lounge — **this IS the we
 | UI | Black / gold / white; 4-step funnel fully wired |
 | Services | Real menu only — Signature Haircut $50, Haircut & Beard $65 (`BOOKABLE_SERVICES`) |
 | Barber | Real `ABOUT.team` + avatars + Booksy `?staffer=` deep links |
-| Day/time | `GET /api/availability` + calendar sync agent (`calendar-sync-agent.md`) |
+| Day/time | `GET /api/availability` + calendar sync agent; **3-day** window (`BOOKABLE_WINDOW_DAYS`) |
 | Submit | `POST /api/appointment-request` → on-screen `BookingReceipt` |
 | Opt-in | SMS/email checkboxes on step 4 → `POST /api/lead` (campaigns Phase 2) |
 | Call Now | Header, sticky, receipt — `tel:+19252095995` |
@@ -40,5 +40,5 @@ Tim Cho AABLENDZ-style booking funnel for The Barber Lounge — **this IS the we
 | Item | Status |
 |------|--------|
 | Twilio customer SMS | Phase 2 — receipt may show text unavailable; ntfy is owner primary (`twilio-sms-status.md`) |
-| Booksy API | None — website captures **requests**; staff confirms in Booksy. Calendar agent syncs **internal** store only. |
+| Booksy API | None — website captures **requests**; staff confirms in Booksy. Busy blocks: `/admin/calendar-sync`. |
 | Invented menu prices | Do not invent extra prices beyond $50 / $65 |

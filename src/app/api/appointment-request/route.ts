@@ -19,6 +19,7 @@ type RequestBody = {
   name?: string;
   phone?: string;
   guestCount?: number | null;
+  barberName?: string | null;
 };
 
 function normalizePhone(phone: string): string | null {
@@ -73,6 +74,7 @@ export async function POST(request: NextRequest) {
       name,
       phone,
       guestCount: typeof body.guestCount === "number" ? body.guestCount : null,
+      barberName: body.barberName?.trim() || null,
     });
 
     if (!result.ok) {

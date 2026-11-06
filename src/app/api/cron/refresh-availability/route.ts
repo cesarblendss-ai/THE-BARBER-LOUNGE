@@ -9,7 +9,8 @@ export const dynamic = "force-dynamic";
 /**
  * Calendar refresh agent — Vercel Cron (every 10 minutes) + admin force refresh.
  *
- * Rebuilds slot cache from appointments store + HOURS.
+ * Rebuilds slot cache from appointments store + HOURS for EVERY Booksy staffer
+ * (Alexis, Braulio, Cesar, Kristian, Sebastian) plus shop-wide / "Any available".
  * Does NOT pull live Booksy calendar (no public third-party API).
  */
 function isAuthorized(request: NextRequest): boolean {
@@ -45,10 +46,12 @@ export async function GET(request: NextRequest) {
         (sum, slots) => sum + slots.length,
         0,
       ),
+      stafferCount: snapshot.staffers.length,
+      staffers: snapshot.staffers,
       source: snapshot.source,
       booksyLiveSync: snapshot.booksyLiveSync,
       ttlMs: snapshot.ttlMs,
-      note: "Synced from website appointments + shop hours. Live Booksy calendar requires Cesar paste/export or a future integration — Booksy has no public create/list API.",
+      note: "Synced shop-wide + per-barber slices from website appointments, busy blocks, and shop hours. Live Booksy calendar requires paste/export for each staffer — Booksy has no public create/list API.",
     });
   } catch (error) {
     console.error("[cron/refresh-availability] failed", error);

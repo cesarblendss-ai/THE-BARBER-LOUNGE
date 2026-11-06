@@ -3,6 +3,7 @@
  * Falls back to JSON file via appointments-store.ts when not configured.
  */
 import type { AppointmentStatus, Appointment, BlockedSlot } from "./appointments-store";
+import { normalizeBarberKey, reasonForBarber, SHOP_WIDE_BARBER } from "./busy-blocks";
 import { getPrisma } from "./db";
 
 function mapAppointment(row: {
@@ -37,6 +38,20 @@ function mapAppointment(row: {
   };
 }
 
+function mapBlockedSlot(row: {
+  date: string;
+  hour: number;
+  reason: string | null;
+  barberName?: string | null;
+}): BlockedSlot {
+  return {
+    date: row.date,
+    hour: row.hour,
+    reason: row.reason ?? undefined,
+    barberName: normalizeBarberKey(row.barberName),
+  };
+}
+
 function requirePrisma() {
   const prisma = getPrisma();
   if (!prisma) {
@@ -58,11 +73,14 @@ export async function dbLoadStore(): Promise<{
 
   return {
     appointments: appointments.map(mapAppointment),
-    blockedSlots: blockedSlots.map((b) => ({
-      date: b.date,
-      hour: b.hour,
-      reason: b.reason ?? undefined,
-    })),
+    blockedSlots: blockedSlots.map((b) =>
+      mapBlockedSlot({
+        date: b.date,
+        hour: b.hour,
+        reason: b.reason,
+        barberName: "barberName" in b ? (b as { barberName?: string }).barberName : SHOP_WIDE_BARBER,
+      }),
+    ),
   };
 }
 
@@ -95,9 +113,17 @@ export async function dbMigrateStore(data: {
   }
 
   for (const slot of data.blockedSlots) {
+    const barberName = normalizeBarberKey(slot.barberName);
     await prisma.blockedSlot.upsert({
-      where: { date_hour: { date: slot.date, hour: slot.hour } },
-      create: { date: slot.date, hour: slot.hour, reason: slot.reason },
+      where: {
+        date_hour_barberName: { date: slot.date, hour: slot.hour, barberName },
+      },
+      create: {
+        date: slot.date,
+        hour: slot.hour,
+        reason: slot.reason,
+        barberName,
+      },
       update: {},
     });
   }
@@ -147,20 +173,101 @@ export async function dbToggleBlockedSlot(
   date: string,
   hour: number,
   reason?: string,
-): Promise<{ blocked: boolean }> {
+  barberName?: string | null,
+): Promise<{ blocked: boolean; barberName: string }> {
   const prisma = requirePrisma();
+  const key = normalizeBarberKey(barberName);
 
   const existing = await prisma.blockedSlot.findUnique({
-    where: { date_hour: { date, hour } },
+    where: { date_hour_barberName: { date, hour, barberName: key } },
   });
 
   if (existing) {
     await prisma.blockedSlot.delete({ where: { id: existing.id } });
-    return { blocked: false };
+    return { blocked: false, barberName: key };
   }
 
-  await prisma.blockedSlot.create({ data: { date, hour, reason } });
-  return { blocked: true };
+  await prisma.blockedSlot.create({
+    data: {
+      date,
+      hour,
+      reason: reason ?? reasonForBarber(key || null),
+      barberName: key,
+    },
+  });
+  return { blocked: true, barberName: key };
+}
+
+export async function dbSetBlockedHoursForDate(
+  date: string,
+  hours: number[],
+  opts: {
+    mode?: "add" | "remove" | "replace";
+    reason?: string;
+    barberName?: string | null;
+  } = {},
+): Promise<{
+  date: string;
+  barberName: string;
+  blockedHours: number[];
+  added: number[];
+  removed: number[];
+  reason?: string;
+}> {
+  const prisma = requirePrisma();
+  const mode = opts.mode ?? "add";
+  const barberKey = normalizeBarberKey(opts.barberName);
+  const target = new Set(hours);
+  const reason = opts.reason ?? reasonForBarber(barberKey || null);
+
+  const existing = await prisma.blockedSlot.findMany({
+    where: { date, barberName: barberKey },
+  });
+  const before = new Set(existing.map((b) => b.hour));
+
+  let nextHours: Set<number>;
+  if (mode === "replace") {
+    nextHours = new Set(target);
+  } else if (mode === "remove") {
+    nextHours = new Set([...before].filter((h) => !target.has(h)));
+  } else {
+    nextHours = new Set([...before, ...target]);
+  }
+
+  const toRemove = existing.filter((b) => !nextHours.has(b.hour));
+  const toAdd = [...nextHours].filter((h) => !before.has(h));
+
+  if (toRemove.length > 0) {
+    await prisma.blockedSlot.deleteMany({
+      where: { id: { in: toRemove.map((b) => b.id) } },
+    });
+  }
+
+  for (const hour of toAdd) {
+    await prisma.blockedSlot.create({
+      data: { date, hour, reason, barberName: barberKey },
+    });
+  }
+
+  if (reason && (mode === "add" || mode === "replace")) {
+    const keep = [...nextHours].filter((h) => before.has(h) && target.has(h));
+    if (keep.length > 0) {
+      await prisma.blockedSlot.updateMany({
+        where: { date, barberName: barberKey, hour: { in: keep } },
+        data: { reason },
+      });
+    }
+  }
+
+  const after = nextHours;
+  return {
+    date,
+    barberName: barberKey,
+    blockedHours: [...after].sort((a, b) => a - b),
+    added: toAdd.sort((a, b) => a - b),
+    removed: toRemove.map((b) => b.hour).sort((a, b) => a - b),
+    reason,
+  };
 }
 
 export async function dbGetAppointmentByCode(code: string): Promise<Appointment | null> {

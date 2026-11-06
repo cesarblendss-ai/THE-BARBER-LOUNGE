@@ -8,6 +8,7 @@ import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { BookingReceipt, type ReceiptData } from "@/components/BookingReceipt";
 import { PhoneIcon } from "@/components/icons";
 import { getBooksyStafferUrl } from "@/lib/booksy";
+import { BOOKABLE_WINDOW_DAYS } from "@/lib/busy-blocks";
 import {
   ABOUT,
   BOOKABLE_SERVICES,
@@ -154,11 +155,20 @@ export function TimBookWizard() {
     return BOOKING_URL;
   }, [selectedBarber]);
 
+  const availabilityBarberParam = useMemo(() => {
+    if (!barberName || barberName === ANY_BARBER.name) return null;
+    return barberName;
+  }, [barberName]);
+
   const fetchDays = useCallback(async (opts?: { silent?: boolean }) => {
     if (!opts?.silent) setLoadingDays(true);
     setError(null);
     try {
-      const res = await fetch("/api/availability?upcomingDays=7", { cache: "no-store" });
+      const qs = new URLSearchParams({ upcomingDays: String(BOOKABLE_WINDOW_DAYS) });
+      if (availabilityBarberParam) qs.set("barber", availabilityBarberParam);
+      const res = await fetch(`/api/availability?${qs.toString()}`, {
+        cache: "no-store",
+      });
       const data = await parseJsonResponse<{
         days?: DayOption[];
         error?: string;
@@ -169,7 +179,7 @@ export function TimBookWizard() {
       setDayOptions(days);
       if (data?.lastSyncedAt) setLastSyncedAt(data.lastSyncedAt);
       if (days.length === 0) {
-        setError("No open days in the next week — call us to schedule.");
+        setError("No open days in the next few days — call us to schedule.");
       }
     } catch (err) {
       setDayOptions([]);
@@ -177,13 +187,15 @@ export function TimBookWizard() {
     } finally {
       if (!opts?.silent) setLoadingDays(false);
     }
-  }, []);
+  }, [availabilityBarberParam]);
 
   const fetchTimes = useCallback(async (date: string, opts?: { silent?: boolean }) => {
     if (!opts?.silent) setLoadingTimes(true);
     setError(null);
     try {
-      const res = await fetch(`/api/availability?date=${encodeURIComponent(date)}`, {
+      const qs = new URLSearchParams({ date });
+      if (availabilityBarberParam) qs.set("barber", availabilityBarberParam);
+      const res = await fetch(`/api/availability?${qs.toString()}`, {
         cache: "no-store",
       });
       const data = await parseJsonResponse<{
@@ -200,13 +212,16 @@ export function TimBookWizard() {
     } finally {
       if (!opts?.silent) setLoadingTimes(false);
     }
-  }, []);
+  }, [availabilityBarberParam]);
 
   useEffect(() => {
     if (step === 3) {
+      setDay(null);
+      setSlot(null);
+      setTimeSlots([]);
       void fetchDays();
     }
-  }, [step, fetchDays]);
+  }, [step, fetchDays, barberName]);
 
   // Keep day/time fresh while the customer is on step 3 (cron is every 10 min; poll faster).
   useEffect(() => {
@@ -286,6 +301,8 @@ export function TimBookWizard() {
           slotDate: day.date,
           name: displayName,
           phone: displayPhone,
+          barberName:
+            barberName && barberName !== ANY_BARBER.name ? barberName : null,
         }),
       });
 
@@ -883,7 +900,8 @@ export function TimBookWizard() {
                   </fieldset>
 
                   <p className="text-[13px] text-white/45">
-                    Pay in the shop. We&apos;ll call to confirm. Shop line:{" "}
+                    This is a request — we confirm the chair in Booksy before it&apos;s locked.
+                    Pay in the shop. Shop line:{" "}
                     <a href={`tel:${SITE.phoneTel}`} className="text-[#C9A86C]">
                       {SITE.phone}
                     </a>

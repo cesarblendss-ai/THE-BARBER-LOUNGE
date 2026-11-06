@@ -66,7 +66,7 @@ export function BookingReceipt({ receipt }: { receipt: ReceiptData }) {
 
       <div className="border-b border-dashed border-charcoal/20 px-5 py-4 text-center">
         <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-brass">
-          Appointment Confirmed
+          Request received — we&apos;ll confirm
         </p>
         <p
           className="mt-2 font-mono text-lg font-semibold tracking-wider text-charcoal"
