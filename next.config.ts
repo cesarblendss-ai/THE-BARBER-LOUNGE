@@ -20,7 +20,12 @@ const nextConfig: NextConfig = {
         destination: "https://cesar-agency.vercel.app/start",
         permanent: false,
       },
-      // /book is now the Tim Cho on-page booking funnel (was Booksy redirect).
+      // Cesar: Tim /book funnel IS the website — hard redirect root → book.
+      {
+        source: "/",
+        destination: "/book",
+        permanent: true,
+      },
     ];
   },
   images: {
