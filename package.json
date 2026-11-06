@@ -18,7 +18,8 @@
     "test:busy-blocks": "npx tsx scripts/test-busy-blocks.ts",
     "test:barber-blocks": "npx tsx scripts/test-barber-blocks.ts",
     "test:booksy-availability": "npx tsx scripts/test-booksy-availability.ts",
-    "test:booksy-handoff": "npx tsx scripts/test-booksy-handoff.ts"
+    "test:booksy-handoff": "npx tsx scripts/test-booksy-handoff.ts",
+    "smoke:booksy-handoff": "npx tsx scripts/smoke-booksy-handoff.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",

@@ -1,9 +1,10 @@
 # Deploy Status
 
 **Last verified:** 2026-11-06  
-**Status:** **LIVE** (book-first). Booksy **auto-book handoff** shipping on `cursor/booksy-auto-book-c298`.  
+**Status:** Code **pushed** on `cursor/booksy-auto-book-c298` @ `3b4c501`. **Prod deploy waiting on Vercel team re-auth.**  
 **Production host:** https://thebarberloungeca.com  
 **Branch:** `cursor/booksy-auto-book-c298`  
+**PR draft:** https://github.com/cesarblendss-ai/THE-BARBER-LOUNGE/pull/new/cursor/booksy-auto-book-c298  
 **Vercel project:** `cesarblendss-7234s-projects/the-barber-lounge`
 
 ---
@@ -12,33 +13,32 @@
 
 | Item | Live? |
 |------|-------|
-| `/` permanent redirect → `/book` (Tim funnel IS the website) | ✅ |
-| Live Booksy open-slot pull (public customer API, no password) | ✅ |
-| `/book` → Booksy deep-link handoff (`do=open-widget` + service/staffer/date/time) | ✅ (this ship) |
-| Receipt primary CTA **Finish on Booksy** | ✅ (this ship) |
-| ntfy Click = prefilled Booksy URL (one-tap for staff) | ✅ (this ship) |
-| Admin calendar-sync **Open Booksy →** per web booking | ✅ (this ship) |
-| Server auto-create inside Booksy | ❌ Needs customer session token — not used |
-
-Staffers: Alexis `1124582`, Braulio `1740160`, Cesar `1653463`, Kristian `1659337`, Sebastian `1691142`.
+| `/` → `/book` | ✅ prod |
+| Live Booksy open-slot sync | ✅ prod (PR #20) |
+| `/book` → Booksy deep-link handoff | ⏳ branch ready — deploy after Vercel auth |
+| Receipt **Finish on Booksy** | ⏳ |
+| ntfy Click = prefilled Booksy | ⏳ |
+| Admin **Open Booksy →** | ⏳ |
+| Server auto-create in Booksy | ❌ needs customer `x-access-token` (403 without) |
 
 ---
 
-## Share these URLs
+## Proof (this branch)
 
-**Primary custom domain:** https://thebarberloungeca.com → **/book**  
-**Book online:** https://thebarberloungeca.com/book  
-**Admin one-tap Booksy:** https://thebarberloungeca.com/admin/calendar-sync  
-
-Prefer **thebarberloungeca.com** (`.com` still DNS-parked).
-
----
-
-## Deploy commands
-
-```powershell
-npm run build
-npx vercel --prod --yes
+```
+npm run test:booksy-handoff   # ok
+npm run smoke:booksy-handoff  # Booksy HTML 200 with open-widget + variant + staffer + date
 ```
 
-See `docs/team-memory/calendar-sync-agent.md` + `docs/operations/booksy-workflow.md`.
+Example handoff URL:
+
+`https://booksy.com/en-us/1180862_the-barber-lounge_barber-shop_103886_antioch?do=open-widget&variantId=16190327&stafferId=1653463&date=2026-11-10&time=11:45`
+
+Create API without token → HTTP 403 `access_token` (expected).
+
+---
+
+## Share after prod promote
+
+- https://thebarberloungeca.com/book
+- https://thebarberloungeca.com/admin/calendar-sync
