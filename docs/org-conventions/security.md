@@ -1,6 +1,6 @@
 # Security Conventions
 
-**Last verified:** 2026-08-08
+**Last verified:** 2026-11-06
 
 Rules for secrets, admin access, and safe agent behavior on this project.
 

@@ -1,6 +1,6 @@
 # Booking System
 
-**Last verified:** 2026-08-08
+**Last verified:** 2026-11-06
 
 How website booking works — wizard UI, persistence, notifications, and portable agent module.
 
