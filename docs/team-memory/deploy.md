@@ -1,10 +1,10 @@
 # Deploy Status
 
 **Last verified:** 2026-11-06  
-**Status:** **LIVE** — Book-first site; shop-wide Booksy busy blocks shipping on `cursor/booksy-sync-all-barbers-c298`  
+**Status:** **LIVE** (book-first). Shop-wide Booksy busy blocks **committed + pushed** on `cursor/booksy-sync-all-barbers-c298` @ `0775265` — prod deploy pending Vercel team re-auth + PR open (GitHub write blocked for this agent).  
 **Production host:** https://thebarberloungeca.com  
-**Production deployment:** (update after `vercel --prod` for shop-wide sync)  
-**Branch:** `cursor/booksy-sync-all-barbers-c298`  
+**Production deployment:** pending (`npx vercel --prod` after team access)  
+**Branch:** `cursor/booksy-sync-all-barbers-c298` (same tip as `cursor/booksy-calendar-bottleneck-c298`)  
 **Vercel project:** `cesarblendss-7234s-projects/the-barber-lounge`
 
 ---
