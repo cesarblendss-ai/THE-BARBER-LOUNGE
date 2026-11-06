@@ -36,6 +36,9 @@ yarn-error.log*
 .env*
 !.env.example
 
+# ephemeral availability sync meta (written by cron /api)
+/data/availability-sync.json
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

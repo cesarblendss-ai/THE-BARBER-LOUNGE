@@ -1,30 +1,45 @@
-# Calendar refresh + Booksy busy blocks (shop-wide)
+# Calendar refresh + Booksy live availability (shop-wide)
 
 **Last verified:** 2026-11-06
 
-## Root cause
+## Root cause (solved for availability)
 
-Alexis Franco (`lexblendzz`, staffer `1124582`) and the full team take real clients on Booksy. Website `/book` only knows HOURS + website appointments + busy blocks. Booksy has **no** public list/create API and **no** staff ICS export (Booksy only imports ICS). Without busy blocks, `/book` can double-book — this project’s #1 bottleneck.
+Alexis Franco (`lexblendzz`, staffer `1124582`) and the full team take real clients on Booksy. Website `/book` used to know only HOURS + website appointments + busy blocks, so it could offer times Booksy already filled.
+
+**Now:** `/book` offers the same open slots a customer sees on Booksy’s public booking widget — for every staffer — via Booksy’s customer `time_slots` API (no login / no password).
 
 ## What it does
 
-Keeps website booking availability fresh so walk-in / concurrent `/book` submits don't double-book from stale slots — **for every Booksy staffer**, not Alexis alone.
-
 | Piece | Detail |
 |-------|--------|
+| Booksy client | `src/lib/booksy-availability.ts` |
 | Sync module | `src/lib/availability-sync.ts` |
-| Busy helpers | `src/lib/busy-blocks.ts` — paste parser + staffer presets |
-| Cron route | `GET/POST /api/cron/refresh-availability` |
-| Schedule | Vercel Cron every **10 minutes** (`vercel.json` → `*/10 * * * *`) |
+| Cron routes | `GET/POST /api/cron/sync-booksy` (alias: `/api/cron/refresh-availability`) |
+| Schedule | Vercel Cron every **5 minutes** (`vercel.json` → `*/5 * * * *` on sync-booksy) |
 | TTL | In-memory snapshot **60s** — next API hit rebuilds if older |
 | Cache-Control | Availability API `max-age=30` |
 | Client poll | `/book` step 3 polls every **2 minutes** + manual Refresh |
 | After book | `POST /api/appointment-request` forces a rebuild |
-| Admin UI | `/admin/calendar-sync` — lastSyncedAt + Force refresh + **per-barber busy paste** |
-| Status field | `lastSyncedAt` on `/api/availability` responses |
-| Book window | `BOOKABLE_WINDOW_DAYS` (3 open days) |
+| Admin UI | `/admin/calendar-sync` — lastSyncedAt + Force refresh + busy paste backup |
+| Status field | `lastSyncedAt` + `booksyLiveSync` on `/api/availability` |
+| Book window | `BOOKABLE_WINDOW_DAYS` (7 open days) |
 
-## Staffers covered by cron + admin
+## How live sync works
+
+1. Cron (or `/book` / admin force) calls `refreshAvailabilitySnapshot`.
+2. For each staffer id + “Any” (`staffer_id: -1`), POST to Booksy:
+
+   `https://us.booksy.com/core/v2/customer_api/me/businesses/1180862/appointments/time_slots`
+
+   Body: `{ subbookings: [{ service_variant_id: 16190327, staffer_id, combo_children: [] }], start_date, end_date }`
+
+   Headers: Booksy’s **public** web `X-Api-Key` + `X-Fingerprint` (UUID). **No** `x-access-token`, **no** Booksy password.
+
+3. Map Booksy `HH:MM` opens into `/book` slots (preserves `:45` starts).
+4. Overlay website appointments / busy blocks as taken (hour granularity).
+5. If Booksy is unreachable → fall back to HOURS + store + busy paste.
+
+## Staffers covered
 
 | Barber | Booksy staffer id |
 |--------|-------------------|
@@ -34,49 +49,20 @@ Keeps website booking availability fresh so walk-in / concurrent `/book` submits
 | Kristian Guerra | `1659337` |
 | Sebastian Guardado | `1691142` |
 
-Bryant (`1860726`) is **not** on `ABOUT.team` — omit until added to roster.
+Bryant (`1860726`) is on Booksy but **not** on `ABOUT.team` — omit until added to roster.
 
-Cron rebuilds:
+## Security
 
-1. Shop-wide / “Any available” slice
-2. One availability slice **per staffer** above
+- **Never** ask for or store Booksy Biz passwords in chat, git, or env.
+- `BOOKSY_WEB_API_KEY` optional override — Booksy’s publishable browser constant, not a shop secret.
+- See `docs/org-conventions/security.md`.
 
-`/book` passes `?barber=<Full Name>` after the customer picks a barber so day/time slots respect that chair’s busy blocks.
+## Still impossible without Booksy partnership
 
-## Source of truth
+- Push website bookings **into** Booksy automatically (no public create API)
+- Biz-panel appointment list / ICS export for third parties
 
-Rebuilds from:
-
-1. Shop `HOURS` (`src/lib/content.ts` → booking config)
-2. Website appointments (`appointments-store` / Postgres when configured)
-3. **Busy blocks** — shop-wide (`barberName=""`) or per-barber (`barberName="Alexis Franco"` etc.)
-
-**Not** live Booksy calendar.
-
-## What is still impossible without Booksy
-
-Booksy has **no public create/list calendar API** for third parties. The website cannot:
-
-- Pull chairs already booked only in Booksy
-- Push website bookings into Booksy automatically
-- Guarantee zero conflicts with Booksy-only appointments
-
-**Workarounds for Cesar (shop-wide — every staffer with Booksy appts):**
-
-- Treat website bookings as **requests** staff confirm in Booksy (current flow + ntfy “CONFIRM IN BOOKSY”)
-- On `/admin/calendar-sync`, select **each** barber with Booksy appointments and paste/tap busy hours (`10am-1pm, 3pm` or ICS paste)
-- Use **Shop-wide** only when every chair is full / shop closed
-- Do **not** scrape Booksy — ToS-risk / unreliable
-- Zapier/Make: no official Booksy “appointment created” trigger for third-party sites; if Booksy adds webhooks later, POST to `PATCH /api/appointments` (`paste-busy` / `set-blocks`) with admin key
-- Future: official Booksy partnership / staff calendar CSV/ICS export if they offer one
-
-## Day-to-day SOP
-
-1. Open https://thebarberloungeca.com/admin/calendar-sync
-2. For **each** barber with Booksy appointments today/tomorrow (Alexis, Braulio, Cesar, Kristian, Sebastian) → Open on Booksy
-3. Paste/tap that staffer’s busy hours (scoped to their name — does not wipe other barbers)
-4. `/book` hides those hours when that barber is selected (~30s; Force refresh if needed)
-5. ntfy alerts on every web request — confirm in Booksy before holding the chair
+Website bookings remain **requests** — ntfy says CONFIRM IN BOOKSY so staff enter them and the next sync stays accurate.
 
 ## Auth for cron
 

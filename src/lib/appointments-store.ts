@@ -17,6 +17,7 @@ import {
   dbUpdateAppointmentStatus,
 } from "@/lib/appointments-db";
 import { isDatabaseConfigured } from "@/lib/db";
+import { parseClockDisplay } from "@/lib/booksy-availability";
 import {
   POST_CUT_BUFFER_HOURS,
   SHOP_WIDE_BARBER,
@@ -53,7 +54,7 @@ export type BlockedSlot = {
   barberName?: string;
 };
 
-type AppointmentsFile = {
+export type AppointmentsFile = {
   appointments: Appointment[];
   blockedSlots: BlockedSlot[];
 };
@@ -64,20 +65,40 @@ const { parsePreferredSlot, findAlternatives, checkAvailabilityWithStore, slotKe
   availabilityEngine;
 
 function resolveSlotFromDate(dateStr: string, preferredTime: string): ParsedSlot | null {
-  const hour = parseTimeString(preferredTime);
-  if (hour === null) return null;
+  // Prefer exact clock parse so Booksy :45 starts stay on the correct hour
+  // (fuzzy parseTimeString rounds :30+ up, which would turn 11:45 → 12).
+  const clock = parseClockDisplay(preferredTime);
+  const hour = clock?.hour ?? parseTimeString(preferredTime);
+  if (hour === null || hour === undefined) return null;
 
   const [y, m, d] = dateStr.split("-").map(Number);
   const date = new Date(y, m - 1, d, 12);
-  const dayName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][date.getDay()];
-  if (!isHourWithinBusinessHours(dayName, hour)) return null;
+  const minute = clock?.minute ?? 0;
+  const displayTime =
+    clock != null
+      ? formatDisplayTimeWithMinutes(hour, minute)
+      : formatDisplayTime(hour);
 
+  // Explicit /book slotDate comes from Booksy-open times — allow even when a
+  // staffer works outside the published HOURS table (early/late chairs).
   return {
     date: dateStr,
     hour,
     displayDay: displayDayForDate(date),
-    displayTime: formatDisplayTime(hour),
+    displayTime,
   };
+}
+
+function formatDisplayTimeWithMinutes(hour: number, minute: number): string {
+  const meridiem = hour >= 12 ? "PM" : "AM";
+  const h = hour % 12 || 12;
+  if (!minute) return `${h}:00 ${meridiem}`;
+  return `${h}:${String(minute).padStart(2, "0")} ${meridiem}`;
+}
+
+/** Read-only store snapshot for availability sync overlays. */
+export async function loadAppointmentsStoreForSync(): Promise<AppointmentsFile> {
+  return readStore();
 }
 
 async function readJsonStore(): Promise<AppointmentsFile> {

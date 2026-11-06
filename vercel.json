@@ -5,8 +5,8 @@
   "installCommand": "npm install",
   "crons": [
     {
-      "path": "/api/cron/refresh-availability",
-      "schedule": "*/10 * * * *"
+      "path": "/api/cron/sync-booksy",
+      "schedule": "*/5 * * * *"
     }
   ]
 }

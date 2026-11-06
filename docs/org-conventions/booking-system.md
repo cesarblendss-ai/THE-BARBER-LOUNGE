@@ -20,7 +20,7 @@ Optional: BookingChat /api/booking-chat
     → same appointment-request on submit
 ```
 
-**Not integrated:** Booksy API. Website captures **requests**; staff confirms in Booksy separately.
+**Booksy:** Live *availability* read from public customer booking API (no password). Website still captures **requests**; staff confirms / enters appointments in Booksy (no public create API).
 
 ---
 
@@ -37,7 +37,7 @@ Optional: BookingChat /api/booking-chat
 | 4 `phone` | "Got it. What's the best number to reach you?" | Enter phone (name inferred or collected per flow) |
 | 5 `done` | Receipt shown | `BookingReceipt` component |
 
-**Availability source:** Internal engine — shop `HOURS` + existing appointments + blocked slots in `data/appointments.json`. **Not** live Booksy calendar.
+**Availability source:** Live Booksy open slots via public customer `time_slots` API (all staffers + Any), overlaid with website appointments / busy blocks. Fallback: shop `HOURS` + appointments store if Booksy is unreachable. See `docs/team-memory/calendar-sync-agent.md`.
 
 **Conflict handling:** If slot taken → HTTP 409 with alternative slots.
 
@@ -156,7 +156,8 @@ Website wizard is an **additional** capture path — not a replacement for Books
 | Route | Method | Purpose |
 |-------|--------|---------|
 | `/api/appointment-request` | POST | Create booking + notify |
-| `/api/availability` | GET | Days, slots, check day+time |
+| `/api/availability` | GET | Days, slots, check day+time (+ `lastSyncedAt`, `booksyLiveSync`) |
+| `/api/cron/sync-booksy` | GET/POST | Live Booksy open-slot sync (cron 5 min) |
 | `/api/appointments` | GET/POST | Admin appointment ops |
 | `/api/appointments/[code]/calendar` | GET | ICS file |
 | `/api/booking-chat` | POST | AI chat turn |
