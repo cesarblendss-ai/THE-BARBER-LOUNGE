@@ -4,23 +4,15 @@
 
 ## Finished
 
-- Cesar: manual Booksy re-entry after web bookings is inefficient.
-- Explored Booksy create API: `POST .../me/appointments/business/{id}/` needs customer `x-access-token` (dry_run OK anonymously; create = 403 without login).
-- Shipped **deep-link handoff** on `cursor/booksy-auto-book-c298`:
-  - `src/lib/booksy-handoff.ts` — `do=open-widget` + variantId/stafferId/date/time
-  - `/book` auto-opens Booksy after submit; receipt **Finish on Booksy →**
-  - ntfy Click = handoff URL (one tap for staff)
-  - Admin calendar-sync lists web bookings with **Open Booksy →**
-  - SOP: `docs/operations/booksy-workflow.md`
+- **PR #20 merged** → `main` @ `f7ae5db` — Live Booksy availability sync for `/book`
+- **Production deploy success** (Vercel) — GitHub Production deploy `7606581110`
+- **Prod proof:**
+  - `https://thebarberloungeca.com/api/availability?meta=1` → `booksyLiveSync: true`, source `booksy-live+website-appointments`, 7 days / 5 staffers
+  - `https://thebarberloungeca.com/api/cron/sync-booksy` → **401 Unauthorized** (route live; was 404 before merge)
+- Docs: `deploy.md` updated with prod proof
 
-## Cesar workflow now
+## Cesar next
 
-| Path | Effort |
-|------|--------|
-| Guest finishes on Booksy | **Zero** manual type |
-| Guest abandons | **One tap** ntfy / admin Open Booksy |
-
-## In flight
-
-- Production deploy of handoff branch
-- Cesar smoke-test one real /book → Booksy finish
+1. Optional: set `CRON_SECRET` on Vercel Production (cron still works via `x-vercel-cron`)
+2. Smoke-test `/book` → pick a live Booksy open → Confirm on Booksy
+3. Phone ntfy tap → same Booksy handoff URL
