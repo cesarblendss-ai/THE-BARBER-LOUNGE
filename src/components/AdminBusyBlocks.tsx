@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 
+import { getBooksyHandoffFromBooking } from "@/lib/booksy-handoff";
 import {
   STAFF_BUSY_PRESETS,
   shopBooksyUrl,
@@ -9,13 +10,24 @@ import {
 } from "@/lib/busy-blocks";
 import { formatDisplayTime } from "@/lib/booking-agent/format";
 
+type DayAppointment = {
+  confirmationCode: string;
+  name: string;
+  service: string;
+  preferredTime?: string;
+  preferredDay?: string;
+  slotDate?: string;
+  status?: string;
+  phone?: string;
+};
+
 type ScheduleSlot = {
   date: string;
   hour: number;
   displayTime: string;
   blocked: boolean;
   blockedScope?: "barber" | "shop" | null;
-  appointment: { confirmationCode: string; name: string; service: string } | null;
+  appointment: DayAppointment | null;
 };
 
 type BusyBlocksProps = {
@@ -55,6 +67,7 @@ export function AdminBusyBlocks({ authRequired, initialKey = "" }: BusyBlocksPro
     STAFF_BUSY_PRESETS[0] ?? SHOP_WIDE_OPTION,
   );
   const [schedule, setSchedule] = useState<ScheduleSlot[]>([]);
+  const [dayAppointments, setDayAppointments] = useState<DayAppointment[]>([]);
   const [paste, setPaste] = useState("");
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -78,6 +91,7 @@ export function AdminBusyBlocks({ authRequired, initialKey = "" }: BusyBlocksPro
       });
       const data = (await res.json()) as {
         schedule?: ScheduleSlot[];
+        appointments?: DayAppointment[];
         error?: string;
       };
       if (res.status === 401) {
@@ -86,9 +100,14 @@ export function AdminBusyBlocks({ authRequired, initialKey = "" }: BusyBlocksPro
       }
       if (!res.ok) throw new Error(data.error ?? "Could not load schedule.");
       setSchedule(data.schedule ?? []);
+      const forDay = (data.appointments ?? []).filter(
+        (a) => a.slotDate === date && a.status !== "cancelled",
+      );
+      setDayAppointments(forDay);
       setUnlocked(true);
     } catch (err) {
       setSchedule([]);
+      setDayAppointments([]);
       setError(err instanceof Error ? err.message : "Could not load schedule.");
     } finally {
       setLoading(false);
@@ -299,6 +318,45 @@ export function AdminBusyBlocks({ authRequired, initialKey = "" }: BusyBlocksPro
             </p>
           </fieldset>
         </div>
+
+        {dayAppointments.length > 0 ? (
+          <div className="mt-5 rounded-xl border border-brass/30 bg-brass/5 px-4 py-3">
+            <p className="text-sm font-semibold text-charcoal">
+              Web bookings this day — one-tap Open Booksy
+            </p>
+            <ul className="mt-2 space-y-2">
+              {dayAppointments.map((appt) => {
+                const handoff = getBooksyHandoffFromBooking({
+                  service: appt.service,
+                  preferredTime: appt.preferredTime ?? formatDisplayTime(9),
+                  slotDate: appt.slotDate ?? date,
+                  barberName: barber.booksyStafferId ? barber.name : null,
+                });
+                return (
+                  <li
+                    key={appt.confirmationCode}
+                    className="flex flex-wrap items-center justify-between gap-2 text-sm text-charcoal"
+                  >
+                    <span>
+                      <span className="font-mono text-xs text-charcoal/50">
+                        {appt.confirmationCode}
+                      </span>{" "}
+                      {appt.name} · {appt.preferredTime ?? "—"} · {appt.service}
+                    </span>
+                    <a
+                      href={handoff}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rounded-full bg-charcoal px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wide text-bone hover:bg-brass hover:text-charcoal"
+                    >
+                      Open Booksy →
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ) : null}
 
         <div className="mt-5">
           <div className="mb-2 flex items-center justify-between gap-2">

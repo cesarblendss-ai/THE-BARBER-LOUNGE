@@ -58,7 +58,7 @@ function formatServiceLine(service: string, guestCount: number | null): string {
 export function formatReceiptSms(receipt: SmsReceipt): string {
   return [
     "THE BARBER LOUNGE",
-    "Appointment Confirmed ✓",
+    "Request received — finish on Booksy to lock your chair",
     "─────────────────",
     receipt.confirmationCode,
     formatServiceLine(receipt.service, receipt.guestCount),
@@ -78,7 +78,7 @@ export function formatOwnerReceiptSms(receipt: SmsReceipt): string {
     `NEW BOOKING — ${receipt.confirmationCode}`,
     `${receipt.name} · ${phoneDisplay}`,
     serviceLine,
-    "Enter in Booksy app (booking details in Cesars Hub)",
+    "Tap ntfy alert → Open Booksy (prefilled). Skip if guest already finished on Booksy.",
   ].join("\n");
 }
 

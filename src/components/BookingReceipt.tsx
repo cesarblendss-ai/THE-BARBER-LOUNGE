@@ -3,7 +3,7 @@
 import { useCallback, useState } from "react";
 import Image from "next/image";
 
-import { getBooksyBookingUrl } from "@/lib/booksy";
+import { getBooksyHandoffFromBooking } from "@/lib/booksy-handoff";
 import { SITE } from "@/lib/content";
 import { REVIEW_LANDING_PATH } from "@/lib/reviews";
 import { LOGO } from "@/lib/constants";
@@ -19,6 +19,10 @@ export type ReceiptData = {
   status: string;
   createdAt: string;
   customerSmsSent?: boolean;
+  /** Booksy deep link with service/staffer/date/time preselected. */
+  booksyHandoffUrl?: string;
+  slotDate?: string;
+  barberName?: string | null;
 };
 
 function formatReceiptDate(iso: string): string {
@@ -36,6 +40,15 @@ export function BookingReceipt({ receipt }: { receipt: ReceiptData }) {
   const customerSmsSent = receipt.customerSmsSent === true;
   const [copied, setCopied] = useState(false);
 
+  const booksyHandoffUrl =
+    receipt.booksyHandoffUrl ??
+    getBooksyHandoffFromBooking({
+      service: receipt.service,
+      preferredTime: receipt.preferredTime,
+      slotDate: receipt.slotDate,
+      barberName: receipt.barberName,
+    });
+
   const copyConfirmation = useCallback(async () => {
     const text = `${receipt.confirmationCode} — ${receipt.service}, ${receipt.preferredDay} ${receipt.preferredTime} at The Barber Lounge, ${SITE.address}`;
     try {
@@ -51,7 +64,7 @@ export function BookingReceipt({ receipt }: { receipt: ReceiptData }) {
     <div
       className="booking-receipt mx-auto w-full max-w-[320px] overflow-hidden rounded-xl border border-charcoal/10 bg-[#F7F4EF] shadow-md print:border print:border-charcoal/30 print:shadow-none"
       role="region"
-      aria-label="Appointment confirmed"
+      aria-label="Appointment request received"
     >
       <div className="border-b border-dashed border-charcoal/20 px-5 py-4 text-center">
         <Image
@@ -66,7 +79,7 @@ export function BookingReceipt({ receipt }: { receipt: ReceiptData }) {
 
       <div className="border-b border-dashed border-charcoal/20 px-5 py-4 text-center">
         <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-brass">
-          Request received — we&apos;ll confirm
+          Almost done — finish on Booksy
         </p>
         <p
           className="mt-2 font-mono text-lg font-semibold tracking-wider text-charcoal"
@@ -109,30 +122,29 @@ export function BookingReceipt({ receipt }: { receipt: ReceiptData }) {
       </dl>
 
       <div className="border-t border-dashed border-charcoal/20 px-5 py-4 text-center">
-        {customerSmsSent ? (
-          <p className="mb-2 text-xs font-medium text-brass">Receipt sent to your phone</p>
-        ) : (
-          <p className="mb-2 text-xs text-charcoal/50">
-            Text receipt unavailable — save your confirmation below
-          </p>
-        )}
-        <p className="text-xs leading-relaxed text-charcoal/60">
-          {customerSmsSent ? (
-            <>
-              We&apos;ll text you if anything changes.
-              <br />
-              See you at {SITE.address.split(",")[0]}.
-            </>
-          ) : (
-            <>
-              Save this confirmation for your records.
-              <br />
-              See you at {SITE.address.split(",")[0]}.
-            </>
-          )}
+        <p className="mb-3 text-xs leading-relaxed text-charcoal/70">
+          Booksy is our live calendar. Confirm your cut there so the chair is
+          locked — we prefilled your service
+          {receipt.barberName ? `, barber,` : ""} and day.
         </p>
 
-        <div className="mt-4 flex flex-col gap-2">
+        <div className="flex flex-col gap-2">
+          <a
+            href={booksyHandoffUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-analytics-label="Finish on Booksy (receipt)"
+            className="rounded-full bg-charcoal px-4 py-3 text-xs font-semibold uppercase tracking-wider text-bone transition-colors hover:bg-brass hover:text-charcoal"
+          >
+            Finish on Booksy →
+          </a>
+          {customerSmsSent ? (
+            <p className="text-[11px] font-medium text-brass">Receipt also sent to your phone</p>
+          ) : (
+            <p className="text-[11px] text-charcoal/50">
+              Text receipt unavailable — save your confirmation below
+            </p>
+          )}
           <button
             type="button"
             onClick={copyConfirmation}
@@ -146,14 +158,6 @@ export function BookingReceipt({ receipt }: { receipt: ReceiptData }) {
             className="rounded-full border border-charcoal/15 bg-bone px-4 py-2 text-xs font-semibold uppercase tracking-wider text-charcoal transition-colors hover:border-brass hover:text-brass"
           >
             Add to Calendar
-          </a>
-          <a
-            href={getBooksyBookingUrl()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[11px] text-charcoal/45 underline-offset-2 hover:text-brass hover:underline"
-          >
-            Manage on Booksy
           </a>
           <a
             href="/refer"
@@ -176,5 +180,5 @@ export function BookingReceipt({ receipt }: { receipt: ReceiptData }) {
 export function receiptAnnouncement(receipt: ReceiptData): string {
   const guests =
     receipt.guestCount && receipt.guestCount > 1 ? ` for ${receipt.guestCount} guests` : "";
-  return `Appointment confirmed. Confirmation number ${receipt.confirmationCode}. ${receipt.service}${guests}, ${receipt.preferredDay} at ${receipt.preferredTime}.`;
+  return `Request received. Confirmation number ${receipt.confirmationCode}. ${receipt.service}${guests}, ${receipt.preferredDay} at ${receipt.preferredTime}. Finish on Booksy to lock your chair.`;
 }

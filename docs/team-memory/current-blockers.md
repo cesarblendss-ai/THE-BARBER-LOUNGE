@@ -1,6 +1,6 @@
 ﻿# Current Blockers
 
-**Last verified:** 2026-11-06 (Booksy live availability sync)
+**Last verified:** 2026-11-06 (Booksy deep-link handoff)
 
 ---
 
@@ -9,7 +9,7 @@
 | Blocker | Detail | Doc |
 |---------|--------|-----|
 | **`thebarberlounge.com` DNS** | Still **HugeDomains parking**. Prefer live **`https://thebarberloungeca.com`** (verified on Vercel) + antioch alias. Fix NameBright only if Cesar wants the `.com` brand live. |
-| **Booksy auto-create** | Website still cannot **push** bookings into Booksy (no public create API). Staff confirm via ntfy. **Availability** now live-syncs from Booksy public `time_slots` (no password). | `calendar-sync-agent.md` |
+| **Booksy server create** | Create API exists but needs **customer** `x-access-token`. Mitigated: **/book deep-link handoff** + ntfy/admin one-tap Open Booksy. | `calendar-sync-agent.md`, `booksy-workflow.md` |
 | **Stripe deposit env** | Code is in; **Cesar** still needs Stripe account + bank + Vercel `STRIPE_*` + webhook URL before Pay deposit works in production | `estimates-stripe.md` |
 | **SMS / email campaigns** | Lead opt-ins stored (`/api/lead`); **campaigns not live** until Twilio KYC + email provider | `twilio-sms-status.md`, `tim-cho-conversion.md` |
 | **CRM haircut notes** | Not built — leads JSON has optional notes only | `tim-cho-conversion.md` |
@@ -30,7 +30,7 @@
 | Item | Status |
 |------|--------|
 | **RETAIL_LOG_PIN on Vercel** | Not set — shop log unlocked; see `security-checklist.md` |
-| **Booksy alignment** | **Live open-slot sync** for all staffers + request/confirm for creates |
+| **Booksy alignment** | **Live open-slot sync** + **/book → Booksy handoff** + staff one-tap |
 
 ---
 
@@ -58,11 +58,11 @@
 
 **→ Full list:** `docs/operations/LAUNCH-CHECKLIST.md`
 
-1. Confirm prod `/book` shows **Booksy** sync age and slots match Booksy for each barber
-2. Optional: set **`CRON_SECRET`** on Vercel Production for cron auth hardening
-3. **NameBright DNS** for `thebarberlounge.com` (A + CNAME per launch checklist) — live site is `thebarberloungeca.com`
-4. **Stripe for estimates** — account + bank + Vercel env + webhook (`docs/team-memory/estimates-stripe.md`)
-5. **Phone ntfy test** — confirm booking pushes say **CONFIRM IN BOOKSY**
-6. **`RETAIL_LOG_PIN`** on Vercel Production (optional security)
-7. **Phase 2:** Twilio Trust Hub (EIN `41-3512174`) before SMS campaigns
+1. Test prod `/book` → **Confirm on Booksy** opens prefilled widget; finish once as a dry run
+2. **Phone ntfy test** — tap alert opens same Booksy handoff URL
+3. Optional: set **`CRON_SECRET`** on Vercel Production
+4. **NameBright DNS** for `thebarberlounge.com` — live site is `thebarberloungeca.com`
+5. **Stripe for estimates** — account + bank + Vercel env + webhook
+6. **`RETAIL_LOG_PIN`** on Vercel Production (optional)
+7. **Phase 2:** Twilio Trust Hub before SMS campaigns
 8. **Email provider** (`RESEND_API_KEY` + `OWNER_EMAIL`) before email campaigns

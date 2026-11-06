@@ -1,21 +1,26 @@
-# Current session
+# Current Session
 
 **Last verified:** 2026-11-06
 
-## Finished this session
+## Finished
 
-- Cesar: still has real Booksy appointments — wants `/book` to match Booksy opens for **all** barbers via public site/API (no password).
-- Inspected Booksy public customer API: `POST .../appointments/time_slots` works with publishable web `X-Api-Key` only.
-- Shipped live sync on `cursor/booksy-live-availability-c298`:
-  - `src/lib/booksy-availability.ts` + wired into `availability-sync.ts`
-  - Cron `/api/cron/sync-booksy` every 5 min (alias refresh-availability)
-  - `/book` shows Booksy lastSyncedAt; 7-day window
-  - Busy paste kept as backup; security docs: never store Booksy passwords
+- Cesar: manual Booksy re-entry after web bookings is inefficient.
+- Explored Booksy create API: `POST .../me/appointments/business/{id}/` needs customer `x-access-token` (dry_run OK anonymously; create = 403 without login).
+- Shipped **deep-link handoff** on `cursor/booksy-auto-book-c298`:
+  - `src/lib/booksy-handoff.ts` — `do=open-widget` + variantId/stafferId/date/time
+  - `/book` auto-opens Booksy after submit; receipt **Finish on Booksy →**
+  - ntfy Click = handoff URL (one tap for staff)
+  - Admin calendar-sync lists web bookings with **Open Booksy →**
+  - SOP: `docs/operations/booksy-workflow.md`
+
+## Cesar workflow now
+
+| Path | Effort |
+|------|--------|
+| Guest finishes on Booksy | **Zero** manual type |
+| Guest abandons | **One tap** ntfy / admin Open Booksy |
 
 ## In flight
 
-- PR + production deploy for live Booksy availability
-
-## Blockers for Cesar
-
-- Confirm Booksy creates still need manual CONFIRM IN BOOKSY (no public create API)
+- Production deploy of handoff branch
+- Cesar smoke-test one real /book → Booksy finish

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { createAppointmentRequest } from "@/lib/appointments-store";
 import { refreshAvailabilitySnapshot } from "@/lib/availability-sync";
+import { getBooksyHandoffFromBooking } from "@/lib/booksy-handoff";
 import { notifyOwnerOfBooking, type PushNotificationResult } from "@/lib/notifications";
 import {
   formatPhoneDisplay,
@@ -66,6 +67,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Please provide a valid phone number." }, { status: 400 });
     }
 
+    const barberName = body.barberName?.trim() || null;
+
     const result = await createAppointmentRequest({
       service,
       preferredDay,
@@ -74,7 +77,7 @@ export async function POST(request: NextRequest) {
       name,
       phone,
       guestCount: typeof body.guestCount === "number" ? body.guestCount : null,
-      barberName: body.barberName?.trim() || null,
+      barberName,
     });
 
     if (!result.ok) {
@@ -130,6 +133,13 @@ export async function POST(request: NextRequest) {
       console.error("[booking-notification] ntfy failed:", error);
     }
 
+    const booksyHandoffUrl = getBooksyHandoffFromBooking({
+      service: appointment.service,
+      preferredTime: appointment.preferredTime,
+      slotDate: appointment.slotDate,
+      barberName,
+    });
+
     return NextResponse.json({
       success: true,
       receipt: {
@@ -143,6 +153,9 @@ export async function POST(request: NextRequest) {
         status: appointment.status,
         createdAt: appointment.createdAt,
         customerSmsSent: sms.customerSent,
+        slotDate: appointment.slotDate,
+        barberName,
+        booksyHandoffUrl,
       },
       sms,
       push,

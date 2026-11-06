@@ -18,7 +18,7 @@ Tim Cho AABLENDZ-style booking funnel for The Barber Lounge — **this IS the we
 | Call Now | Header, sticky, receipt — `tel:+19252095995` |
 | Chrome | HalloweenDecor **removed site-wide**; sticky Book bar + FAB hidden on `/book` |
 | CTAs | All primary Book paths → `/book` |
-| Booksy | Fallback on receipt + per-barber staffer links on step 2 |
+| Booksy | Primary handoff on submit (`do=open-widget` prefilled) + per-barber links on step 2 |
 
 ## Funnel status
 
@@ -40,5 +40,5 @@ Tim Cho AABLENDZ-style booking funnel for The Barber Lounge — **this IS the we
 | Item | Status |
 |------|--------|
 | Twilio customer SMS | Phase 2 — receipt may show text unavailable; ntfy is owner primary (`twilio-sms-status.md`) |
-| Booksy API | None — website captures **requests**; staff confirms in Booksy. Busy blocks: `/admin/calendar-sync`. |
+| Booksy API | Availability live sync + deep-link handoff (customer finishes on Booksy). Staff one-tap if abandoned: `/admin/calendar-sync`. |
 | Invented menu prices | Do not invent extra prices beyond $50 / $65 |

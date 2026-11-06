@@ -8,6 +8,7 @@ import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { BookingReceipt, type ReceiptData } from "@/components/BookingReceipt";
 import { PhoneIcon } from "@/components/icons";
 import { getBooksyStafferUrl } from "@/lib/booksy";
+import { getBooksyHandoffFromBooking } from "@/lib/booksy-handoff";
 import { BOOKABLE_WINDOW_DAYS } from "@/lib/busy-blocks";
 import {
   ABOUT,
@@ -324,11 +325,35 @@ export function TimBookWizard() {
         throw new Error("Could not complete booking. Please try again or call us.");
       }
 
-      setReceipt(data.receipt);
+      const handoffUrl =
+        data.receipt.booksyHandoffUrl ??
+        getBooksyHandoffFromBooking({
+          service: serviceLabel,
+          preferredTime: slot.displayTime,
+          slotDate: day.date,
+          barberName:
+            barberName && barberName !== ANY_BARBER.name ? barberName : null,
+        });
+
+      setReceipt({
+        ...data.receipt,
+        booksyHandoffUrl: handoffUrl,
+        slotDate: data.receipt.slotDate ?? day.date,
+        barberName:
+          data.receipt.barberName ??
+          (barberName && barberName !== ANY_BARBER.name ? barberName : null),
+      });
       track("booking_submitted", {
         service: selectedService.displayName,
         source: "tim_book_ui",
       });
+      track("booksy_handoff_opened", {
+        service: selectedService.displayName,
+        source: "tim_book_ui",
+      });
+
+      // Customer finishes on Booksy so the live calendar gets the appt — no staff retype.
+      window.open(handoffUrl, "_blank", "noopener,noreferrer");
 
       // CRM / opt-in hook — campaigns stay Phase 2 until Twilio KYC; still store the preference.
       if (smsOptIn || emailOptIn) {
@@ -343,7 +368,7 @@ export function TimBookWizard() {
             intent: "opt_in",
             smsOptIn,
             emailOptIn,
-            notes: `Booked via /book · ${serviceLabel} · ${day.dayName} ${slot.displayTime}`,
+            notes: `Booked via /book · ${serviceLabel} · ${day.dayName} ${slot.displayTime} · Booksy handoff`,
           }),
         }).catch(() => {
           /* booking already succeeded — opt-in is best-effort */
@@ -535,22 +560,20 @@ export function TimBookWizard() {
           {receipt ? (
             <div className="mx-auto max-w-md py-4">
               <p className="mb-4 text-center text-[12px] font-semibold uppercase tracking-[0.18em] text-[#C9A86C]">
-                Request received
+                Finish on Booksy to lock your chair
               </p>
               <BookingReceipt receipt={receipt} />
               <div className="mt-5 flex flex-col items-center gap-3 text-center text-sm text-white/55">
                 <p>
-                  We&apos;ll confirm your time. Prefer Booksy?{" "}
+                  Pop-up blocked?{" "}
                   <a
-                    href={booksyFallbackHref}
+                    href={receipt.booksyHandoffUrl ?? booksyFallbackHref}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#C9A86C] underline-offset-2 hover:underline"
+                    data-analytics-label="Finish on Booksy (tim book receipt fallback)"
                   >
-                    Open Booksy
-                    {selectedBarber?.booksyStafferId && selectedBarber.name !== ANY_BARBER.name
-                      ? ` with ${selectedBarber.name.split(" ")[0]}`
-                      : ""}
+                    Open Booksy with your cut ready
                   </a>
                 </p>
                 <a
@@ -955,7 +978,7 @@ export function TimBookWizard() {
                     disabled={!canContinue || submitting}
                     className="tim-gold-btn ml-auto inline-flex items-center gap-2 rounded-full px-6 py-3 text-[14px] font-semibold text-[#1a140c] transition enabled:hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40"
                   >
-                    {submitting ? "Sending…" : "Request appointment"}
+                    {submitting ? "Opening Booksy…" : "Confirm on Booksy →"}
                   </button>
                 )}
               </div>
