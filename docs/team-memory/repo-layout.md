@@ -39,7 +39,7 @@ the-barber-lounge/
 | `/contact` | `src/app/contact/page.tsx` | |
 | `/gallery` | `src/app/gallery/page.tsx` | |
 | `/book` | `src/app/book/page.tsx` | Tim Cho 4-step booking UI — **primary landing** |
-| `/admin/calendar-sync` | `src/app/admin/calendar-sync/page.tsx` | Force refresh + Booksy busy blocks (Alexis) |
+| `/admin/calendar-sync` | `src/app/admin/calendar-sync/page.tsx` | Force refresh + Booksy live status + busy backup |
 | `/blog` | `src/app/blog/page.tsx` | |
 | `/blog/[slug]` | `src/app/blog/[slug]/page.tsx` | |
 | `/admin/edit` | `src/app/admin/edit/page.tsx` | Inline CMS |
@@ -59,7 +59,8 @@ the-barber-lounge/
 | `/api/lead` | `lead/route.ts` | Public lead/opt-in capture; admin GET list |
 | `/api/appointment-request` | `appointment-request/route.ts` | Create booking + notify |
 | `/api/availability` | `availability/route.ts` | Slot availability + `lastSyncedAt` |
-| `/api/cron/refresh-availability` | `cron/refresh-availability/route.ts` | Calendar refresh agent (Vercel cron 10 min) |
+| `/api/cron/sync-booksy` | `cron/sync-booksy/route.ts` | Live Booksy open-slot sync (Vercel cron 5 min) |
+| `/api/cron/refresh-availability` | `cron/refresh-availability/route.ts` | Alias of sync-booksy |
 | `/api/appointments` | `appointments/route.ts` | Admin CRUD |
 | `/api/appointments/[code]/calendar` | `appointments/[code]/calendar/route.ts` | ICS download |
 | `/api/booking-chat` | `booking-chat/route.ts` | AI chat turns |

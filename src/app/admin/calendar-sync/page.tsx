@@ -77,13 +77,13 @@ export default function CalendarSyncAdminPage() {
       <div className="mx-auto max-w-2xl">
         <p className="text-xs font-semibold uppercase tracking-wider text-brass">Staff</p>
         <h1 className="mt-2 font-serif text-4xl font-semibold text-charcoal">
-          Calendar sync + Booksy busy
+          Calendar sync + Booksy live
         </h1>
         <p className="mt-3 text-charcoal/70">
-          Website slots rebuild from appointments + busy blocks + shop hours every 10 minutes —
-          for <strong>every</strong> Booksy staffer, not Alexis alone. Live Booksy pull is
-          impossible; paste or tap busy hours per barber below. Public book window: next{" "}
-          {BOOKABLE_WINDOW_DAYS} open days.
+          /book pulls live open slots from Booksy&apos;s public customer booking API every 5
+          minutes for <strong>every</strong> staffer (no password). Website appointments still
+          overlay as busy. Busy-block paste below is a backup if Booksy is unreachable. Public
+          book window: next {BOOKABLE_WINDOW_DAYS} open days.
         </p>
 
         <div className="mt-8 rounded-2xl border border-charcoal/10 bg-white p-5 shadow-sm">
@@ -115,8 +115,11 @@ export default function CalendarSyncAdminPage() {
             <div>
               <dt className="text-charcoal/50">Booksy live sync</dt>
               <dd className="mt-1 font-medium text-charcoal">
-                {status?.booksyLiveSync ? "Yes" : "No — use busy blocks"}
+                {status?.booksyLiveSync ? "Yes — public time_slots" : "No — fallback / busy paste"}
               </dd>
+              {status?.source ? (
+                <dd className="mt-0.5 font-mono text-xs text-charcoal/45">{status.source}</dd>
+              ) : null}
             </div>
           </dl>
 
@@ -163,20 +166,19 @@ export default function CalendarSyncAdminPage() {
           <p className="font-semibold text-charcoal">Daily SOP (full team)</p>
           <ol className="mt-2 list-decimal space-y-1.5 pl-5">
             <li>
-              For each barber with Booksy appointments today/tomorrow — Alexis, Braulio, Cesar,
-              Kristian, Sebastian — open their staffer link and paste or tap busy hours.
+              Confirm <strong>Booksy live sync = Yes</strong> above. /book should match what a
+              customer sees on Booksy for Alexis, Braulio, Cesar, Kristian, Sebastian.
             </li>
             <li>
-              Use <strong>Shop-wide</strong> only when the whole shop is closed or every chair is
-              full.
+              Force refresh if slots look stale. Cron hits <code>/api/cron/sync-booksy</code> every
+              5 minutes (public API — never paste Booksy passwords into the site).
             </li>
             <li>
-              /book hides that barber&apos;s hours within ~30s (force refresh if needed). Customers
-              who pick another free barber still see open slots.
+              Busy-block paste is backup only (Booksy outage or special holds). Prefer live sync.
             </li>
             <li>
-              New web requests push ntfy &quot;CONFIRM IN BOOKSY&quot; — hold the chair only after
-              Booksy is clear for that staffer.
+              New web requests still push ntfy &quot;CONFIRM IN BOOKSY&quot; — enter the appointment
+              in Booksy so the next sync stays accurate.
             </li>
           </ol>
         </div>

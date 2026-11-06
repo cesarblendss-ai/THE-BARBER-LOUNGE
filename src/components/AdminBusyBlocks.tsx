@@ -220,7 +220,8 @@ export function AdminBusyBlocks({ authRequired, initialKey = "" }: BusyBlocksPro
           Shop-wide Booksy mirror
         </p>
         <p className="mt-2 text-sm text-bone/75">
-          Booksy has no public calendar API. When <strong>any</strong> barber fills chairs on
+          Live Booksy sync is primary. Use paste when you need a manual hold, or if{" "}
+          <strong>Booksy live sync</strong> shows No. When <strong>any</strong> barber fills chairs on
           Booksy, select them below and block those hours so{" "}
           <a href="/book" className="text-brass underline-offset-2 hover:underline">
             /book

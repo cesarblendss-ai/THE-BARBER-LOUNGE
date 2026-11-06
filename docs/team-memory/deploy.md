@@ -1,10 +1,11 @@
 # Deploy Status
 
 **Last verified:** 2026-11-06  
-**Status:** **LIVE** (book-first). Shop-wide Booksy busy blocks **committed + pushed** on `cursor/booksy-sync-all-barbers-c298` @ `0775265` — prod deploy pending Vercel team re-auth + PR open (GitHub write blocked for this agent).  
+**Status:** **LIVE** (book-first). Booksy **live availability** sync pushed on `cursor/booksy-live-availability-c298` @ `bc0261c`. Prod deploy blocked on Vercel team re-auth; PR open blocked (GitHub write).  
 **Production host:** https://thebarberloungeca.com  
-**Production deployment:** pending (`npx vercel --prod` after team access)  
-**Branch:** `cursor/booksy-sync-all-barbers-c298` (same tip as `cursor/booksy-calendar-bottleneck-c298`)  
+**Production deployment:** pending — approve Vercel team access then `npx vercel --prod` / MCP deploy  
+**Branch:** `cursor/booksy-live-availability-c298`  
+**PR draft URL:** https://github.com/cesarblendss-ai/THE-BARBER-LOUNGE/pull/new/cursor/booksy-live-availability-c298  
 **Vercel project:** `cesarblendss-7234s-projects/the-barber-lounge`
 
 ---
@@ -17,15 +18,16 @@
 | HalloweenDecor removed from public site | ✅ |
 | All primary Book CTAs → `/book` | ✅ |
 | Call Now `tel:+19252095995` | ✅ |
-| Availability refresh agent (cron every 10 min + 60s TTL + client poll) | ✅ |
-| Cron rebuilds **all staffers** + shop-wide slices | ✅ (this ship) |
-| Admin force refresh + **per-barber busy blocks** `/admin/calendar-sync` | ✅ (this ship) |
-| `/book` filters availability by selected barber | ✅ (this ship) |
-| 3-day public book window + request/confirm copy | ✅ |
-| ntfy **CONFIRM IN BOOKSY** (any staffer, not Alexis-only) | ✅ (this ship) |
-| `lastSyncedAt` on `/api/availability` + `/book` day step | ✅ |
+| Availability refresh agent (cron every 5 min + 60s TTL + client poll) | ✅ (this ship) |
+| Cron rebuilds **all staffers** + shop-wide from **Booksy live opens** | ✅ (this ship) |
+| Admin force refresh + busy-block backup `/admin/calendar-sync` | ✅ |
+| `/book` filters availability by selected barber | ✅ |
+| 7-day public book window + request/confirm copy | ✅ (this ship) |
+| ntfy **CONFIRM IN BOOKSY** (any staffer, not Alexis-only) | ✅ |
+| `lastSyncedAt` + `booksyLiveSync` on `/api/availability` + `/book` | ✅ (this ship) |
 | Appointment submit → Twilio/ntfy path | ✅ Code live (SMS Phase 2 KYC) |
-| Live Booksy calendar pull | ❌ Impossible — no public API / ICS export |
+| Live Booksy open-slot pull (public customer API, no password) | ✅ (this ship) |
+| Auto-create appointments inside Booksy | ❌ No public create API |
 
 Staffers: Alexis `1124582`, Braulio `1740160`, Cesar `1653463`, Kristian `1659337`, Sebastian `1691142`.
 

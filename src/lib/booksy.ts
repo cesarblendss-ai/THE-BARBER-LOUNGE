@@ -3,11 +3,28 @@ import { BOOKING_URL, SITE } from "@/lib/content";
 /**
  * Booksy integration notes:
  *
- * - No public API for third-party appointment creation on custom sites.
- * - Profile deep links: `service_variant_id` is preserved on the Booksy profile URL
- *   and is the best available handoff for a specific menu item.
- * - Chatbot still creates an internal appointment request; Cesar confirms in Booksy.
+ * - Live *availability* is readable via the same public customer `time_slots` endpoint
+ *   the Booksy booking widget uses (see `booksy-availability.ts`). No login / password.
+ * - No public API for third-party appointment *creation* on custom sites — website
+ *   bookings remain requests staff confirm in Booksy.
+ * - Profile deep links: `service_variant_id` / `staffer` hand off to Booksy.
+ *
+ * Security: never ask for or store Booksy Biz passwords in chat, git, or env.
+ * The web `X-Api-Key` below is Booksy's publishable client constant (in their JS
+ * bundle for every anonymous visitor) — not a shop credential.
  */
+
+/** Booksy business id for The Barber Lounge (US marketplace). */
+export const BOOKSY_BUSINESS_ID = "1180862";
+
+/**
+ * Booksy's public web-client API key (constant shipped to browsers).
+ * Override only if Booksy rotates the web key: set `BOOKSY_WEB_API_KEY` in Vercel.
+ */
+export const BOOKSY_WEB_API_KEY =
+  process.env.BOOKSY_WEB_API_KEY?.trim() || "web-e3d812bf-d7a2-445d-ab38-55589ae6a121";
+
+export const BOOKSY_WEB_API_VERSION = "3.0";
 
 /** Booksy service variant IDs from the live shop profile (Signature menu). */
 export const BOOKSY_SERVICE_VARIANT = {

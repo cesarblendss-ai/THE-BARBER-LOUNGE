@@ -1,14 +1,14 @@
 /**
  * Phone-friendly busy-time parsing + shop-wide Booksy staffer presets.
- * Used by /admin/calendar-sync so Cesar can mirror Booksy chairs for EVERY barber
- * (not Alexis-only). Website still cannot live-pull Booksy — no public API.
+ * Primary availability is live Booksy open slots (`booksy-availability.ts`).
+ * Busy paste on /admin/calendar-sync remains a backup overlay / outage path.
  */
 import { parseTimeString } from "@/lib/booking-agent/availability";
 import { ABOUT, BOOKING_URL } from "@/lib/content";
 import { BOOKSY_STAFFER, getBooksyStafferUrl } from "@/lib/booksy";
 
-/** Public bookable window — short while Booksy can't sync live. */
-export const BOOKABLE_WINDOW_DAYS = 3;
+/** Public bookable window — live Booksy open slots drive /book. */
+export const BOOKABLE_WINDOW_DAYS = 7;
 
 /** Hours after a website booking that stay blocked (same chair buffer). 0 = off. */
 export const POST_CUT_BUFFER_HOURS = 0;

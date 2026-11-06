@@ -1,6 +1,6 @@
 ﻿# Current Blockers
 
-**Last verified:** 2026-11-06 (shop-wide Booksy busy blocks)
+**Last verified:** 2026-11-06 (Booksy live availability sync)
 
 ---
 
@@ -9,7 +9,7 @@
 | Blocker | Detail | Doc |
 |---------|--------|-----|
 | **`thebarberlounge.com` DNS** | Still **HugeDomains parking**. Prefer live **`https://thebarberloungeca.com`** (verified on Vercel) + antioch alias. Fix NameBright only if Cesar wants the `.com` brand live. |
-| **Booksy live calendar (API)** | Still **no** public create/list/ICS-export API. **Mitigated (shop-wide):** per-barber busy blocks at `/admin/calendar-sync` for Alexis `1124582`, Braulio `1740160`, Cesar `1653463`, Kristian `1659337`, Sebastian `1691142`. Cesar clarification: bottleneck is **every** staffer with Booksy appts — not Alexis-only. Staff must paste/tap Booksy-busy hours per barber or chairs can still drift. | `calendar-sync-agent.md` |
+| **Booksy auto-create** | Website still cannot **push** bookings into Booksy (no public create API). Staff confirm via ntfy. **Availability** now live-syncs from Booksy public `time_slots` (no password). | `calendar-sync-agent.md` |
 | **Stripe deposit env** | Code is in; **Cesar** still needs Stripe account + bank + Vercel `STRIPE_*` + webhook URL before Pay deposit works in production | `estimates-stripe.md` |
 | **SMS / email campaigns** | Lead opt-ins stored (`/api/lead`); **campaigns not live** until Twilio KYC + email provider | `twilio-sms-status.md`, `tim-cho-conversion.md` |
 | **CRM haircut notes** | Not built — leads JSON has optional notes only | `tim-cho-conversion.md` |
@@ -30,9 +30,15 @@
 | Item | Status |
 |------|--------|
 | **RETAIL_LOG_PIN on Vercel** | Not set — shop log unlocked; see `security-checklist.md` |
-| **Booksy alignment** | Manual **per-barber** busy blocks + request/confirm flow — not automatic |
+| **Booksy alignment** | **Live open-slot sync** for all staffers + request/confirm for creates |
 
 ---
+
+## Resolved (2026-11-06)
+
+| Blocker | Resolved |
+|---------|----------|
+| **Booksy live calendar (availability)** | Public customer `time_slots` API — `/api/cron/sync-booksy` every 5 min; `/book` shows Booksy opens |
 
 ## Resolved (2026-08-11 audit)
 
@@ -52,13 +58,11 @@
 
 **→ Full list:** `docs/operations/LAUNCH-CHECKLIST.md`
 
-1. **Daily:** `/admin/calendar-sync` → for **each** barber with Booksy appointments (Alexis, Braulio, Cesar, Kristian, Sebastian) paste/tap busy hours for today + tomorrow
-2. Confirm prod: `https://thebarberloungeca.com` opens **`/book`** (3-day window; selected barber filters busy)
-3. Optional: set **`CRON_SECRET`** on Vercel Production for cron auth hardening
-4. **NameBright DNS** for `thebarberlounge.com` (A + CNAME per launch checklist) — live site is `thebarberloungeca.com`
-5. **Stripe for estimates** — account + bank + Vercel env + webhook (`docs/team-memory/estimates-stripe.md`)
-6. **Phone ntfy test** — confirm booking pushes say **CONFIRM IN BOOKSY** for any staffer
-7. **`RETAIL_LOG_PIN`** on Vercel Production (optional security)
-8. **Phase 2:** Twilio Trust Hub (EIN `41-3512174`) before SMS campaigns
-9. **Email provider** (`RESEND_API_KEY` + `OWNER_EMAIL`) before email campaigns
-10. If Booksy ever ships staff ICS export or webhooks — wire feed into `paste-busy` / cron (see `calendar-sync-agent.md`)
+1. Confirm prod `/book` shows **Booksy** sync age and slots match Booksy for each barber
+2. Optional: set **`CRON_SECRET`** on Vercel Production for cron auth hardening
+3. **NameBright DNS** for `thebarberlounge.com` (A + CNAME per launch checklist) — live site is `thebarberloungeca.com`
+4. **Stripe for estimates** — account + bank + Vercel env + webhook (`docs/team-memory/estimates-stripe.md`)
+5. **Phone ntfy test** — confirm booking pushes say **CONFIRM IN BOOKSY**
+6. **`RETAIL_LOG_PIN`** on Vercel Production (optional security)
+7. **Phase 2:** Twilio Trust Hub (EIN `41-3512174`) before SMS campaigns
+8. **Email provider** (`RESEND_API_KEY` + `OWNER_EMAIL`) before email campaigns

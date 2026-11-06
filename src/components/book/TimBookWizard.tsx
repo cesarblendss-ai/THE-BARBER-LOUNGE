@@ -135,6 +135,7 @@ export function TimBookWizard() {
   const [receipt, setReceipt] = useState<ReceiptData | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [lastSyncedAt, setLastSyncedAt] = useState<string | null>(null);
+  const [booksyLiveSync, setBooksyLiveSync] = useState(false);
 
   const selectedService = useMemo(
     () => SERVICES.find((s) => s.id === serviceId) ?? null,
@@ -173,11 +174,13 @@ export function TimBookWizard() {
         days?: DayOption[];
         error?: string;
         lastSyncedAt?: string;
+        booksyLiveSync?: boolean;
       }>(res);
       if (!res.ok) throw new Error(data?.error ?? "Could not load days.");
       const days = data?.days ?? [];
       setDayOptions(days);
       if (data?.lastSyncedAt) setLastSyncedAt(data.lastSyncedAt);
+      if (typeof data?.booksyLiveSync === "boolean") setBooksyLiveSync(data.booksyLiveSync);
       if (days.length === 0) {
         setError("No open days in the next few days — call us to schedule.");
       }
@@ -202,10 +205,12 @@ export function TimBookWizard() {
         slots?: TimeSlot[];
         error?: string;
         lastSyncedAt?: string;
+        booksyLiveSync?: boolean;
       }>(res);
       if (!res.ok) throw new Error(data?.error ?? "Could not load times.");
       setTimeSlots(data?.slots ?? []);
       if (data?.lastSyncedAt) setLastSyncedAt(data.lastSyncedAt);
+      if (typeof data?.booksyLiveSync === "boolean") setBooksyLiveSync(data.booksyLiveSync);
     } catch (err) {
       setTimeSlots([]);
       setError(err instanceof Error ? err.message : "Could not load times.");
@@ -727,7 +732,8 @@ export function TimBookWizard() {
                       <div className="flex items-center gap-3">
                         {formatSyncedAgo(lastSyncedAt) ? (
                           <p className="text-[10px] uppercase tracking-[0.1em] text-white/30">
-                            Calendar {formatSyncedAgo(lastSyncedAt)}
+                            {booksyLiveSync ? "Booksy" : "Calendar"}{" "}
+                            {formatSyncedAgo(lastSyncedAt)}
                           </p>
                         ) : null}
                         <button

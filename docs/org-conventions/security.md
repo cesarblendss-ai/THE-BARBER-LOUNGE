@@ -1,6 +1,6 @@
 # Security Conventions
 
-**Last verified:** 2026-08-08
+**Last verified:** 2026-11-06
 
 Rules for secrets, admin access, and safe agent behavior on this project.
 
@@ -14,6 +14,7 @@ Rules for secrets, admin access, and safe agent behavior on this project.
 | **Use `.env.example`** | Document variable *names* only — never real values |
 | **No secrets in chat** | Agents must not paste `TWILIO_AUTH_TOKEN`, `ADMIN_UPLOAD_KEY`, API keys, or database URLs |
 | **No secrets in docs** | Refer to variable names; say "set in Vercel" not the value |
+| **No Booksy passwords** | Never ask Cesar for Booksy Biz login/password in chat or store it in git/env. Live availability uses Booksy's **public** customer `time_slots` endpoint + Booksy's publishable web `X-Api-Key` (browser constant). Optional override name only: `BOOKSY_WEB_API_KEY`. If a customer session token ever becomes required, document env name `BOOKSY_ACCESS_TOKEN` — value stays in Vercel only |
 
 If a secret was accidentally committed: rotate immediately, remove from git history if needed.
 

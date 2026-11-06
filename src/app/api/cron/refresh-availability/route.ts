@@ -9,9 +9,10 @@ export const dynamic = "force-dynamic";
 /**
  * Calendar refresh agent — Vercel Cron (every 10 minutes) + admin force refresh.
  *
- * Rebuilds slot cache from appointments store + HOURS for EVERY Booksy staffer
- * (Alexis, Braulio, Cesar, Kristian, Sebastian) plus shop-wide / "Any available".
- * Does NOT pull live Booksy calendar (no public third-party API).
+ * Pulls live open slots from Booksy's public customer `time_slots` API for every
+ * staffer (Alexis, Braulio, Cesar, Kristian, Sebastian) + "Any available", then
+ * overlays website appointments / busy blocks. Falls back to HOURS + store if
+ * Booksy is unreachable. No Booksy password — public web API key only.
  */
 function isAuthorized(request: NextRequest): boolean {
   const cronSecret = process.env.CRON_SECRET?.trim();
@@ -50,8 +51,11 @@ export async function GET(request: NextRequest) {
       staffers: snapshot.staffers,
       source: snapshot.source,
       booksyLiveSync: snapshot.booksyLiveSync,
+      booksySyncErrors: snapshot.booksySyncErrors ?? [],
       ttlMs: snapshot.ttlMs,
-      note: "Synced shop-wide + per-barber slices from website appointments, busy blocks, and shop hours. Live Booksy calendar requires paste/export for each staffer — Booksy has no public create/list API.",
+      note: snapshot.booksyLiveSync
+        ? "Live Booksy open slots (public customer time_slots) for every staffer + Any. Website appointments still overlay as busy."
+        : "Booksy live pull failed — fell back to website appointments + busy blocks + shop hours. Check booksySyncErrors.",
     });
   } catch (error) {
     console.error("[cron/refresh-availability] failed", error);

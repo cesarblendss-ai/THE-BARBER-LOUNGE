@@ -28,7 +28,7 @@ async function withSyncMeta<T extends Record<string, unknown>>(
   return {
     ...payload,
     lastSyncedAt,
-    booksyLiveSync: false as const,
+    booksyLiveSync: snapshot.booksyLiveSync,
     source: snapshot.source,
     barber: normalizeBarberKey(barberName) || null,
     staffers: snapshot.staffers,
@@ -121,8 +121,9 @@ export async function GET(request: NextRequest) {
       return NextResponse.json(
         {
           lastSyncedAt: snapshot.lastSyncedAt,
-          booksyLiveSync: false,
+          booksyLiveSync: snapshot.booksyLiveSync,
           source: snapshot.source,
+          booksySyncErrors: snapshot.booksySyncErrors ?? [],
           ttlMs: snapshot.ttlMs,
           dayCount: snapshot.days.length,
           stafferCount: snapshot.staffers.length,

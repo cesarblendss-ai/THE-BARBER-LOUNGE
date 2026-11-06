@@ -16,7 +16,8 @@
     "test:sms": "npx tsx scripts/test-sms.ts",
     "test:estimates": "npx tsx scripts/test-estimates.ts",
     "test:busy-blocks": "npx tsx scripts/test-busy-blocks.ts",
-    "test:barber-blocks": "npx tsx scripts/test-barber-blocks.ts"
+    "test:barber-blocks": "npx tsx scripts/test-barber-blocks.ts",
+    "test:booksy-availability": "npx tsx scripts/test-booksy-availability.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
