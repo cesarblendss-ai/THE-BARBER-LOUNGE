@@ -73,9 +73,13 @@ async function main() {
 
   let blockCount = 0;
   for (const b of store.blockedSlots ?? []) {
+    const barberName =
+      typeof (b as { barberName?: string }).barberName === "string"
+        ? (b as { barberName?: string }).barberName!.trim()
+        : "";
     await prisma.blockedSlot.upsert({
-      where: { date_hour: { date: b.date, hour: b.hour } },
-      create: { date: b.date, hour: b.hour, reason: b.reason },
+      where: { date_hour_barberName: { date: b.date, hour: b.hour, barberName } },
+      create: { date: b.date, hour: b.hour, reason: b.reason, barberName },
       update: { reason: b.reason },
     });
     blockCount++;

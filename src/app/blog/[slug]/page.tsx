@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { Button } from "@/components/Button";
 import { SectionLabel } from "@/components/SectionLabel";
 import { getBlogContent } from "@/lib/blog-content";
-import { BOOKING_URL } from "@/lib/content";
+import { SITE_BOOK_PATH } from "@/lib/content";
 import { getAllBlogSlugs, getBlogPost } from "@/lib/blog-posts";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -64,7 +64,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           </div>
 
           <div className="mt-12 flex flex-col items-start gap-4 border-t border-charcoal/10 pt-8 sm:flex-row sm:flex-wrap sm:items-center">
-            <Button href={BOOKING_URL} external>
+            <Button href={SITE_BOOK_PATH}>
               Book Your Appointment
             </Button>
             <Button href="/services" variant="outline">

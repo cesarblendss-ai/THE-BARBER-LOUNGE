@@ -10,8 +10,8 @@ type FooterProps = {
 };
 
 const FOOTER_NAV = [
-  { href: "/", label: "Home" },
-  { href: "/#services", label: "Services" },
+  { href: SITE_BOOK_PATH, label: "Book" },
+  { href: "/services", label: "Services" },
   { href: "/about", label: "Barbers" },
   { href: "/contact", label: "Location" },
 ] as const;
@@ -99,8 +99,7 @@ export function Footer({ content }: FooterProps) {
 
       <div className="border-t border-orange-500/20 px-5 py-5 text-center text-[11px] tracking-wide text-white/40 sm:px-8">
         © {year} <EditableText path="SITE.name" defaultValue={site.name} as="span" /> ·{" "}
-        <EditableText path="FOOTER.copyright" defaultValue={FOOTER.copyright} as="span" /> · Happy
-        Halloween
+        <EditableText path="FOOTER.copyright" defaultValue={FOOTER.copyright} as="span" />
       </div>
     </footer>
   );

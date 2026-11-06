@@ -8,6 +8,7 @@ import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { BookingReceipt, type ReceiptData } from "@/components/BookingReceipt";
 import { PhoneIcon } from "@/components/icons";
 import { getBooksyStafferUrl } from "@/lib/booksy";
+import { BOOKABLE_WINDOW_DAYS } from "@/lib/busy-blocks";
 import {
   ABOUT,
   BOOKABLE_SERVICES,
@@ -92,13 +93,28 @@ function MoonIcon({ className }: { className?: string }) {
 }
 
 const BOOK_NAV = [
-  { href: "/#services", label: "Services" },
+  { href: "/services", label: "Services" },
   { href: "/about", label: "Barbers" },
   { href: "/testimonials", label: "Reviews" },
   { href: "/gallery", label: "Gallery" },
   { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
 ] as const;
+
+/** Client poll while picking day/time — keeps slots from going stale between cron passes. */
+const AVAILABILITY_POLL_MS = 2 * 60 * 1000;
+
+function formatSyncedAgo(iso: string | null): string | null {
+  if (!iso) return null;
+  const ms = Date.now() - new Date(iso).getTime();
+  if (!Number.isFinite(ms) || ms < 0) return null;
+  const mins = Math.floor(ms / 60000);
+  if (mins < 1) return "just now";
+  if (mins === 1) return "1 min ago";
+  if (mins < 60) return `${mins} min ago`;
+  const hours = Math.floor(mins / 60);
+  return hours === 1 ? "1 hr ago" : `${hours} hr ago`;
+}
 
 export function TimBookWizard() {
   const [step, setStep] = useState<WizardStep>(1);
@@ -118,6 +134,7 @@ export function TimBookWizard() {
   const [error, setError] = useState<string | null>(null);
   const [receipt, setReceipt] = useState<ReceiptData | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [lastSyncedAt, setLastSyncedAt] = useState<string | null>(null);
 
   const selectedService = useMemo(
     () => SERVICES.find((s) => s.id === serviceId) ?? null,
@@ -138,47 +155,84 @@ export function TimBookWizard() {
     return BOOKING_URL;
   }, [selectedBarber]);
 
-  const fetchDays = useCallback(async () => {
-    setLoadingDays(true);
+  const availabilityBarberParam = useMemo(() => {
+    if (!barberName || barberName === ANY_BARBER.name) return null;
+    return barberName;
+  }, [barberName]);
+
+  const fetchDays = useCallback(async (opts?: { silent?: boolean }) => {
+    if (!opts?.silent) setLoadingDays(true);
     setError(null);
     try {
-      const res = await fetch("/api/availability?upcomingDays=7");
-      const data = await parseJsonResponse<{ days?: DayOption[]; error?: string }>(res);
+      const qs = new URLSearchParams({ upcomingDays: String(BOOKABLE_WINDOW_DAYS) });
+      if (availabilityBarberParam) qs.set("barber", availabilityBarberParam);
+      const res = await fetch(`/api/availability?${qs.toString()}`, {
+        cache: "no-store",
+      });
+      const data = await parseJsonResponse<{
+        days?: DayOption[];
+        error?: string;
+        lastSyncedAt?: string;
+      }>(res);
       if (!res.ok) throw new Error(data?.error ?? "Could not load days.");
       const days = data?.days ?? [];
       setDayOptions(days);
+      if (data?.lastSyncedAt) setLastSyncedAt(data.lastSyncedAt);
       if (days.length === 0) {
-        setError("No open days in the next week — call us to schedule.");
+        setError("No open days in the next few days — call us to schedule.");
       }
     } catch (err) {
       setDayOptions([]);
       setError(err instanceof Error ? err.message : "Could not load days.");
     } finally {
-      setLoadingDays(false);
+      if (!opts?.silent) setLoadingDays(false);
     }
-  }, []);
+  }, [availabilityBarberParam]);
 
-  const fetchTimes = useCallback(async (date: string) => {
-    setLoadingTimes(true);
+  const fetchTimes = useCallback(async (date: string, opts?: { silent?: boolean }) => {
+    if (!opts?.silent) setLoadingTimes(true);
     setError(null);
     try {
-      const res = await fetch(`/api/availability?date=${encodeURIComponent(date)}`);
-      const data = await parseJsonResponse<{ slots?: TimeSlot[]; error?: string }>(res);
+      const qs = new URLSearchParams({ date });
+      if (availabilityBarberParam) qs.set("barber", availabilityBarberParam);
+      const res = await fetch(`/api/availability?${qs.toString()}`, {
+        cache: "no-store",
+      });
+      const data = await parseJsonResponse<{
+        slots?: TimeSlot[];
+        error?: string;
+        lastSyncedAt?: string;
+      }>(res);
       if (!res.ok) throw new Error(data?.error ?? "Could not load times.");
       setTimeSlots(data?.slots ?? []);
+      if (data?.lastSyncedAt) setLastSyncedAt(data.lastSyncedAt);
     } catch (err) {
       setTimeSlots([]);
       setError(err instanceof Error ? err.message : "Could not load times.");
     } finally {
-      setLoadingTimes(false);
+      if (!opts?.silent) setLoadingTimes(false);
     }
-  }, []);
+  }, [availabilityBarberParam]);
 
   useEffect(() => {
     if (step === 3) {
+      setDay(null);
+      setSlot(null);
+      setTimeSlots([]);
       void fetchDays();
     }
-  }, [step, fetchDays]);
+  }, [step, fetchDays, barberName]);
+
+  // Keep day/time fresh while the customer is on step 3 (cron is every 10 min; poll faster).
+  useEffect(() => {
+    if (step !== 3 || receipt) return;
+    const id = window.setInterval(() => {
+      void fetchDays({ silent: true }).then(() => {
+        if (day?.date) void fetchTimes(day.date, { silent: true });
+      });
+    }, AVAILABILITY_POLL_MS);
+    return () => window.clearInterval(id);
+  }, [step, receipt, day?.date, fetchDays, fetchTimes]);
 
   useEffect(() => {
     if (step >= 2) {
@@ -247,6 +301,8 @@ export function TimBookWizard() {
           slotDate: day.date,
           name: displayName,
           phone: displayPhone,
+          barberName:
+            barberName && barberName !== ANY_BARBER.name ? barberName : null,
         }),
       });
 
@@ -668,13 +724,24 @@ export function TimBookWizard() {
                       <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-white/45">
                         Day
                       </p>
-                      <button
-                        type="button"
-                        onClick={() => void fetchDays()}
-                        className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/40 transition hover:text-white/70"
-                      >
-                        Refresh
-                      </button>
+                      <div className="flex items-center gap-3">
+                        {formatSyncedAgo(lastSyncedAt) ? (
+                          <p className="text-[10px] uppercase tracking-[0.1em] text-white/30">
+                            Calendar {formatSyncedAgo(lastSyncedAt)}
+                          </p>
+                        ) : null}
+                        <button
+                          type="button"
+                          onClick={() => {
+                            void fetchDays().then(() => {
+                              if (day?.date) void fetchTimes(day.date);
+                            });
+                          }}
+                          className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/40 transition hover:text-white/70"
+                        >
+                          Refresh
+                        </button>
+                      </div>
                     </div>
                     {loadingDays ? (
                       <p className="text-sm text-white/50">Loading days…</p>
@@ -833,7 +900,8 @@ export function TimBookWizard() {
                   </fieldset>
 
                   <p className="text-[13px] text-white/45">
-                    Pay in the shop. We&apos;ll call to confirm. Shop line:{" "}
+                    This is a request — we confirm the chair in Booksy before it&apos;s locked.
+                    Pay in the shop. Shop line:{" "}
                     <a href={`tel:${SITE.phoneTel}`} className="text-[#C9A86C]">
                       {SITE.phone}
                     </a>

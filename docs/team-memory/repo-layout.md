@@ -1,6 +1,6 @@
 # Repo Layout — Key Paths
 
-**Last verified:** 2026-11-05 (Tim `/book` + lead capture integration)
+**Last verified:** 2026-11-06 (book-first `/` → `/book` + calendar sync agent)
 
 Quick map for agents navigating the codebase. Architecture rationale: `docs/org-conventions/tech-stack-decisions.md`.
 
@@ -31,14 +31,15 @@ the-barber-lounge/
 
 | Route | File | Notes |
 |-------|------|-------|
-| `/` | `src/app/page.tsx` | Homepage |
+| `/` | `src/app/page.tsx` | **308 → `/book`** (book-first) |
 | `/about` | `src/app/about/page.tsx` | |
 | `/services` | `src/app/services/page.tsx` | |
 | `/faq` | `src/app/faq/page.tsx` | |
 | `/testimonials` | `src/app/testimonials/page.tsx` | |
 | `/contact` | `src/app/contact/page.tsx` | |
 | `/gallery` | `src/app/gallery/page.tsx` | |
-| `/book` | `src/app/book/page.tsx` | Tim Cho 4-step booking UI |
+| `/book` | `src/app/book/page.tsx` | Tim Cho 4-step booking UI — **primary landing** |
+| `/admin/calendar-sync` | `src/app/admin/calendar-sync/page.tsx` | Force refresh + Booksy busy blocks (Alexis) |
 | `/blog` | `src/app/blog/page.tsx` | |
 | `/blog/[slug]` | `src/app/blog/[slug]/page.tsx` | |
 | `/admin/edit` | `src/app/admin/edit/page.tsx` | Inline CMS |
@@ -57,7 +58,8 @@ the-barber-lounge/
 |-------|------|---------|
 | `/api/lead` | `lead/route.ts` | Public lead/opt-in capture; admin GET list |
 | `/api/appointment-request` | `appointment-request/route.ts` | Create booking + notify |
-| `/api/availability` | `availability/route.ts` | Slot availability |
+| `/api/availability` | `availability/route.ts` | Slot availability + `lastSyncedAt` |
+| `/api/cron/refresh-availability` | `cron/refresh-availability/route.ts` | Calendar refresh agent (Vercel cron 10 min) |
 | `/api/appointments` | `appointments/route.ts` | Admin CRUD |
 | `/api/appointments/[code]/calendar` | `appointments/[code]/calendar/route.ts` | ICS download |
 | `/api/booking-chat` | `booking-chat/route.ts` | AI chat turns |
@@ -87,6 +89,7 @@ the-barber-lounge/
 | `seo.ts` | Metadata + JSON-LD helpers |
 | `booking-config.ts` | This shop's booking agent config |
 | `appointments-store.ts` | Availability engine + JSON persistence |
+| `availability-sync.ts` | Calendar refresh agent snapshot + lastSyncedAt |
 | `estimates.ts` / `estimates-db.ts` | Estimate tracker store (JSON + Postgres) |
 | `stripe.ts` | Stripe SDK helper (secret key names only) |
 | `wizard-helpers.ts` | Booking wizard service chips |

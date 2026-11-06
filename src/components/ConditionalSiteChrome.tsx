@@ -5,7 +5,6 @@ import { useEffect, type ReactNode } from "react";
 
 import { BookingChatbot } from "@/components/BookingChatbot";
 import { Footer } from "@/components/Footer";
-import { HalloweenDecor } from "@/components/HalloweenDecor";
 import { Header } from "@/components/Header";
 import { LeadCaptureModal } from "@/components/LeadCaptureModal";
 import { StickyBookButton } from "@/components/StickyBookButton";
@@ -18,7 +17,7 @@ type ConditionalSiteChromeProps = {
   children: ReactNode;
 };
 
-/** Hides global Halloween chrome / FAB / sticky bar on Tim Cho `/book` UI. */
+/** Minimal chrome on Tim Cho `/book` (and root redirect target). Halloween decor removed site-wide. */
 export function ConditionalSiteChrome({
   labels,
   content,
@@ -43,7 +42,6 @@ export function ConditionalSiteChrome({
 
   return (
     <>
-      <HalloweenDecor />
       <Header labels={labels} />
       <main id="main-content" tabIndex={-1} className="relative z-10">
         {children}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { BOOKING_URL, CONTACT } from "@/lib/content";
+import { CONTACT, SITE_BOOK_PATH } from "@/lib/content";
 import { Button } from "./Button";
 
 type ContactFormProps = {
@@ -171,7 +171,7 @@ export function ContactForm({ fields }: ContactFormProps) {
           >
             Send Message
           </button>
-          <Button href={BOOKING_URL} external size="default">
+          <Button href={SITE_BOOK_PATH} size="default">
             Book Online
           </Button>
         </div>

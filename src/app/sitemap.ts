@@ -4,7 +4,7 @@ import { getAllBlogSlugs } from "@/lib/blog-posts";
 import { SITE_URL } from "@/lib/constants";
 
 const routes = [
-  "",
+  "/book",
   "/about",
   "/services",
   "/faq",
@@ -12,7 +12,6 @@ const routes = [
   "/contact",
   "/blog",
   "/gallery",
-  "/book",
   "/locations",
   "/beard-studio",
   "/refer",
@@ -24,7 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map((route) => ({
     url: `${SITE_URL}${route}`,
     lastModified: new Date(),
-    changeFrequency: route === "" ? "weekly" : "monthly",
-    priority: route === "" ? 1 : 0.8,
+    changeFrequency: route === "/book" ? "hourly" : "monthly",
+    priority: route === "/book" ? 1 : 0.7,
   }));
 }

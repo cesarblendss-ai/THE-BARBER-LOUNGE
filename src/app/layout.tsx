@@ -32,11 +32,11 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "The Barber Lounge | Barbershop Antioch CA",
+    default: "Book The Barber Lounge Antioch | Barbershop",
     template: "%s | The Barber Lounge",
   },
   description:
-    "Premium barbershop in Antioch, CA. Precision fades, signature haircuts, and beard grooming. Book your appointment at The Barber Lounge on A St.",
+    "Book The Barber Lounge in Antioch, CA. Precision fades, signature haircuts, and beard grooming at 1518 A St. Book online or call (925) 209-5995.",
   icons: {
     icon: [
       { url: "/favicon.ico" },

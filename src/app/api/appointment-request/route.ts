@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { createAppointmentRequest } from "@/lib/appointments-store";
+import { refreshAvailabilitySnapshot } from "@/lib/availability-sync";
 import { notifyOwnerOfBooking, type PushNotificationResult } from "@/lib/notifications";
 import {
   formatPhoneDisplay,
@@ -18,6 +19,7 @@ type RequestBody = {
   name?: string;
   phone?: string;
   guestCount?: number | null;
+  barberName?: string | null;
 };
 
 function normalizePhone(phone: string): string | null {
@@ -72,6 +74,7 @@ export async function POST(request: NextRequest) {
       name,
       phone,
       guestCount: typeof body.guestCount === "number" ? body.guestCount : null,
+      barberName: body.barberName?.trim() || null,
     });
 
     if (!result.ok) {
@@ -86,6 +89,14 @@ export async function POST(request: NextRequest) {
     }
 
     const { appointment } = result;
+
+    // Immediately rebuild availability so the next walker doesn't see a taken slot.
+    try {
+      await refreshAvailabilitySnapshot("booking");
+    } catch (error) {
+      console.warn("[appointment-request] availability refresh after book failed", error);
+    }
+
     const smsReceipt = {
       confirmationCode: appointment.confirmationCode,
       service: appointment.service,

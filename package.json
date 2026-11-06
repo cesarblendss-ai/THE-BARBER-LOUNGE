@@ -14,7 +14,9 @@
     "db:studio": "prisma studio",
     "test:phone": "npx tsx scripts/test-phone-normalize.ts",
     "test:sms": "npx tsx scripts/test-sms.ts",
-    "test:estimates": "npx tsx scripts/test-estimates.ts"
+    "test:estimates": "npx tsx scripts/test-estimates.ts",
+    "test:busy-blocks": "npx tsx scripts/test-busy-blocks.ts",
+    "test:barber-blocks": "npx tsx scripts/test-barber-blocks.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",

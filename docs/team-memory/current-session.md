@@ -1,24 +1,23 @@
-# Current Session
+# Current session
 
-**Last verified:** 2026-11-05
+**Last verified:** 2026-11-06
 
-## Finished
-- Integrated Tim stack onto `cursor/apply-tim-stack-c298` for production ship
-  - PR #16 Tim `/book` four-step funnel (primary Book path)
-  - PR #15 conversion: Call CTAs + lead/opt-in capture + `/admin/leads` (Book CTAs retargeted to `/book`)
-  - PR #17 Tim Chao transcript archive (docs reference)
-- Homepage / header / sticky / services / footer Book CTAs → `/book`
-- `/book` contact step stores SMS/email opt-in prefs via `POST /api/lead` (campaigns still Phase 2)
+## Finished this session
+
+- Cesar clarification: Booksy calendar bottleneck is **shop-wide** (every staffer with Booksy appts), not Alexis-only.
+- Checked mid-flight `bc-86679c0f` / `cursor/booksy-calendar-bottleneck-c298` — Alexis-skewed, no PR yet.
+- Implemented shop-wide on `cursor/booksy-sync-all-barbers-c298`:
+  - Per-barber `barberName` on blocked slots (Prisma + JSON)
+  - `/book` passes selected barber into `/api/availability`
+  - Cron rebuilds shop-wide + all 5 staffer slices
+  - `/admin/calendar-sync` paste/tap busy for each barber + shop-wide
+  - ntfy CONFIRM IN BOOKSY for any staffer
+  - Docs updated shop-wide (Bryant `1860726` omitted — not on `ABOUT.team`)
 
 ## In flight
-- Production deploy + verify `https://thebarberloungeca.com/book`
 
-## User notes
-- Cesar: “now apply everything to our website to start.”
-- Prefer Tim `/book` as primary Book path; keep Call + lead capture ideas
-- Do not invent Twilio as live
+- PR + production deploy for shop-wide sync
 
-## Blockers
-- Twilio SMS Phase 2 (KYC 20003) — opt-in stored, campaigns not live
-- Booksy has no API — staff confirms website requests manually
-- See `current-blockers.md`
+## Blockers for Cesar
+
+- Daily mirror Booksy → busy blocks **per barber** until Booksy offers an official feed/webhook

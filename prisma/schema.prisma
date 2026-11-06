@@ -78,13 +78,16 @@ model Appointment {
 }
 
 model BlockedSlot {
-  id     String  @id @default(cuid())
-  date   String
-  hour   Int
-  reason String?
+  id         String  @id @default(cuid())
+  date       String
+  hour       Int
+  reason     String?
+  /** Empty string = shop-wide. Otherwise full barber name (e.g. "Alexis Franco"). */
+  barberName String  @default("")
 
-  @@unique([date, hour])
+  @@unique([date, hour, barberName])
   @@index([date])
+  @@index([barberName])
 }
 
 model Product {

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { Button } from "@/components/Button";
 import { SectionLabel } from "@/components/SectionLabel";
-import { BOOKING_URL } from "@/lib/content";
+import { SITE_BOOK_PATH } from "@/lib/content";
 import { BLOG_POSTS } from "@/lib/blog-posts";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -58,7 +58,7 @@ export default function BlogPage() {
           </ul>
 
           <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <Button href={BOOKING_URL} external>
+            <Button href={SITE_BOOK_PATH}>
               Book Your Appointment
             </Button>
             <Button href="/services" variant="outline">

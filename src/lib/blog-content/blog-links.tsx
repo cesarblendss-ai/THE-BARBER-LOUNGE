@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { BOOKING_URL, SITE } from "@/lib/content";
+import { SITE, SITE_BOOK_PATH } from "@/lib/content";
 
 const linkClass = "font-medium text-brass-dark underline-offset-2 hover:underline";
 
@@ -14,9 +14,9 @@ export function ServicesLink({ children }: { children?: React.ReactNode }) {
 
 export function BookOnlineLink({ children }: { children?: React.ReactNode }) {
   return (
-    <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className={linkClass}>
+    <Link href={SITE_BOOK_PATH} className={linkClass}>
       {children ?? "book online"}
-    </a>
+    </Link>
   );
 }
 

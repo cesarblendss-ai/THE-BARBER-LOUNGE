@@ -14,8 +14,8 @@ type HeaderProps = {
 };
 
 const NAV = [
-  { href: "/", label: "Home", match: (p: string) => p === "/" },
-  { href: "/#services", label: "Services", match: (p: string) => p === "/services" },
+  { href: SITE_BOOK_PATH, label: "Book", match: (p: string) => p === "/" || p.startsWith("/book") },
+  { href: "/services", label: "Services", match: (p: string) => p === "/services" },
   { href: "/about", label: "Barbers", match: (p: string) => p.startsWith("/about") },
   { href: "/contact", label: "Location", match: (p: string) => p.startsWith("/contact") },
 ] as const;
@@ -60,7 +60,7 @@ export function Header({ labels: _labels }: HeaderProps) {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
-        <Link href="/" className="relative block shrink-0">
+        <Link href={SITE_BOOK_PATH} className="relative block shrink-0">
           <Image
             src={LOGO.src}
             alt={LOGO.alt}
@@ -70,9 +70,6 @@ export function Header({ labels: _labels }: HeaderProps) {
             sizes="(max-width: 640px) 150px, 190px"
             className="h-auto w-[150px] object-contain brightness-0 invert sm:w-[190px]"
           />
-          <span className="absolute -right-3 -top-2 text-sm sm:-right-4 sm:text-base" aria-hidden>
-            🕷️
-          </span>
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Main navigation">

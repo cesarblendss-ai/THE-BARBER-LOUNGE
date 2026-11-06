@@ -2,12 +2,11 @@ import Image from "next/image";
 
 import { EditableText } from "@/components/EditableText";
 import {
-  BOOKING_URL,
+  SITE_BOOK_PATH,
   instagramProfileUrl,
   teamAvatarPath,
   type TeamMember,
 } from "@/lib/content";
-import { getBooksyStafferUrl } from "@/lib/booksy";
 
 type BarberProfileGridProps = {
   members: TeamMember[];
@@ -20,9 +19,7 @@ export function BarberProfileGrid({ members }: BarberProfileGridProps) {
         const handle = member.handle?.replace(/^@/, "").trim() ?? null;
         const profileUrl = handle ? instagramProfileUrl(handle) : null;
         const avatarSrc = handle ? teamAvatarPath(handle) : null;
-        const bookingHref = member.booksyStafferId
-          ? getBooksyStafferUrl(member.booksyStafferId)
-          : BOOKING_URL;
+        const bookingHref = SITE_BOOK_PATH;
 
         return (
           <li
@@ -73,8 +70,6 @@ export function BarberProfileGrid({ members }: BarberProfileGridProps) {
             <div className="mt-6 flex flex-1 flex-col gap-2">
               <a
                 href={bookingHref}
-                target="_blank"
-                rel="noopener noreferrer"
                 data-analytics-label={`Book with ${member.name}`}
                 className="inline-flex items-center justify-center gap-2 rounded-md bg-white px-4 py-3.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-black transition hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
               >

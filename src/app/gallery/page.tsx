@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/Button";
 import { GalleryLightbox } from "@/components/GalleryLightbox";
 import { SectionLabel } from "@/components/SectionLabel";
-import { BOOKING_URL, SITE } from "@/lib/content";
+import { SITE, SITE_BOOK_PATH } from "@/lib/content";
 import { getResolvedAllGallery, getResolvedGallerySections } from "@/lib/gallery-files";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -78,7 +78,7 @@ export default function GalleryPage() {
         <div className="mx-auto max-w-xl text-center">
           <h2 className="font-serif text-2xl font-semibold text-charcoal">Ready for your cut?</h2>
           <div className="mt-6">
-            <Button href={BOOKING_URL} external size="lg">
+            <Button href={SITE_BOOK_PATH} size="lg">
               Book Now
             </Button>
           </div>
