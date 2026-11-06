@@ -1,4 +1,5 @@
 import type { Appointment } from "@/lib/appointments-store";
+import { getBooksyHandoffFromBooking } from "@/lib/booksy-handoff";
 import { barberFromServiceLabel } from "@/lib/busy-blocks";
 
 /** Shop owner SMS/push target — always +1 925-209-5995 unless OWNER_PHONE overrides. */
@@ -17,24 +18,34 @@ function resolveSiteUrl(): string {
   );
 }
 
-function formatNotificationBody(appointment: Appointment): string {
+export function booksyHandoffUrlForAppointment(appointment: Appointment): string {
+  return getBooksyHandoffFromBooking({
+    service: appointment.service,
+    preferredTime: appointment.preferredTime,
+    slotDate: appointment.slotDate,
+  });
+}
+
+function formatNotificationBody(appointment: Appointment, handoffUrl: string): string {
   const guests =
     appointment.guestCount && appointment.guestCount > 1
       ? ` (${appointment.guestCount} guests)`
       : "";
   const barber = barberFromServiceLabel(appointment.service);
   return [
-    `New booking request: ${appointment.name}`,
+    `Web booking: ${appointment.name}`,
     `${appointment.service}${guests}`,
     `${appointment.preferredDay} ${appointment.preferredTime}`,
     `Phone: ${appointment.phone}`,
     `Code: ${appointment.confirmationCode}`,
     "",
-    "CONFIRM IN BOOKSY — website is not live-synced.",
+    "ONE TAP — open Booksy with service/barber/day ready:",
+    handoffUrl,
+    "",
     barber
-      ? `Check ${barber.split(" ")[0]}'s Booksy chair before holding the slot.`
-      : "Check the requested barber's Booksy chair before confirming.",
-    "Busy blocks (all staffers): /admin/calendar-sync",
+      ? `If guest already finished on Booksy, you're done. Else tap link → pick ${appointment.preferredTime} → save.`
+      : "If guest already finished on Booksy, you're done. Else tap link → pick their time → save.",
+    `Admin: ${resolveSiteUrl()}/admin/calendar-sync`,
   ].join("\n");
 }
 
@@ -44,7 +55,7 @@ function formatNotificationTitle(appointment: Appointment): string {
       ? ` - ${appointment.guestCount} guests`
       : "";
   const barber = barberFromServiceLabel(appointment.service);
-  const prefix = barber ? `Booksy risk (${barber.split(" ")[0]})` : "Booksy risk";
+  const prefix = barber ? `Booksy tap (${barber.split(" ")[0]})` : "Booksy tap";
   return `${prefix}: ${appointment.name}${guests}`;
 }
 
@@ -135,7 +146,8 @@ async function sendOwnerEmailBackup(title: string, body: string): Promise<void> 
 export async function notifyOwnerOfBooking(
   appointment: Appointment,
 ): Promise<PushNotificationResult> {
-  const body = formatNotificationBody(appointment);
+  const handoffUrl = booksyHandoffUrlForAppointment(appointment);
+  const body = formatNotificationBody(appointment, handoffUrl);
   const title = formatNotificationTitle(appointment);
 
   console.log("[booking-notification]", body);
@@ -143,9 +155,10 @@ export async function notifyOwnerOfBooking(
   const push = await sendNtfyPush({
     title,
     body,
-    tags: "barber,appointment,warning",
+    tags: "barber,appointment",
     priority: "urgent",
-    click: `${resolveSiteUrl()}/admin/calendar-sync`,
+    // One-tap: opens Booksy widget prefilled — no retyping name/service/day.
+    click: handoffUrl,
   });
 
   if (!push.configured) {

@@ -57,12 +57,21 @@ Bryant (`1860726`) is on Booksy but **not** on `ABOUT.team` — omit until added
 - `BOOKSY_WEB_API_KEY` optional override — Booksy’s publishable browser constant, not a shop secret.
 - See `docs/org-conventions/security.md`.
 
-## Still impossible without Booksy partnership
+## Booking creates (handoff — not server push)
 
-- Push website bookings **into** Booksy automatically (no public create API)
-- Biz-panel appointment list / ICS export for third parties
+Booksy **does** expose customer create:
 
-Website bookings remain **requests** — ntfy says CONFIRM IN BOOKSY so staff enter them and the next sync stays accurate.
+`POST /core/v2/customer_api/me/appointments/business/{id}/` (+ `/dry_run/`)
+
+…but it requires a **customer** `x-access-token` and books under that Booksy account. We do **not** store Biz passwords or a shared customer token.
+
+**Shipped instead:** deep-link handoff (`src/lib/booksy-handoff.ts`)
+
+- `/book` opens `?do=open-widget&variantId=&stafferId=&date=&time=` so the guest finishes on Booksy
+- ntfy **Click** = same URL (one tap for staff if they abandon)
+- Admin calendar-sync lists web bookings with **Open Booksy →**
+
+Still not available without Booksy Biz partnership: push creates as the shop, Biz-panel ICS export.
 
 ## Auth for cron
 

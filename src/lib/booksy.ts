@@ -5,13 +5,17 @@ import { BOOKING_URL, SITE } from "@/lib/content";
  *
  * - Live *availability* is readable via the same public customer `time_slots` endpoint
  *   the Booksy booking widget uses (see `booksy-availability.ts`). No login / password.
- * - No public API for third-party appointment *creation* on custom sites — website
- *   bookings remain requests staff confirm in Booksy.
- * - Profile deep links: `service_variant_id` / `staffer` hand off to Booksy.
+ * - Appointment *create* (`POST .../me/appointments/business/{id}/`) requires a customer
+ *   `x-access-token` and books under that Booksy account — not usable server-side for
+ *   arbitrary website guests. Prefer deep-link handoff (`booksy-handoff.ts`) so the
+ *   customer finishes on Booksy and the calendar stays authoritative.
+ * - Profile / widget deep links: `do=open-widget` + `variantId` / `stafferId` / `date`.
  *
  * Security: never ask for or store Booksy Biz passwords in chat, git, or env.
  * The web `X-Api-Key` below is Booksy's publishable client constant (in their JS
  * bundle for every anonymous visitor) — not a shop credential.
+ * Optional env: `BOOKSY_ACCESS_TOKEN` only if a future customer-session flow needs it
+ * (value stays in Vercel — never in repo/chat).
  */
 
 /** Booksy business id for The Barber Lounge (US marketplace). */
