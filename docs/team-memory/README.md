@@ -31,6 +31,8 @@ This folder is **read-write** for agents. It holds what's true *right now* — d
 | `tim-cho-conversion.md` | Tim Cho audit → conversion ship map; SMS/CRM blockers |
 | `calendar-sync-agent.md` | Availability cron/TTL + Booksy busy-block SOP (Alexis) |
 | `tim-chao-youtube/` | Tim Chao (@thetimchao) YouTube captions — INDEX + per-video transcripts |
+| `EVERYTHING-PACK.md` | Full handoff — GitHub, Vercel, Twilio, Booksy IDs, scripts, env names, ChatGPT Site vs prod |
+| `CODEX-HANDOFF.md` | Short Codex paste block + full brief |
 
 ## Agent workflow
 

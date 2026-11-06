@@ -10,9 +10,11 @@
   - `https://thebarberloungeca.com/api/availability?meta=1` → `booksyLiveSync: true`, source `booksy-live+website-appointments`, 7 days / 5 staffers
   - `https://thebarberloungeca.com/api/cron/sync-booksy` → **401 Unauthorized** (route live; was 404 before merge)
 - Docs: `deploy.md` updated with prod proof
+- **EVERYTHING pack** shipped for Codex/ChatGPT: `docs/team-memory/EVERYTHING-PACK.md` + `CODEX-HANDOFF.md` (GitHub, Vercel, Twilio KYC, Booksy IDs, scripts, env names). Notes ChatGPT Site is **not** wired to prod.
 
 ## Cesar next
 
-1. Optional: set `CRON_SECRET` on Vercel Production (cron still works via `x-vercel-cron`)
-2. Smoke-test `/book` → pick a live Booksy open → Confirm on Booksy
-3. Phone ntfy tap → same Booksy handoff URL
+1. Paste `EVERYTHING-PACK.md` (or CODEX short block) into Codex
+2. Optional: set `CRON_SECRET` on Vercel Production
+3. Twilio Trust Hub KYC with EIN `41-3512174` when ready for SMS
+4. Keep iterating on **thebarberloungeca.com** — ChatGPT Site stays a separate prototype
