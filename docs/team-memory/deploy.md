@@ -1,10 +1,11 @@
 # Deploy Status
 
 **Last verified:** 2026-11-06  
-**Status:** **LIVE** (book-first). Booksy **live availability** sync on `cursor/booksy-live-availability-c298` — deploy to prod after merge.  
+**Status:** **LIVE** (book-first). Booksy **live availability** sync pushed on `cursor/booksy-live-availability-c298` @ `bc0261c`. Prod deploy blocked on Vercel team re-auth; PR open blocked (GitHub write).  
 **Production host:** https://thebarberloungeca.com  
-**Production deployment:** pending this ship (`npx vercel --prod`)  
+**Production deployment:** pending — approve Vercel team access then `npx vercel --prod` / MCP deploy  
 **Branch:** `cursor/booksy-live-availability-c298`  
+**PR draft URL:** https://github.com/cesarblendss-ai/THE-BARBER-LOUNGE/pull/new/cursor/booksy-live-availability-c298  
 **Vercel project:** `cesarblendss-7234s-projects/the-barber-lounge`
 
 ---
