@@ -3,7 +3,7 @@
 **Last verified:** 2026-11-06  
 **Status:** **LIVE** — Book-first site (`/` → `/book`) + calendar refresh agent  
 **Production host:** https://thebarberloungeca.com  
-**Production deployment:** pending this ship (`cursor/book-first-calendar-sync-c298`)  
+**Production deployment:** `dpl_GnVj3KPzfCaeJUaWaBSZCem9wmec` (`cursor/book-first-calendar-sync-c298` @ `65744c1`)  
 **Vercel project:** `cesarblendss-7234s-projects/the-barber-lounge`
 
 ---
