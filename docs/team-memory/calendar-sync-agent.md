@@ -1,6 +1,6 @@
 # Calendar refresh + Booksy live availability (shop-wide)
 
-**Last verified:** 2026-11-06
+**Last verified:** 2026-11-06 (prod: `booksyLiveSync:true` on thebarberloungeca.com)
 
 ## Root cause (solved for availability)
 
