@@ -27,8 +27,9 @@ This folder is **read-write** for agents. It holds what's true *right now* — d
 | `flaky-tests.md` | Known local/dev issues — OneDrive, SEO v1 bug, dev server |
 | `twilio-sms-status.md` | SMS delivery state, error codes, KYC checklist |
 | `estimates-stripe.md` | Estimate tracker + Cesar Stripe/bank/Vercel webhook setup |
-| `tim-book-ui.md` | Tim Cho `/book` four-step funnel |
+| `tim-book-ui.md` | Tim Cho `/book` four-step funnel (primary landing) |
 | `tim-cho-conversion.md` | Tim Cho audit → conversion ship map; SMS/CRM blockers |
+| `calendar-sync-agent.md` | Availability cron/TTL agent — not live Booksy |
 | `tim-chao-youtube/` | Tim Chao (@thetimchao) YouTube captions — INDEX + per-video transcripts |
 
 ## Agent workflow

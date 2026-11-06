@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { Button } from "@/components/Button";
 import { SectionLabel } from "@/components/SectionLabel";
-import { BOOKING_URL, SITE } from "@/lib/content";
+import { BOOKING_URL, SITE, SITE_BOOK_PATH } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -31,7 +31,7 @@ export default function ReferPage() {
             treats every chair like reputation is on the line.
           </p>
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <Button href={BOOKING_URL} external size="lg">
+            <Button href={SITE_BOOK_PATH} size="lg">
               Book for a Friend
             </Button>
             <Button href={`tel:${SITE.phoneTel}`} variant="ghost">

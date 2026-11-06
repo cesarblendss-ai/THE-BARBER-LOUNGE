@@ -10,7 +10,7 @@ import {
 } from "@/components/BookingReceipt";
 import { CloseIcon } from "@/components/icons";
 import { OPEN_BOOKING_CHAT_EVENT } from "@/lib/booking-events";
-import { BOOKING_URL, SITE } from "@/lib/content";
+import { SITE, SITE_BOOK_PATH } from "@/lib/content";
 import { parseJsonResponse } from "@/lib/fetch-json";
 import { normalizePhoneE164, formatPhoneDisplay } from "@/lib/sms-receipt";
 import { WIZARD_SERVICES } from "@/lib/wizard-helpers";
@@ -719,13 +719,8 @@ export function BookingChatbot() {
               </div>
               <p className="mt-2 text-center text-[10px] text-charcoal/40">
                 Or{" "}
-                <a
-                  href={BOOKING_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-brass-dark hover:underline"
-                >
-                  book on Booksy
+                <a href={SITE_BOOK_PATH} className="text-brass-dark hover:underline">
+                  book online
                 </a>
               </p>
             </form>

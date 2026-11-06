@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { Button } from "@/components/Button";
 import { SectionLabel } from "@/components/SectionLabel";
-import { BOOKING_URL, SITE } from "@/lib/content";
+import { SITE, SITE_BOOK_PATH } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo";
 import { SERVICE_AREA_CITIES } from "@/lib/service-area";
 
@@ -31,7 +31,7 @@ export default function LocationsHubPage() {
           </p>
           <p className="mt-2 text-sm text-charcoal/50">{SITE.address}</p>
           <div className="mt-8">
-            <Button href={BOOKING_URL} external size="lg">
+            <Button href={SITE_BOOK_PATH} size="lg">
               Book Online
             </Button>
           </div>

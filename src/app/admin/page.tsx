@@ -37,6 +37,11 @@ const TILES = [
     detail: "Opt-ins before Booksy — call back + campaign list",
   },
   {
+    href: "/admin/calendar-sync",
+    label: "Calendar sync",
+    detail: "Availability refresh agent — last sync + force rebuild",
+  },
+  {
     href: REVIEW_QR_PATH,
     label: "Review QR card",
     detail: "Printable in-shop Google review QR",

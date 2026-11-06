@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { createAppointmentRequest } from "@/lib/appointments-store";
+import { refreshAvailabilitySnapshot } from "@/lib/availability-sync";
 import { notifyOwnerOfBooking, type PushNotificationResult } from "@/lib/notifications";
 import {
   formatPhoneDisplay,
@@ -86,6 +87,14 @@ export async function POST(request: NextRequest) {
     }
 
     const { appointment } = result;
+
+    // Immediately rebuild availability so the next walker doesn't see a taken slot.
+    try {
+      await refreshAvailabilitySnapshot("booking");
+    } catch (error) {
+      console.warn("[appointment-request] availability refresh after book failed", error);
+    }
+
     const smsReceipt = {
       confirmationCode: appointment.confirmationCode,
       service: appointment.service,
