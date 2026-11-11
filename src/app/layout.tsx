@@ -14,13 +14,13 @@ import { buildLocalBusinessJsonLd } from "@/lib/seo";
 import "./globals.css";
 
 const fraunces = Fraunces({
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   variable: "--font-fraunces",
   display: "swap",
 });
 
 const inter = Inter({
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   variable: "--font-inter",
   display: "swap",
 });

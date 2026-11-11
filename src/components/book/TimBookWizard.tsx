@@ -6,6 +6,8 @@ import Link from "next/link";
 import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 
 import { BookingReceipt, type ReceiptData } from "@/components/BookingReceipt";
+import { useLanguage } from "@/components/i18n/LanguageProvider";
+import { LanguageToggle } from "@/components/i18n/LanguageToggle";
 import { PhoneIcon } from "@/components/icons";
 import { getBooksyStafferUrl } from "@/lib/booksy";
 import { getBooksyHandoffFromBooking } from "@/lib/booksy-handoff";
@@ -19,6 +21,7 @@ import {
   type TeamMember,
 } from "@/lib/content";
 import { LOGO } from "@/lib/constants";
+import type { MessageKey } from "@/lib/i18n/messages";
 import { formatPhoneDisplay, normalizePhoneE164 } from "@/lib/sms-receipt";
 
 type WizardStep = 1 | 2 | 3 | 4;
@@ -43,23 +46,32 @@ type ServiceOption = (typeof BOOKABLE_SERVICES)[number] & {
   displayName: string;
 };
 
-const SERVICES: ServiceOption[] = BOOKABLE_SERVICES.map((svc, index) => ({
-  ...svc,
-  id: index === 0 ? "signature-haircut" : "haircut-beard",
-  displayName: index === 0 ? "Signature Haircut" : "Haircut & Beard",
-}));
+const SERVICE_DEFS: Omit<ServiceOption, "displayName">[] = BOOKABLE_SERVICES.map(
+  (svc, index) => ({
+    ...svc,
+    id: index === 0 ? "signature-haircut" : "haircut-beard",
+  }),
+);
 
-const ANY_BARBER = {
-  name: "Any available",
-  handle: null,
-  booksyStafferId: null,
-} as const satisfies TeamMember;
+const ANY_BARBER_ID = "__any__";
 
-const STEP_TITLES: Record<WizardStep, string> = {
-  1: "Choose Your Service",
-  2: "Choose Your Barber",
-  3: "Pick a Day & Time",
-  4: "Your Details",
+const BOOK_NAV_KEYS = [
+  { href: "/services", labelKey: "nav.services" as const },
+  { href: "/about", labelKey: "nav.barbers" as const },
+  { href: "/testimonials", labelKey: "nav.reviews" as const },
+  { href: "/gallery", labelKey: "nav.gallery" as const },
+  { href: "/blog", labelKey: "nav.blog" as const },
+  { href: "/contact", labelKey: "nav.contact" as const },
+] as const;
+
+const DAY_ABBR_KEYS: Record<string, MessageKey> = {
+  Sun: "day.Sun",
+  Mon: "day.Mon",
+  Tue: "day.Tue",
+  Wed: "day.Wed",
+  Thu: "day.Thu",
+  Fri: "day.Fri",
+  Sat: "day.Sat",
 };
 
 async function parseJsonResponse<T>(res: Response): Promise<T | null> {
@@ -80,44 +92,11 @@ function CalendarIcon({ className }: { className?: string }) {
   );
 }
 
-function MoonIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
-      <path
-        d="M19.5 13.2A7.5 7.5 0 0 1 10.8 4.5 7.6 7.6 0 1 0 19.5 13.2Z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-const BOOK_NAV = [
-  { href: "/services", label: "Services" },
-  { href: "/about", label: "Barbers" },
-  { href: "/testimonials", label: "Reviews" },
-  { href: "/gallery", label: "Gallery" },
-  { href: "/blog", label: "Blog" },
-  { href: "/contact", label: "Contact" },
-] as const;
-
 /** Client poll while picking day/time — keeps slots from going stale between cron passes. */
 const AVAILABILITY_POLL_MS = 2 * 60 * 1000;
 
-function formatSyncedAgo(iso: string | null): string | null {
-  if (!iso) return null;
-  const ms = Date.now() - new Date(iso).getTime();
-  if (!Number.isFinite(ms) || ms < 0) return null;
-  const mins = Math.floor(ms / 60000);
-  if (mins < 1) return "just now";
-  if (mins === 1) return "1 min ago";
-  if (mins < 60) return `${mins} min ago`;
-  const hours = Math.floor(mins / 60);
-  return hours === 1 ? "1 hr ago" : `${hours} hr ago`;
-}
-
 export function TimBookWizard() {
+  const { locale, t } = useLanguage();
   const [step, setStep] = useState<WizardStep>(1);
   const [serviceId, setServiceId] = useState<string | null>(null);
   const [barberName, setBarberName] = useState<string | null>(null);
@@ -138,12 +117,71 @@ export function TimBookWizard() {
   const [lastSyncedAt, setLastSyncedAt] = useState<string | null>(null);
   const [booksyLiveSync, setBooksyLiveSync] = useState(false);
 
-  const selectedService = useMemo(
-    () => SERVICES.find((s) => s.id === serviceId) ?? null,
-    [serviceId],
+  const services: ServiceOption[] = useMemo(
+    () =>
+      SERVICE_DEFS.map((svc, index) => ({
+        ...svc,
+        displayName:
+          index === 0 ? t("services.signature") : t("services.beard"),
+      })),
+    [t],
   );
 
-  const barbers: TeamMember[] = useMemo(() => [ANY_BARBER, ...ABOUT.team], []);
+  const anyBarber = useMemo(
+    () =>
+      ({
+        name: t("book.anyBarber"),
+        handle: null,
+        booksyStafferId: null,
+      }) as const satisfies TeamMember,
+    [t],
+  );
+
+  const stepTitles: Record<WizardStep, string> = useMemo(
+    () => ({
+      1: t("book.step1"),
+      2: t("book.step2"),
+      3: t("book.step3"),
+      4: t("book.step4"),
+    }),
+    [t],
+  );
+
+  const formatSyncedAgo = useCallback(
+    (iso: string | null): string | null => {
+      if (!iso) return null;
+      const ms = Date.now() - new Date(iso).getTime();
+      if (!Number.isFinite(ms) || ms < 0) return null;
+      const mins = Math.floor(ms / 60000);
+      if (mins < 1) return t("book.justNow");
+      if (mins === 1) return t("book.oneMinAgo");
+      if (mins < 60) return t("book.minAgo", { n: mins });
+      const hours = Math.floor(mins / 60);
+      return hours === 1 ? t("book.oneHrAgo") : t("book.hrsAgo", { n: hours });
+    },
+    [t],
+  );
+
+  const localizeDayLabel = useCallback(
+    (label: string) => {
+      if (locale !== "es") return label;
+      return label.replace(
+        /\b(Sun|Mon|Tue|Wed|Thu|Fri|Sat)\b/g,
+        (abbr) => t(DAY_ABBR_KEYS[abbr] ?? "day.Sun"),
+      );
+    },
+    [locale, t],
+  );
+
+  const selectedService = useMemo(
+    () => services.find((s) => s.id === serviceId) ?? null,
+    [services, serviceId],
+  );
+
+  const barbers: TeamMember[] = useMemo(
+    () => [anyBarber, ...ABOUT.team],
+    [anyBarber],
+  );
 
   const selectedBarber = useMemo(
     () => barbers.find((b) => b.name === barberName) ?? null,
@@ -158,9 +196,11 @@ export function TimBookWizard() {
   }, [selectedBarber]);
 
   const availabilityBarberParam = useMemo(() => {
-    if (!barberName || barberName === ANY_BARBER.name) return null;
+    if (!barberName || barberName === anyBarber.name || barberName === ANY_BARBER_ID) {
+      return null;
+    }
     return barberName;
-  }, [barberName]);
+  }, [barberName, anyBarber.name]);
 
   const fetchDays = useCallback(async (opts?: { silent?: boolean }) => {
     if (!opts?.silent) setLoadingDays(true);
@@ -289,7 +329,7 @@ export function TimBookWizard() {
     const displayPhone = formatPhoneDisplay(phone);
     const displayName = name.trim();
     const serviceLabel =
-      barberName && barberName !== ANY_BARBER.name
+      barberName && barberName !== anyBarber.name
         ? `${selectedService.displayName} with ${barberName}`
         : selectedService.displayName;
 
@@ -308,7 +348,7 @@ export function TimBookWizard() {
           name: displayName,
           phone: displayPhone,
           barberName:
-            barberName && barberName !== ANY_BARBER.name ? barberName : null,
+            barberName && barberName !== anyBarber.name ? barberName : null,
         }),
       });
 
@@ -332,7 +372,7 @@ export function TimBookWizard() {
           preferredTime: slot.displayTime,
           slotDate: day.date,
           barberName:
-            barberName && barberName !== ANY_BARBER.name ? barberName : null,
+            barberName && barberName !== anyBarber.name ? barberName : null,
         });
 
       setReceipt({
@@ -341,7 +381,7 @@ export function TimBookWizard() {
         slotDate: data.receipt.slotDate ?? day.date,
         barberName:
           data.receipt.barberName ??
-          (barberName && barberName !== ANY_BARBER.name ? barberName : null),
+          (barberName && barberName !== anyBarber.name ? barberName : null),
       });
       track("booking_submitted", {
         service: selectedService.displayName,
@@ -388,7 +428,7 @@ export function TimBookWizard() {
       className="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2.5 text-[13px] font-semibold text-white/90 transition hover:border-white/35 hover:text-white"
     >
       <PhoneIcon className="h-4 w-4 stroke-current" />
-      Call Now
+      {t("cta.callNow")}
     </a>
   );
 
@@ -408,36 +448,20 @@ export function TimBookWizard() {
             />
           </Link>
 
-          <nav className="hidden items-center gap-7 lg:flex" aria-label="Booking navigation">
-            {BOOK_NAV.map((link) => (
+          <nav className="hidden items-center gap-7 lg:flex" aria-label={t("nav.booking")}>
+            {BOOK_NAV_KEYS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className="text-[13px] font-medium text-white/90 transition hover:text-white"
               >
-                {link.label}
+                {t(link.labelKey)}
               </Link>
             ))}
           </nav>
 
           <div className="hidden items-center gap-3 lg:flex">
-            <div
-              className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-2 py-1"
-              aria-label="Language"
-            >
-              <span className="inline-flex items-center gap-1 rounded-full bg-white/10 px-2 py-0.5 text-[11px] font-semibold text-white">
-                <span aria-hidden>🇺🇸</span> EN
-              </span>
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-medium text-white/45">
-                <span aria-hidden>🇪🇸</span> ES
-              </span>
-            </div>
-            <span
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/70"
-              title="Dark theme"
-            >
-              <MoonIcon className="h-4 w-4" />
-            </span>
+            <LanguageToggle />
             {callNowLink}
             <a
               href="#booking-card"
@@ -445,15 +469,16 @@ export function TimBookWizard() {
               className="tim-gold-btn inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-semibold text-[#1a140c] shadow-[0_8px_24px_rgba(176,141,87,0.28)] transition hover:brightness-110"
             >
               <CalendarIcon className="h-4 w-4" />
-              Book Now
+              {t("cta.bookNow")}
             </a>
           </div>
 
           <div className="flex items-center gap-2 lg:hidden">
+            <LanguageToggle />
             <a
               href={`tel:${SITE.phoneTel}`}
               data-analytics-label="Call Now (tim book mobile header)"
-              aria-label={`Call The Barber Lounge at ${SITE.phone}`}
+              aria-label={`${t("cta.callNow")} ${SITE.phone}`}
               className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white"
             >
               <PhoneIcon className="h-4 w-4 stroke-current" />
@@ -462,7 +487,7 @@ export function TimBookWizard() {
               type="button"
               className="rounded-md p-2 text-white"
               aria-expanded={mobileOpen}
-              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-label={mobileOpen ? t("nav.closeMenu") : t("nav.openMenu")}
               onClick={() => setMobileOpen((v) => !v)}
             >
               <span className="block text-xl leading-none">{mobileOpen ? "×" : "☰"}</span>
@@ -473,17 +498,17 @@ export function TimBookWizard() {
         {mobileOpen ? (
           <nav
             className="border-t border-white/10 px-5 py-4 lg:hidden"
-            aria-label="Mobile booking navigation"
+            aria-label={t("nav.mobileBooking")}
           >
             <ul className="flex flex-col gap-3">
-              {BOOK_NAV.map((link) => (
+              {BOOK_NAV_KEYS.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
                     className="block text-sm text-white/80"
                     onClick={() => setMobileOpen(false)}
                   >
-                    {link.label}
+                    {t(link.labelKey)}
                   </Link>
                 </li>
               ))}
@@ -493,7 +518,7 @@ export function TimBookWizard() {
                   className="block text-sm font-semibold text-[#C9A86C]"
                   onClick={() => setMobileOpen(false)}
                 >
-                  Call Now · {SITE.phone}
+                  {t("book.callNowPhone", { phone: SITE.phone })}
                 </a>
               </li>
             </ul>
@@ -507,22 +532,22 @@ export function TimBookWizard() {
           <div className="animate-[tim-fade-up_0.7s_ease-out_both]">
             <p className="text-[13px] text-white/45">
               <Link href="/" className="transition hover:text-white/70">
-                Home
+                {t("book.home")}
               </Link>
               <span className="mx-1.5">/</span>
-              <span className="text-white/70">Book Now</span>
+              <span className="text-white/70">{t("book.crumb")}</span>
             </p>
 
             <span className="tim-gold-pill mt-6 inline-flex rounded-full px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-[#1a140c]">
-              Online Booking
+              {t("book.pill")}
             </span>
 
             <h1 className="mt-5 font-sans text-[clamp(2.6rem,6vw,4.25rem)] font-bold leading-[0.95] tracking-[-0.03em]">
-              BOOK YOUR <span className="tim-gold-text">CUT.</span>
+              {t("book.heroTitle")} <span className="tim-gold-text">{t("book.heroCut")}</span>
             </h1>
 
             <p className="mt-4 text-[15px] text-white/55 sm:text-base">
-              Four steps. Pay in the shop.
+              {t("book.heroSub")}
             </p>
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -530,7 +555,7 @@ export function TimBookWizard() {
                 href="#booking-card"
                 className="tim-gold-btn inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-semibold text-[#1a140c] transition hover:brightness-110"
               >
-                Start booking
+                {t("cta.startBooking")}
               </a>
               {callNowLink}
             </div>
@@ -560,12 +585,12 @@ export function TimBookWizard() {
           {receipt ? (
             <div className="mx-auto max-w-md py-4">
               <p className="mb-4 text-center text-[12px] font-semibold uppercase tracking-[0.18em] text-[#C9A86C]">
-                Finish on Booksy to lock your chair
+                {t("book.finishBooksy")}
               </p>
               <BookingReceipt receipt={receipt} />
               <div className="mt-5 flex flex-col items-center gap-3 text-center text-sm text-white/55">
                 <p>
-                  Pop-up blocked?{" "}
+                  {t("book.popupBlocked")}{" "}
                   <a
                     href={receipt.booksyHandoffUrl ?? booksyFallbackHref}
                     target="_blank"
@@ -573,7 +598,7 @@ export function TimBookWizard() {
                     className="text-[#C9A86C] underline-offset-2 hover:underline"
                     data-analytics-label="Finish on Booksy (tim book receipt fallback)"
                   >
-                    Open Booksy with your cut ready
+                    {t("book.openBooksy")}
                   </a>
                 </p>
                 <a
@@ -582,7 +607,7 @@ export function TimBookWizard() {
                   className="tim-gold-btn inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-semibold text-[#1a140c] transition hover:brightness-110"
                 >
                   <PhoneIcon className="h-4 w-4 stroke-current" />
-                  Call Now · {SITE.phone}
+                  {t("book.callNowPhone", { phone: SITE.phone })}
                 </a>
               </div>
             </div>
@@ -590,13 +615,13 @@ export function TimBookWizard() {
             <>
               <div className="mb-6">
                 <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-[#C9A86C]">
-                  Step {step} of 4
+                  {t("book.stepOf", { step })}
                 </p>
                 <h2
                   id="booking-step-title"
                   className="mt-2 text-[1.65rem] font-semibold tracking-tight text-white sm:text-[1.85rem]"
                 >
-                  {STEP_TITLES[step]}
+                  {stepTitles[step]}
                 </h2>
                 <div className="tim-gold-rule mt-4 h-px w-full" />
               </div>
@@ -605,9 +630,9 @@ export function TimBookWizard() {
                 <div
                   className="grid gap-3 sm:grid-cols-2"
                   role="radiogroup"
-                  aria-label="Choose your service"
+                  aria-label={t("book.chooseService")}
                 >
-                  {SERVICES.map((svc) => {
+                  {services.map((svc) => {
                     const selected = serviceId === svc.id;
                     return (
                       <button
@@ -661,7 +686,7 @@ export function TimBookWizard() {
                 <div
                   className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3"
                   role="radiogroup"
-                  aria-label="Choose your barber"
+                  aria-label={t("book.chooseBarber")}
                 >
                   {barbers.map((barber) => {
                     const selected = barberName === barber.name;
@@ -709,7 +734,7 @@ export function TimBookWizard() {
                               {barber.name}
                             </span>
                             <span className="mt-0.5 block truncate text-[12px] text-white/45">
-                              {handle ? `@${handle}` : "First chair open"}
+                              {handle ? `@${handle}` : t("book.firstChair")}
                             </span>
                           </span>
                           <span
@@ -735,7 +760,9 @@ export function TimBookWizard() {
                               className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#C9A86C]/90 transition hover:text-[#E8D5A3]"
                               onClick={(e) => e.stopPropagation()}
                             >
-                              Booksy · {barber.name.split(" ")[0]} →
+                              {t("book.booksyBarber", {
+                                name: barber.name.split(" ")[0] ?? barber.name,
+                              })}
                             </a>
                           </div>
                         ) : null}
@@ -750,12 +777,12 @@ export function TimBookWizard() {
                   <div>
                     <div className="mb-3 flex items-center justify-between gap-3">
                       <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-white/45">
-                        Day
+                        {t("book.day")}
                       </p>
                       <div className="flex items-center gap-3">
                         {formatSyncedAgo(lastSyncedAt) ? (
                           <p className="text-[10px] uppercase tracking-[0.1em] text-white/30">
-                            {booksyLiveSync ? "Booksy" : "Calendar"}{" "}
+                            {booksyLiveSync ? t("book.syncedBooksy") : t("book.syncedCalendar")}{" "}
                             {formatSyncedAgo(lastSyncedAt)}
                           </p>
                         ) : null}
@@ -768,21 +795,25 @@ export function TimBookWizard() {
                           }}
                           className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/40 transition hover:text-white/70"
                         >
-                          Refresh
+                          {t("book.refresh")}
                         </button>
                       </div>
                     </div>
                     {loadingDays ? (
-                      <p className="text-sm text-white/50">Loading days…</p>
+                      <p className="text-sm text-white/50">{t("book.loadingDays")}</p>
                     ) : dayOptions.length === 0 ? (
                       <p className="text-sm text-white/50">
-                        No open days right now.{" "}
+                        {t("book.noDays")}{" "}
                         <a href={`tel:${SITE.phoneTel}`} className="text-[#C9A86C]">
-                          Call {SITE.phone}
+                          {t("home.callPhone", { phone: SITE.phone })}
                         </a>
                       </p>
                     ) : (
-                      <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Choose a day">
+                      <div
+                        className="flex flex-wrap gap-2"
+                        role="radiogroup"
+                        aria-label={t("book.chooseDay")}
+                      >
                         {dayOptions.map((option) => {
                           const selected = day?.date === option.date;
                           const disabled = option.availableCount === 0;
@@ -804,7 +835,7 @@ export function TimBookWizard() {
                                   : "border-white/10 bg-[#171717] text-white/80 hover:border-white/25"
                               }`}
                             >
-                              {option.label}
+                              {localizeDayLabel(option.label)}
                             </button>
                           );
                         })}
@@ -814,19 +845,19 @@ export function TimBookWizard() {
 
                   <div>
                     <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-white/45">
-                      Time
+                      {t("book.time")}
                     </p>
                     {!day ? (
-                      <p className="text-sm text-white/50">Pick a day to see open times.</p>
+                      <p className="text-sm text-white/50">{t("book.pickDay")}</p>
                     ) : loadingTimes ? (
-                      <p className="text-sm text-white/50">Loading times…</p>
+                      <p className="text-sm text-white/50">{t("book.loadingTimes")}</p>
                     ) : timeSlots.length === 0 ? (
-                      <p className="text-sm text-white/50">No open times that day — try another.</p>
+                      <p className="text-sm text-white/50">{t("book.noTimes")}</p>
                     ) : (
                       <div
                         className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-5"
                         role="radiogroup"
-                        aria-label="Choose a time"
+                        aria-label={t("book.chooseTime")}
                       >
                         {timeSlots.map((option) => {
                           const selected = slot?.displayTime === option.displayTime;
@@ -861,21 +892,21 @@ export function TimBookWizard() {
                 >
                   <div className="rounded-2xl border border-white/[0.08] bg-[#171717] px-4 py-4 text-sm text-white/60">
                     <p>
-                      <span className="text-white/40">Service</span>{" "}
+                      <span className="text-white/40">{t("nav.services")}</span>{" "}
                       {selectedService?.displayName ?? "—"} · {selectedService?.price}
                     </p>
                     <p className="mt-1">
-                      <span className="text-white/40">Barber</span> {barberName ?? "—"}
+                      <span className="text-white/40">{t("nav.barbers")}</span> {barberName ?? "—"}
                     </p>
                     <p className="mt-1">
-                      <span className="text-white/40">When</span> {day?.label ?? "—"} ·{" "}
-                      {slot?.displayTime ?? "—"}
+                      <span className="text-white/40">{locale === "es" ? "Cuándo" : "When"}</span>{" "}
+                      {day ? localizeDayLabel(day.label) : "—"} · {slot?.displayTime ?? "—"}
                     </p>
                   </div>
 
                   <label className="block">
                     <span className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[0.14em] text-white/45">
-                      Name
+                      {t("book.name")}
                     </span>
                     <input
                       type="text"
@@ -884,13 +915,13 @@ export function TimBookWizard() {
                       onChange={(e) => setName(e.target.value)}
                       required
                       className="w-full rounded-xl border border-white/10 bg-[#0e0e0e] px-4 py-3.5 text-[15px] text-white outline-none transition focus:border-[#C9A86C]/70"
-                      placeholder="Your name"
+                      placeholder={locale === "es" ? "Tu nombre" : "Your name"}
                     />
                   </label>
 
                   <label className="block">
                     <span className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[0.14em] text-white/45">
-                      Phone
+                      {t("book.phone")}
                     </span>
                     <input
                       type="tel"
@@ -906,7 +937,7 @@ export function TimBookWizard() {
 
                   <fieldset className="space-y-2 rounded-xl border border-white/[0.08] bg-[#121212] px-4 py-3">
                     <legend className="px-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/40">
-                      Stay in the loop
+                      {locale === "es" ? "Mantente al día" : "Stay in the loop"}
                     </legend>
                     <label className="flex items-start gap-2.5 text-[13px] text-white/70">
                       <input
@@ -915,7 +946,11 @@ export function TimBookWizard() {
                         onChange={(e) => setSmsOptIn(e.target.checked)}
                         className="mt-0.5 h-4 w-4 rounded border-white/30 bg-black accent-[#C9A86C]"
                       />
-                      <span>Text me about openings and seasonal cuts when texts are available.</span>
+                      <span>
+                        {locale === "es"
+                          ? "Envíame mensajes sobre horarios y cortes cuando los textos estén disponibles."
+                          : "Text me about openings and seasonal cuts when texts are available."}
+                      </span>
                     </label>
                     <label className="flex items-start gap-2.5 text-[13px] text-white/70">
                       <input
@@ -924,13 +959,18 @@ export function TimBookWizard() {
                         onChange={(e) => setEmailOptIn(e.target.checked)}
                         className="mt-0.5 h-4 w-4 rounded border-white/30 bg-black accent-[#C9A86C]"
                       />
-                      <span>Email me offers and reminders.</span>
+                      <span>
+                        {locale === "es"
+                          ? "Envíame ofertas y recordatorios por correo."
+                          : "Email me offers and reminders."}
+                      </span>
                     </label>
                   </fieldset>
 
                   <p className="text-[13px] text-white/45">
-                    This is a request — we confirm the chair in Booksy before it&apos;s locked.
-                    Pay in the shop. Shop line:{" "}
+                    {locale === "es"
+                      ? "Esto es una solicitud — confirmamos la silla en Booksy antes de asegurarla. Pagas en el local. Teléfono: "
+                      : "This is a request — we confirm the chair in Booksy before it's locked. Pay in the shop. Shop line: "}
                     <a href={`tel:${SITE.phoneTel}`} className="text-[#C9A86C]">
                       {SITE.phone}
                     </a>
@@ -941,9 +981,9 @@ export function TimBookWizard() {
               {error ? (
                 <p className="mt-5 text-sm text-red-300" role="alert">
                   {error}{" "}
-                  {error.toLowerCase().includes("call") ? null : (
+                  {error.toLowerCase().includes("call") || error.toLowerCase().includes("llama") ? null : (
                     <a href={`tel:${SITE.phoneTel}`} className="underline underline-offset-2">
-                      Call Now
+                      {t("cta.callNow")}
                     </a>
                   )}
                 </p>
@@ -956,7 +996,7 @@ export function TimBookWizard() {
                     onClick={goBack}
                     className="rounded-full border border-white/15 px-5 py-2.5 text-[13px] font-medium text-white/75 transition hover:border-white/30 hover:text-white"
                   >
-                    Back
+                    {t("book.back")}
                   </button>
                 ) : (
                   <span />
@@ -969,7 +1009,7 @@ export function TimBookWizard() {
                     disabled={!canContinue}
                     className="tim-gold-btn ml-auto inline-flex items-center gap-2 rounded-full px-6 py-3 text-[14px] font-semibold text-[#1a140c] transition enabled:hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40"
                   >
-                    Continue <span aria-hidden>›</span>
+                    {t("book.continue")} <span aria-hidden>›</span>
                   </button>
                 ) : (
                   <button
@@ -978,7 +1018,13 @@ export function TimBookWizard() {
                     disabled={!canContinue || submitting}
                     className="tim-gold-btn ml-auto inline-flex items-center gap-2 rounded-full px-6 py-3 text-[14px] font-semibold text-[#1a140c] transition enabled:hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40"
                   >
-                    {submitting ? "Opening Booksy…" : "Confirm on Booksy →"}
+                    {submitting
+                      ? locale === "es"
+                        ? "Abriendo Booksy…"
+                        : "Opening Booksy…"
+                      : locale === "es"
+                        ? "Confirmar en Booksy →"
+                        : "Confirm on Booksy →"}
                   </button>
                 )}
               </div>
@@ -989,25 +1035,25 @@ export function TimBookWizard() {
 
       {/* Mobile sticky Call Now — global sticky bar is hidden on /book */}
       <nav
-        aria-label="Call the shop"
+        aria-label={t("footer.quickActions")}
         className="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-black/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md lg:hidden"
       >
         <div className="mx-auto flex max-w-lg gap-2">
           <a
             href={`tel:${SITE.phoneTel}`}
-            aria-label={`Call The Barber Lounge at ${SITE.phone}`}
+            aria-label={`${t("cta.callNow")} ${SITE.phone}`}
             data-analytics-label="Call Now (tim book sticky)"
             className="flex flex-1 items-center justify-center gap-2 rounded-full border border-[#C9A86C]/45 px-4 py-3.5 text-sm font-semibold text-[#E8D5A3] transition hover:bg-[#C9A86C]/10"
           >
             <PhoneIcon className="h-4 w-4 stroke-current" />
-            Call Now
+            {t("cta.callNow")}
           </a>
           <a
             href="#booking-card"
             data-analytics-label="Book Now (tim book sticky)"
             className="tim-gold-btn flex flex-1 items-center justify-center rounded-full px-4 py-3.5 text-sm font-semibold text-[#1a140c] transition hover:brightness-110"
           >
-            Book
+            {t("nav.book")}
           </a>
         </div>
       </nav>

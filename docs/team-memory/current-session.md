@@ -4,16 +4,11 @@
 
 ## Finished
 
-- **PR #25 merged** — `/privacy` + `/terms` for Google Business Messaging / RCS (footer + sitemap)
-- **PR #26 merged** — Graphify code knowledge graph (`graphify-out/` + Cursor rule)
-- **EVERYTHING pack** — `docs/team-memory/EVERYTHING-PACK.md` + `CODEX-HANDOFF.md` (GitHub, Vercel, Twilio KYC, Booksy IDs, scripts, env names; ChatGPT Site ≠ prod)
-- Prior: Booksy live sync on prod, Tim funnel live at `/book`
+- **Spanish EN/ES toggle** — top-right language control site-wide (header + `/book`). Persists via `localStorage` + cookie `tbl_locale`. Covers chrome, Tim book funnel, services, footer, sticky CTAs, lead modal.
+- **PRs merged earlier:** #25 privacy/terms · #26 Graphify · #24 EVERYTHING pack
 
 ## Cesar next
 
-1. Paste into Google form (after `/privacy` + `/terms` are live on prod):
-   - Terms: `https://thebarberloungeca.com/terms`
-   - Privacy: `https://thebarberloungeca.com/privacy`
-2. Paste `EVERYTHING-PACK.md` (or CODEX short block) into Codex when needed
+1. Google form: `https://thebarberloungeca.com/terms` + `/privacy`
+2. Smoke-test EN ↔ ES on `/book` and a content page
 3. Twilio Trust Hub KYC with EIN `41-3512174` when ready for SMS
-4. Keep iterating on **thebarberloungeca.com** — ChatGPT Site stays a separate prototype

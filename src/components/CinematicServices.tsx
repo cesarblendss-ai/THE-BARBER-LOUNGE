@@ -1,3 +1,6 @@
+"use client";
+
+import { useLanguage } from "@/components/i18n/LanguageProvider";
 import { PhoneIcon, ScissorsIcon } from "@/components/icons";
 import { SITE, SITE_BOOK_PATH } from "@/lib/content";
 
@@ -9,28 +12,32 @@ type CinematicService = {
   analyticsLabel: string;
 };
 
-const DEFAULT_SERVICES: CinematicService[] = [
-  {
-    name: "Signature Haircut",
-    description: "Precision cut, detailed finish.",
-    price: "$50",
-    href: SITE_BOOK_PATH,
-    analyticsLabel: "Book Signature Haircut (service card)",
-  },
-  {
-    name: "Haircut & Beard Trim",
-    description: "Complete look, clean finish.",
-    price: "$65",
-    href: SITE_BOOK_PATH,
-    analyticsLabel: "Book Haircut & Beard (service card)",
-  },
-];
-
 type CinematicServicesProps = {
   services?: CinematicService[];
 };
 
-export function CinematicServices({ services = DEFAULT_SERVICES }: CinematicServicesProps) {
+export function CinematicServices({ services }: CinematicServicesProps) {
+  const { t } = useLanguage();
+
+  const defaults: CinematicService[] = [
+    {
+      name: t("services.signature"),
+      description: t("services.signatureDesc"),
+      price: "$50",
+      href: SITE_BOOK_PATH,
+      analyticsLabel: "Book Signature Haircut (service card)",
+    },
+    {
+      name: t("services.beardAlt"),
+      description: t("services.beardDesc"),
+      price: "$65",
+      href: SITE_BOOK_PATH,
+      analyticsLabel: "Book Haircut & Beard (service card)",
+    },
+  ];
+
+  const list = services ?? defaults;
+
   return (
     <section
       id="services"
@@ -40,15 +47,17 @@ export function CinematicServices({ services = DEFAULT_SERVICES }: CinematicServ
       <div className="mx-auto max-w-7xl">
         <div className="mb-8 flex flex-col gap-4 md:mb-10 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
-            <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-white/45">Services</p>
+            <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-white/45">
+              {t("nav.services")}
+            </p>
             <h2
               id="cinematic-services-heading"
               className="mt-3 font-serif text-3xl font-semibold tracking-tight sm:text-4xl"
             >
-              Book your cut
+              {t("cta.bookYourCut").replace(" →", "")}
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-white/55 sm:text-base">
-              Clear prices. Tap a card to book on this site — four steps, pay in the shop — or call us.
+              {t("home.finalBody")}
             </p>
           </div>
           <a
@@ -57,12 +66,12 @@ export function CinematicServices({ services = DEFAULT_SERVICES }: CinematicServ
             className="inline-flex w-full items-center justify-center gap-2 rounded-md border border-orange-400/50 px-5 py-3.5 text-xs font-semibold uppercase tracking-[0.16em] text-orange-100 transition hover:bg-orange-500/10 sm:w-auto"
           >
             <PhoneIcon className="h-4 w-4 stroke-orange-100" />
-            Call {SITE.phone}
+            {t("home.callPhone", { phone: SITE.phone })}
           </a>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2">
-          {services.map((service) => (
+          {list.map((service) => (
             <a
               key={service.name}
               href={service.href}
@@ -77,7 +86,7 @@ export function CinematicServices({ services = DEFAULT_SERVICES }: CinematicServ
               <p className="mt-2 text-sm text-white/55">{service.description}</p>
               <p className="mt-6 font-serif text-3xl font-semibold tracking-tight">{service.price}</p>
               <span className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-md bg-orange-500 px-4 py-3.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-black transition group-hover:bg-orange-400 sm:w-auto sm:self-start">
-                Book this cut
+                {t("cta.bookNow")}
                 <span aria-hidden>→</span>
               </span>
             </a>

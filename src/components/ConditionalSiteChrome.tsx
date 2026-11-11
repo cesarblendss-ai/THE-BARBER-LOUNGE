@@ -6,6 +6,7 @@ import { useEffect, type ReactNode } from "react";
 import { BookingChatbot } from "@/components/BookingChatbot";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { LanguageProvider } from "@/components/i18n/LanguageProvider";
 import { LeadCaptureModal } from "@/components/LeadCaptureModal";
 import { StickyBookButton } from "@/components/StickyBookButton";
 import type { SiteContent } from "@/lib/site-content-types";
@@ -34,14 +35,16 @@ export function ConditionalSiteChrome({
 
   if (isBookRoute) {
     return (
-      <main id="main-content" tabIndex={-1} className="relative z-10">
-        {children}
-      </main>
+      <LanguageProvider>
+        <main id="main-content" tabIndex={-1} className="relative z-10">
+          {children}
+        </main>
+      </LanguageProvider>
     );
   }
 
   return (
-    <>
+    <LanguageProvider>
       <Header labels={labels} />
       <main id="main-content" tabIndex={-1} className="relative z-10">
         {children}
@@ -52,6 +55,6 @@ export function ConditionalSiteChrome({
       <StickyBookButton />
       <LeadCaptureModal />
       <BookingChatbot />
-    </>
+    </LanguageProvider>
   );
 }
