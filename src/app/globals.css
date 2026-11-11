@@ -14,6 +14,15 @@
     @apply bg-black text-white antialiased;
   }
 
+  :root {
+    --light-red: #e11d48;
+    --light-green: #22c55e;
+    --light-warm: #fef3c7;
+    --holiday-red: #c41e3a;
+    --holiday-red-bright: #e11d48;
+    --holiday-pine: #15803d;
+  }
+
   a:focus-visible,
   button:focus-visible,
   input:focus-visible,
@@ -21,7 +30,7 @@
   select:focus-visible,
   summary:focus-visible,
   [tabindex]:not([tabindex="-1"]):focus-visible {
-    @apply outline-none ring-2 ring-brass ring-offset-2 ring-offset-bone;
+    @apply outline-none ring-2 ring-holly ring-offset-2 ring-offset-black;
   }
 }
 
@@ -102,7 +111,7 @@
     );
   }
 
-  /* Tim Cho /book UI */
+  /* Tim /book motion + Christmas holiday accents (replaces gold / Halloween orange) */
   @keyframes tim-fade-up {
     from {
       opacity: 0;
@@ -114,33 +123,115 @@
     }
   }
 
-  .tim-gold-btn {
-    background: linear-gradient(135deg, #e8d5a3 0%, #c9a86c 45%, #b08d57 100%);
+  .tim-gold-btn,
+  .holiday-btn {
+    background: linear-gradient(135deg, #fb7185 0%, #c41e3a 42%, #9f1239 100%);
+    color: #fff;
   }
 
-  .tim-gold-pill {
-    background: linear-gradient(135deg, #e8d5a3 0%, #c9a86c 50%, #b08d57 100%);
+  .tim-gold-pill,
+  .holiday-pill {
+    background: linear-gradient(135deg, #4ade80 0%, #15803d 55%, #14532d 100%);
+    color: #f8fafc;
   }
 
-  .tim-gold-text {
-    background: linear-gradient(135deg, #f0e0b8 0%, #c9a86c 55%, #a07a45 100%);
+  .tim-gold-text,
+  .holiday-text {
+    background: linear-gradient(135deg, #fecdd3 0%, #fb7185 40%, #c41e3a 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
-  .tim-gold-rule {
-    background: linear-gradient(90deg, #c9a86c 0%, rgba(201, 168, 108, 0.15) 70%, transparent 100%);
+  .tim-gold-rule,
+  .holiday-rule {
+    background: linear-gradient(
+      90deg,
+      #c41e3a 0%,
+      rgba(21, 128, 61, 0.55) 45%,
+      transparent 100%
+    );
   }
 
   .tim-book a:focus-visible,
   .tim-book button:focus-visible,
   .tim-book input:focus-visible {
-    @apply outline-none ring-2 ring-[#C9A86C] ring-offset-2 ring-offset-black;
+    @apply outline-none ring-2 ring-holly ring-offset-2 ring-offset-black;
   }
 
   body.tim-book-route {
     padding-bottom: 0;
+  }
+
+  /* Christmas lights */
+  .christmas-wire {
+    position: relative;
+  }
+
+  .christmas-wire::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 10px;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.18),
+      rgba(255, 255, 255, 0.08),
+      transparent
+    );
+  }
+
+  .christmas-bulb {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 9px;
+    height: 12px;
+    margin-top: 2px;
+    border-radius: 40% 40% 45% 45%;
+    background: var(--bulb, #e11d48);
+    box-shadow:
+      0 0 6px 1px color-mix(in srgb, var(--bulb, #e11d48) 75%, transparent),
+      0 0 14px 2px color-mix(in srgb, var(--bulb, #e11d48) 35%, transparent);
+    animation: christmas-twinkle 2.4s ease-in-out infinite;
+  }
+
+  .christmas-bulb::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -3px;
+    width: 5px;
+    height: 4px;
+    transform: translateX(-50%);
+    border-radius: 1px;
+    background: rgba(180, 180, 180, 0.55);
+  }
+
+  @keyframes christmas-twinkle {
+    0%,
+    100% {
+      opacity: 0.55;
+      filter: brightness(0.85);
+    }
+    40% {
+      opacity: 1;
+      filter: brightness(1.25);
+    }
+    70% {
+      opacity: 0.8;
+      filter: brightness(1.05);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .christmas-bulb {
+      animation: none;
+      opacity: 0.9;
+    }
   }
 }
 

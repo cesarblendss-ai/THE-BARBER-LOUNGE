@@ -40,23 +40,23 @@ export function Footer({ content }: FooterProps) {
   ] as const;
 
   return (
-    <footer className="relative border-t border-orange-500/25 bg-black text-white">
+    <footer className="relative border-t border-holly/40 bg-black text-white">
       <div className="mx-auto grid max-w-7xl gap-10 px-5 py-12 sm:px-8 sm:py-14 md:grid-cols-3">
         <div>
-          <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-orange-300/70">
+          <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-pine-soft/80">
             {t("footer.visit")}
           </p>
           <a
             href="https://maps.google.com/?q=1518+A+St,+Antioch,+CA+94509"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-3 block text-sm leading-relaxed text-white/80 transition hover:text-orange-200"
+            className="mt-3 block text-sm leading-relaxed text-white/80 transition hover:text-pine-soft"
           >
             <EditableText path="SITE.address" defaultValue={site.address} as="span" />
           </a>
           <a
             href={`tel:${SITE.phoneTel}`}
-            className="mt-2 block text-sm text-white/70 transition hover:text-orange-200"
+            className="mt-2 block text-sm text-white/70 transition hover:text-pine-soft"
           >
             <EditableText path="SITE.phone" defaultValue={site.phone} as="span" />
           </a>
@@ -64,14 +64,14 @@ export function Footer({ content }: FooterProps) {
             href={SITE.instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-2 block text-sm text-white/55 transition hover:text-orange-200"
+            className="mt-2 block text-sm text-white/55 transition hover:text-pine-soft"
           >
             <EditableText path="SITE.instagram" defaultValue={site.instagram} as="span" />
           </a>
         </div>
 
         <div>
-          <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-orange-300/70">
+          <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-pine-soft/80">
             {locale === "es" ? t("footer.hours") : (
               <EditableText path="FOOTER.hoursLabel" defaultValue={FOOTER.hoursLabel} as="span" />
             )}
@@ -112,7 +112,7 @@ export function Footer({ content }: FooterProps) {
         </div>
 
         <div>
-          <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-orange-300/70">
+          <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-pine-soft/80">
             {locale === "es" ? t("footer.explore") : (
               <EditableText
                 path="FOOTER.quickLinksLabel"
@@ -125,7 +125,7 @@ export function Footer({ content }: FooterProps) {
             <ul className="space-y-2 text-sm">
               {footerNav.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-white/70 transition hover:text-orange-200">
+                  <Link href={link.href} className="text-white/70 transition hover:text-pine-soft">
                     {link.label}
                   </Link>
                 </li>
@@ -134,7 +134,7 @@ export function Footer({ content }: FooterProps) {
                 <a
                   href={SITE_BOOK_PATH}
                   data-analytics-label="Book Online (footer)"
-                  className="text-orange-200 transition hover:text-orange-100"
+                  className="text-pine-soft transition hover:text-snow"
                 >
                   {t("cta.bookOnline")}
                 </a>
@@ -144,15 +144,15 @@ export function Footer({ content }: FooterProps) {
         </div>
       </div>
 
-      <div className="border-t border-orange-500/20 px-5 py-5 text-center text-[11px] tracking-wide text-white/40 sm:px-8">
+      <div className="border-t border-holly/30 px-5 py-5 text-center text-[11px] tracking-wide text-white/40 sm:px-8">
         © {year} <EditableText path="SITE.name" defaultValue={site.name} as="span" /> ·{" "}
         {t("footer.rights")}
         {" · "}
-        <Link href="/privacy" className="transition hover:text-orange-200">
+        <Link href="/privacy" className="transition hover:text-pine-soft">
           {t("footer.privacy")}
         </Link>
         {" · "}
-        <Link href="/terms" className="transition hover:text-orange-200">
+        <Link href="/terms" className="transition hover:text-pine-soft">
           {t("footer.terms")}
         </Link>
       </div>

@@ -42,7 +42,7 @@ export function LanguageToggle({ className = "", size = "sm" }: LanguageTogglePr
         aria-label={t("lang.switchToEs")}
         className={`rounded-full px-2.5 py-0.5 font-semibold tracking-[0.12em] transition ${text} ${
           locale === "es"
-            ? "bg-orange-500 text-black"
+            ? "bg-holly text-white"
             : "text-white/45 hover:text-white/80"
         }`}
       >

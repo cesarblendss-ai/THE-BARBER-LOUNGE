@@ -209,7 +209,7 @@ export function CinematicHero({
                     ? { target: "_blank", rel: "noopener noreferrer" }
                     : {})}
                   data-analytics-label="Book Appointment (cinematic hero)"
-                  className="inline-flex items-center justify-center gap-2 rounded-md bg-orange-500 px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-orange-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                  className="inline-flex items-center justify-center gap-2 rounded-md bg-holly px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-holly-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-holly-bright focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 >
                   {primaryLabel}
                   <span aria-hidden>→</span>

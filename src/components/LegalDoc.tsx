@@ -29,11 +29,11 @@ export function LegalDoc({ label, title, updated, children }: LegalDocProps) {
           {children}
           <p className="border-t border-charcoal/10 pt-8 text-sm text-charcoal/55">
             Questions?{" "}
-            <Link href="/contact" className="text-brass hover:underline">
+            <Link href="/contact" className="text-holly hover:underline">
               Contact the shop
             </Link>{" "}
             or call{" "}
-            <a href="tel:+19252095995" className="text-brass hover:underline">
+            <a href="tel:+19252095995" className="text-holly hover:underline">
               (925) 209-5995
             </a>
             .

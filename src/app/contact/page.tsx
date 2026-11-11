@@ -108,7 +108,7 @@ export default async function ContactPage() {
           <a
             href={`tel:${SITE.phoneTel}`}
             data-analytics-label="Call Now (location CTA)"
-            className="inline-flex items-center justify-center rounded-md bg-white px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-white/90"
+            className="inline-flex items-center justify-center rounded-md bg-holly px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-holly-bright"
           >
             Call Now
           </a>

@@ -181,7 +181,7 @@ export function LeadCaptureModal() {
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="relative z-10 flex max-h-[min(92dvh,40rem)] w-full max-w-md flex-col overflow-hidden rounded-t-2xl border border-orange-500/30 bg-charcoal text-bone shadow-2xl sm:rounded-2xl"
+        className="relative z-10 flex max-h-[min(92dvh,40rem)] w-full max-w-md flex-col overflow-hidden rounded-t-2xl border border-holly/40 bg-charcoal text-bone shadow-2xl sm:rounded-2xl"
       >
         <header className="flex items-start justify-between gap-3 border-b border-white/10 px-5 py-4">
           <div>
@@ -233,7 +233,7 @@ export function LeadCaptureModal() {
                   <a
                     href={SITE_BOOK_PATH}
                     data-analytics-label="Continue to /book (post lead)"
-                    className="inline-flex items-center justify-center rounded-md bg-orange-500 px-4 py-3.5 text-xs font-semibold uppercase tracking-[0.16em] text-black transition hover:bg-orange-400"
+                    className="inline-flex items-center justify-center rounded-md bg-holly px-4 py-3.5 text-xs font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-holly-bright"
                   >
                     Continue booking →
                   </a>
@@ -241,9 +241,9 @@ export function LeadCaptureModal() {
                 <a
                   href={`tel:${SITE.phoneTel}`}
                   data-analytics-label="Call Now (post lead)"
-                  className="inline-flex items-center justify-center gap-2 rounded-md border border-orange-400/50 px-4 py-3.5 text-xs font-semibold uppercase tracking-[0.16em] text-orange-100 transition hover:bg-orange-500/10"
+                  className="inline-flex items-center justify-center gap-2 rounded-md border border-pine/50 px-4 py-3.5 text-xs font-semibold uppercase tracking-[0.16em] text-snow transition hover:bg-holly/10"
                 >
-                  <PhoneIcon className="h-4 w-4 stroke-orange-100" />
+                  <PhoneIcon className="h-4 w-4 stroke-snow" />
                   Call {SITE.phone}
                 </a>
                 <button
@@ -265,7 +265,7 @@ export function LeadCaptureModal() {
               noValidate
             >
               {detail?.service ? (
-                <p className="rounded-md border border-white/10 bg-white/5 px-3 py-2 text-xs uppercase tracking-[0.14em] text-orange-200/90">
+                <p className="rounded-md border border-white/10 bg-white/5 px-3 py-2 text-xs uppercase tracking-[0.14em] text-pine-soft/90">
                   {detail.service}
                 </p>
               ) : null}
@@ -282,7 +282,7 @@ export function LeadCaptureModal() {
                   required
                   value={form.name}
                   onChange={(e) => setForm((prev) => ({ ...prev, name: e.target.value }))}
-                  className="w-full rounded-md border border-white/20 bg-black/40 px-3 py-3 text-sm text-white outline-none ring-orange-400/60 placeholder:text-white/35 focus:ring-2"
+                  className="w-full rounded-md border border-white/20 bg-black/40 px-3 py-3 text-sm text-white outline-none ring-holly/60 placeholder:text-white/35 focus:ring-2"
                   placeholder="Your name"
                 />
               </div>
@@ -300,7 +300,7 @@ export function LeadCaptureModal() {
                   required
                   value={form.phone}
                   onChange={(e) => setForm((prev) => ({ ...prev, phone: e.target.value }))}
-                  className="w-full rounded-md border border-white/20 bg-black/40 px-3 py-3 text-sm text-white outline-none ring-orange-400/60 placeholder:text-white/35 focus:ring-2"
+                  className="w-full rounded-md border border-white/20 bg-black/40 px-3 py-3 text-sm text-white outline-none ring-holly/60 placeholder:text-white/35 focus:ring-2"
                   placeholder="(925) 555-1234"
                 />
               </div>
@@ -316,7 +316,7 @@ export function LeadCaptureModal() {
                   autoComplete="email"
                   value={form.email}
                   onChange={(e) => setForm((prev) => ({ ...prev, email: e.target.value }))}
-                  className="w-full rounded-md border border-white/20 bg-black/40 px-3 py-3 text-sm text-white outline-none ring-orange-400/60 placeholder:text-white/35 focus:ring-2"
+                  className="w-full rounded-md border border-white/20 bg-black/40 px-3 py-3 text-sm text-white outline-none ring-holly/60 placeholder:text-white/35 focus:ring-2"
                   placeholder="you@email.com"
                 />
               </div>
@@ -330,7 +330,7 @@ export function LeadCaptureModal() {
                     type="checkbox"
                     checked={form.smsOptIn}
                     onChange={(e) => setForm((prev) => ({ ...prev, smsOptIn: e.target.checked }))}
-                    className="mt-1 h-4 w-4 rounded border-white/30 bg-black accent-orange-500"
+                    className="mt-1 h-4 w-4 rounded border-white/30 bg-black accent-holly"
                   />
                   <span>Text me about openings and seasonal cuts (SMS when the shop turns it on).</span>
                 </label>
@@ -339,7 +339,7 @@ export function LeadCaptureModal() {
                     type="checkbox"
                     checked={form.emailOptIn}
                     onChange={(e) => setForm((prev) => ({ ...prev, emailOptIn: e.target.checked }))}
-                    className="mt-1 h-4 w-4 rounded border-white/30 bg-black accent-orange-500"
+                    className="mt-1 h-4 w-4 rounded border-white/30 bg-black accent-holly"
                   />
                   <span>Email me offers and reminders.</span>
                 </label>
@@ -356,7 +356,7 @@ export function LeadCaptureModal() {
                   type="submit"
                   disabled={Boolean(submitting)}
                   data-analytics-label="Lead continue to /book"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-orange-500 px-4 py-3.5 text-xs font-semibold uppercase tracking-[0.16em] text-black transition hover:bg-orange-400 disabled:opacity-60"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-holly px-4 py-3.5 text-xs font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-holly-bright disabled:opacity-60"
                 >
                   {submitting === "book" ? "Saving…" : "Save & continue booking"}
                   <span aria-hidden>→</span>
@@ -373,9 +373,9 @@ export function LeadCaptureModal() {
                 <a
                   href={`tel:${SITE.phoneTel}`}
                   data-analytics-label="Call Now (lead modal)"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-md border border-orange-400/50 px-4 py-3.5 text-xs font-semibold uppercase tracking-[0.16em] text-orange-100 transition hover:bg-orange-500/10"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-md border border-pine/50 px-4 py-3.5 text-xs font-semibold uppercase tracking-[0.16em] text-snow transition hover:bg-holly/10"
                 >
-                  <PhoneIcon className="h-4 w-4 stroke-orange-100" />
+                  <PhoneIcon className="h-4 w-4 stroke-snow" />
                   Call {SITE.phone}
                 </a>
               </div>
@@ -386,7 +386,7 @@ export function LeadCaptureModal() {
                   href={booksyTarget(detail)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-orange-200 underline-offset-2 hover:underline"
+                  className="text-pine-soft underline-offset-2 hover:underline"
                   data-analytics-label="Open Booksy from lead modal"
                 >
                   Open Booksy

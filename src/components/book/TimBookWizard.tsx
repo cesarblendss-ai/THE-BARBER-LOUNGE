@@ -466,7 +466,7 @@ export function TimBookWizard() {
             <a
               href="#booking-card"
               data-analytics-label="Book Now (tim book header)"
-              className="tim-gold-btn inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-semibold text-[#1a140c] shadow-[0_8px_24px_rgba(176,141,87,0.28)] transition hover:brightness-110"
+              className="tim-gold-btn inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-semibold text-[#fff] shadow-[0_8px_24px_rgba(196,30,58,0.35)] transition hover:brightness-110"
             >
               <CalendarIcon className="h-4 w-4" />
               {t("cta.bookNow")}
@@ -515,7 +515,7 @@ export function TimBookWizard() {
               <li>
                 <a
                   href={`tel:${SITE.phoneTel}`}
-                  className="block text-sm font-semibold text-[#C9A86C]"
+                  className="block text-sm font-semibold text-holly"
                   onClick={() => setMobileOpen(false)}
                 >
                   {t("book.callNowPhone", { phone: SITE.phone })}
@@ -538,7 +538,7 @@ export function TimBookWizard() {
               <span className="text-white/70">{t("book.crumb")}</span>
             </p>
 
-            <span className="tim-gold-pill mt-6 inline-flex rounded-full px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-[#1a140c]">
+            <span className="tim-gold-pill mt-6 inline-flex rounded-full px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-[#fff]">
               {t("book.pill")}
             </span>
 
@@ -553,7 +553,7 @@ export function TimBookWizard() {
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <a
                 href="#booking-card"
-                className="tim-gold-btn inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-semibold text-[#1a140c] transition hover:brightness-110"
+                className="tim-gold-btn inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-semibold text-[#fff] transition hover:brightness-110"
               >
                 {t("cta.startBooking")}
               </a>
@@ -584,7 +584,7 @@ export function TimBookWizard() {
         >
           {receipt ? (
             <div className="mx-auto max-w-md py-4">
-              <p className="mb-4 text-center text-[12px] font-semibold uppercase tracking-[0.18em] text-[#C9A86C]">
+              <p className="mb-4 text-center text-[12px] font-semibold uppercase tracking-[0.18em] text-holly">
                 {t("book.finishBooksy")}
               </p>
               <BookingReceipt receipt={receipt} />
@@ -595,7 +595,7 @@ export function TimBookWizard() {
                     href={receipt.booksyHandoffUrl ?? booksyFallbackHref}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[#C9A86C] underline-offset-2 hover:underline"
+                    className="text-holly underline-offset-2 hover:underline"
                     data-analytics-label="Finish on Booksy (tim book receipt fallback)"
                   >
                     {t("book.openBooksy")}
@@ -604,7 +604,7 @@ export function TimBookWizard() {
                 <a
                   href={`tel:${SITE.phoneTel}`}
                   data-analytics-label="Call Now (tim book receipt)"
-                  className="tim-gold-btn inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-semibold text-[#1a140c] transition hover:brightness-110"
+                  className="tim-gold-btn inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-semibold text-[#fff] transition hover:brightness-110"
                 >
                   <PhoneIcon className="h-4 w-4 stroke-current" />
                   {t("book.callNowPhone", { phone: SITE.phone })}
@@ -614,7 +614,7 @@ export function TimBookWizard() {
           ) : (
             <>
               <div className="mb-6">
-                <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-[#C9A86C]">
+                <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-holly">
                   {t("book.stepOf", { step })}
                 </p>
                 <h2
@@ -647,7 +647,7 @@ export function TimBookWizard() {
                         }}
                         className={`flex items-center justify-between gap-4 rounded-2xl border px-4 py-4 text-left transition sm:px-5 sm:py-5 ${
                           selected
-                            ? "border-[#C9A86C]/70 bg-[#C9A86C]/10"
+                            ? "border-holly/70 bg-holly/10"
                             : "border-white/[0.08] bg-[#171717] hover:border-white/20"
                         }`}
                       >
@@ -666,13 +666,13 @@ export function TimBookWizard() {
                           <span
                             className={`flex h-5 w-5 items-center justify-center rounded-full border-2 ${
                               selected
-                                ? "border-[#C9A86C] bg-[#C9A86C]"
+                                ? "border-holly bg-holly"
                                 : "border-white/35 bg-transparent"
                             }`}
                             aria-hidden
                           >
                             {selected ? (
-                              <span className="h-1.5 w-1.5 rounded-full bg-[#1a140c]" />
+                              <span className="h-1.5 w-1.5 rounded-full bg-[#fff]" />
                             ) : null}
                           </span>
                         </span>
@@ -701,7 +701,7 @@ export function TimBookWizard() {
                         key={barber.name}
                         className={`rounded-2xl border transition ${
                           selected
-                            ? "border-[#C9A86C]/70 bg-[#C9A86C]/10"
+                            ? "border-holly/70 bg-holly/10"
                             : "border-white/[0.08] bg-[#171717] hover:border-white/20"
                         }`}
                       >
@@ -740,13 +740,13 @@ export function TimBookWizard() {
                           <span
                             className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 ${
                               selected
-                                ? "border-[#C9A86C] bg-[#C9A86C]"
+                                ? "border-holly bg-holly"
                                 : "border-white/35 bg-transparent"
                             }`}
                             aria-hidden
                           >
                             {selected ? (
-                              <span className="h-1.5 w-1.5 rounded-full bg-[#1a140c]" />
+                              <span className="h-1.5 w-1.5 rounded-full bg-[#fff]" />
                             ) : null}
                           </span>
                         </button>
@@ -757,7 +757,7 @@ export function TimBookWizard() {
                               target="_blank"
                               rel="noopener noreferrer"
                               data-analytics-label={`Booksy staffer ${barber.name}`}
-                              className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#C9A86C]/90 transition hover:text-[#E8D5A3]"
+                              className="text-[11px] font-semibold uppercase tracking-[0.12em] text-holly/90 transition hover:text-holly-bright"
                               onClick={(e) => e.stopPropagation()}
                             >
                               {t("book.booksyBarber", {
@@ -804,7 +804,7 @@ export function TimBookWizard() {
                     ) : dayOptions.length === 0 ? (
                       <p className="text-sm text-white/50">
                         {t("book.noDays")}{" "}
-                        <a href={`tel:${SITE.phoneTel}`} className="text-[#C9A86C]">
+                        <a href={`tel:${SITE.phoneTel}`} className="text-holly">
                           {t("home.callPhone", { phone: SITE.phone })}
                         </a>
                       </p>
@@ -831,7 +831,7 @@ export function TimBookWizard() {
                               }}
                               className={`rounded-full border px-4 py-2.5 text-[13px] font-medium transition disabled:cursor-not-allowed disabled:opacity-35 ${
                                 selected
-                                  ? "border-[#C9A86C] bg-[#C9A86C]/15 text-white"
+                                  ? "border-holly bg-holly/15 text-white"
                                   : "border-white/10 bg-[#171717] text-white/80 hover:border-white/25"
                               }`}
                             >
@@ -870,7 +870,7 @@ export function TimBookWizard() {
                               onClick={() => setSlot(option)}
                               className={`rounded-xl border px-3 py-3 text-[13px] font-medium transition ${
                                 selected
-                                  ? "border-[#C9A86C] bg-[#C9A86C]/15 text-white"
+                                  ? "border-holly bg-holly/15 text-white"
                                   : "border-white/10 bg-[#171717] text-white/80 hover:border-white/25"
                               }`}
                             >
@@ -914,7 +914,7 @@ export function TimBookWizard() {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       required
-                      className="w-full rounded-xl border border-white/10 bg-[#0e0e0e] px-4 py-3.5 text-[15px] text-white outline-none transition focus:border-[#C9A86C]/70"
+                      className="w-full rounded-xl border border-white/10 bg-[#0e0e0e] px-4 py-3.5 text-[15px] text-white outline-none transition focus:border-holly/70"
                       placeholder={locale === "es" ? "Tu nombre" : "Your name"}
                     />
                   </label>
@@ -930,7 +930,7 @@ export function TimBookWizard() {
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       required
-                      className="w-full rounded-xl border border-white/10 bg-[#0e0e0e] px-4 py-3.5 text-[15px] text-white outline-none transition focus:border-[#C9A86C]/70"
+                      className="w-full rounded-xl border border-white/10 bg-[#0e0e0e] px-4 py-3.5 text-[15px] text-white outline-none transition focus:border-holly/70"
                       placeholder="(925) 555-0100"
                     />
                   </label>
@@ -944,7 +944,7 @@ export function TimBookWizard() {
                         type="checkbox"
                         checked={smsOptIn}
                         onChange={(e) => setSmsOptIn(e.target.checked)}
-                        className="mt-0.5 h-4 w-4 rounded border-white/30 bg-black accent-[#C9A86C]"
+                        className="mt-0.5 h-4 w-4 rounded border-white/30 bg-black accent-holly"
                       />
                       <span>
                         {locale === "es"
@@ -957,7 +957,7 @@ export function TimBookWizard() {
                         type="checkbox"
                         checked={emailOptIn}
                         onChange={(e) => setEmailOptIn(e.target.checked)}
-                        className="mt-0.5 h-4 w-4 rounded border-white/30 bg-black accent-[#C9A86C]"
+                        className="mt-0.5 h-4 w-4 rounded border-white/30 bg-black accent-holly"
                       />
                       <span>
                         {locale === "es"
@@ -971,7 +971,7 @@ export function TimBookWizard() {
                     {locale === "es"
                       ? "Esto es una solicitud — confirmamos la silla en Booksy antes de asegurarla. Pagas en el local. Teléfono: "
                       : "This is a request — we confirm the chair in Booksy before it's locked. Pay in the shop. Shop line: "}
-                    <a href={`tel:${SITE.phoneTel}`} className="text-[#C9A86C]">
+                    <a href={`tel:${SITE.phoneTel}`} className="text-holly">
                       {SITE.phone}
                     </a>
                   </p>
@@ -1007,7 +1007,7 @@ export function TimBookWizard() {
                     type="button"
                     onClick={goNext}
                     disabled={!canContinue}
-                    className="tim-gold-btn ml-auto inline-flex items-center gap-2 rounded-full px-6 py-3 text-[14px] font-semibold text-[#1a140c] transition enabled:hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40"
+                    className="tim-gold-btn ml-auto inline-flex items-center gap-2 rounded-full px-6 py-3 text-[14px] font-semibold text-[#fff] transition enabled:hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40"
                   >
                     {t("book.continue")} <span aria-hidden>›</span>
                   </button>
@@ -1016,7 +1016,7 @@ export function TimBookWizard() {
                     type="submit"
                     form="tim-book-contact"
                     disabled={!canContinue || submitting}
-                    className="tim-gold-btn ml-auto inline-flex items-center gap-2 rounded-full px-6 py-3 text-[14px] font-semibold text-[#1a140c] transition enabled:hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40"
+                    className="tim-gold-btn ml-auto inline-flex items-center gap-2 rounded-full px-6 py-3 text-[14px] font-semibold text-[#fff] transition enabled:hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40"
                   >
                     {submitting
                       ? locale === "es"
@@ -1043,7 +1043,7 @@ export function TimBookWizard() {
             href={`tel:${SITE.phoneTel}`}
             aria-label={`${t("cta.callNow")} ${SITE.phone}`}
             data-analytics-label="Call Now (tim book sticky)"
-            className="flex flex-1 items-center justify-center gap-2 rounded-full border border-[#C9A86C]/45 px-4 py-3.5 text-sm font-semibold text-[#E8D5A3] transition hover:bg-[#C9A86C]/10"
+            className="flex flex-1 items-center justify-center gap-2 rounded-full border border-holly/45 px-4 py-3.5 text-sm font-semibold text-holly-bright transition hover:bg-holly/10"
           >
             <PhoneIcon className="h-4 w-4 stroke-current" />
             {t("cta.callNow")}
@@ -1051,7 +1051,7 @@ export function TimBookWizard() {
           <a
             href="#booking-card"
             data-analytics-label="Book Now (tim book sticky)"
-            className="tim-gold-btn flex flex-1 items-center justify-center rounded-full px-4 py-3.5 text-sm font-semibold text-[#1a140c] transition hover:brightness-110"
+            className="tim-gold-btn flex flex-1 items-center justify-center rounded-full px-4 py-3.5 text-sm font-semibold text-[#fff] transition hover:brightness-110"
           >
             {t("nav.book")}
           </a>

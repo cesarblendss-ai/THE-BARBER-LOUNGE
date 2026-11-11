@@ -16,6 +16,19 @@ const config: Config = {
           dark: "#7A6035",
         },
         burgundy: "#6E1F2B",
+        /** Public site holiday theme (Christmas) — replaces Halloween orange / Tim gold accents */
+        holly: {
+          DEFAULT: "#C41E3A",
+          bright: "#E11D48",
+          deep: "#9F1239",
+        },
+        pine: {
+          DEFAULT: "#15803D",
+          deep: "#14532D",
+          soft: "#22C55E",
+        },
+        snow: "#F8FAFC",
+        twinkle: "#FEF3C7",
       },
       fontFamily: {
         serif: ["var(--font-fraunces)", "Georgia", "serif"],

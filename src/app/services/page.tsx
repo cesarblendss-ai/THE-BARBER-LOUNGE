@@ -49,13 +49,13 @@ export default async function ServicesPage() {
               {...((cta.href || SITE_BOOK_PATH).startsWith("http")
                 ? { target: "_blank", rel: "noopener noreferrer" }
                 : {})}
-              className="inline-flex items-center justify-center rounded-md bg-white px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-white/90"
+              className="inline-flex items-center justify-center rounded-md bg-holly px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-holly-bright"
             >
               <EditableText path="SERVICES.cta.label" defaultValue={cta.label} as="span" />
             </a>
             <a
               href={`tel:${SITE.phoneTel}`}
-              className="inline-flex items-center justify-center rounded-md border border-white/60 px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white/10"
+              className="inline-flex items-center justify-center rounded-md border border-pine/60 px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-snow transition hover:bg-pine/15"
             >
               Call Now
             </a>

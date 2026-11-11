@@ -104,7 +104,7 @@ export default function PrivacyPage() {
         <LegalP>
           To review, correct, or delete contact information we hold, or to ask a privacy question,
           email{" "}
-          <a href={`mailto:${SITE.email}`} className="text-brass hover:underline">
+          <a href={`mailto:${SITE.email}`} className="text-holly hover:underline">
             {SITE.email}
           </a>{" "}
           or call {SITE.phone}. California residents may have additional rights under the CCPA;
@@ -138,11 +138,11 @@ export default function PrivacyPage() {
           <br />
           {SITE.phone}
           <br />
-          <a href={`mailto:${SITE.email}`} className="text-brass hover:underline">
+          <a href={`mailto:${SITE.email}`} className="text-holly hover:underline">
             {SITE.email}
           </a>
           <br />
-          <Link href="/terms" className="text-brass hover:underline">
+          <Link href="/terms" className="text-holly hover:underline">
             Terms of Service
           </Link>
         </LegalP>

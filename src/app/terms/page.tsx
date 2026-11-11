@@ -25,7 +25,7 @@ export default function TermsPage() {
         <LegalH2>The shop</LegalH2>
         <LegalP>
           {SITE.name} is a barbershop at {SITE.address}. Phone: {SITE.phone}. Email:{" "}
-          <a href={`mailto:${SITE.email}`} className="text-brass hover:underline">
+          <a href={`mailto:${SITE.email}`} className="text-holly hover:underline">
             {SITE.email}
           </a>
           .
@@ -103,7 +103,7 @@ export default function TermsPage() {
         <LegalH2>Privacy</LegalH2>
         <LegalP>
           How we handle personal information is described in our{" "}
-          <Link href="/privacy" className="text-brass hover:underline">
+          <Link href="/privacy" className="text-holly hover:underline">
             Privacy Policy
           </Link>
           .
@@ -127,7 +127,7 @@ export default function TermsPage() {
           <br />
           {SITE.phone}
           <br />
-          <a href={`mailto:${SITE.email}`} className="text-brass hover:underline">
+          <a href={`mailto:${SITE.email}`} className="text-holly hover:underline">
             {SITE.email}
           </a>
         </LegalP>
