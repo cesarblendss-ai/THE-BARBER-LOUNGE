@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3000 -H 0.0.0.0",
+    "dev": "next dev -p 3847 -H 0.0.0.0",
     "build": "prisma generate && node scripts/maybe-db-push.mjs && next build",
-    "start": "next start",
+    "start": "next start -p 3847 -H 0.0.0.0",
     "lint": "next lint",
     "postinstall": "prisma generate",
     "db:push": "node scripts/with-neon-env.mjs npx prisma db push",
