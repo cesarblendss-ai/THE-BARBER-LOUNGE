@@ -100,6 +100,14 @@ export function Footer({ content }: FooterProps) {
       <div className="border-t border-orange-500/20 px-5 py-5 text-center text-[11px] tracking-wide text-white/40 sm:px-8">
         © {year} <EditableText path="SITE.name" defaultValue={site.name} as="span" /> ·{" "}
         <EditableText path="FOOTER.copyright" defaultValue={FOOTER.copyright} as="span" />
+        {" · "}
+        <Link href="/privacy" className="transition hover:text-orange-200">
+          Privacy
+        </Link>
+        {" · "}
+        <Link href="/terms" className="transition hover:text-orange-200">
+          Terms
+        </Link>
       </div>
     </footer>
   );
