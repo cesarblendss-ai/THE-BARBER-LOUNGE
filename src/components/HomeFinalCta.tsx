@@ -1,6 +1,7 @@
 "use client";
 
 import { EditableText } from "@/components/EditableText";
+import { useLanguage } from "@/components/i18n/LanguageProvider";
 import { SITE, SITE_BOOK_PATH } from "@/lib/content";
 
 type HomeFinalCtaProps = {
@@ -10,8 +11,11 @@ type HomeFinalCtaProps = {
 };
 
 export function HomeFinalCta({ headline, ctaLabel, ctaHref }: HomeFinalCtaProps) {
+  const { locale, t } = useLanguage();
   const href = ctaHref || SITE_BOOK_PATH;
   const external = href.startsWith("http");
+  const headlineEs = "Reserva tu corte.";
+  const ctaEs = "Reservar ahora";
 
   return (
     <section
@@ -20,17 +24,26 @@ export function HomeFinalCta({ headline, ctaLabel, ctaHref }: HomeFinalCtaProps)
     >
       <div className="mx-auto max-w-3xl text-center">
         <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-orange-300/70">
-          Ready when you are
+          {t("home.readyWhen")}
         </p>
-        <EditableText
-          path="HOME.finalCta.headline"
-          defaultValue={headline}
-          as="h2"
-          id="final-cta-heading"
-          className="mt-3 font-serif text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl"
-        />
+        {locale === "es" ? (
+          <h2
+            id="final-cta-heading"
+            className="mt-3 font-serif text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl"
+          >
+            {headlineEs}
+          </h2>
+        ) : (
+          <EditableText
+            path="HOME.finalCta.headline"
+            defaultValue={headline}
+            as="h2"
+            id="final-cta-heading"
+            className="mt-3 font-serif text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl"
+          />
+        )}
         <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-white/55">
-          Book online in four steps on this site — or call the shop and we&apos;ll get you in the chair.
+          {t("home.finalBody")}
         </p>
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <a
@@ -39,7 +52,11 @@ export function HomeFinalCta({ headline, ctaLabel, ctaHref }: HomeFinalCtaProps)
             data-analytics-label="Book Now (final CTA)"
             className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-orange-500 px-8 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-orange-400 sm:w-auto"
           >
-            <EditableText path="HOME.finalCta.cta.label" defaultValue={ctaLabel} as="span" />
+            {locale === "es" ? (
+              <span>{ctaEs}</span>
+            ) : (
+              <EditableText path="HOME.finalCta.cta.label" defaultValue={ctaLabel} as="span" />
+            )}
             <span aria-hidden>→</span>
           </a>
           <a
@@ -47,7 +64,7 @@ export function HomeFinalCta({ headline, ctaLabel, ctaHref }: HomeFinalCtaProps)
             data-analytics-label="Call Now (final CTA)"
             className="inline-flex w-full items-center justify-center rounded-md border border-orange-400/50 px-8 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-orange-100 transition hover:bg-orange-500/10 sm:w-auto"
           >
-            Call {SITE.phone}
+            {t("home.callPhone", { phone: SITE.phone })}
           </a>
         </div>
       </div>

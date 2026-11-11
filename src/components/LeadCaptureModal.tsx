@@ -3,6 +3,7 @@
 import { track } from "@vercel/analytics";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 
+import { useLanguage } from "@/components/i18n/LanguageProvider";
 import { CloseIcon, PhoneIcon } from "@/components/icons";
 import { BOOKING_URL, SITE, SITE_BOOK_PATH } from "@/lib/content";
 import {
@@ -32,6 +33,7 @@ function booksyTarget(detail: OpenLeadDetail | null): string {
 }
 
 export function LeadCaptureModal() {
+  const { locale, t } = useLanguage();
   const titleId = useId();
   const nameRef = useRef<HTMLInputElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -184,21 +186,35 @@ export function LeadCaptureModal() {
         <header className="flex items-start justify-between gap-3 border-b border-white/10 px-5 py-4">
           <div>
             <p id={titleId} className="font-serif text-xl font-semibold text-white">
-              {done === "callback" ? "We'll call you." : done === "book" ? "You're next." : "Lock in your cut"}
+              {done === "callback"
+                ? locale === "es"
+                  ? "Te llamamos."
+                  : "We'll call you."
+                : done === "book"
+                  ? locale === "es"
+                    ? "Ya casi."
+                    : "You're next."
+                  : locale === "es"
+                    ? "Asegura tu corte"
+                    : "Lock in your cut"}
             </p>
             <p className="mt-1 text-sm text-white/55">
               {done
-                ? "We saved your info so we can reach you."
+                ? locale === "es"
+                  ? "Guardamos tus datos para contactarte."
+                  : "We saved your info so we can reach you."
                 : detail?.service
-                  ? `${detail.service} — leave your info, then book on this site or get a call.`
-                  : "Leave your name and number first. Then book on this site — or we'll call you."}
+                  ? locale === "es"
+                    ? `${detail.service} — deja tus datos, luego reserva aquí o te llamamos.`
+                    : `${detail.service} — leave your info, then book on this site or get a call.`
+                  : t("lead.body")}
             </p>
           </div>
           <button
             type="button"
             onClick={close}
             className="rounded-md p-1.5 text-white/60 transition hover:bg-white/10 hover:text-white"
-            aria-label="Close"
+            aria-label={t("lead.close")}
           >
             <CloseIcon className="h-5 w-5 stroke-current" />
           </button>
