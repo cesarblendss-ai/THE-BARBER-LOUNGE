@@ -4,11 +4,11 @@
 
 ## Finished
 
-- **Spanish EN/ES toggle** — top-right language control site-wide (header + `/book`). Persists via `localStorage` + cookie `tbl_locale`. Covers chrome, Tim book funnel, services, footer, sticky CTAs, lead modal.
-- **PRs merged earlier:** #25 privacy/terms · #26 Graphify · #24 EVERYTHING pack
+- **Christmas site theme** — replaced Halloween orange + Tim gold accents with holly red / pine green across public chrome + `/book`. Christmas light string on every public page. Same button shapes; holiday colors.
+- Prior: EN/ES toggle (#27), privacy/terms (#25), Graphify (#26), EVERYTHING pack (#24)
 
 ## Cesar next
 
-1. Google form: `https://thebarberloungeca.com/terms` + `/privacy`
-2. Smoke-test EN ↔ ES on `/book` and a content page
-3. Twilio Trust Hub KYC with EIN `41-3512174` when ready for SMS
+1. Smoke `/book`, `/services`, `/about`, `/contact` on desktop + mobile — lights + red/green CTAs
+2. Optional: deeper Christmas copy on marketing pages / blog accents
+3. Twilio Trust Hub KYC when ready for SMS

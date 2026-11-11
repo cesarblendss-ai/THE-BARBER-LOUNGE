@@ -63,9 +63,9 @@ export function CinematicServices({ services }: CinematicServicesProps) {
           <a
             href={`tel:${SITE.phoneTel}`}
             data-analytics-label="Call Now (services section)"
-            className="inline-flex w-full items-center justify-center gap-2 rounded-md border border-orange-400/50 px-5 py-3.5 text-xs font-semibold uppercase tracking-[0.16em] text-orange-100 transition hover:bg-orange-500/10 sm:w-auto"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-md border border-pine/50 px-5 py-3.5 text-xs font-semibold uppercase tracking-[0.16em] text-snow transition hover:bg-holly/10 sm:w-auto"
           >
-            <PhoneIcon className="h-4 w-4 stroke-orange-100" />
+            <PhoneIcon className="h-4 w-4 stroke-snow" />
             {t("home.callPhone", { phone: SITE.phone })}
           </a>
         </div>
@@ -79,13 +79,13 @@ export function CinematicServices({ services }: CinematicServicesProps) {
                 ? { target: "_blank", rel: "noopener noreferrer" }
                 : {})}
               data-analytics-label={service.analyticsLabel}
-              className="group relative flex flex-col rounded-xl border border-white/15 bg-white/[0.02] p-6 outline-none transition duration-200 hover:-translate-y-0.5 hover:border-orange-400/50 hover:bg-white/[0.06] focus-visible:ring-2 focus-visible:ring-orange-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:p-8"
+              className="group relative flex flex-col rounded-xl border border-white/15 bg-white/[0.02] p-6 outline-none transition duration-200 hover:-translate-y-0.5 hover:border-pine/50 hover:bg-white/[0.06] focus-visible:ring-2 focus-visible:ring-holly-bright focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:p-8"
             >
-              <ScissorsIcon className="h-5 w-5 stroke-white/75 transition group-hover:stroke-orange-200" />
+              <ScissorsIcon className="h-5 w-5 stroke-white/75 transition group-hover:stroke-pine-soft" />
               <h3 className="mt-5 font-serif text-2xl font-semibold tracking-tight">{service.name}</h3>
               <p className="mt-2 text-sm text-white/55">{service.description}</p>
               <p className="mt-6 font-serif text-3xl font-semibold tracking-tight">{service.price}</p>
-              <span className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-md bg-orange-500 px-4 py-3.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-black transition group-hover:bg-orange-400 sm:w-auto sm:self-start">
+              <span className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-md bg-holly px-4 py-3.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-white transition group-hover:bg-holly-bright sm:w-auto sm:self-start">
                 {t("cta.bookNow")}
                 <span aria-hidden>→</span>
               </span>

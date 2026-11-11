@@ -32,7 +32,7 @@ export default function AboutPage() {
           <a
             href={SITE_BOOK_PATH}
             data-analytics-label="Book Appointment (barbers footer)"
-            className="inline-flex items-center justify-center gap-2 rounded-md bg-white px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-black transition hover:bg-white/90"
+            className="inline-flex items-center justify-center gap-2 rounded-md bg-holly px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-holly-bright"
           >
             Book Appointment
             <span aria-hidden>→</span>

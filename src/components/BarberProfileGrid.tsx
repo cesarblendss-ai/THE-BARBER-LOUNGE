@@ -71,7 +71,7 @@ export function BarberProfileGrid({ members }: BarberProfileGridProps) {
               <a
                 href={bookingHref}
                 data-analytics-label={`Book with ${member.name}`}
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-white px-4 py-3.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-black transition hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-holly px-4 py-3.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-holly-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-holly focus-visible:ring-offset-2 focus-visible:ring-offset-black"
               >
                 Book with {member.name.split(" ")[0]}
                 <span aria-hidden>→</span>

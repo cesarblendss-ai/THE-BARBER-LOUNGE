@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, type ReactNode } from "react";
 
 import { BookingChatbot } from "@/components/BookingChatbot";
+import { ChristmasLights } from "@/components/ChristmasLights";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { LanguageProvider } from "@/components/i18n/LanguageProvider";
@@ -18,7 +19,7 @@ type ConditionalSiteChromeProps = {
   children: ReactNode;
 };
 
-/** Minimal chrome on Tim Cho `/book` (and root redirect target). Halloween decor removed site-wide. */
+/** Public chrome — Christmas holiday theme site-wide (lights + holly/pine accents). */
 export function ConditionalSiteChrome({
   labels,
   content,
@@ -30,31 +31,41 @@ export function ConditionalSiteChrome({
 
   useEffect(() => {
     document.body.classList.toggle("tim-book-route", isBookRoute);
-    return () => document.body.classList.remove("tim-book-route");
+    document.body.classList.add("holiday-theme");
+    return () => {
+      document.body.classList.remove("tim-book-route");
+      document.body.classList.remove("holiday-theme");
+    };
   }, [isBookRoute]);
 
   if (isBookRoute) {
     return (
       <LanguageProvider>
-        <main id="main-content" tabIndex={-1} className="relative z-10">
-          {children}
-        </main>
+        <div className="relative">
+          <ChristmasLights />
+          <main id="main-content" tabIndex={-1} className="relative z-10">
+            {children}
+          </main>
+        </div>
       </LanguageProvider>
     );
   }
 
   return (
     <LanguageProvider>
-      <Header labels={labels} />
-      <main id="main-content" tabIndex={-1} className="relative z-10">
-        {children}
-      </main>
-      <div className="relative z-10">
-        <Footer content={content} adminAuthenticated={adminAuthenticated} />
+      <div className="relative">
+        <ChristmasLights />
+        <Header labels={labels} />
+        <main id="main-content" tabIndex={-1} className="relative z-10">
+          {children}
+        </main>
+        <div className="relative z-10">
+          <Footer content={content} adminAuthenticated={adminAuthenticated} />
+        </div>
+        <StickyBookButton />
+        <LeadCaptureModal />
+        <BookingChatbot />
       </div>
-      <StickyBookButton />
-      <LeadCaptureModal />
-      <BookingChatbot />
     </LanguageProvider>
   );
 }
