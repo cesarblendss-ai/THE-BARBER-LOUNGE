@@ -1,18 +1,16 @@
 # Current Session
 
-**Last verified:** 2026-11-06
+**Last verified:** 2026-11-07
 
 ## Finished
 
-- **PR #20 merged** → `main` @ `f7ae5db` — Live Booksy availability sync for `/book`
-- **Production deploy success** (Vercel) — GitHub Production deploy `7606581110`
-- **Prod proof:**
-  - `https://thebarberloungeca.com/api/availability?meta=1` → `booksyLiveSync: true`, source `booksy-live+website-appointments`, 7 days / 5 staffers
-  - `https://thebarberloungeca.com/api/cron/sync-booksy` → **401 Unauthorized** (route live; was 404 before merge)
-- Docs: `deploy.md` updated with prod proof
+- **Legal pages for Google Business Messaging / RCS** — `/privacy` + `/terms` (needed for Terms of service + Privacy policy fields in Google setup). Footer + sitemap linked.
+- Prior: Booksy live sync on prod, EVERYTHING pack PR #24, Tim funnel live at `/book`
 
-## Cesar next
+## Cesar next (right now)
 
-1. Optional: set `CRON_SECRET` on Vercel Production (cron still works via `x-vercel-cron`)
-2. Smoke-test `/book` → pick a live Booksy open → Confirm on Booksy
-3. Phone ntfy tap → same Booksy handoff URL
+1. After this deploys to production, paste into Google form:
+   - Terms: `https://thebarberloungeca.com/terms`
+   - Privacy: `https://thebarberloungeca.com/privacy`
+2. Website field can stay `https://www.thebarberloungeca.com/` (or non-www) — both resolve
+3. Twilio Trust Hub KYC with EIN `41-3512174` when ready for SMS
