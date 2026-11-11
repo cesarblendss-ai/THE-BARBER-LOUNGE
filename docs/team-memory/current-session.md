@@ -1,16 +1,19 @@
 # Current Session
 
-**Last verified:** 2026-11-07
+**Last verified:** 2026-11-11
 
 ## Finished
 
-- **Legal pages for Google Business Messaging / RCS** — `/privacy` + `/terms` (needed for Terms of service + Privacy policy fields in Google setup). Footer + sitemap linked.
-- Prior: Booksy live sync on prod, EVERYTHING pack PR #24, Tim funnel live at `/book`
+- **PR #25 merged** — `/privacy` + `/terms` for Google Business Messaging / RCS (footer + sitemap)
+- **PR #26 merged** — Graphify code knowledge graph (`graphify-out/` + Cursor rule)
+- **EVERYTHING pack** — `docs/team-memory/EVERYTHING-PACK.md` + `CODEX-HANDOFF.md` (GitHub, Vercel, Twilio KYC, Booksy IDs, scripts, env names; ChatGPT Site ≠ prod)
+- Prior: Booksy live sync on prod, Tim funnel live at `/book`
 
-## Cesar next (right now)
+## Cesar next
 
-1. After this deploys to production, paste into Google form:
+1. Paste into Google form (after `/privacy` + `/terms` are live on prod):
    - Terms: `https://thebarberloungeca.com/terms`
    - Privacy: `https://thebarberloungeca.com/privacy`
-2. Website field can stay `https://www.thebarberloungeca.com/` (or non-www) — both resolve
+2. Paste `EVERYTHING-PACK.md` (or CODEX short block) into Codex when needed
 3. Twilio Trust Hub KYC with EIN `41-3512174` when ready for SMS
+4. Keep iterating on **thebarberloungeca.com** — ChatGPT Site stays a separate prototype
