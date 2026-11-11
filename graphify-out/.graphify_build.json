@@ -1,0 +1,1 @@
+{"excludes": ["node_modules", ".next", "tools/seo-agent/output"], "code_only": true}
