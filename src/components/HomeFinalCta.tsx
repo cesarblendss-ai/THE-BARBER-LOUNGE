@@ -19,11 +19,11 @@ export function HomeFinalCta({ headline, ctaLabel, ctaHref }: HomeFinalCtaProps)
 
   return (
     <section
-      className="border-t border-orange-500/20 bg-black px-5 pb-16 pt-14 sm:px-8 sm:pb-20 sm:pt-16"
+      className="border-t border-[#C9A86C]/20 bg-black px-5 pb-16 pt-14 sm:px-8 sm:pb-20 sm:pt-16"
       aria-labelledby="final-cta-heading"
     >
       <div className="mx-auto max-w-3xl text-center">
-        <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-orange-300/70">
+        <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-[#C9A86C]/80">
           {t("home.readyWhen")}
         </p>
         {locale === "es" ? (
@@ -50,7 +50,7 @@ export function HomeFinalCta({ headline, ctaLabel, ctaHref }: HomeFinalCtaProps)
             href={href}
             {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
             data-analytics-label="Book Now (final CTA)"
-            className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-orange-500 px-8 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-orange-400 sm:w-auto"
+            className="tim-gold-btn inline-flex w-full items-center justify-center gap-2 rounded-md px-8 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-[#1a140c] transition hover:brightness-110 sm:w-auto"
           >
             {locale === "es" ? (
               <span>{ctaEs}</span>
@@ -62,7 +62,7 @@ export function HomeFinalCta({ headline, ctaLabel, ctaHref }: HomeFinalCtaProps)
           <a
             href={`tel:${SITE.phoneTel}`}
             data-analytics-label="Call Now (final CTA)"
-            className="inline-flex w-full items-center justify-center rounded-md border border-orange-400/50 px-8 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-orange-100 transition hover:bg-orange-500/10 sm:w-auto"
+            className="inline-flex w-full items-center justify-center rounded-md border border-[#C9A86C]/45 px-8 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-[#E8D5A3] transition hover:bg-[#C9A86C]/10 sm:w-auto"
           >
             {t("home.callPhone", { phone: SITE.phone })}
           </a>
