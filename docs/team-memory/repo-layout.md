@@ -37,6 +37,7 @@ the-barber-lounge/
 | `/faq` | `src/app/faq/page.tsx` | |
 | `/testimonials` | `src/app/testimonials/page.tsx` | |
 | `/contact` | `src/app/contact/page.tsx` | |
+| `/join-our-team` | `src/app/join-our-team/page.tsx` | Hiring page for Google sitelinks / Ads |
 | `/gallery` | `src/app/gallery/page.tsx` | |
 | `/book` | `src/app/book/page.tsx` | Tim Cho 4-step booking UI — **primary landing** |
 | `/admin/calendar-sync` | `src/app/admin/calendar-sync/page.tsx` | Force refresh + Booksy live status + busy backup |

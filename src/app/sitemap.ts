@@ -10,6 +10,7 @@ const routes = [
   "/faq",
   "/testimonials",
   "/contact",
+  "/join-our-team",
   "/privacy",
   "/terms",
   "/blog",
