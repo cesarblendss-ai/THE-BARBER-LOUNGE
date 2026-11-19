@@ -20,7 +20,7 @@ type LeadBody = {
   notes?: string;
 };
 
-const ALLOWED_INTENTS: LeadIntent[] = ["book", "booksy", "callback", "opt_in"];
+const ALLOWED_INTENTS: LeadIntent[] = ["book", "booksy", "callback", "opt_in", "hiring"];
 
 function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -94,25 +94,33 @@ export async function POST(request: NextRequest) {
     });
 
     const intentLabel =
-      intent === "callback" ? "Call back request" : intent === "booksy" ? "Booksy handoff" : "Opt-in";
+      intent === "hiring"
+        ? "Hiring application"
+        : intent === "callback"
+          ? "Call back request"
+          : intent === "booksy"
+            ? "Booksy handoff"
+            : "Opt-in";
 
     try {
       await sendNtfyPush({
-        title: `New lead: ${lead.name}`,
+        title: intent === "hiring" ? `Hiring apply: ${lead.name}` : `New lead: ${lead.name}`,
         body: [
           intentLabel,
           lead.service ? `Service: ${lead.service}` : null,
           `Phone: ${lead.phone}`,
           lead.email ? `Email: ${lead.email}` : null,
           `Source: ${lead.source}`,
-          smsOptIn ? "SMS opt-in: yes" : "SMS opt-in: no",
-          emailOptIn ? "Email opt-in: yes" : "Email opt-in: no",
-          "",
-          "Campaign SMS/email still blocked until Twilio KYC + email provider.",
+          intent === "hiring" ? null : smsOptIn ? "SMS opt-in: yes" : "SMS opt-in: no",
+          intent === "hiring" ? null : emailOptIn ? "Email opt-in: yes" : "Email opt-in: no",
+          lead.notes ? `\n${lead.notes}` : null,
+          intent === "hiring"
+            ? null
+            : "\nCampaign SMS/email still blocked until Twilio KYC + email provider.",
         ]
           .filter(Boolean)
           .join("\n"),
-        tags: "barber,lead",
+        tags: intent === "hiring" ? "barber,hiring" : "barber,lead",
         priority: "high",
       });
     } catch (error) {
