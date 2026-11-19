@@ -2,7 +2,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import { randomBytes } from "crypto";
 
-export type LeadIntent = "book" | "booksy" | "callback" | "opt_in";
+export type LeadIntent = "book" | "booksy" | "callback" | "opt_in" | "hiring";
 
 export type Lead = {
   id: string;
