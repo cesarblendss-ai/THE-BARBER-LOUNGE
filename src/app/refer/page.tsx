@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { Button } from "@/components/Button";
 import { SectionLabel } from "@/components/SectionLabel";
-import { BOOKING_URL, SITE, SITE_BOOK_PATH } from "@/lib/content";
+import { SITE, SITE_BOOK_PATH } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -16,7 +16,7 @@ const SHARE_TEXT =
   "Check out The Barber Lounge in Antioch — sharp fades and real craft. Book online:";
 
 export default function ReferPage() {
-  const fullShare = `${SHARE_TEXT} ${BOOKING_URL}`;
+  const fullShare = `${SHARE_TEXT} https://thebarberloungeca.com${SITE_BOOK_PATH}`;
 
   return (
     <>

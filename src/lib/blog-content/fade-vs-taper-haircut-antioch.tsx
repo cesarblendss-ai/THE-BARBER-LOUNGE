@@ -142,7 +142,7 @@ export function FadeVsTaperHaircutAntiochContent() {
         Choosing between a fade vs taper haircut in Antioch doesn&apos;t need to be overwhelming. At
         The Barber Lounge, we&apos;re here to help you decide on the right style for your child,
         ensuring an enjoyable experience every time. For your next kids&apos; haircut, call us at{" "}
-        <PhoneLink /> or <BookOnlineLink /> on Booksy. Browse{" "}
+        <PhoneLink /> or <BookOnlineLink />. Browse{" "}
         <ServicesLink>our services and pricing</ServicesLink> before you visit.
       </p>
 

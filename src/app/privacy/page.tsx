@@ -50,7 +50,7 @@ export default function PrivacyPage() {
         <LegalUl>
           <li>Confirm and manage appointment requests.</li>
           <li>
-            Hand you off to Booksy or call you back so a barber can finish your booking when needed.
+            Confirm your chair on our end or call you back when we need to finish your booking.
           </li>
           <li>
             Send transactional messages about your request (and marketing texts/emails only if you
@@ -65,9 +65,8 @@ export default function PrivacyPage() {
         <LegalH2>Who we share with</LegalH2>
         <LegalP>
           We share information only as needed to run the shop — for example hosting (Vercel),
-          database hosting, booking tools (Booksy), messaging providers (such as Twilio or Google),
-          and analytics. We do <strong className="text-charcoal">not</strong> sell your personal
-          information.
+          database hosting, messaging providers (such as Twilio or Google), and analytics. We do{" "}
+          <strong className="text-charcoal">not</strong> sell your personal information.
         </LegalP>
       </div>
 

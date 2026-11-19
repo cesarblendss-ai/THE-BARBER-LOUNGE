@@ -20,7 +20,7 @@ Optional: BookingChat /api/booking-chat
     → same appointment-request on submit
 ```
 
-**Booksy:** Live *availability* from public customer `time_slots` API (no password). After `/book`, customer is deep-linked to Booksy (`do=open-widget` + service/staffer/date) so **Booksy owns the calendar**. Website still stores a request + ntfy one-tap Open Booksy for abandoned handoffs. Server-side create needs a customer `x-access-token` (not used — see `booksy-handoff.ts`).
+**Booksy:** Optional live *availability* from public customer `time_slots` API (no password) may still feed `/api/availability`. Customer UX ends at the on-site receipt — **the shop confirms the chair** (no customer Booksy handoff / popup). Admin + ntfy still offer staff Open Booksy helpers. Server-side create needs a customer `x-access-token` (not used).
 
 ---
 

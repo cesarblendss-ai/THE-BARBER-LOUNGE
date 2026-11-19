@@ -3,7 +3,6 @@
 import { useCallback, useState } from "react";
 import Image from "next/image";
 
-import { getBooksyHandoffFromBooking } from "@/lib/booksy-handoff";
 import { SITE } from "@/lib/content";
 import { REVIEW_LANDING_PATH } from "@/lib/reviews";
 import { LOGO } from "@/lib/constants";
@@ -19,8 +18,6 @@ export type ReceiptData = {
   status: string;
   createdAt: string;
   customerSmsSent?: boolean;
-  /** Booksy deep link with service/staffer/date/time preselected. */
-  booksyHandoffUrl?: string;
   slotDate?: string;
   barberName?: string | null;
 };
@@ -39,15 +36,6 @@ export function BookingReceipt({ receipt }: { receipt: ReceiptData }) {
   const calendarUrl = `/api/appointments/${encodeURIComponent(receipt.confirmationCode)}/calendar`;
   const customerSmsSent = receipt.customerSmsSent === true;
   const [copied, setCopied] = useState(false);
-
-  const booksyHandoffUrl =
-    receipt.booksyHandoffUrl ??
-    getBooksyHandoffFromBooking({
-      service: receipt.service,
-      preferredTime: receipt.preferredTime,
-      slotDate: receipt.slotDate,
-      barberName: receipt.barberName,
-    });
 
   const copyConfirmation = useCallback(async () => {
     const text = `${receipt.confirmationCode} — ${receipt.service}, ${receipt.preferredDay} ${receipt.preferredTime} at The Barber Lounge, ${SITE.address}`;
@@ -79,7 +67,7 @@ export function BookingReceipt({ receipt }: { receipt: ReceiptData }) {
 
       <div className="border-b border-dashed border-charcoal/20 px-5 py-4 text-center">
         <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-brass">
-          Almost done — finish on Booksy
+          Request received
         </p>
         <p
           className="mt-2 font-mono text-lg font-semibold tracking-wider text-charcoal"
@@ -103,6 +91,12 @@ export function BookingReceipt({ receipt }: { receipt: ReceiptData }) {
             <dd className="text-right font-medium">{receipt.guestCount}</dd>
           </div>
         ) : null}
+        {receipt.barberName ? (
+          <div className="flex justify-between gap-3 border-b border-charcoal/8 pb-2">
+            <dt className="text-charcoal/50">Barber</dt>
+            <dd className="text-right font-medium">{receipt.barberName}</dd>
+          </div>
+        ) : null}
         <div className="flex justify-between gap-3 border-b border-charcoal/8 pb-2">
           <dt className="text-charcoal/50">When</dt>
           <dd className="text-right font-medium">
@@ -123,21 +117,11 @@ export function BookingReceipt({ receipt }: { receipt: ReceiptData }) {
 
       <div className="border-t border-dashed border-charcoal/20 px-5 py-4 text-center">
         <p className="mb-3 text-xs leading-relaxed text-charcoal/70">
-          Booksy is our live calendar. Confirm your cut there so the chair is
-          locked — we prefilled your service
-          {receipt.barberName ? `, barber,` : ""} and day.
+          We got your request. The shop will confirm your chair and reach out if
+          anything changes. Pay in the shop.
         </p>
 
         <div className="flex flex-col gap-2">
-          <a
-            href={booksyHandoffUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-analytics-label="Finish on Booksy (receipt)"
-            className="rounded-full bg-charcoal px-4 py-3 text-xs font-semibold uppercase tracking-wider text-bone transition-colors hover:bg-brass hover:text-charcoal"
-          >
-            Finish on Booksy →
-          </a>
           {customerSmsSent ? (
             <p className="text-[11px] font-medium text-brass">Receipt also sent to your phone</p>
           ) : (
@@ -160,6 +144,12 @@ export function BookingReceipt({ receipt }: { receipt: ReceiptData }) {
             Add to Calendar
           </a>
           <a
+            href={`tel:${SITE.phoneTel}`}
+            className="rounded-full bg-charcoal px-4 py-3 text-xs font-semibold uppercase tracking-wider text-bone transition-colors hover:bg-brass hover:text-charcoal"
+          >
+            Call {SITE.phone}
+          </a>
+          <a
             href="/refer"
             className="text-[11px] text-charcoal/45 underline-offset-2 hover:text-brass hover:underline"
           >
@@ -180,5 +170,5 @@ export function BookingReceipt({ receipt }: { receipt: ReceiptData }) {
 export function receiptAnnouncement(receipt: ReceiptData): string {
   const guests =
     receipt.guestCount && receipt.guestCount > 1 ? ` for ${receipt.guestCount} guests` : "";
-  return `Request received. Confirmation number ${receipt.confirmationCode}. ${receipt.service}${guests}, ${receipt.preferredDay} at ${receipt.preferredTime}. Finish on Booksy to lock your chair.`;
+  return `Request received. Confirmation number ${receipt.confirmationCode}. ${receipt.service}${guests}, ${receipt.preferredDay} at ${receipt.preferredTime}. The shop will confirm your chair.`;
 }

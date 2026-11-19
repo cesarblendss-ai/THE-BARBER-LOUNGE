@@ -37,8 +37,8 @@ export default function TermsPage() {
         <LegalP>
           Public bookable services on our site are Signature Haircut ($50) and Haircut &amp; Beard
           ($65), unless we post a different price. Hours, availability, and barber schedules can
-          change. The website shows openings when available; Booksy or a phone confirmation may
-          still be required to lock in your appointment.
+          change. The website shows openings when available; the shop confirms your chair before
+          the appointment is locked in.
         </LegalP>
       </div>
 
@@ -47,14 +47,13 @@ export default function TermsPage() {
         <LegalUl>
           <li>
             Submitting a request on our site or through messaging is a <strong className="text-charcoal">request</strong>, not a
-            guaranteed appointment until the shop or Booksy confirms it.
+            guaranteed appointment until the shop confirms it.
           </li>
           <li>
             You agree to provide accurate name and phone information so we can reach you.
           </li>
           <li>
-            We may send you to Booksy to finish booking. Booksy’s own terms apply when you use their
-            product.
+            After you submit, you get an on-site receipt. The shop confirms the chair on our end.
           </li>
           <li>
             Walk-ins and phone bookings follow the same shop rules for courtesy, late arrivals, and
@@ -93,9 +92,9 @@ export default function TermsPage() {
         <LegalH2>Disclaimer</LegalH2>
         <LegalP>
           The site and messaging tools are provided “as is.” We work to keep information accurate
-          (hours, prices, openings), but availability and third-party services (Booksy, maps,
-          messaging networks) can fail or change. To the fullest extent allowed by law, we are not
-          liable for indirect or consequential damages from use of the site or messaging.
+          (hours, prices, openings), but availability and third-party services (maps, messaging
+          networks) can fail or change. To the fullest extent allowed by law, we are not liable for
+          indirect or consequential damages from use of the site or messaging.
         </LegalP>
       </div>
 

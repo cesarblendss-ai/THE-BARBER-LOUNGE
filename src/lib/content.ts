@@ -2,10 +2,11 @@
 
 import { SITE_URL } from "./constants";
 
+/** Legacy Booksy profile URL — staff/admin helpers only; not customer CTAs. */
 export const BOOKING_URL =
   "https://booksy.com/en-us/1180862_the-barber-lounge_barber-shop_103886_antioch";
 
-/** On-page Tim Cho booking funnel (preferred CTA path). Booksy remains fallback. */
+/** On-page Tim Cho booking funnel (preferred CTA path). Ends at on-site receipt. */
 export const SITE_BOOK_PATH = "/book";
 
 /**

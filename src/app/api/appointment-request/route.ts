@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { createAppointmentRequest } from "@/lib/appointments-store";
 import { refreshAvailabilitySnapshot } from "@/lib/availability-sync";
-import { getBooksyHandoffFromBooking } from "@/lib/booksy-handoff";
 import { notifyOwnerOfBooking, type PushNotificationResult } from "@/lib/notifications";
 import {
   formatPhoneDisplay,
@@ -133,13 +132,6 @@ export async function POST(request: NextRequest) {
       console.error("[booking-notification] ntfy failed:", error);
     }
 
-    const booksyHandoffUrl = getBooksyHandoffFromBooking({
-      service: appointment.service,
-      preferredTime: appointment.preferredTime,
-      slotDate: appointment.slotDate,
-      barberName,
-    });
-
     return NextResponse.json({
       success: true,
       receipt: {
@@ -155,7 +147,6 @@ export async function POST(request: NextRequest) {
         customerSmsSent: sms.customerSent,
         slotDate: appointment.slotDate,
         barberName,
-        booksyHandoffUrl,
       },
       sms,
       push,

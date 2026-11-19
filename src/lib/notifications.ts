@@ -1,5 +1,4 @@
 import type { Appointment } from "@/lib/appointments-store";
-import { getBooksyHandoffFromBooking } from "@/lib/booksy-handoff";
 import { barberFromServiceLabel } from "@/lib/busy-blocks";
 
 /** Shop owner SMS/push target — always +1 925-209-5995 unless OWNER_PHONE overrides. */
@@ -18,20 +17,11 @@ function resolveSiteUrl(): string {
   );
 }
 
-export function booksyHandoffUrlForAppointment(appointment: Appointment): string {
-  return getBooksyHandoffFromBooking({
-    service: appointment.service,
-    preferredTime: appointment.preferredTime,
-    slotDate: appointment.slotDate,
-  });
-}
-
-function formatNotificationBody(appointment: Appointment, handoffUrl: string): string {
+function formatNotificationBody(appointment: Appointment): string {
   const guests =
     appointment.guestCount && appointment.guestCount > 1
       ? ` (${appointment.guestCount} guests)`
       : "";
-  const barber = barberFromServiceLabel(appointment.service);
   return [
     `Web booking: ${appointment.name}`,
     `${appointment.service}${guests}`,
@@ -39,12 +29,7 @@ function formatNotificationBody(appointment: Appointment, handoffUrl: string): s
     `Phone: ${appointment.phone}`,
     `Code: ${appointment.confirmationCode}`,
     "",
-    "ONE TAP — open Booksy with service/barber/day ready:",
-    handoffUrl,
-    "",
-    barber
-      ? `If guest already finished on Booksy, you're done. Else tap link → pick ${appointment.preferredTime} → save.`
-      : "If guest already finished on Booksy, you're done. Else tap link → pick their time → save.",
+    "Confirm this chair on your end — guest already got the on-site receipt.",
     `Admin: ${resolveSiteUrl()}/admin/calendar-sync`,
   ].join("\n");
 }
@@ -55,7 +40,7 @@ function formatNotificationTitle(appointment: Appointment): string {
       ? ` - ${appointment.guestCount} guests`
       : "";
   const barber = barberFromServiceLabel(appointment.service);
-  const prefix = barber ? `Booksy tap (${barber.split(" ")[0]})` : "Booksy tap";
+  const prefix = barber ? `New booking (${barber.split(" ")[0]})` : "New booking";
   return `${prefix}: ${appointment.name}${guests}`;
 }
 
@@ -146,9 +131,9 @@ async function sendOwnerEmailBackup(title: string, body: string): Promise<void> 
 export async function notifyOwnerOfBooking(
   appointment: Appointment,
 ): Promise<PushNotificationResult> {
-  const handoffUrl = booksyHandoffUrlForAppointment(appointment);
-  const body = formatNotificationBody(appointment, handoffUrl);
+  const body = formatNotificationBody(appointment);
   const title = formatNotificationTitle(appointment);
+  const adminUrl = `${resolveSiteUrl()}/admin/calendar-sync`;
 
   console.log("[booking-notification]", body);
 
@@ -157,8 +142,7 @@ export async function notifyOwnerOfBooking(
     body,
     tags: "barber,appointment",
     priority: "urgent",
-    // One-tap: opens Booksy widget prefilled — no retyping name/service/day.
-    click: handoffUrl,
+    click: adminUrl,
   });
 
   if (!push.configured) {
@@ -179,20 +163,11 @@ export async function sendTestBookingNotification(): Promise<PushNotificationRes
       "Phone: (925) 555-0100",
       "Code: TBL-TEST",
       "",
-      "If you see this, ntfy is working on production.",
+      "If you see this, owner alerts are working.",
     ].join("\n"),
     tags: "barber,test",
-    priority: "high",
-    click: resolveSiteUrl(),
+    priority: "default",
   });
-}
-
-export function getNtfyTopicForDisplay(): string | null {
-  return resolveNtfyTopic();
-}
-
-export function getNtfySubscribeUrl(topic: string): string {
-  return `https://ntfy.sh/${topic}`;
 }
 
 export type CabinetNotificationResult = PushNotificationResult;
