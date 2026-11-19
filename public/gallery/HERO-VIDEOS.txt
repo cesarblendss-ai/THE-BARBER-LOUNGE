@@ -1,0 +1,7 @@
+Hero MP4s are too large for THE-BARBER-LOUNGE.zip (GitHub 100MB file limit).
+On the codebase file list open public/gallery/ and download:
+  hero-video.mp4
+  hero-video-1.mp4
+  hero-video-2.mp4
+  hero-video-3.mp4
+Save them into this same public/gallery folder after install.
