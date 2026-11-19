@@ -18,7 +18,22 @@ function rewriteBooksyBookingHref(href: string): string {
   return trimmed;
 }
 
+/** Scrub customer-facing Booksy copy left in CMS / Postgres overrides. */
+function scrubBooksyCustomerCopy(text: string): string {
+  return text
+    .replace(
+      /Pricing for Signature Haircut and Signature Haircut & Beard reflects current Booksy listings\. Additional services will be added as menu details are confirmed\./gi,
+      "Regular haircut ($50) and Haircut & beard ($65) are our main bookable services. Ask in the chair or call for anything else.",
+    )
+    .replace(/\s+through Booksy\.?/gi, ".")
+    .replace(/\s+on Booksy\.?/gi, ".")
+    .replace(/\bBooksy\b/gi, "this site");
+}
+
 function preferSiteBookPath(value: unknown): unknown {
+  if (typeof value === "string") {
+    return scrubBooksyCustomerCopy(value);
+  }
   if (Array.isArray(value)) {
     return value.map((item) => preferSiteBookPath(item));
   }
