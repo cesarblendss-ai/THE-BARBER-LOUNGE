@@ -1,6 +1,6 @@
 # Tim Cho on-page booking UI (`/book`)
 
-**Last verified:** 2026-11-06
+**Last verified:** 2026-11-19
 
 ## What shipped (production)
 
@@ -11,14 +11,14 @@ Tim Cho AABLENDZ-style booking funnel for The Barber Lounge — **this IS the we
 | Route | `/book` (canonical landing). `/` → `/book` (308) |
 | UI | Black / gold / white; 4-step funnel fully wired |
 | Services | Real menu only — Signature Haircut $50, Haircut & Beard $65 (`BOOKABLE_SERVICES`) |
-| Barber | Real `ABOUT.team` + avatars + Booksy `?staffer=` deep links |
-| Day/time | `GET /api/availability` + Booksy live sync; **7-day** window (`BOOKABLE_WINDOW_DAYS`) |
-| Submit | `POST /api/appointment-request` → on-screen `BookingReceipt` |
+| Barber | Real `ABOUT.team` + avatars (no customer Booksy links) |
+| Day/time | `GET /api/availability` + Booksy live sync (backend only); **7-day** window (`BOOKABLE_WINDOW_DAYS`) |
+| Submit | `POST /api/appointment-request` → on-screen `BookingReceipt` only (no Booksy popup) |
 | Opt-in | SMS/email checkboxes on step 4 → `POST /api/lead` (campaigns Phase 2) |
 | Call Now | Header, sticky, receipt — `tel:+19252095995` |
 | Chrome | HalloweenDecor **removed site-wide**; sticky Book bar + FAB hidden on `/book` |
 | CTAs | All primary Book paths → `/book` |
-| Booksy | Primary handoff on submit (`do=open-widget` prefilled) + per-barber links on step 2 |
+| Booksy | **Not used in customer UX.** Shop confirms chairs off-site. Admin still has staff Open Booksy helpers. |
 
 ## Funnel status
 
@@ -27,7 +27,7 @@ Tim Cho AABLENDZ-style booking funnel for The Barber Lounge — **this IS the we
 | 1 Service → Continue | ✅ $50 / $65 only |
 | 2 Barber | ✅ Alexis, Braulio, Cesar, Kristian, Sebastian + Any available |
 | 3 Day/time | ✅ `/api/availability` |
-| 4 Contact → receipt | ✅ `POST /api/appointment-request` returns `TBL-…` receipt |
+| 4 Contact → receipt | ✅ `POST /api/appointment-request` returns `TBL-…` receipt; shop confirms |
 
 ## Production
 
@@ -40,5 +40,5 @@ Tim Cho AABLENDZ-style booking funnel for The Barber Lounge — **this IS the we
 | Item | Status |
 |------|--------|
 | Twilio customer SMS | Phase 2 — receipt may show text unavailable; ntfy is owner primary (`twilio-sms-status.md`) |
-| Booksy API | Availability live sync + deep-link handoff (customer finishes on Booksy). Staff one-tap if abandoned: `/admin/calendar-sync`. |
+| Booksy | Availability sync may still pull open slots in the background. Customer flow ends at receipt — Cesar confirms appointments. |
 | Invented menu prices | Do not invent extra prices beyond $50 / $65 |

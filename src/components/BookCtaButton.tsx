@@ -11,7 +11,7 @@ type BookCtaButtonProps = {
   analyticsLabel: string;
 };
 
-/** Primary Book CTA — same-site `/book` funnel (Booksy remains fallback inside /book). */
+/** Primary Book CTA — same-site `/book` funnel; ends at on-site receipt. */
 export function BookCtaButton({
   label,
   source,

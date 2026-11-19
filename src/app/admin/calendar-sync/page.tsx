@@ -177,9 +177,8 @@ export default function CalendarSyncAdminPage() {
               Busy-block paste is backup only (Booksy outage or special holds). Prefer live sync.
             </li>
             <li>
-              New web bookings open Booksy for the customer (prefilled). ntfy click = same
-              one-tap Open Booksy for staff if they abandon. Prefer customer finish — zero
-              retyping. See web bookings list above for Open Booksy →.
+              New web bookings end at the on-site receipt. Confirm the chair yourself (Booksy or
+              calendar). ntfy / admin list still has one-tap Open Booksy for staff.
             </li>
           </ol>
         </div>

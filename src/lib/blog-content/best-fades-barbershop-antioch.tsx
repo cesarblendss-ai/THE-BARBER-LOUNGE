@@ -105,7 +105,7 @@ export function BestFadesBarbershopAntiochContent() {
             How do I book an appointment at The Barber Lounge?
           </dt>
           <dd className="mt-1">
-            Call us at <PhoneLink /> or <BookOnlineLink /> through Booksy.
+            Call us at <PhoneLink /> or <BookOnlineLink /> on this site.
           </dd>
         </div>
         <div>

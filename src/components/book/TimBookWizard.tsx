@@ -9,13 +9,10 @@ import { BookingReceipt, type ReceiptData } from "@/components/BookingReceipt";
 import { useLanguage } from "@/components/i18n/LanguageProvider";
 import { LanguageToggle } from "@/components/i18n/LanguageToggle";
 import { PhoneIcon } from "@/components/icons";
-import { getBooksyStafferUrl } from "@/lib/booksy";
-import { getBooksyHandoffFromBooking } from "@/lib/booksy-handoff";
 import { BOOKABLE_WINDOW_DAYS } from "@/lib/busy-blocks";
 import {
   ABOUT,
   BOOKABLE_SERVICES,
-  BOOKING_URL,
   SITE,
   teamAvatarPath,
   type TeamMember,
@@ -42,7 +39,7 @@ type TimeSlot = {
 
 type ServiceOption = (typeof BOOKABLE_SERVICES)[number] & {
   id: string;
-  /** Customer-facing label (Booksy / Tim UI). Submitted on booking. */
+  /** Customer-facing label. Submitted on booking. */
   displayName: string;
 };
 
@@ -115,7 +112,6 @@ export function TimBookWizard() {
   const [receipt, setReceipt] = useState<ReceiptData | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [lastSyncedAt, setLastSyncedAt] = useState<string | null>(null);
-  const [booksyLiveSync, setBooksyLiveSync] = useState(false);
 
   const services: ServiceOption[] = useMemo(
     () =>
@@ -188,13 +184,6 @@ export function TimBookWizard() {
     [barbers, barberName],
   );
 
-  const booksyFallbackHref = useMemo(() => {
-    if (selectedBarber?.booksyStafferId) {
-      return getBooksyStafferUrl(selectedBarber.booksyStafferId);
-    }
-    return BOOKING_URL;
-  }, [selectedBarber]);
-
   const availabilityBarberParam = useMemo(() => {
     if (!barberName || barberName === anyBarber.name || barberName === ANY_BARBER_ID) {
       return null;
@@ -215,13 +204,11 @@ export function TimBookWizard() {
         days?: DayOption[];
         error?: string;
         lastSyncedAt?: string;
-        booksyLiveSync?: boolean;
       }>(res);
       if (!res.ok) throw new Error(data?.error ?? "Could not load days.");
       const days = data?.days ?? [];
       setDayOptions(days);
       if (data?.lastSyncedAt) setLastSyncedAt(data.lastSyncedAt);
-      if (typeof data?.booksyLiveSync === "boolean") setBooksyLiveSync(data.booksyLiveSync);
       if (days.length === 0) {
         setError("No open days in the next few days — call us to schedule.");
       }
@@ -246,12 +233,10 @@ export function TimBookWizard() {
         slots?: TimeSlot[];
         error?: string;
         lastSyncedAt?: string;
-        booksyLiveSync?: boolean;
       }>(res);
       if (!res.ok) throw new Error(data?.error ?? "Could not load times.");
       setTimeSlots(data?.slots ?? []);
       if (data?.lastSyncedAt) setLastSyncedAt(data.lastSyncedAt);
-      if (typeof data?.booksyLiveSync === "boolean") setBooksyLiveSync(data.booksyLiveSync);
     } catch (err) {
       setTimeSlots([]);
       setError(err instanceof Error ? err.message : "Could not load times.");
@@ -365,19 +350,8 @@ export function TimBookWizard() {
         throw new Error("Could not complete booking. Please try again or call us.");
       }
 
-      const handoffUrl =
-        data.receipt.booksyHandoffUrl ??
-        getBooksyHandoffFromBooking({
-          service: serviceLabel,
-          preferredTime: slot.displayTime,
-          slotDate: day.date,
-          barberName:
-            barberName && barberName !== anyBarber.name ? barberName : null,
-        });
-
       setReceipt({
         ...data.receipt,
-        booksyHandoffUrl: handoffUrl,
         slotDate: data.receipt.slotDate ?? day.date,
         barberName:
           data.receipt.barberName ??
@@ -387,13 +361,6 @@ export function TimBookWizard() {
         service: selectedService.displayName,
         source: "tim_book_ui",
       });
-      track("booksy_handoff_opened", {
-        service: selectedService.displayName,
-        source: "tim_book_ui",
-      });
-
-      // Customer finishes on Booksy so the live calendar gets the appt — no staff retype.
-      window.open(handoffUrl, "_blank", "noopener,noreferrer");
 
       // CRM / opt-in hook — campaigns stay Phase 2 until Twilio KYC; still store the preference.
       if (smsOptIn || emailOptIn) {
@@ -408,7 +375,7 @@ export function TimBookWizard() {
             intent: "opt_in",
             smsOptIn,
             emailOptIn,
-            notes: `Booked via /book · ${serviceLabel} · ${day.dayName} ${slot.displayTime} · Booksy handoff`,
+            notes: `Booked via /book · ${serviceLabel} · ${day.dayName} ${slot.displayTime}`,
           }),
         }).catch(() => {
           /* booking already succeeded — opt-in is best-effort */
@@ -585,22 +552,11 @@ export function TimBookWizard() {
           {receipt ? (
             <div className="mx-auto max-w-md py-4">
               <p className="mb-4 text-center text-[12px] font-semibold uppercase tracking-[0.18em] text-[#C9A86C]">
-                {t("book.finishBooksy")}
+                {t("book.requestReceived")}
               </p>
               <BookingReceipt receipt={receipt} />
               <div className="mt-5 flex flex-col items-center gap-3 text-center text-sm text-white/55">
-                <p>
-                  {t("book.popupBlocked")}{" "}
-                  <a
-                    href={receipt.booksyHandoffUrl ?? booksyFallbackHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#C9A86C] underline-offset-2 hover:underline"
-                    data-analytics-label="Finish on Booksy (tim book receipt fallback)"
-                  >
-                    {t("book.openBooksy")}
-                  </a>
-                </p>
+                <p>{t("book.shopWillConfirm")}</p>
                 <a
                   href={`tel:${SITE.phoneTel}`}
                   data-analytics-label="Call Now (tim book receipt)"
@@ -692,9 +648,6 @@ export function TimBookWizard() {
                     const selected = barberName === barber.name;
                     const handle = barber.handle?.replace(/^@/, "").trim() ?? null;
                     const avatarSrc = handle ? teamAvatarPath(handle) : null;
-                    const booksyHref = barber.booksyStafferId
-                      ? getBooksyStafferUrl(barber.booksyStafferId)
-                      : null;
 
                     return (
                       <div
@@ -750,22 +703,6 @@ export function TimBookWizard() {
                             ) : null}
                           </span>
                         </button>
-                        {booksyHref ? (
-                          <div className="border-t border-white/[0.06] px-4 py-2.5">
-                            <a
-                              href={booksyHref}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              data-analytics-label={`Booksy staffer ${barber.name}`}
-                              className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#C9A86C]/90 transition hover:text-[#E8D5A3]"
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              {t("book.booksyBarber", {
-                                name: barber.name.split(" ")[0] ?? barber.name,
-                              })}
-                            </a>
-                          </div>
-                        ) : null}
                       </div>
                     );
                   })}
@@ -782,7 +719,7 @@ export function TimBookWizard() {
                       <div className="flex items-center gap-3">
                         {formatSyncedAgo(lastSyncedAt) ? (
                           <p className="text-[10px] uppercase tracking-[0.1em] text-white/30">
-                            {booksyLiveSync ? t("book.syncedBooksy") : t("book.syncedCalendar")}{" "}
+                            {t("book.syncedCalendar")}{" "}
                             {formatSyncedAgo(lastSyncedAt)}
                           </p>
                         ) : null}
@@ -969,8 +906,8 @@ export function TimBookWizard() {
 
                   <p className="text-[13px] text-white/45">
                     {locale === "es"
-                      ? "Esto es una solicitud — confirmamos la silla en Booksy antes de asegurarla. Pagas en el local. Teléfono: "
-                      : "This is a request — we confirm the chair in Booksy before it's locked. Pay in the shop. Shop line: "}
+                      ? "Esto es una solicitud — el shop confirma tu silla. Pagas en el local. Teléfono: "
+                      : "This is a request — the shop confirms your chair. Pay in the shop. Shop line: "}
                     <a href={`tel:${SITE.phoneTel}`} className="text-[#C9A86C]">
                       {SITE.phone}
                     </a>
@@ -1020,11 +957,11 @@ export function TimBookWizard() {
                   >
                     {submitting
                       ? locale === "es"
-                        ? "Abriendo Booksy…"
-                        : "Opening Booksy…"
+                        ? "Enviando…"
+                        : "Sending…"
                       : locale === "es"
-                        ? "Confirmar en Booksy →"
-                        : "Confirm on Booksy →"}
+                        ? "Enviar solicitud →"
+                        : "Send request →"}
                   </button>
                 )}
               </div>

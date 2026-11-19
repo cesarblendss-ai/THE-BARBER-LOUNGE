@@ -5,7 +5,7 @@ import { useCallback, useEffect, useId, useRef, useState } from "react";
 
 import { useLanguage } from "@/components/i18n/LanguageProvider";
 import { CloseIcon, PhoneIcon } from "@/components/icons";
-import { BOOKING_URL, SITE, SITE_BOOK_PATH } from "@/lib/content";
+import { SITE, SITE_BOOK_PATH } from "@/lib/content";
 import {
   OPEN_LEAD_EVENT,
   type OpenLeadDetail,
@@ -27,10 +27,6 @@ const INITIAL: FormState = {
   smsOptIn: true,
   emailOptIn: true,
 };
-
-function booksyTarget(detail: OpenLeadDetail | null): string {
-  return detail?.booksyUrl?.trim() || BOOKING_URL;
-}
 
 export function LeadCaptureModal() {
   const { locale, t } = useLanguage();
@@ -379,19 +375,6 @@ export function LeadCaptureModal() {
                   Call {SITE.phone}
                 </a>
               </div>
-
-              <p className="pt-1 text-center text-xs text-white/40">
-                Prefer Booksy?{" "}
-                <a
-                  href={booksyTarget(detail)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-orange-200 underline-offset-2 hover:underline"
-                  data-analytics-label="Open Booksy from lead modal"
-                >
-                  Open Booksy
-                </a>
-              </p>
             </form>
           )}
         </div>

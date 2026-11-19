@@ -7,7 +7,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildPageMetadata({
   title: "Barbers — The Barber Lounge Antioch",
   description:
-    "Meet the barbers at The Barber Lounge in Antioch, CA. Book Alexis, Braulio, Cesar, Kristian, or Sebastian on Booksy.",
+    "Meet the barbers at The Barber Lounge in Antioch, CA. Book Alexis, Braulio, Cesar, Kristian, or Sebastian online.",
   path: "/about",
 });
 
@@ -20,7 +20,7 @@ export default function AboutPage() {
           Book your barber
         </h1>
         <p className="mt-4 max-w-xl text-base leading-relaxed text-white/60">
-          Choose who you want in the chair — book on-site in four steps, or open a barber&apos;s Booksy link.
+          Choose who you want in the chair — book on-site in four steps.
         </p>
 
         <div className="mt-10">

@@ -38,7 +38,7 @@ export function buildAreaPage(city: ServiceAreaCity): LandingPageConfig {
       "Regular haircut — $50 · consultation + Hot Lather Finish",
       "Haircut & beard — $65",
       "Expert fades: low, mid, high, skin blends",
-      "Booksy booking · on-site parking · kid-friendly",
+      "Online booking · on-site parking · kid-friendly",
     ],
     faqs: [
       {
@@ -47,7 +47,7 @@ export function buildAreaPage(city: ServiceAreaCity): LandingPageConfig {
       },
       {
         question: "How do I book?",
-        answer: `Booksy online or call ${SITE.phone}. Walk-ins when chairs are open.`,
+        answer: `Book online at thebarberloungeca.com/book or call ${SITE.phone}. Walk-ins when chairs are open.`,
       },
     ],
     cta: { label: "Book Your Cut", href: SITE_BOOK_PATH, external: false },
