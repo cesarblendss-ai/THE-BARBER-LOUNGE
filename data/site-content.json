@@ -57,7 +57,7 @@
       "subheadline": "Precision cuts. Premium service. Antioch, California.",
       "ctaPrimary": {
         "label": "Book Appointment",
-        "href": "https://booksy.com/en-us/1180862_the-barber-lounge_barber-shop_103886_antioch"
+        "href": "/book"
       },
       "ctaSecondary": {
         "label": "Call Now",
@@ -107,7 +107,7 @@
       "headline": "Ready when you are.",
       "cta": {
         "label": "Book Appointment",
-        "href": "https://booksy.com/en-us/1180862_the-barber-lounge_barber-shop_103886_antioch"
+        "href": "/book"
       }
     }
   },
@@ -165,7 +165,7 @@
     "note": "Regular haircut ($50) and Haircut & beard ($65) are our main bookable services. Ask in the chair or call for anything else.",
     "cta": {
       "label": "Book Your Service",
-      "href": "https://booksy.com/en-us/1180862_the-barber-lounge_barber-shop_103886_antioch"
+      "href": "/book"
     }
   },
   "FAQ_PAGE": {
@@ -240,7 +240,7 @@
     },
     "cta": {
       "label": "Book Your Appointment",
-      "href": "https://booksy.com/en-us/1180862_the-barber-lounge_barber-shop_103886_antioch"
+      "href": "/book"
     }
   }
 }
