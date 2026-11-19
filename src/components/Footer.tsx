@@ -37,6 +37,7 @@ export function Footer({ content }: FooterProps) {
     { href: "/services", label: t("nav.services") },
     { href: "/about", label: t("nav.barbers") },
     { href: "/contact", label: t("nav.location") },
+    { href: "/join-our-team", label: t("footer.joinTeam") },
   ] as const;
 
   return (
