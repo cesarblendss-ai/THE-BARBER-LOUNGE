@@ -209,7 +209,7 @@ export function CinematicHero({
                     ? { target: "_blank", rel: "noopener noreferrer" }
                     : {})}
                   data-analytics-label="Book Appointment (cinematic hero)"
-                  className="inline-flex items-center justify-center gap-2 rounded-md bg-orange-500 px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-orange-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                  className="tim-gold-btn inline-flex items-center justify-center gap-2 rounded-md px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-[#1a140c] transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A86C] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 >
                   {primaryLabel}
                   <span aria-hidden>→</span>
